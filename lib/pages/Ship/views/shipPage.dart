@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tripshiptask/pages/Ship/views/shipDetails/ship_search_details.dart';
 import 'package:tripshiptask/pages/Ship/views/ship_carry_package_post_list.dart';
+import 'package:tripshiptask/pages/Trip/views/trip_search/trip_single_search.dart';
 import 'package:tripshiptask/profile/view/user_deshboard.dart';
 import 'ship_send_package_post_list_page.dart';
 
@@ -28,129 +29,124 @@ class _ShipHomePageState extends State<ShipHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      index = 1;
-                    });
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 160.w,
-                    height: 30.h,
-                    decoration: BoxDecoration(
-                        color: index == 1 ? Color(0xff4CA4C7) : Colors.grey,
-                        //E6E7E8
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: Text(
-                      "Send a Package",
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+            UnconstrainedBox(
+              child: Container(
+                width: 346.w,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          index = 1;
+                        });
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                     width: 171.w,
+                      height: 25.h,
+                        decoration: BoxDecoration(
+                            color: index == 1 ? Color(0xff4CA4C7) : Colors.grey,
+                            //E6E7E8
+                            borderRadius: BorderRadius.circular(5.r)),
+                        child: Text(
+                          "Send a Package",
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          index = 2;
+                        });
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                       width: 171.w,
+                      height: 25.h,
+                        decoration: BoxDecoration(
+                            color: index == 2 ? Color(0xff4CA4C7) : Colors.grey,
+                             borderRadius: BorderRadius.circular(5.r)),
+                        child: Text(
+                          "Carry a Package",
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      index = 2;
-                    });
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 160.w,
-                    height: 30.h,
-                    decoration: BoxDecoration(
-                        color: index == 2 ? Color(0xff4CA4C7) : Colors.grey,
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: Text(
-                      "Carry a Package",
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                )
-              ],
+              ),
             ),
             SizedBox(
               height: 5.h,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomTextForm(
-                  hinttext: "Search",
-                  width: 100.w,
-                  height: 40.h,
-                  textController: search,
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      index = 3;
-                    });
-                  },
-                  child: Container(
-                    height: 30.h,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                    decoration: BoxDecoration(
-                        color: index == 3 ? Color(0xff4CA4C7) : Colors.grey,
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.list_alt,
-                          size: 20.h,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 3.w,
-                        ),
-                        CustomText("Ship Carry Posts", Colors.white,
-                            FontWeight.w700, 12.sp)
-                      ],
+            Container(
+              width: 346.w,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                 Container(
+                        width: 110.w,
+                        height: 28.h,
+                        child: TextField(
+                          onTap: () {
+                            Get.to(TripSingleSearchPage());
+                          },
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 5.w, top: 5.h),
+                            hintText: "Search",
+                            suffixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.r)),
+                          ),
+                        )),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        index = 3;
+                      });
+                    },
+                    child: Container(
+                       alignment: Alignment.center,
+                      height: 28.h,
+                      width: 114.w,
+                     
+                      decoration: BoxDecoration(
+                          color: index == 3 ? Color(0xff4CA4C7) : Colors.grey,
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child: CustomText("Ship Carry Posts", Colors.white,
+                              FontWeight.w700, 12.sp)
                     ),
                   ),
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      index = 0;
-                    });
-                  },
-                  child: Container(
-                    height: 30.h,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                    decoration: BoxDecoration(
-                        color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.list_alt,
-                          size: 20.h,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 3.w,
-                        ),
-                        CustomText("Ship Send Posts", Colors.white,
-                            FontWeight.w700, 11.sp)
-                      ],
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        index = 0;
+                      });
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 28.h,
+                      width: 114.w,
+                    
+                      decoration: BoxDecoration(
+                          color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child:   CustomText("Ship Send Posts", Colors.white,
+                              FontWeight.w700, 11.sp)
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
             Container(height: 500.h, child: widgetList[index])
           ],

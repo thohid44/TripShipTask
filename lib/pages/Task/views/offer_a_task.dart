@@ -82,6 +82,7 @@ class _OfferATaskState extends State<OfferATask> {
   List<Placemark>? placemark;
   GetAddressFromLatLong(lat, lng) async {
     placemark = await placemarkFromCoordinates(lat, lng);
+  
   }
 
   @override
@@ -599,7 +600,7 @@ class _OfferATaskState extends State<OfferATask> {
                     hourAvailable: '5',
                     hourNeed: needhour.text.toString(),
                     postType: "offer",
-                    country: "Bangladesh",
+                    country: "BD",
                     currency: currency,
                     moduleId: '3');
 

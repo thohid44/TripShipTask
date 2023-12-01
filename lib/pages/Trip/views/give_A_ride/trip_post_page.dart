@@ -1,17 +1,12 @@
 import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customText.dart';
-
 import 'package:tripshiptask/Widget/custom_text_field.dart';
-
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
 import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_details_page.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tripshiptask/Utils/colors.dart';
-import 'package:tripshiptask/pages/Trip/views/trip_search_details.dart';
 
 class TripGivePosts extends StatefulWidget {
   @override
@@ -70,6 +65,9 @@ class _TripGivePostsState extends State<TripGivePosts> {
                       child: Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: 10.w, vertical: 10.h),
+                      decoration: BoxDecoration(
+                        color: primaryColor,
+                      ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

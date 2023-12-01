@@ -28,146 +28,156 @@ class _TripPageState extends State<TripPage> {
     return Scaffold(
       body: ListView(
         children: [
-          SizedBox(
-            height: 2.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    index = 2;
-                  });
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  width: 150.w,
-                  height: 25.h,
-                  decoration: BoxDecoration(
-                      color: index == 2 ? Color(0xff4CA4C7) : Colors.grey,
-                      //E6E7E8
-                      borderRadius: BorderRadius.circular(5.r)),
-                  child: Text(
-                    "Give a Ride",
-                    style: TextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    index = 3;
-                  });
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  width: 150.w,
-                  height: 25.h,
-                  decoration: BoxDecoration(
-                      color: index == 3 ? Color(0xff4CA4C7) : Colors.grey,
-                      borderRadius: BorderRadius.circular(5.r)),
-                  child: Text(
-                    "Get a Ride",
-                    style: TextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      index = 4;
-                    });
-                  },
-                  child: Container(
-                      width: 100.w,
-                      height: 30.h,
-                      child: TextField(
-                        onTap: () {
-                          Get.to(TripSingleSearchPage());
-                        },
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 5.w, top: 5.h),
-                          hintText: "Search",
-                          suffixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.r)),
+          
+          UnconstrainedBox(
+            child: Container(
+              width: 346.w,
+             
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        index = 2;
+                      });
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 171.w,
+                      height: 25.h,
+                      decoration: BoxDecoration(
+                          color: index == 2 ? Color(0xff4CA4C7) : Colors.grey,
+                          //E6E7E8
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child: Text(
+                        "Give a Ride",
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
                         ),
-                      )),
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      index = 1;
-                    });
-                  },
-                  child: Container(
-                    height: 25.h,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                    decoration: BoxDecoration(
-                        color: index == 1 ? Color(0xff4CA4C7) : Colors.grey,
-                        borderRadius: BorderRadius.circular(5.r)),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // Icon(
-                        //   Icons.list_alt,
-                        //   color: Colors.white,
-                        //   size: 20.h,
-                        // ),
-                        CustomText("Get a Ride Posts", Colors.white,
-                            FontWeight.w700, 13.sp)
-                      ],
+                      ),
                     ),
                   ),
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      index = 0;
-                    });
-                  },
-                  child: Container(
-                    height: 25.h,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                    decoration: BoxDecoration(
-                        color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
-                        borderRadius: BorderRadius.circular(5.r)),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // Icon(
-                        //   Icons.list_alt,
-                        //   color: Colors.white,
-                        //   size: 20.h,
-                        // ),
-                        CustomText("Give a Ride Posts", Colors.white,
-                            FontWeight.w700, 13.sp)
-                      ],
+                 
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        index = 3;
+                      });
+                    },
+                    child: Container(
+                     alignment: Alignment.center,
+                      width: 171.w,
+                      height: 25.h,
+                      decoration: BoxDecoration(
+                          color: index == 3 ? Color(0xff4CA4C7) : Colors.grey,
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child: Text(
+                        "Get a Ride",
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 3.h,
+          ),
+          UnconstrainedBox(
+            child: Container(
+              width: 346.w,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        index = 4;
+                      });
+                    },
+                    child: Container(
+                        width: 110.w,
+                        height: 28.h,
+                        child: TextField(
+                          onTap: () {
+                            Get.to(TripSingleSearchPage());
+                          },
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 5.w, top: 5.h),
+                            hintText: "Search",
+                            suffixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.r)),
+                          ),
+                        )),
+                  ),
+                     InkWell(
+                    onTap: () {
+                      setState(() {
+                        index = 0;
+                      });
+                    },
+                    child: Container(
+                       width: 114.w,
+                        height: 28.h,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                      decoration: BoxDecoration(
+                          color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // Icon(
+                          //   Icons.list_alt,
+                          //   color: Colors.white,
+                          //   size: 20.h,
+                          // ),
+                          CustomText("Give a Ride Posts", Colors.white,
+                              FontWeight.w700, 13.sp)
+                        ],
+                      ),
                     ),
                   ),
-                )
-              ],
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        index = 1;
+                      });
+                    },
+                    child: Container(
+                       width: 114.w,
+                      height: 28.h,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                      decoration: BoxDecoration(
+                          color: index == 1 ? Color(0xff4CA4C7) : Colors.grey,
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // Icon(
+                          //   Icons.list_alt,
+                          //   color: Colors.white,
+                          //   size: 20.h,
+                          // ),
+                          CustomText("Get a Ride Posts", Colors.white,
+                              FontWeight.w700, 13.sp)
+                        ],
+                      ),
+                    ),
+                  ),
+               
+                ],
+              ),
             ),
           ),
           Container(height: 475.h, child: widgetList[index]),

@@ -7,6 +7,7 @@ import 'package:tripshiptask/pages/Task/views/want_a_task.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:tripshiptask/profile/view/user_deshboard.dart';
 
 class TaskHomePage extends StatefulWidget {
   TaskHomePage({super.key});
@@ -23,122 +24,127 @@ class _TaskHomePageState extends State<TaskHomePage> {
     return Scaffold(
       body: ListView(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    index = 1;
-                  });
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  width: 160.w,
-                  height: 30.h,
-                  decoration: BoxDecoration(
-                      color: index == 1 ? Color(0xff4CA4C7) : Colors.grey,
-                      //E6E7E8
-                      borderRadius: BorderRadius.circular(10.r)),
-                  child: Text(
-                    "Give a task",
-                    style: TextStyle(
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
+          UnconstrainedBox(
+            child: Container(
+              width: 346.w,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        index = 1;
+                      });
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 171.w,
+                      height: 25.h,
+                      decoration: BoxDecoration(
+                          color: index == 1 ? Color(0xff4CA4C7) : Colors.grey,
+                          //E6E7E8
+                        borderRadius: BorderRadius.circular(5.r)),
+                      child: Text(
+                        "Give a task",
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        index = 2;
+                      });
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                     width: 171.w,
+                      height: 25.h,
+                      decoration: BoxDecoration(
+                          color: index == 2 ? Color(0xff4CA4C7) : Colors.grey,
+                        borderRadius: BorderRadius.circular(5.r)),
+                      child: Text(
+                        "Get a task",
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    index = 2;
-                  });
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  width: 160.w,
-                  height: 30.h,
-                  decoration: BoxDecoration(
-                      color: index == 2 ? Color(0xff4CA4C7) : Colors.grey,
-                      borderRadius: BorderRadius.circular(10.r)),
-                  child: Text(
-                    "Get a task",
-                    style: TextStyle(
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              )
-            ],
+            ),
           ),
           SizedBox(
             height: 5.h,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomTextForm(
-                hinttext: "Search",
-                width: 100.w,
-                height: 35.h,
-                textController: search,
-              ),
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    index = 3;
-                  });
-                },
-                child: Container(
-                  height: 30.h,
-                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                  decoration: BoxDecoration(
-                      color: index == 3 ? Color(0xff4CA4C7) : Colors.grey,
-                      borderRadius: BorderRadius.circular(10.r)),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.list_alt,
-                        size: 20.h,
-                        color: Colors.white,
-                      ),
-                      CustomText("Task Seek Posts", Colors.white,
-                          FontWeight.w500, 12.sp)
-                    ],
+          UnconstrainedBox(
+            child: Container(
+              width: 346.w,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                            width: 110.w,
+                            height: 28.h,
+                            child: TextField(
+                              onTap: () {
+                              //  Get.to(TripSingleSearchPage());
+                              },
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.only(left: 5.w, top: 5.h),
+                                hintText: "Search",
+                                suffixIcon: Icon(Icons.search),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5.r)),
+                              ),
+                            )),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        index = 3;
+                      });
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 28.h,
+                      width: 114.w,
+                      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                      decoration: BoxDecoration(
+                          color: index == 3 ? Color(0xff4CA4C7) : Colors.grey,
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child:   CustomText("Get a Task Posts", Colors.white,
+                              FontWeight.w500, 12.sp)
+                      
+                    ),
                   ),
-                ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        index = 0;
+                      });
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 28.h,
+                      width: 114.w,
+                      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                      decoration: BoxDecoration(
+                          color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child:    CustomText("Give a Task Posts", Colors.white,
+                              FontWeight.w500, 12.sp)
+                    ),
+                  )
+                ],
               ),
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    index = 0;
-                  });
-                },
-                child: Container(
-                  height: 30.h,
-                  width: 100.w,
-                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                  decoration: BoxDecoration(
-                      color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
-                      borderRadius: BorderRadius.circular(10.r)),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.list_alt,
-                        size: 20.h,
-                        color: Colors.white,
-                      ),
-                      CustomText("Task Give Posts", Colors.white,
-                          FontWeight.w500, 12.sp)
-                    ],
-                  ),
-                ),
-              )
-            ],
+            ),
           ),
           Container(height: 600.h, child: widgetList[index])
         ],
@@ -194,13 +200,12 @@ AppBar customAppBar() {
           Icons.arrow_back_ios_new,
           color: Colors.black,
         )),
-    actions: [
-      IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.filter,
-            color: Colors.black,
-          )),
-    ],
+      actions: [
+        IconButton(
+            onPressed: () {
+              Get.to(UserDeshBoard());
+            },
+            icon: Image.asset("assets/menu_bar.jpeg", height: 15.h, fit: BoxFit.fitHeight,)),
+      ],
   );
 }

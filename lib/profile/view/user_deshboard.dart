@@ -1,4 +1,5 @@
 import 'package:get_storage/get_storage.dart';
+import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:tripshiptask/pages/Login/view/login_screen.dart';
 import 'package:tripshiptask/pages/Trip/views/my_trips_offer_page.dart';
@@ -25,14 +26,19 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
           appBar: customAppBar(),
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
               elevation: 5,
               child: Container(
-                margin: EdgeInsets.only(left: 20.w),
-                width: 170.w,
+                
+                height: 450.h,
+                width: 190.w,
+                decoration: BoxDecoration(
+                  color: primaryColor
+                ),
                 child: ListView(
                   children: [
                     SizedBox(
@@ -40,7 +46,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                     ),
                     ExpansionTile(
                       title: Text(
-                        "DeshBoard",
+                        "Dashboard",
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.black,
@@ -243,7 +249,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                     Container(
                       padding: EdgeInsets.only(left: 20.w, top: 10.h),
                       child: Text(
-                        "Raferral",
+                        "Referral",
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.black,
@@ -270,16 +276,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                             fontSize: 15.sp),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(left: 20.w, top: 10.h),
-                      child: Text(
-                        "E-Wallet",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black,
-                            fontSize: 15.sp),
-                      ),
-                    ),
+                  
                     ExpansionTile(
                       expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
                       title: Text(

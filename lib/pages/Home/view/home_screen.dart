@@ -18,6 +18,23 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _box = GetStorage();
+
+  List imgList = [
+    'assets/1.jpeg',
+    'assets/2.png',
+    'assets/3.jpg',
+    'assets/4.jpg',
+    'assets/5.png',
+    'assets/6.png',
+  ];
+  List lowerBannerList = [
+    'assets/lowerBanner/lb1.jpg',
+    'assets/lowerBanner/lb2.jpg',
+    'assets/lowerBanner/lb3.png',
+    'assets/lowerBanner/lb4.png',
+    'assets/lowerBanner/lb5.png',
+    'assets/lowerBanner/lb6.png',
+  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,8 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: BoxDecoration(
                         color: navyBlueColor,
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30.r),
-                          topRight: Radius.circular(30.r),
+                          topLeft: Radius.circular(20.r),
+                          topRight: Radius.circular(20.r),
                         )),
                     child: InkWell(
                       onTap: () {},
@@ -104,197 +121,66 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 3.h,
+                    height: 25.h,
                   ),
                   TripShipTaskBar(),
                   SizedBox(
-                    height: 5.h,
+                    height: 25.h,
                   ),
                   Container(
                     height: 100.h,
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: 3,
+                        itemCount: imgList.length,
                         itemBuilder: (context, index) {
                           return Container(
                             margin: EdgeInsets.symmetric(horizontal: 4.w),
-                            padding: EdgeInsets.only(top: 15.h, bottom: 10.h),
+                          
                             height: 80.h,
                             width: 250.w,
                             decoration: BoxDecoration(
-                              color: primaryColor,
-                              borderRadius: BorderRadius.circular(20.r),
+                              color: Colors.teal,
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 60.w,
-                                  height: 60.h,
-                                  child: Image.asset(
-                                    "assets/man.png",
-                                    fit: BoxFit.fitHeight,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                Container(
-                                  width: 175.w,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        child: CustomText(
-                                            "Check Shipping Content",
-                                            Colors.black,
-                                            FontWeight.w500,
-                                            12.sp),
-                                      ),
-                                      SizedBox(
-                                        height: 2.h,
-                                      ),
-                                      Container(
-                                        child: CustomText(
-                                            "Always check & carry",
-                                            Colors.black,
-                                            FontWeight.w300,
-                                            13.sp),
-                                      ),
-                                      SizedBox(
-                                        height: 2.h,
-                                      ),
-                                      Container(
-                                        child: CustomText(
-                                            "open items and legal items",
-                                            Colors.black,
-                                            FontWeight.w300,
-                                            13.sp),
-                                      ),
-                                      SizedBox(
-                                        height: 2.h,
-                                      ),
-                                      Container(
-                                        child: CustomText(
-                                            "Avoid risks & stay safe",
-                                            Colors.black,
-                                            FontWeight.w300,
-                                            12.sp),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
+                            child: Image.asset(imgList[index], 
+                            fit: BoxFit.fill,
+                            )
+                            
                           );
                         }),
                   ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
+                 
                   Container(
-                    height: 140.h,
+                    height: 125.h,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 2,
+                      itemCount: lowerBannerList.length,
                       itemBuilder: (context, index) {
                         return Card(
                           elevation: 4,
                           child: Container(
-                            width: 290.w,
-                            padding: EdgeInsets.all(8.w),
-                            decoration: const BoxDecoration(),
-                            child: Column(
-                              children: [
-                                Container(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        width: 150.w,
-                                        padding: EdgeInsets.only(
-                                            left: 7.w,
-                                            right: 7.w,
-                                            top: 7.h,
-                                            bottom: 7.h),
-                                        decoration: BoxDecoration(
-                                            color: navyBlueColor,
-                                            borderRadius:
-                                                BorderRadius.circular(10.r)),
-                                        child: Text(
-                                          "Want to give a ride & make money?",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              fontWeight: FontWeight.w700,
-                                              color: white),
-                                        ),
-                                      ),
-                                      Container(
-                                          width: 80.w,
-                                          height: 45.h,
-                                          child: Image.asset(
-                                            "assets/trip.png",
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                Stack(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          width: 200.w,
-                                          height: 60.h,
-                                          child: Text(
-                                            "Post your destination & choose passengers who are headed the same direction",
-                                            style: TextStyle(fontSize: 11.sp),
-                                          ),
-                                        ),
-                                        Container(
-                                            height: 50.h,
-                                            child: Image.asset(
-                                                "assets/mobile.jpg"))
-                                      ],
-                                    ),
-                                    Positioned(
-                                        bottom: 10.h,
-                                        child: Container(
-                                          child: Text(
-                                            "Give a ride and make money.",
-                                            style: TextStyle(fontSize: 11.sp),
-                                          ),
-                                        )),
-                                    Positioned(
-                                        right: 15.w,
-                                        bottom: 0.h,
-                                        child: Container(
-                                            height: 35.h,
-                                            child:
-                                                Image.asset("assets/car.png"))),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
+                            width: 200.w,
+                              decoration:
+                                  const BoxDecoration(),
+                              child: Image.asset(
+                                lowerBannerList[index],
+                               
+                                
+                                fit: BoxFit.fitWidth,
+                              )),
                         );
                       },
                     ),
                   ),
                   SizedBox(
-                    height: 10.h,
+                    height: 5.h,
                   ),
                   Container(
                     height: 80.h,
                     color: Colors.amberAccent,
                   ),
                   SizedBox(
-                    height: 10.h,
+                    height: 5.h,
                   ),
                   Container(
                       height: 35.h,
@@ -326,110 +212,82 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 20.w),
-                    padding: EdgeInsets.only(left: 15.w, bottom: 15.h),
-                    decoration: BoxDecoration(color: primaryColor),
+                    padding: EdgeInsets.only(
+                      left: 15.w,
+                    ),
+                    decoration: BoxDecoration(  color: primaryColor,),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
-                          width: 100.w,
-                          alignment: Alignment.center,
-                          child: Column(
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                height: 45.h,
-                                width: 60.w,
-                                decoration: BoxDecoration(
-                                    color: navyBlueColor,
-                                    shape: BoxShape.circle),
-                                child: FaIcon(
-                                  FontAwesomeIcons.camera,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Container(
-                                  child: Text(
-                                "New Account Bonus",
-                                style: TextStyle(
-                                  fontSize: 13.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                textAlign: TextAlign.center,
-                              ))
-                            ],
-                          ),
-                        ),
+                            alignment: Alignment.center,
+                            height: 40.h,
+                            width: 40.w,
+                            decoration:const BoxDecoration(
+                                color: navyBlueColor, shape: BoxShape.circle),
+                            child: Image.asset("assets/account_bonus.jpeg")),
                         Container(
-                          width: 100.w,
-                          alignment: Alignment.center,
-                          child: Column(
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                height: 45.h,
-                                width: 60,
-                                decoration: const BoxDecoration(
-                                    color: navyBlueColor,
-                                    shape: BoxShape.circle),
-                                child: const FaIcon(
-                                  FontAwesomeIcons.camera,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Container(
-                                  child: Text(
-                                "Rafferal Bonus",
-                                style: TextStyle(
-                                  fontSize: 13.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                textAlign: TextAlign.center,
-                              ))
-                            ],
-                          ),
-                        ),
+                            alignment: Alignment.center,
+                             height: 40.h,
+                            width: 40.w,
+                            decoration: BoxDecoration(
+                                color: navyBlueColor, shape: BoxShape.circle),
+                            child: Image.asset("assets/rafferal_bonus.jpeg")),
                         Container(
-                          width: 100.w,
-                          alignment: Alignment.center,
-                          child: Column(
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                height: 45.h,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                    color: navyBlueColor,
-                                    shape: BoxShape.circle),
-                                child: FaIcon(
-                                  FontAwesomeIcons.camera,
-                                  color: Colors.white,
-                                ),
+                            alignment: Alignment.center,
+                            height: 40.h,
+                            width: 40.w,
+                            decoration: BoxDecoration(
+                                color: navyBlueColor, shape: BoxShape.circle),
+                            child: Image.asset("assets/user_bonus.jpeg")),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 40.h,
+                    margin: EdgeInsets.symmetric(horizontal: 20.w),
+                    padding: EdgeInsets.only(
+                      left: 15.w,
+                    ),
+                    decoration: BoxDecoration(  color: primaryColor,),
+                   
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                            alignment: Alignment.center,
+                           
+                            width: 80.w,
+                            decoration: BoxDecoration(),
+                            child: Text(
+                              "New Account Bonus", style: TextStyle(
+                                fontSize: 12.sp
                               ),
-                              SizedBox(
-                                height: 10.h,
+                              textAlign: TextAlign.center,
+                            )),
+                        Container(
+                           
+                            height: 40.h,
+                            width: 90.w,
+                             padding: EdgeInsets.only(top: 8.h),
+                          
+                            child: Text(
+                              "Referral Bonus",style: TextStyle(
+                                fontSize: 12.sp
                               ),
-                              Container(
-                                  child: Text(
-                                "Frequent User Bonus",
-                                style: TextStyle(
-                                  fontSize: 13.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                textAlign: TextAlign.center,
-                              ))
-                            ],
-                          ),
-                        )
+                              textAlign: TextAlign.center,
+                            )),
+                        Container(
+                            alignment: Alignment.center,
+                       
+                            width: 80.w,
+                               padding: EdgeInsets.only(top: 3.h),
+                            child: Text(
+                              "Frequent User Bonus",style: TextStyle(
+                                fontSize: 12.sp
+                              ),
+                              textAlign: TextAlign.center,
+                            )),
                       ],
                     ),
                   )
@@ -457,11 +315,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       actions: [
         IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.filter,
-              color: Colors.black,
-            )),
+            onPressed: () {
+              Get.to(UserDeshBoard());
+            },
+            icon: Image.asset("assets/menu_bar.jpeg", height: 15.h, fit: BoxFit.fitHeight,)),
       ],
     );
   }

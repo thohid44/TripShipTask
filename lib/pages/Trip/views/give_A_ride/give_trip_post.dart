@@ -126,11 +126,11 @@ class _GiveTripPostState extends State<GiveTripPost> {
       child: Column(
         children: [
           SizedBox(
-            height: 5.h,
+            height: 4.h,
           ),
           Container(
-            width: 300.w,
-            height: 35.h,
+            width: 346.w,
+            height: 30.h,
             child: TextField(
               controller: _startSearchFieldController,
               autofocus: false,
@@ -176,19 +176,20 @@ class _GiveTripPostState extends State<GiveTripPost> {
             height: 5.h,
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
+           width: 346.w,
+          
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
                   onTap: () {
                     dairyDatePicker(context);
                   },
                   child: Container(
-                    width: 150.w,
-                    height: 35.h,
+                    width: 171.w,
+                    height: 30.h,
                     alignment: Alignment.center,
-                    margin: EdgeInsets.symmetric(horizontal: 0.w),
+                
                     decoration: BoxDecoration(
                         border: Border.all(width: 0.5.w, color: Colors.grey)),
                     child: dateStatus == false
@@ -208,8 +209,8 @@ class _GiveTripPostState extends State<GiveTripPost> {
                     onTap: _showTimePicker,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 100.w,
-                      height: 35.h,
+                      width: 171.w,
+                      height: 30.h,
                       decoration: BoxDecoration(
                           border: Border.all(width: 1.w, color: Colors.grey)),
                       child: pickupTime != null
@@ -220,11 +221,11 @@ class _GiveTripPostState extends State<GiveTripPost> {
             ),
           ),
           SizedBox(
-            height: 10.h,
+            height: 5.h,
           ),
           Container(
-            width: 300.w,
-            height: 35.h,
+            width: 346.w,
+            height: 30.h,
             child: TextField(
               controller: _endSearchFieldController,
               autofocus: false,
@@ -317,7 +318,7 @@ class _GiveTripPostState extends State<GiveTripPost> {
           Container(
             color: Colors.grey,
             height: 200,
-            width: 320.w,
+            width: 346.w,
             child: GoogleMap(
               mapType: MapType.normal,
               markers: {
@@ -337,20 +338,20 @@ class _GiveTripPostState extends State<GiveTripPost> {
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: 2.h,
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
+          width: 346.w,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                     alignment: Alignment.center,
-                    height: 35.h,
+                    height: 30.h,
                     width: 120.w,
                     decoration: BoxDecoration(
                         border: Border.all(width: 1.w, color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10.r)),
+                        borderRadius: BorderRadius.circular(5.r)),
                     child: Obx(() => vehicleController.isLoading == false
                         ? DropdownButtonHideUnderline(
                             child: DropdownButton2<dynamic>(
@@ -383,7 +384,7 @@ class _GiveTripPostState extends State<GiveTripPost> {
                               buttonStyleData: ButtonStyleData(
                                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                                 height: 40,
-                                width: 120,
+                                width: 172,
                               ),
                               menuItemStyleData: const MenuItemStyleData(
                                 height: 40,
@@ -391,7 +392,7 @@ class _GiveTripPostState extends State<GiveTripPost> {
                             ),
                           )
                         : Text(
-                            "No Vehicle avaiable",
+                            "Select Vehicle",
                             style:
                                 TextStyle(fontSize: 13.sp, color: Colors.black),
                           ))),
@@ -551,7 +552,7 @@ class _GiveTripPostState extends State<GiveTripPost> {
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: 2.h,
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -568,7 +569,8 @@ class _GiveTripPostState extends State<GiveTripPost> {
             height: 5.h,
           ),
           CustomButtonOne(
-            title: "Sumbit",
+          
+            title: "Submit",
             onTab: () {
               startPointLat = startPosition!.geometry!.location!.lat;
               print("Start Lat $startPointLat");
