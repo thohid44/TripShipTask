@@ -4,6 +4,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:google_place/google_place.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
+import 'package:tripshiptask/Widget/customTextForm.dart';
+import 'package:tripshiptask/Widget/custom_text_field.dart';
 import 'package:tripshiptask/pages/Ship/controller/send_package_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -73,27 +75,6 @@ class _SendAPackageState extends State<SendAPackage> {
 
   String deliveryTime = "Perferred delivery time";
 
-  List<DropdownMenuItem<String>> get typeOfGoods {
-    List<DropdownMenuItem<String>> destination = [
-      const DropdownMenuItem(
-          child: Text("Type of goods"), value: "Type of goods"),
-      const DropdownMenuItem(child: Text("1"), value: "1"),
-    ];
-    return destination;
-  }
-
-  String typeGood = "Type of goods";
-
-  List<DropdownMenuItem<String>> get packageTypes {
-    List<DropdownMenuItem<String>> destination = [
-      const DropdownMenuItem(
-          child: Text("Packaging type"), value: "Packaging type"),
-    ];
-    return destination;
-  }
-
-  String packageType = "Packaging type";
-
   List<DropdownMenuItem<String>> get weightOfPackages {
     List<DropdownMenuItem<String>> destination = [
       const DropdownMenuItem(child: Text("KG"), value: "KG"),
@@ -102,23 +83,47 @@ class _SendAPackageState extends State<SendAPackage> {
   }
 
   String weightOfPackage = "KG";
-
-  List<DropdownMenuItem<String>> get willingPay {
-    List<DropdownMenuItem<String>> destination = [
-      const DropdownMenuItem(child: Text("USD"), value: "USD"),
-      const DropdownMenuItem(child: Text("BD"), value: "BD"),
-    ];
-    return destination;
-  }
-
-  String willing = "USD";
+// Goods
+  var goodsName;
+  String? goodsType;
+  bool isGoodsSelect = false;
+  List<Map<String, dynamic>> goodTypeList = [
+    {"id": 1, "name": "Perishable", "slug": "Perishable"},
+    {"id": 2, "name": "Non-perishable", "slug": "Non-perishable"},
+  ];
+// Package List
+  var packageName;
+  String? package;
+  bool isPackageSelect = false;
+  List<Map<String, dynamic>> packageList = [
+    {"id": 1, "name": "Small Envelope", "slug": "Small Envelope"},
+    {"id": 2, "name": "Large Envelope", "slug": "Large Envelope"},
+    {
+      "id": 3,
+      "name": "Small package(perishable items)",
+      "slug": "Small package(perishable items)"
+    },
+    {
+      "id": 4,
+      "name": "Small package(non-perishable items)",
+      "slug": "Small package(non-perishable items)"
+    },
+    {
+      "id": 5,
+      "name": "Medium package(perishable items)",
+      "slug": "Medium package(perishable items)"
+    },
+    {
+      "id": 6,
+      "name": "Medium package(Non-perishable items)",
+      "slug": "Medium package(Non-perishable items)"
+    },
+  ];
 
   final TextEditingController pickup = TextEditingController();
-
   final TextEditingController pickDate = TextEditingController();
-
+  final TextEditingController willingPay = TextEditingController();
   final TextEditingController deliveryDate = TextEditingController();
-
   final TextEditingController dropOff = TextEditingController();
   final TextEditingController sendItem = TextEditingController();
   final TextEditingController approxValue = TextEditingController();
@@ -126,14 +131,14 @@ class _SendAPackageState extends State<SendAPackage> {
   var controller = Get.put(SendPackageController());
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: [
         SizedBox(
           height: 5.h,
         ),
         Container(
           width: 300.w,
-          height: 35.h,
+          height: 30.h,
           child: TextField(
             controller: _startSearchFieldController,
             autofocus: false,
@@ -176,7 +181,7 @@ class _SendAPackageState extends State<SendAPackage> {
           ),
         ),
         SizedBox(
-          height: 5.h,
+          height: 2.h,
         ),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -189,7 +194,7 @@ class _SendAPackageState extends State<SendAPackage> {
                 },
                 child: Container(
                   width: 150.w,
-                  height: 35.h,
+                  height: 30.h,
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 0.w),
                   decoration: BoxDecoration(
@@ -212,7 +217,7 @@ class _SendAPackageState extends State<SendAPackage> {
                   child: Container(
                     alignment: Alignment.center,
                     width: 160.w,
-                    height: 45.h,
+                    height: 30.h,
                     child: pickupTime != null
                         ? Text(pickupTime!.format(context).toString())
                         : Text("Select Time"),
@@ -221,11 +226,11 @@ class _SendAPackageState extends State<SendAPackage> {
           ),
         ),
         SizedBox(
-          height: 5.h,
+          height: 2.h,
         ),
         Container(
           width: 300.w,
-          height: 35.h,
+          height: 30.h,
           child: TextField(
             controller: _endSearchFieldController,
             autofocus: false,
@@ -274,8 +279,8 @@ class _SendAPackageState extends State<SendAPackage> {
             shrinkWrap: true,
             itemCount: predictions.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                leading: CircleAvatar(
+              return  ListTile(
+                leading: const CircleAvatar(
                   child: Icon(
                     Icons.pin_drop,
                     color: Colors.white,
@@ -316,7 +321,7 @@ class _SendAPackageState extends State<SendAPackage> {
         ),
         Container(
           color: Colors.grey,
-          height: 150,
+          height: 140,
           width: 320.w,
         ),
         SizedBox(
@@ -333,7 +338,7 @@ class _SendAPackageState extends State<SendAPackage> {
                 },
                 child: Container(
                   width: 150.w,
-                  height: 35.h,
+                  height: 30.h,
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 0.w),
                   decoration: BoxDecoration(
@@ -352,13 +357,13 @@ class _SendAPackageState extends State<SendAPackage> {
                 ),
               ),
               SizedBox(
-                width: 5.w,
+                width: 2.w,
               ),
               InkWell(
                 onTap: _deliveryTimePicker,
                 child: Container(
                     alignment: Alignment.center,
-                    height: 35.h,
+                    height: 30.h,
                     width: 155.w,
                     decoration: BoxDecoration(
                         border: Border.all(width: 1.w, color: Colors.grey),
@@ -380,151 +385,164 @@ class _SendAPackageState extends State<SendAPackage> {
         SizedBox(
           height: 5.h,
         ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 5.w,
-              ),
-              Card(
-                child: Container(
-                  height: 35.h,
-                  width: 80.w,
-                  alignment: Alignment.center,
-                  child: Text(
-                    "willing to pay",
-                    style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  ),
+        UnconstrainedBox(
+          child: Container(
+            width: 346.w,
+            child: Row(
+              children: [
+                Container(
+                    height: 30.h,
+                    width: 120.w,
+                    alignment: Alignment.center,
+                    child: TextField(
+                        controller: willingPay,
+                        decoration: InputDecoration(
+                            hintText: "Willing you pay",
+                            border: OutlineInputBorder(),
+                            hintStyle: TextStyle(fontSize: 12.sp),
+                            contentPadding:
+                                EdgeInsets.only(top: 5.h, left: 3.w)))),
+                Container(
+                    alignment: Alignment.center,
+                    height: 30.h,
+                    width: 40.w,
+                    decoration: BoxDecoration(
+                        color: navyBlueColor,
+                        border: Border.all(
+                          width: 1.w,
+                        ),
+                        borderRadius: BorderRadius.circular(5.r)),
+                    child: Text(
+                      "BDT",
+                      style: TextStyle(color: Colors.white),
+                    )),
+                SizedBox(
+                  width: 5.w,
                 ),
-              ),
-              Card(
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 30.h,
-                  width: 50.w,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1.w, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10.r)),
-                  child: DropdownButton(
-                    underline: SizedBox(),
-                    style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                    value: willing,
-                    onChanged: (value) {
-                      willing = value!;
-                      print(willing);
-                    },
-                    items: willingPay,
-                  ),
-                ),
-              ),
-              Container(
-                  width: 150.w,
-                  height: 35.h,
-                  alignment: Alignment.center,
-                  child: CustomForm(
-                    hinttext: "What are you sending? ",
-                    radius: 5.r,
-                    textController: sendItem,
-                  )),
-            ],
+                Container(
+                    width: 170.w,
+                    height: 30.h,
+                    alignment: Alignment.center,
+                    child: CustomForm(
+                      hinttext: "What are you sending? ",
+                      radius: 5.r,
+                      textController: sendItem,
+                    )),
+              ],
+            ),
           ),
         ),
         SizedBox(
           height: 5.h,
         ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: 35.h,
-                width: 155.w,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1.w, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: DropdownButton(
-                  underline: SizedBox(),
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                  value: typeGood,
-                  onChanged: (value) {
-                    typeGood = value!;
-                  },
-                  items: typeOfGoods,
+        UnconstrainedBox(
+          child: Container(
+            width: 346.w,
+            child: Row(
+              children: [
+                Container(
+                    width: 160.w,
+                    alignment: Alignment.center,
+                    height: 30.h,
+                    decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: DropdownButton(
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        isExpanded: true,
+                        hint: Text(
+                          "${isGoodsSelect ? goodsName : 'Type of Goods'}",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 13.sp),
+                        ),
+                        underline: SizedBox(),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        value: goodsType,
+                        items: goodTypeList
+                            .map((e) => DropdownMenuItem(
+                                  onTap: () {
+                                    goodsName = e['name'].toString();
+                                  },
+                                  value: e['id'],
+                                  child: Text(
+                                    "${e['name']}",
+                                  ),
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            isGoodsSelect = true;
+                          });
+                        })),
+                SizedBox(
+                  width: 5.w,
                 ),
-              ),
-              SizedBox(
-                width: 5.w,
-              ),
-              Container(
-                  width: 150.w,
-                  height: 35.h,
+                Container(
+                    width: 170.w,
+                    height: 30.h,
+                    alignment: Alignment.center,
+                    child: CustomForm(
+                      hinttext: "Approx value of the goods? ",
+                      radius: 5.r,
+                      textController: search,
+                    )),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 5.h,
+        ),
+        UnconstrainedBox(
+          child: Container(
+            width: 346.w,
+            child: Row(
+              children: [
+                Container(
+                    width: 160.w,
+                    alignment: Alignment.center,
+                    height: 30,
+                    decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(5.r)),
+                    child: DropdownButton(
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        isExpanded: true,
+                        hint: Text(
+                          "${isGoodsSelect ? goodsName : 'Packaging Type'}",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 13.sp),
+                        ),
+                        underline: SizedBox(),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        value: packageName,
+                        items: packageList
+                            .map((e) => DropdownMenuItem(
+                                  onTap: () {
+                                    package = e['name'].toString();
+                                  },
+                                  value: e['id'],
+                                  child: Text(
+                                    "${e['name']}",
+                                  ),
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            isPackageSelect = true;
+                          });
+                        })),
+                Container(
+                  height: 30.h,
+                  width: 110.w,
                   alignment: Alignment.center,
                   child: CustomForm(
-                    hinttext: "Approx value of the goods? ",
+                    hinttext: "Weight of package",
                     radius: 5.r,
                     textController: search,
-                  )),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 5.h,
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: 35.h,
-                width: 140.w,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1.w, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: DropdownButton(
-                  underline: SizedBox(),
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                  value: packageType,
-                  onChanged: (value) {
-                    packageType = value!;
-                    print(packageType);
-                  },
-                  items: packageTypes,
-                ),
-              ),
-              Card(
-                child: Container(
-                  height: 35.h,
-                  width: 100.w,
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Weight of package",
-                    style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black),
                   ),
                 ),
-              ),
-              Card(
-                child: Container(
+                Container(
                   alignment: Alignment.center,
                   height: 30.h,
                   padding: EdgeInsets.symmetric(horizontal: 2.w),
@@ -547,33 +565,35 @@ class _SendAPackageState extends State<SendAPackage> {
                     items: weightOfPackages,
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20.w),
-          child: TextFormField(
-            controller: note,
-            decoration: InputDecoration(
-              hintText: "Note",
-              border: OutlineInputBorder(),
+              ],
             ),
-            maxLines: 3,
           ),
         ),
         SizedBox(
-          height: 5.h,
+          height: 2.h,
+        ),
+        UnconstrainedBox(
+          child: Container(
+            width: 346.w,
+            child: TextFormField(
+              controller: note,
+              decoration: InputDecoration(
+                hintText: "Note",
+                border: OutlineInputBorder(),
+              ),
+              maxLines: 1,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10.h,
         ),
         CustomButtonOne(
-          title: "Sumbit",
+          title: "Submit",
           onTab: () {
             var pickUpPointLat = startPosition!.geometry!.location!.lat;
-
             var pickUpPointLong = startPosition!.geometry!.location!.lng;
-
             var dropUpPointLat = startPosition!.geometry!.location!.lat;
-
             var dropUpPointLong = startPosition!.geometry!.location!.lng;
 
             print(
@@ -588,7 +608,9 @@ class _SendAPackageState extends State<SendAPackage> {
                 deliveryDate: deliveryDate,
                 deliveryTime: delivaryTime,
                 dropOff: dropOff,
-                goodType: typeGood,
+                willingPay: willingPay.text.toString(),
+                goodType: goodsName,
+                packageType: package,
                 note: note.text.toString());
           },
           height: 40.h,

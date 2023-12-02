@@ -33,6 +33,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   List<Map<String, dynamic>> items = [
     {"id": 1, "name": "Male", "slug": "Male"},
     {"id": 2, "name": "Female", "slug": "Female"},
+     {"id": 3, "name": "Rather not say", "slug": "Rather not say"},
+    {"id": 4, "name": "custom", "slug": "custom"},
+   
+
   ];
 
   final formkey = GlobalKey<FormState>();

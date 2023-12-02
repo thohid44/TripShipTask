@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:tripshiptask/Widget/balance_btn.dart';
 
 import 'Utils/localstorekey.dart';
 import 'pages/Home/view/home_screen.dart';

@@ -148,7 +148,7 @@ class _ShipHomePageState extends State<ShipHomePage> {
                 ],
               ),
             ),
-            Container(height: 500.h, child: widgetList[index])
+            Container(height: 550.h, child: widgetList[index])
           ],
         ),
       ),
