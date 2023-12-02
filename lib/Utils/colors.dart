@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const Color primaryColor1 = Color(0xffFEFEFD);
+const Color fillColor = Color(0xffF6EAE3);
 const Color primaryColor = Color(0xffF1F4F9);
 const Color navyBlueColor = Color(0xff5C67AE);
 const Color skyColor = Color(0xff537FBD);

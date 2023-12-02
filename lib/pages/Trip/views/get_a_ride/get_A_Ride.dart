@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
+import 'package:tripshiptask/Widget/customTextForm.dart';
 import 'package:tripshiptask/controller/vehicle_controller.dart';
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
 
@@ -23,22 +24,34 @@ class GetARide extends StatefulWidget {
 class _GetARideState extends State<GetARide> {
   final TextEditingController search = TextEditingController();
 
-  final List<String> vehicleitems = [
-    'Car',
-    'Bike',
-    'tripshiptask',
+  bool isVehicleSelect = false;
+
+  String? vehicle;
+  var vehicleName;
+
+  List<Map<String, dynamic>> vehicleitems = [
+    {"id": 1, "name": "Car", "slug": "Car"},
+    {"id": 2, "name": "Bike", "slug": "Bike"},
+  ];
+  bool isSeatSelect = false;
+  String? seat;
+  var availableSeat;
+  List<Map<String, dynamic>> seatList = [
+    {"id": 1, "name": "1", "slug": "1"},
+    {"id": 2, "name": "2", "slug": "2"},
+    {"id": 3, "name": "3", "slug": "3"},
+    {"id": 4, "name": "4", "slug": "4"},
+  ];
+  var preferToRide;
+  String? prefer;
+  bool isPreferSelect = false;
+   List<Map<String, dynamic>> preferList = [
+    {"id": 1, "name": "Male", "slug": "Male"},
+    {"id": 2, "name": "Female", "slug": "Female"},
+    {"id": 3, "name": "Any", "slug": "Any"},
+
   ];
 
-  final List<String> numberOfpassenger = [
-    '1',
-    '2',
-    '3',
-  ];
-  final List<String> preferGetRide = [
-    'Male',
-    'Female',
-    'Any',
-  ];
   String? selectVehicle;
   String? selectPassenger;
   String? selectPrefer;
@@ -47,21 +60,12 @@ class _GetARideState extends State<GetARide> {
   var startPointLong;
   var destinationPointLong;
   var destinationPointLat;
-  var willPayAmount;
 
+   final TextEditingController willPayAmount= TextEditingController();
   final TextEditingController description = TextEditingController();
-
   final TextEditingController note = TextEditingController();
 
-  List<DropdownMenuItem<String>> get willingPay {
-    List<DropdownMenuItem<String>> destination = [
-      const DropdownMenuItem(child: Text("USD"), value: "USD"),
-      const DropdownMenuItem(child: Text("BD"), value: "BD"),
-    ];
-    return destination;
-  }
 
-  String willing = "USD";
 
   var currency;
 
@@ -126,22 +130,22 @@ class _GetARideState extends State<GetARide> {
       child: Column(
         children: [
           SizedBox(
-            height: 5.h,
+            height: 4.h,
           ),
           Container(
-            width: 300.w,
-            height: 35.h,
+            width: 340.w,
+            height: 30.h,
             child: TextField(
               controller: _startSearchFieldController,
               autofocus: false,
               focusNode: startFocusNode,
               style: TextStyle(fontSize: 15.sp),
               decoration: InputDecoration(
-                  hintText: 'Starting Point Ts',
+                  hintText: 'Start Point',
                   hintStyle:
                       TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp),
                   filled: true,
-                  fillColor: Colors.grey[200],
+                  fillColor: primaryColor,
                   border: InputBorder.none,
                   suffixIcon: _startSearchFieldController.text.isNotEmpty
                       ? IconButton(
@@ -173,31 +177,31 @@ class _GetARideState extends State<GetARide> {
             ),
           ),
           SizedBox(
-            height: 10.h,
+            height: 5.h,
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
+            width: 340.w,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
                   onTap: () {
                     dairyDatePicker(context);
                   },
                   child: Container(
-                    width: 150.w,
-                    height: 35.h,
+                    width: 169.w,
+                    height: 30.h,
                     alignment: Alignment.center,
-                    margin: EdgeInsets.symmetric(horizontal: 0.w),
                     decoration: BoxDecoration(
+                        color: primaryColor,
                         border: Border.all(width: 0.5.w, color: Colors.grey)),
                     child: dateStatus == false
                         ? Text(
                             "${pickDate.day}-${pickDate.month}-${pickDate.year}",
                             style: TextStyle(
-                                fontSize: 14.sp,
+                                fontSize: 13.sp,
                                 color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.normal),
                             textAlign: TextAlign.center,
                           )
                         : Text(
@@ -208,10 +212,20 @@ class _GetARideState extends State<GetARide> {
                     onTap: _showTimePicker,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 100.w,
-                      height: 35.h,
+                      width: 169.w,
+                      height: 30.h,
                       decoration: BoxDecoration(
-                          border: Border.all(width: 1.w, color: Colors.grey)),
+                        color: primaryColor,
+                        boxShadow: [
+                          BoxShadow(
+                            color:
+                                primaryColor.withOpacity(0.5), // Shadow color
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: Offset(2, 2),
+                          ),
+                        ],
+                      ),
                       child: pickupTime != null
                           ? Text(pickupTime!.format(context).toString())
                           : Text("Select Time"),
@@ -220,11 +234,21 @@ class _GetARideState extends State<GetARide> {
             ),
           ),
           SizedBox(
-            height: 10.h,
+            height: 5.h,
           ),
           Container(
-            width: 300.w,
-            height: 35.h,
+            width: 346.w,
+            height: 30.h,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5), // Shadow color
+                  spreadRadius: 2,
+                  blurRadius: 4,
+                  offset: Offset(2, 2),
+                ),
+              ],
+            ),
             child: TextField(
               controller: _endSearchFieldController,
               autofocus: false,
@@ -233,13 +257,13 @@ class _GetARideState extends State<GetARide> {
                   startPosition != null,
               style: TextStyle(fontSize: 15.sp),
               decoration: InputDecoration(
-                  hintText: 'Destination Point',
+                  hintText: 'Destination',
                   hintStyle: TextStyle(
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.normal,
                       color: Colors.black,
                       fontSize: 14.sp),
                   filled: true,
-                  fillColor: Colors.grey[200],
+                 fillColor: primaryColor,
                   border: InputBorder.none,
                   suffixIcon: _endSearchFieldController.text.isNotEmpty
                       ? IconButton(
@@ -316,8 +340,8 @@ class _GetARideState extends State<GetARide> {
           ),
           Container(
             color: Colors.grey,
-            height: 200,
-            width: 320.w,
+            height: 150.h,
+            width: 346.w,
             child: GoogleMap(
               mapType: MapType.normal,
               markers: {
@@ -337,216 +361,155 @@ class _GetARideState extends State<GetARide> {
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: 2.h,
           ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                    alignment: Alignment.center,
-                    height: 35.h,
-                    width: 120.w,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 1.w, color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: Obx(() => vehicleController.isLoading == false
-                        ? DropdownButtonHideUnderline(
-                            child: DropdownButton2<dynamic>(
-                              isExpanded: true,
-                              hint: Text(
-                                'Select Vehicle',
-                                style: TextStyle(
-                                  fontSize: 13.sp,
-                                  color: Theme.of(context).hintColor,
-                                ),
-                              ),
-                              items: vehicleController.myVehicles
-                                  .map((item) => DropdownMenuItem<String>(
-                                        value: item.type,
-                                        child: Text(
-                                          "${item.type}",
-                                          style: TextStyle(
-                                            fontSize: 13.sp,
-                                          ),
-                                        ),
-                                      ))
-                                  .toList(),
-                              value: selectVehicle,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectVehicle = value;
-                                  print(selectVehicle);
-                                });
-                              },
-                              buttonStyleData: ButtonStyleData(
-                                padding: EdgeInsets.symmetric(horizontal: 5.w),
-                                height: 40,
-                                width: 120,
-                              ),
-                              menuItemStyleData: const MenuItemStyleData(
-                                height: 40,
-                              ),
-                            ),
-                          )
-                        : Text(
-                            "No Vehicle avaiable",
-                            style:
-                                TextStyle(fontSize: 13.sp, color: Colors.black),
-                          ))),
-                SizedBox(
-                  width: 2.w,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  height: 35.h,
-                  width: 180.w,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1.w, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10.r)),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton2<String>(
-                      isExpanded: true,
-                      hint: Text(
-                        'How many of you',
-                        style: TextStyle(
-                          fontSize: 13.sp,
-                          color: Theme.of(context).hintColor,
-                        ),
-                      ),
-                      items: numberOfpassenger
-                          .map((String item) => DropdownMenuItem<String>(
-                                value: item,
-                                child: Text(
-                                  item,
-                                  style: TextStyle(
-                                    fontSize: 13.sp,
-                                  ),
-                                ),
-                              ))
-                          .toList(),
-                      value: selectPassenger,
-                      onChanged: (String? value) {
-                        setState(() {
-                          selectPassenger = value;
-                          print(selectPassenger);
-                        });
-                      },
-                      buttonStyleData: const ButtonStyleData(
-                        //   padding: EdgeInsets.symmetric(horizontal: 16),
-                        height: 40,
-                        width: 160,
-                      ),
-                      menuItemStyleData: const MenuItemStyleData(
-                        height: 40,
-                      ),
-                    ),
+          UnconstrainedBox(
+            child: Container(
+              width: 340.w,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                      width: 165.w,
+                      alignment: Alignment.center,
+                      height: 30,
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child: DropdownButton(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          isExpanded: true,
+                          hint: Text(
+                            "${isVehicleSelect ? vehicleName : 'Select Vehicle'}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 13.sp),
+                          ),
+                          underline: SizedBox(),
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          value: vehicle,
+                          items: vehicleitems
+                              .map((e) => DropdownMenuItem(
+                                    onTap: () {
+                                      vehicleName = e['name'].toString();
+                                      print("Vehicle name $vehicleName");
+                                    },
+                                    value: e['id'],
+                                    child: Text(
+                                      "${e['name']}",
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              isVehicleSelect = true;
+                            });
+                          })),
+                  SizedBox(
+                    width: 5.w,
                   ),
-                ),
-              ],
+                  Container(
+                      width: 165.w,
+                      alignment: Alignment.center,
+                      height: 30,
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child: DropdownButton(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          isExpanded: true,
+                          hint: Text(
+                            "${isVehicleSelect ? availableSeat : 'How Many Of You'}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 13.sp),
+                          ),
+                          underline: SizedBox(),
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          value: seat,
+                          items: seatList
+                              .map((e) => DropdownMenuItem(
+                                    onTap: () {
+                                      availableSeat = e['name'].toString();
+                                      print("Available Seats  $availableSeat");
+                                    },
+                                    value: e['id'],
+                                    child: Text(
+                                      "${e['name']}",
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              isSeatSelect = true;
+                            });
+                          })),
+                ],
+              ),
             ),
           ),
           SizedBox(
             height: 2.h,
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
+           width:346.w,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Card(
-                  child: Container(
+                Container(
+                    width: 175.w,
                     alignment: Alignment.center,
-                    height: 35.h,
-                    width: 150.w,
+                    height: 30,
                     decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton2<String>(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(5.r)),
+                    child: DropdownButton(
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
                         isExpanded: true,
                         hint: Text(
-                          'Prefer to get ride from',
+                          "${isPreferSelect ? preferToRide : 'Get Ride From'}",
                           style: TextStyle(
-                            fontSize: 12.sp,
-                            color: Theme.of(context).hintColor,
-                          ),
+                              fontWeight: FontWeight.normal, fontSize: 13.sp),
                         ),
-                        items: preferGetRide
-                            .map((String item) => DropdownMenuItem<String>(
-                                  value: item,
+                        underline: SizedBox(),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        value: seat,
+                        items: preferList
+                            .map((e) => DropdownMenuItem(
+                                  onTap: () {
+                                    preferToRide = e['name'].toString();
+                                    print(
+                                        "Prefer to get ride   $preferToRide");
+                                  },
+                                  value: e['id'],
                                   child: Text(
-                                    item,
-                                    style: TextStyle(
-                                      fontSize: 13.sp,
-                                    ),
+                                    "${e['name']}",
                                   ),
                                 ))
                             .toList(),
-                        value: selectPrefer,
-                        onChanged: (String? value) {
+                        onChanged: (value) {
                           setState(() {
-                            selectPrefer = value;
-                            print("Select Prefer $selectPrefer");
+                            isPreferSelect = true;
                           });
-                        },
-                        buttonStyleData: ButtonStyleData(
-                          padding: EdgeInsets.only(left: 3.w),
-                          height: 40,
-                          width: 150,
-                        ),
-                        menuItemStyleData: const MenuItemStyleData(
-                          height: 40,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                        })),
                 SizedBox(
-                  width: 2.w,
+                  width: 1.w,
                 ),
+               CustomTextForm(
+                height: 30.h, 
+                width: 120.w, 
+                hinttext: "willing To Pay",
+                textController: willPayAmount,
+               ), 
                 Container(
-                  height: 35.h,
-                  width: 90.w,
-                  child: TextField(
-                    autofocus: false,
-                    onChanged: (value) {
-                      willPayAmount = value.toString();
-                      print("Will You pay $willPayAmount");
-                    },
-                    style: TextStyle(fontSize: 15.sp),
-                    decoration: InputDecoration(
-                      hintText: 'Will you pay',
-                      hintStyle: TextStyle(
-                          fontWeight: FontWeight.w500, fontSize: 13.sp),
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                Card(
-                  child: Container(
                     alignment: Alignment.center,
-                    height: 35.h,
-                    width: 50.w,
+                    height: 30.h,
+                    width: 40.w,
                     decoration: BoxDecoration(
-                        border: Border.all(width: 1.w, color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: DropdownButton(
-                      underline: SizedBox(),
-                      style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black),
-                      value: willing,
-                      onChanged: (value) {
-                        currency = value;
-                        print("Willing Pay currency is $currency");
-                      },
-                      items: willingPay,
-                    ),
-                  ),
-                ),
+                        color: purplColor,
+                        borderRadius: BorderRadius.circular(5.r)),
+                    child: Text(
+                      "BDT",
+                      style: TextStyle(color: Colors.white),
+                    )),
               ],
             ),
           ),
@@ -556,54 +519,62 @@ class _GetARideState extends State<GetARide> {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20.w),
             child: TextFormField(
+              
               controller: note,
               decoration: InputDecoration(
                 hintText: "Note",
                 border: OutlineInputBorder(),
               ),
-              maxLines: 1,
+              maxLines: 3,
+              minLines: 1,
             ),
           ),
           SizedBox(
             height: 5.h,
           ),
-          CustomButtonOne(
-            title: "Sumbit",
-            onTab: () {
-              startPointLat = startPosition!.geometry!.location!.lat;
-              print("Start Lat $startPointLat");
-              startPointLong = startPosition!.geometry!.location!.lng;
-              print("Start Long $startPointLong");
-              destinationPointLat = startPosition!.geometry!.location!.lat;
-              print("Destination Lat $startPointLong");
-              destinationPointLong = startPosition!.geometry!.location!.lng;
-              print("Destination Long $startPointLong");
-              print(
-                  "address is ${GetAddressFromLatLong(startPointLat, startPointLong)}");
+          UnconstrainedBox(
+            child: Container(
+              width: 200.w,
+              child: CustomButtonOne(
+                title: "Submit",
+                onTab: () {
+                  startPointLat = startPosition!.geometry!.location!.lat;
+                  print("Start Lat $startPointLat");
+                  startPointLong = startPosition!.geometry!.location!.lng;
+                  print("Start Long $startPointLong");
+                  destinationPointLat = startPosition!.geometry!.location!.lat;
+                  print("Destination Lat $startPointLong");
+                  destinationPointLong = startPosition!.geometry!.location!.lng;
+                  print("Destination Long $startPointLong");
+                  print(
+                      "address is ${GetAddressFromLatLong(startPointLat, startPointLong)}");
 
-              controller.getTripRide(
-                date: dateDairy.toString(),
-                time: tripTime.toString(),
-                duration: "2",
-                sPointLat: startPointLat,
-                sPointLng: startPointLong,
-                dPointLat: destinationPointLat,
-                dPointLng: destinationPointLong,
-                howmany: selectPassenger,
-                note: note.text.toString(),
-                vehicled: selectVehicle,
-                passengerType: selectPrefer,
-                willPay: willPayAmount,
-                currency: currency,
-                country: "BD",
-                distance: "10",
-                des: note.text.toString(),
-              );
-            },
-            height: 40.h,
-            width: 150.w,
-            btnColor: navyBlueColor,
-            radius: 10.r,
+                  controller.getTripRide(
+                    date: dateDairy.toString(),
+                    time: tripTime.toString(),
+                    duration: "2",
+                    sPointLat: startPointLat,
+                    sPointLng: startPointLong,
+                    dPointLat: destinationPointLat,
+                    dPointLng: destinationPointLong,
+                    howmany: availableSeat,
+                    note: note.text.toString(),
+                    vehicled: vehicleName,
+                    passengerType: preferToRide,
+                    willPay: willPayAmount.text.toString(),
+                    currency: "BDT",
+                    country: "BD",
+                    distance: "2",
+                    startPoint: _startSearchFieldController.text.toString(),
+                    des: _endSearchFieldController.text.toString(),
+                  );
+                },
+                height: 40.h,
+                width: 150.w,
+                btnColor: navyBlueColor,
+                radius: 10.r,
+              ),
+            ),
           )
         ],
       ),

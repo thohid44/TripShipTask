@@ -180,7 +180,7 @@ class _TripPageState extends State<TripPage> {
               ),
             ),
           ),
-          Container(height: 475.h, child: widgetList[index]),
+          Container(height: 500.h, child: widgetList[index]),
         ],
       ),
     );

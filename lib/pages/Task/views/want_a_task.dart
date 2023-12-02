@@ -99,7 +99,6 @@ class _WantATaskState extends State<WantATask> {
     super.initState();
     String apiKey = 'AIzaSyDLMJOClhhQjkfepu0R8iOCIt7bUpUF0nU';
     googlePlace = GooglePlace(apiKey);
-
     startFocusNode = FocusNode();
   }
 
@@ -167,7 +166,7 @@ class _WantATaskState extends State<WantATask> {
           CustomTextForm(
             width: 300.w,
             textController: title,
-            hinttext: "Title of the task",
+            hinttext: "Title of the task g",
           ),
           SizedBox(
             height: 5.h,

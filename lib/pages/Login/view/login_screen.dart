@@ -110,42 +110,13 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 10,
               ),
-              // Container(
-              //         height: 100.h,
-              //         width: 100.w,
-              //         decoration: BoxDecoration(
-              //           borderRadius: BorderRadius.circular(30),
-              //             color: primaryColor,
-              //           boxShadow: const [
-              //             BoxShadow(
-              //            color: primaryColor,
-              //               blurStyle: BlurStyle.outer,
-              //               blurRadius: 15,
-              //               spreadRadius: 1.0, //extend the shadow
-              //               offset: Offset(
-              //                 4.0, // Move to right 5  horizontally
-              //                 4.0, // Move to bottom 5 Vertically
-              //               ),
-              //             ),
-              //                 BoxShadow(
-              //            color: primaryColor,
-              //               blurStyle: BlurStyle.outer,
-              //               blurRadius: 15,
-              //               spreadRadius: 3.0, //extend the shadow
-              //               offset: Offset(
-              //               -  4.0, // Move to right 5  horizontally
-              //                - 4.0, // Move to bottom 5 Vertically
-              //               ),
-              //             )
-              //           ],
-              //         ),
-
-              //       ),
+              
               SpaceWidget(
                 hight: 30.h,
               ),
               CustomTextForm(
                   width: 260.w,
+                  height: 40.h,
                   textController: _email,
                   hinttext: "Enter Email"),
               SizedBox(
@@ -153,6 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               CustomTextForm(
                   width: 260.w,
+                     height: 40.h,
                   textController: _password,
                   hinttext: "Enter Password"),
               SpaceWidget(
@@ -169,22 +141,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.bold,
                       onTab: () {
                         print("press login");
-                        //    if (_email.text.isEmpty) {
-                        //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        //     content: Text('Email filed is required!'),
-                        //   ));
-                        // } else if (_password.text.isEmpty) {
-                        //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        //     content: Text('Password filed is required!'),
-                        //   ));
-                        // }
-                        //   else{
-                        //     con.login(
-                        //       _email.text.toString(), _password.text.toString());
-                        //   }
+                           if (_email.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text('Email filed is required!'),
+                          ));
+                        } else if (_password.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text('Password filed is required!'),
+                          ));
+                        }
+                          else{
+                            con.login(
+                              _email.text.toString(), _password.text.toString());
+                          }
 
-                        con.login(
-                            _email.text.toString(), _password.text.toString());
+                        // con.login(
+                        //     _email.text.toString(), _password.text.toString());
                       })
                   : CircularProgressIndicator()),
               SpaceWidget(

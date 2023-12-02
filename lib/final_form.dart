@@ -1,24 +1,16 @@
-import 'package:tripshiptask/Utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-// Final Form
+import 'package:tripshiptask/Utils/colors.dart';
 
-class CustomTextForm extends StatelessWidget {
-  TextEditingController? textController;
-  double? width;
-  double? height;
-  double? left;
-  double? right;
-  String? hinttext;
+class FinalForm extends StatelessWidget {
+  const FinalForm({super.key});
 
-  CustomTextForm(
-      {super.key, this.hinttext, this.width, this.height, this.textController});
   @override
   Widget build(BuildContext context) {
     return UnconstrainedBox(
       child: Container(
-        width: width ?? 100.w ,
-        height: height?? 30.h,
+        width: 300.w,
+        height: 30.h,
 
      
       decoration: BoxDecoration(
@@ -27,13 +19,13 @@ class CustomTextForm extends StatelessWidget {
          
           ),
         child: TextField(
-         controller: textController,
+        
           autofocus: false,
        
           style: TextStyle(fontSize: 15.sp),
           decoration: InputDecoration(
-              hintText: hinttext??'Enter hint text',
-              hintStyle: TextStyle(fontWeight: FontWeight.normal, fontSize: 14.sp),
+              hintText: 'Start Point',
+              hintStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp),
               filled: true,
               fillColor: primaryColor,
               border: InputBorder.none,
@@ -43,7 +35,6 @@ class CustomTextForm extends StatelessWidget {
           },
         ),
       ),
-    
     );
   }
 }

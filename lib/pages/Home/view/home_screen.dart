@@ -129,18 +129,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Container(
                     height: 100.h,
+                
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: imgList.length,
                         itemBuilder: (context, index) {
                           return Container(
                             margin: EdgeInsets.symmetric(horizontal: 4.w),
-                          
+                         
                             height: 80.h,
                             width: 250.w,
                             decoration: BoxDecoration(
-                              color: Colors.teal,
+                              color: primaryColor,
                               borderRadius: BorderRadius.circular(10.r),
+                              
                             ),
                             child: Image.asset(imgList[index], 
                             fit: BoxFit.fill,
@@ -161,11 +163,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Container(
                             width: 200.w,
                               decoration:
-                                  const BoxDecoration(),
+                                  const BoxDecoration(
+                           
+                                  ),
                               child: Image.asset(
-                                lowerBannerList[index],
-                               
-                                
+                                lowerBannerList[index],           
                                 fit: BoxFit.fitWidth,
                               )),
                         );

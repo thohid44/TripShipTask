@@ -25,7 +25,6 @@ class _SendAPackageState extends State<SendAPackage> {
   final _endSearchFieldController = TextEditingController();
 
   DetailsResult? startPosition;
-
   DetailsResult? endPosition;
 
   late FocusNode startFocusNode;
@@ -39,6 +38,7 @@ class _SendAPackageState extends State<SendAPackage> {
   List<Placemark>? placemark;
   GetAddressFromLatLong(lat, lng) async {
     placemark = await placemarkFromCoordinates(lat, lng);
+    
   }
 
   @override
@@ -127,7 +127,9 @@ class _SendAPackageState extends State<SendAPackage> {
   final TextEditingController dropOff = TextEditingController();
   final TextEditingController sendItem = TextEditingController();
   final TextEditingController approxValue = TextEditingController();
+  final TextEditingController weight = TextEditingController();
   final TextEditingController note = TextEditingController();
+
   var controller = Get.put(SendPackageController());
   @override
   Widget build(BuildContext context) {
@@ -145,7 +147,7 @@ class _SendAPackageState extends State<SendAPackage> {
             focusNode: startFocusNode,
             style: TextStyle(fontSize: 15.sp),
             decoration: InputDecoration(
-                hintText: 'Pick Up',
+                hintText: 'Pick Up Point',
                 hintStyle:
                     TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp),
                 filled: true,
@@ -219,7 +221,7 @@ class _SendAPackageState extends State<SendAPackage> {
                     width: 160.w,
                     height: 30.h,
                     child: pickupTime != null
-                        ? Text(pickupTime!.format(context).toString())
+                        ? Text(pickuptime!.format(context).toString())
                         : Text("Select Time"),
                   )),
             ],
@@ -239,7 +241,7 @@ class _SendAPackageState extends State<SendAPackage> {
                 startPosition != null,
             style: TextStyle(fontSize: 15.sp),
             decoration: InputDecoration(
-                hintText: 'Destination Point',
+                hintText: 'Drop Off Point',
                 hintStyle: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: Colors.black,
@@ -279,7 +281,7 @@ class _SendAPackageState extends State<SendAPackage> {
             shrinkWrap: true,
             itemCount: predictions.length,
             itemBuilder: (context, index) {
-              return  ListTile(
+              return ListTile(
                 leading: const CircleAvatar(
                   child: Icon(
                     Icons.pin_drop,
@@ -334,7 +336,7 @@ class _SendAPackageState extends State<SendAPackage> {
             children: [
               InkWell(
                 onTap: () {
-                  dairyDatePicker(context);
+                  dropUpDatePicker(context);
                 },
                 child: Container(
                   width: 150.w,
@@ -345,7 +347,7 @@ class _SendAPackageState extends State<SendAPackage> {
                       border: Border.all(width: 0.5.w, color: Colors.grey)),
                   child: dateStatus == false
                       ? Text(
-                          "${pickUpDate.day}-${pickUpDate.month}-${pickUpDate.year}",
+                          "${dropUpDate1.day}-${dropUpDate1.month}-${dropUpDate1.year}",
                           style: TextStyle(
                               fontSize: 14.sp,
                               color: Colors.black,
@@ -353,7 +355,7 @@ class _SendAPackageState extends State<SendAPackage> {
                           textAlign: TextAlign.center,
                         )
                       : Text(
-                          "${pickUpDate.day}-${pickUpDate.month}-${pickUpDate.year}"),
+                          "${dropUpDate1.day}-${dropUpDate1.month}-${dropUpDate1.year}"),
                 ),
               ),
               SizedBox(
@@ -370,7 +372,7 @@ class _SendAPackageState extends State<SendAPackage> {
                         borderRadius: BorderRadius.circular(10.r)),
                     // ignore: unnecessary_null_comparison
                     child: delivaryTime != null
-                        ? Text(delivaryTime!.format(context).toString())
+                        ? Text(delivarytime!.format(context).toString())
                         : Text(
                             "Perferred delivery time",
                             style: TextStyle(
@@ -407,11 +409,11 @@ class _SendAPackageState extends State<SendAPackage> {
                     height: 30.h,
                     width: 40.w,
                     decoration: BoxDecoration(
-                        color: navyBlueColor,
-                        border: Border.all(
-                          width: 1.w,
-                        ),
-                        borderRadius: BorderRadius.circular(5.r)),
+                      color: purplColor,
+                      border: Border.all(
+                        width: 1.w,
+                      ),
+                    ),
                     child: Text(
                       "BDT",
                       style: TextStyle(color: Colors.white),
@@ -484,7 +486,7 @@ class _SendAPackageState extends State<SendAPackage> {
                     child: CustomForm(
                       hinttext: "Approx value of the goods? ",
                       radius: 5.r,
-                      textController: search,
+                      textController: approxValue,
                     )),
               ],
             ),
@@ -509,7 +511,7 @@ class _SendAPackageState extends State<SendAPackage> {
                         padding: EdgeInsets.symmetric(horizontal: 10.w),
                         isExpanded: true,
                         hint: Text(
-                          "${isGoodsSelect ? goodsName : 'Packaging Type'}",
+                          "${isGoodsSelect ? package : 'Packaging Type'}",
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 13.sp),
                         ),
@@ -520,6 +522,7 @@ class _SendAPackageState extends State<SendAPackage> {
                             .map((e) => DropdownMenuItem(
                                   onTap: () {
                                     package = e['name'].toString();
+                                    print(package);
                                   },
                                   value: e['id'],
                                   child: Text(
@@ -539,7 +542,7 @@ class _SendAPackageState extends State<SendAPackage> {
                   child: CustomForm(
                     hinttext: "Weight of package",
                     radius: 5.r,
-                    textController: search,
+                    textController: weight,
                   ),
                 ),
                 Container(
@@ -588,6 +591,7 @@ class _SendAPackageState extends State<SendAPackage> {
         SizedBox(
           height: 10.h,
         ),
+    
         CustomButtonOne(
           title: "Submit",
           onTab: () {
@@ -599,18 +603,23 @@ class _SendAPackageState extends State<SendAPackage> {
             print(
                 "address is ${GetAddressFromLatLong(pickUpPointLat, pickUpPointLong)}");
             controller.sendPackage(
-                pickup: pickup.text.toString(),
+                pickup: _startSearchFieldController.text.toString(),
                 pickDate: pickDate.text.toString(),
+                pickTime: pickupTime.toString(),
                 pPointLat: pickUpPointLat,
                 pPointLng: pickUpPointLong,
                 dPointLat: dropUpPointLat,
                 dPointLng: dropUpPointLong,
-                deliveryDate: deliveryDate,
-                deliveryTime: delivaryTime,
-                dropOff: dropOff,
+                deliveryDate: deliveryDate.text.toString(),
+                deliveryTime: delivaryTime.toString(),
+                dropOff: _endSearchFieldController.text,
                 willingPay: willingPay.text.toString(),
+                sendItem: sendItem.text,
                 goodType: goodsName,
+                approxiValue: approxValue.text.toString(),
                 packageType: package,
+                currency: "BDT",
+                weight: weight.text,
                 note: note.text.toString());
           },
           height: 40.h,
@@ -625,9 +634,7 @@ class _SendAPackageState extends State<SendAPackage> {
   String? selectedDates;
 
   DateTime pickUpDate = DateTime.now();
-
   var dateDairy;
-
   bool dateStatus = false;
 
   dairyDatePicker(context) async {
@@ -635,11 +642,6 @@ class _SendAPackageState extends State<SendAPackage> {
       context: context,
       initialDate: pickUpDate,
       firstDate: DateTime(2021),
-      //  firstDate: DateTime.now(),
-      // firstDate: DateTime(2022, 9, 15),
-
-      // lastDate: DateTime(3000),
-
       lastDate: DateTime(2030, 01, 01),
     );
 
@@ -651,14 +653,15 @@ class _SendAPackageState extends State<SendAPackage> {
         pickUpDate = userSelectedDate;
         print(pickUpDate);
         dateDairy = "${pickUpDate.year}-${pickUpDate.month}-${pickUpDate.day}";
-        print("Date $selectedDates");
+        pickDate.text = dateDairy;
+        print("Pick Date ${pickDate.text}");
       });
     }
   }
 
   String? selectedDates2;
 
-  DateTime dropUpDate = DateTime.now();
+  DateTime dropUpDate1 = DateTime.now();
 
   var dateDropUp;
 
@@ -666,13 +669,8 @@ class _SendAPackageState extends State<SendAPackage> {
   dropUpDatePicker(context) async {
     DateTime? userSelectedDate = await showDatePicker(
       context: context,
-      initialDate: dropUpDate,
+      initialDate: dropUpDate1,
       firstDate: DateTime(2021),
-      //  firstDate: DateTime.now(),
-      // firstDate: DateTime(2022, 9, 15),
-
-      // lastDate: DateTime(3000),
-
       lastDate: DateTime(2030, 01, 01),
     );
 
@@ -681,33 +679,68 @@ class _SendAPackageState extends State<SendAPackage> {
     } else {
       setState(() {
         //   dateStatus = true;
-        dropUpDate = userSelectedDate;
-        print(pickUpDate);
-        dateDropUp = "${dropUpDate.year}-${dropUpDate.month}-${dropUpDate.day}";
-        print("Date $selectedDates2");
+        dropUpDate1 = userSelectedDate;
+        print(dropUpDate1);
+        var dropOffDate =
+            "${dropUpDate1.year}-${dropUpDate1.month}-${dropUpDate1.day}";
+        deliveryDate.text = dropOffDate;
+        print("Delivery Date ${deliveryDate.text}");
       });
     }
   }
 
+  TimeOfDay? pickuptime;
   var pickupTime;
   void _showTimePicker() async {
     showTimePicker(context: context, initialTime: TimeOfDay.now())
         .then((value) {
       setState(() {
-        print(value);
-        pickupTime = value;
-        print(pickupTime);
+        pickuptime = value;
+
+        pickupTime = pickuptime!.format(context).toString();
+
+        print("Pick Up $pickupTime");
       });
     });
   }
 
-  TimeOfDay? delivaryTime;
+  TimeOfDay? delivarytime;
+  var delivaryTime;
   void _deliveryTimePicker() async {
     showTimePicker(context: context, initialTime: TimeOfDay.now())
         .then((value) {
       setState(() {
-        delivaryTime = value!;
+        delivarytime = value!;
+        delivaryTime = delivarytime!.format(context).toString();
+        print("delivary time $delivaryTime");
       });
     });
+  }
+}
+
+class LavenderTextField extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 30,
+      decoration: BoxDecoration(
+        color: primaryColor,
+        borderRadius: BorderRadius.circular(5),
+        boxShadow: [
+          BoxShadow(
+            color: primaryColor.withOpacity(0.5), // Shadow color
+            spreadRadius: 2,
+            blurRadius: 4,
+            offset: Offset(2, 2),
+          ),
+        ],
+      ),
+      child: TextField(
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+          border: InputBorder.none,
+        ),
+      ),
+    );
   }
 }
