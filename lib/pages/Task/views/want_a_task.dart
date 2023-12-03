@@ -465,24 +465,24 @@ class _WantATaskState extends State<WantATask> {
                 var lat = startPosition!.geometry!.location!.lat;
                 print("Start Lat $lat");
                 var lng = startPosition!.geometry!.location!.lng;
-                controller.postTask(
-                    selectSkill: selectSkill,
-                    title: title.text.toString(),
-                    category: category,
-                    location: location.text.toString(),
-                    preferedGender: preferedGender,
-                    date: dateDairy,
-                    time: tripTime,
-                    details: note,
-                    amount: amount,
-                    lat: lat,
-                    lng: lng,
-                    hourAvailable: hourAvailable,
-                    hourNeed: hourNeed,
-                    postType: postType,
-                    country: country,
-                    currency: currency,
-                    moduleId: 3);
+                // controller.postTask(
+                //     selectSkill: selectSkill,
+                //     title: title.text.toString(),
+                //     category: category,
+                //     location: location.text.toString(),
+                //     preferedGender: preferedGender,
+                //     date: dateDairy,
+                //     time: tripTime,
+                //     details: note,
+                //     amount: amount,
+                //     lat: lat,
+                //     lng: lng,
+                //     hourAvailable: hourAvailable,
+                //     hourNeed: hourNeed,
+                //     postType: postType,
+                //     country: country,
+                //     currency: currency,
+                //     moduleId: 3);
 
                 40.h;
                 150.w;

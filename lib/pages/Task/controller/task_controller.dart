@@ -27,58 +27,84 @@ class TaskController extends GetxController {
     getMyTask();
   }
 
-  postTask(
-      {selectSkill, title, category,
-      location,  preferedGender, date,
-      time,details,amount,
-      lat,lng,hourAvailable,
-      hourNeed, postType,country, currency,
-      moduleId}) async {
+  // postTask(
+  //     {
+  //       selectSkill, title, category,
+  //     location,  preferedGender, date,
+  //     time,details,amount,
+  //     lat,lng,hourAvailable,
+  //     hourNeed, postType,country, currency,
+  //     moduleId})
+      
+    postTask()   async {
+
+
     var token = _box.read(LocalStoreKey.token);
-
-    print("Start");
-    print(" Skill is $selectSkill");
-    print("title is $title");
-    print("category is $category");
-    print("location is $location");
-    print("preferedGender $preferedGender");
-    print("date is $date");
-    print("time is $time");
-    print("details $details");
-    print("amount $amount");
-    print("lat is ${lat.toString()}");
-    print("lng is ${lng.toString()}");
-    print("hourAvail $hourAvailable");
-    print("hourneed $hourNeed");
-    print("postType $postType");
-    print("country $country");
-    print("currency $currency");
-    print("moduleId $moduleId");
-
-    var mapData = {
-      "selectedskill": selectSkill.toString(),
-      "title": title,
-      "category": category,
-      "location": location,
-      "preferred_gender": preferedGender,
-      "date": date,
-      "time": time,
-      "details": details,
-      "amount": amount,
-      "lat": lat.toString(),
-      "lng": lng.toString(),
-      "hour_available": hourAvailable,
-      "hour_need": hourNeed,
-      "post_type": postType,
-      "country": 'BD',
-      "currency": currency,
-      "moduleId": moduleId
-    };
+print("Token is $token");
+    // print("Start");
+    // print(" Skill is $selectSkill");
+    // print("title is $title");
+    // print("category is $category");
+    // print("location is $location");
+    // print("preferedGender $preferedGender");
+    // print("date is $date");
+    // print("time is $time");
+    // print("details $details");
+    // print("amount $amount");
+    // print("lat is ${lat.toString()}");
+    // print("lng is ${lng.toString()}");
+    // print("hourAvail $hourAvailable");
+    // print("hourneed $hourNeed");
+    // print("postType $postType");
+    // print("country $country");
+    // print("currency $currency");
+    // print("moduleId $moduleId");
+var data={
+    "selectedskill": [
+        "Neat and clean",
+        "Good looking"
+    ].toList(),
+    "title": "Task test Desctiption",
+    "category": "1",
+    "location": "Bahaddarhat, Chattogram, Bangladesh",
+    "preferred_gender": "Male",
+    "date": "2023-12-07",
+    "time": "15:08",
+    "details": "asfa",
+    "amount": "150",
+    "lat": 22.36416,
+    "lng": 91.8454272,
+    "hour_available": "0",
+    "hour_need": 5,
+    "post_type": "offer",
+    "country": "BD",
+    "currency": "BDT",
+    "moduleId": 3
+};
+    // var mapData = {
+    //   "selectedskill": selectSkill.toString(),
+    //   "title": title,
+    //   "category": category,
+    //   "location": location,
+    //   "preferred_gender": preferedGender,
+    //   "date": date,
+    //   "time": time,
+    //   "details": details,
+    //   "amount": amount,
+    //   "lat": lat.toString(),
+    //   "lng": lng.toString(),
+    //   "hour_available": hourAvailable,
+    //   "hour_need": hourNeed,
+    //   "post_type": postType,
+    //   "country": 'BD',
+    //   "currency": currency,
+    //   "moduleId": moduleId
+    // };
 
     try {
       isLoading(true);
 
-      var response = await ApiService().postData(mapData, "task");
+      var response = await ApiService().postData(data, "task");
       var jsonData = jsonDecode(response.body);
       print("body ${jsonData}");
       print("status code ${response.statusCode}");
@@ -89,7 +115,6 @@ class TaskController extends GetxController {
 
   getMyTask() async {
     var token = _box.read(LocalStoreKey.token);
-
     try {
       isLoading(true);
       var response = await http.get(

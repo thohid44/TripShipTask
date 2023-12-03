@@ -1,7 +1,4 @@
 import 'dart:async';
-
-import 'package:date_format/date_format.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_place/google_place.dart';
@@ -40,7 +37,7 @@ class _OfferATaskState extends State<OfferATask> {
   var selectSkill = "";
   final TextEditingController search = TextEditingController();
 
-  String prefer = "Prefer to give Task to";
+  String prefer = "Give Task To";
 
   List<DropdownMenuItem<String>> get categoryList {
     List<DropdownMenuItem<String>> categories = [
@@ -82,7 +79,6 @@ class _OfferATaskState extends State<OfferATask> {
   List<Placemark>? placemark;
   GetAddressFromLatLong(lat, lng) async {
     placemark = await placemarkFromCoordinates(lat, lng);
-  
   }
 
   @override
@@ -216,7 +212,7 @@ class _OfferATaskState extends State<OfferATask> {
 
           Container(
               alignment: Alignment.center,
-              height: 40.h,
+              height: 30.h,
               width: 320.w,
               decoration: BoxDecoration(
                   color: primaryColor,
@@ -259,19 +255,19 @@ class _OfferATaskState extends State<OfferATask> {
           CustomTextForm(
             width: 320.w,
             textController: title,
-            hinttext: "Title of the task",
+            hinttext: "Describe The Task",
           ),
           SizedBox(
             height: 10.h,
           ),
           Container(
               alignment: Alignment.center,
-              height: 40.h,
+              height: 30.h,
               width: 320.w,
               decoration: BoxDecoration(
                   color: primaryColor,
                   border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(10.r)),
+                  borderRadius: BorderRadius.circular(5.r)),
               child: DropdownButton(
                   isExpanded: true,
                   hint:
@@ -355,8 +351,9 @@ class _OfferATaskState extends State<OfferATask> {
           ),
           CustomTextForm(
             width: 320.w,
+            height: 30.h,
             hinttext:
-                "No of hours needed to carry out the task(dy default 1hr) ",
+                "Task Duration (Default 1 Hour)",
             textController: needhour,
           ),
           SizedBox(
@@ -364,7 +361,7 @@ class _OfferATaskState extends State<OfferATask> {
           ),
           Container(
             width: 300.w,
-            height: 35.h,
+            height: 30.h,
             child: TextField(
               controller: location,
               autofocus: false,
@@ -373,9 +370,9 @@ class _OfferATaskState extends State<OfferATask> {
               decoration: InputDecoration(
                   hintText: 'Task Address / Location',
                   hintStyle:
-                      TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp),
+                      TextStyle(fontWeight: FontWeight.w500, fontSize: 13.sp),
                   filled: true,
-                  fillColor: Colors.grey[200],
+                  fillColor: primaryColor,
                   border: InputBorder.none,
                   suffixIcon: _startSearchFieldController.text.isNotEmpty
                       ? IconButton(
@@ -471,7 +468,7 @@ class _OfferATaskState extends State<OfferATask> {
                       borderRadius: BorderRadius.circular(10.r)),
                   child: DropdownButton(
                       hint: Text(
-                          "${isSelect ? selectedGender : 'Prefer to give Task to'}"),
+                          "${isSelect ? selectedGender : 'Give Task To'}"),
                       underline: SizedBox(),
                       icon: const Icon(Icons.keyboard_arrow_down),
                       value: classValue,
@@ -513,50 +510,21 @@ class _OfferATaskState extends State<OfferATask> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                    alignment: Alignment.center,
-                    width: 170.w,
-                    height: 35.h,
-                    child: CustomForm(
-                      hinttext: "Offering Amount",
-                      radius: 5.r,
-                      textController: amount,
-                    )),
+             CustomTextForm(
+              hinttext: "Amount Offering",
+              height: 30.h,
+              width: 250.w,
+             ),
                 Card(
                   child: Container(
                     alignment: Alignment.center,
-                    height: 35.h,
-                    width: 100.w,
+                    height: 30.h,
+                    width: 45.w,
                     decoration: BoxDecoration(
-                        border: Border.all(width: 1.w, color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: DropdownButton(
-                        hint: Text("${isSelect ? currency : 'Currency'}"),
-                        underline: SizedBox(),
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        value: classValue,
-                        items: currencyList
-                            .map((e) => DropdownMenuItem(
-                                  onTap: () {
-                                    currency = e['name'].toString();
-                                    currency = e['name'].toString();
-                                    print("currency $currency");
-                                  },
-                                  value: e['id'],
-                                  child: Text(
-                                    "${e['name']}",
-                                  ),
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          var id = value;
-                          print("currency Id $id");
-                          // _con.getClassId(value.toString());
-                          setState(() {
-                            classId = value.toString();
-                            isSelect = true;
-                          });
-                        }),
+                      color: purplColor,
+                        border: Border.all(width: 1.w, color: purplColor),
+                        borderRadius: BorderRadius.circular(5.r)),
+                    child: Text("BDT",style: TextStyle(color: Colors.white),)
                   ),
                 ),
               ],
@@ -573,36 +541,43 @@ class _OfferATaskState extends State<OfferATask> {
                 hintText: "Note",
                 border: OutlineInputBorder(),
               ),
-              maxLines: 3,
+              minLines: 1,
+              maxLines: 2,
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: 10.h,
           ),
           CustomButtonOne(
-              title: "Sumbit",
+              title: "Submit",
+              btnColor:navyBlueColor,
+              height: 35.h, 
+              width: 130.w, 
+              radius: 10.r,
               onTab: () {
-                var lat = startPosition!.geometry!.location!.lat;
-                print("Start Lat $lat");
-                var lng = startPosition!.geometry!.location!.lng;
-                controller.postTask(
-                    selectSkill: ['selectSkill'],
-                    title: title.text.toString(),
-                    category: categoryId.toString(),
-                    location: location.text.toString(),
-                    preferedGender: gender,
-                    date: dateDairy,
-                    time: tripTime,
-                    details: note,
-                    amount: amount.text.toString(),
-                    lat: lat,
-                    lng: lng,
-                    hourAvailable: '5',
-                    hourNeed: needhour.text.toString(),
-                    postType: "offer",
-                    country: "BD",
-                    currency: currency,
-                    moduleId: '3');
+                
+                // var lat = startPosition!.geometry!.location!.lat;
+                // print("Start Lat $lat");
+                // var lng = startPosition!.geometry!.location!.lng;
+                controller.postTask();
+                // controller.postTask(
+                //     selectSkill: ['selectSkill'],
+                //     title: title.text.toString(),
+                //     category: categoryId.toString(),
+                //     location: location.text.toString(),
+                //     preferedGender: gender,
+                //     date: dateDairy,
+                //     time: tripTime,
+                //     details: note,
+                //     amount: amount.text.toString(),
+                //     lat: lat,
+                //     lng: lng,
+                //     hourAvailable: '5',
+                //     hourNeed: needhour.text.toString(),
+                //     postType: "offer",
+                //     country: "BD",
+                //     currency: currency,
+                //     moduleId: '3');
 
                 40.h;
                 150.w;
