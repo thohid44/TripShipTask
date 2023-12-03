@@ -52,13 +52,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: Colors.black,
               )),
           actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.filter,
-                  color: Colors.black,
-                )),
-          ],
+        IconButton(
+            onPressed: () {
+            
+            },
+            icon: Image.asset("assets/menu_bar.jpeg", height: 15.h, fit: BoxFit.fitHeight,)),
+      ],
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -141,22 +140,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.bold,
                       onTab: () {
                         print("press login");
-                           if (_email.text.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text('Email filed is required!'),
-                          ));
-                        } else if (_password.text.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text('Password filed is required!'),
-                          ));
-                        }
-                          else{
-                            con.login(
-                              _email.text.toString(), _password.text.toString());
-                          }
+                        //    if (_email.text.isEmpty) {
+                        //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        //     content: Text('Email filed is required!'),
+                        //   ));
+                        // } else if (_password.text.isEmpty) {
+                        //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        //     content: Text('Password filed is required!'),
+                        //   ));
+                        // }
+                        //   else{
+                        //     con.login(
+                        //       _email.text.toString(), _password.text.toString());
+                        //   }
 
-                        // con.login(
-                        //     _email.text.toString(), _password.text.toString());
+                        con.login(
+                            _email.text.toString(), _password.text.toString());
                       })
                   : CircularProgressIndicator()),
               SpaceWidget(
