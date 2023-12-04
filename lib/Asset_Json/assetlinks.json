@@ -1,5 +1,0 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target" : { "namespace": "android_app", "package_name": "com.tripshiptask.app",
-               "sha256_cert_fingerprints": ["C9:B5:94:E0:44:9D:12:CE:FA:A8:F0:63:AE:92:69:ED:9B:0C:F1:22:F9:02:13:4C:74:9D:FB:E1:F5:35:1D:BD"] }
-}]

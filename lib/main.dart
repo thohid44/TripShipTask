@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:tripshiptask/Email_Verify/view/email_verification.dart';
+import 'package:tripshiptask/my_form.dart';
 import 'package:uni_links/uni_links.dart';
-
 import 'Utils/localstorekey.dart';
 import 'pages/Home/view/home_screen.dart';
 import 'pages/Login/view/login_screen.dart';
 import 'dart:io';
 
 void main() async {
-  // final GoogleMapsFlutterPlatform platform = GoogleMapsFlutterPlatform.instance;
+  //final GoogleMapsFlutterPlatform platform = GoogleMapsFlutterPlatform.instance;
   // // Default to Hybrid Composition for the example.
   // (platform as GoogleMapsFlutterAndroid).useAndroidViewSurface = true;
 
@@ -59,7 +60,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690),
+      designSize: const Size(320, 690),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
@@ -70,10 +71,10 @@ class _MyAppState extends State<MyApp> {
             primarySwatch: Colors.blue,
             primaryColor: Colors.black,
           ),
-          home: child,
+          home: child
         );
       },
-      child: checkUserType() ? HomeScreen() : LoginScreen(),
+   child: checkUserType() ? HomeScreen() : LoginScreen(),
     );
   }
 
@@ -97,26 +98,3 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-// import 'package:flutter/material.dart';
-// import 'package:go_router/go_router.dart';
-
-// void main() => runApp(MaterialApp.router(routerConfig: router));
-
-// final router = GoRouter(
-//   routes: [
-//     GoRoute(
-//       path: '/',
-//       builder: (_, __) => Scaffold(
-//         appBar: AppBar(title: const Text('Home Screen')),
-//       ),
-//       routes: [
-//         GoRoute(
-//           path: 'details',
-//           builder: (_, __) => Scaffold(
-//             appBar: AppBar(title: const Text('Details Screen')),
-//           ),
-//         ),
-//       ],
-//     ),
-//   ],
-// );

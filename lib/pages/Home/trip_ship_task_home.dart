@@ -47,7 +47,7 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
           ),
           UnconstrainedBox(
             child: Container(
-              width: 346.w,
+              width: 320.w,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -63,7 +63,7 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
                     child: Container(
                       alignment: Alignment.center,
                       height: 30.h,
-                      width: 113.w,
+                      width: 105.w,
                       decoration: BoxDecoration(
                           color: tripStatus == widget.trip
                               ? tealColor
@@ -85,7 +85,7 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
                     child: Container(
                       alignment: Alignment.center,
                       height: 30.h,
-                      width: 113.w,
+                        width: 105.w,
                       decoration: BoxDecoration(
                           color: shipStatus == widget.ship
                               ? tealColor
@@ -107,7 +107,7 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
                     child: Container(
                       alignment: Alignment.center,
                       height: 30.h,
-                      width: 113.w,
+                      width: 105.w,
                       decoration: BoxDecoration(
                           color: taskStatus == widget.task
                               ? tealColor
@@ -167,18 +167,18 @@ class CustomAppBar2 extends StatelessWidget {
                 )),
             GestureDetector(
               onTap: () {
-                Get.to(UserDeshBoard());
+             
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 130.w,
+                    width: 110.w,
                     child: CustomText("${_box.read(LocalStoreKey.fullName)}",
                         white, FontWeight.w500, 13.sp),
                   ),
                   Container(
-                    width: 130.w,
+                    width: 110.w,
                     child: CustomText(
                         "Acct: ${_box.read(LocalStoreKey.accountNo)}",
                         white,
@@ -189,14 +189,14 @@ class CustomAppBar2 extends StatelessWidget {
               ),
             ),
             Container(
-                width: 130.w,
+                width: 120.w,
                 padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
                 alignment: Alignment.center,
-                margin: EdgeInsets.only(right: 15.w),
+                margin: EdgeInsets.only(right: 5.w),
                 height: 35.h,
                 decoration: BoxDecoration(
                     color: lightNavyColor,
-                    borderRadius: BorderRadius.circular(30.r)),
+                    borderRadius: BorderRadius.circular(20.r)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

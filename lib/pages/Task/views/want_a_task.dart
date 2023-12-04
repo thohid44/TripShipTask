@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_place/google_place.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customTextForm.dart';
+import 'package:tripshiptask/Widget/drop_down_widget.dart';
 import 'package:tripshiptask/pages/Ship/views/shipPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,6 +21,8 @@ class _WantATaskState extends State<WantATask> {
   final TextEditingController location = TextEditingController();
   final TextEditingController title = TextEditingController();
   final TextEditingController amount = TextEditingController();
+  final TextEditingController needhour = TextEditingController();
+
   //Calm and composed, Neat and clean, Punctual
   String category = "";
   var note = "";
@@ -35,12 +37,7 @@ class _WantATaskState extends State<WantATask> {
   var selectSkill = "";
   final TextEditingController search = TextEditingController();
 
-  List preferGetRide = [
-    "male",
-    "Female",
-  ];
-
-  String prefer = "Prefer to give Task to";
+  String prefer = "Give Task To";
 
   List<DropdownMenuItem<String>> get categoryList {
     List<DropdownMenuItem<String>> categories = [
@@ -55,23 +52,15 @@ class _WantATaskState extends State<WantATask> {
   var selectCategory = '';
 
   List<DropdownMenuItem<String>> get skillList {
-    List<DropdownMenuItem<String>> categories = [
+    List<DropdownMenuItem<String>> skills = [
       const DropdownMenuItem(
           child: Text("Skill required"), value: "Skill required"),
       const DropdownMenuItem(child: Text("1"), value: "1"),
     ];
-    return categories;
+    return skills;
   }
 
   String skill = "Skill required";
-
-  List<DropdownMenuItem<String>> get willingPay {
-    List<DropdownMenuItem<String>> destination = [
-      const DropdownMenuItem(child: Text("USD"), value: "USD"),
-      const DropdownMenuItem(child: Text("BD"), value: "BD"),
-    ];
-    return destination;
-  }
 
   String willing = "USD";
   final _startSearchFieldController = TextEditingController();
@@ -83,7 +72,7 @@ class _WantATaskState extends State<WantATask> {
   late FocusNode startFocusNode;
 
   late GooglePlace googlePlace;
-  String? selectPrefer;
+
   List<AutocompletePrediction> predictions = [];
 
   Timer? _debounce;
@@ -99,6 +88,7 @@ class _WantATaskState extends State<WantATask> {
     super.initState();
     String apiKey = 'AIzaSyDLMJOClhhQjkfepu0R8iOCIt7bUpUF0nU';
     googlePlace = GooglePlace(apiKey);
+
     startFocusNode = FocusNode();
   }
 
@@ -119,78 +109,196 @@ class _WantATaskState extends State<WantATask> {
     }
   }
 
+  var categories = [
+    {
+      "id": 1,
+      "name": "Assemble Furniture",
+    },
+    {
+      "id": 2,
+      "name": "Beauty Care",
+    },
+    {
+      "id": 3,
+      "name": "Caregiving (Elderlies/children)",
+    },
+    {
+      "id": 4,
+      "name": "Cooking",
+    }
+  ];
+  var skills = [
+    {
+      "id": 1,
+      "name": "Calm and composed",
+    },
+    {
+      "id": 2,
+      "name": "Neat and clean",
+    },
+    {
+      "id": 3,
+      "name": "Good looking",
+    },
+    {
+      "id": 4,
+      "name": "Punctual",
+    },
+    {
+      "id": 5,
+      "name": "Good sense of humor",
+    },
+    {
+      "id": 6,
+      "name": "Prompt",
+    },
+    {
+      "id": 7,
+      "name": "Responsible",
+    }
+  ];
+
+  var genderList = [
+    {
+      "id": 1,
+      "name": "Male",
+    },
+    {
+      "id": 2,
+      "name": "Female",
+    },
+    {
+      "id": 3,
+      "name": "Others",
+    },
+  ];
+  var currencyList = [
+    {
+      "id": 1,
+      "name": "USD",
+    },
+    {
+      "id": 2,
+      "name": "BD",
+    },
+    {
+      "id": 3,
+      "name": "IN",
+    },
+  ];
+  String? classValue;
+  var classId;
+  String? selectedValue;
+
+  bool isSelect = false;
+  bool selectClass = false;
+  var categoryId;
+  var genderId;
+  var gender;
+  String? selectedGender;
+  var categoryName;
+  var selectcategory;
+  bool isSelectSkill = false;
   @override
   Widget build(BuildContext context) {
+    print("Id  from Main Page $categoryId");
+    print("Id  from Main Page $gender");
     return Scaffold(
       body: Column(
         children: [
           SizedBox(
-            height: 25.h,
-          ),
-          // Card(
-          //   child: Container(
-          //     alignment: Alignment.center,
-          //     height: 35.h,
-          //     width: 320.w,
-          //     decoration: BoxDecoration(
-          //         border: Border.all(color: Colors.grey),
-          //         borderRadius: BorderRadius.circular(10.r)),
-          //     child: DropdownButton(
-          //       hint: selectCategory !=null ? Text(
-          //         "Select a ",
-          //         style: TextStyle(color: Colors.black),
-          //       ):const Text(
-          //         "Select a Category",
-          //         style: TextStyle(color: Colors.black),
-          //       ),
-          //       underline: SizedBox(),
-          //       padding: EdgeInsets.only(left: 5.w),
-          //       icon: Icon(Icons.arrow_drop_down_outlined),
-          //       isExpanded: true,
-          //       style: TextStyle(
-          //           fontSize: 12.sp,
-          //           fontWeight: FontWeight.normal,
-          //           color: Colors.black),
-          //       value: category,
-          //       onChanged: (value) {
-          //         selectCategory = value!;
-          //       },
-          //       items: categoryList,
-          //     ),
-          //   ),
-          // ),
-          SizedBox(
-            height: 5.h,
+            height: 20.h,
           ),
 
-          CustomTextForm(
-            width: 300.w,
-            textController: title,
-            hinttext: "Title of the task g",
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Card(
-            child: Container(
-              width: 320.w,
+          Container(
               alignment: Alignment.center,
-              height: 35.h,
+              height: 30.h,
+              width: 320.w,
               decoration: BoxDecoration(
+                  color: primaryColor,
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(10.r)),
               child: DropdownButton(
-                underline: SizedBox(),
-                isExpanded: true,
-                style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-                value: skill,
-                onChanged: (value) {},
-                items: skillList,
-              ),
-            ),
+                  isExpanded: true,
+                  hint:
+                      Text("${isSelect ? selectcategory : 'Select Category'}"),
+                  underline: SizedBox(),
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  value: classValue,
+                  items: categories
+                      .map((e) => DropdownMenuItem(
+                            onTap: () {
+                              selectcategory = e['name'].toString();
+                            },
+                            value: e['id'],
+                            child: Text(
+                              "${e['name']}",
+                            ),
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    var id = value;
+                    categoryId = value;
+                    print("Category Id $id");
+                    // _con.getClassId(value.toString());
+                    setState(() {
+                      classId = value.toString();
+                      isSelect = true;
+                    });
+                  })),
+
+          SizedBox(
+            height: 10.h,
+          ),
+
+          CustomTextForm(
+            width: 320.w,
+            textController: title,
+            hinttext: "Describe The Task",
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Container(
+              alignment: Alignment.center,
+              height: 30.h,
+              width: 320.w,
+              decoration: BoxDecoration(
+                  color: primaryColor,
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(5.r)),
+              child: DropdownButton(
+                  isExpanded: true,
+                  hint:
+                      Text("${isSelectSkill ? selectSkill : 'Skill Required'}"),
+                  underline: SizedBox(),
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  value: classValue,
+                  items: skills
+                      .map((e) => DropdownMenuItem(
+                            onTap: () {
+                              selectSkill = e['name'].toString();
+                            },
+                            value: e['id'],
+                            child: Text(
+                              "${e['name']}",
+                            ),
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    var id = value;
+                    var skillId = value;
+                    print("Skill Id $id");
+                    // _con.getClassId(value.toString());
+                    setState(() {
+                      classId = value.toString();
+                      isSelectSkill = true;
+                    });
+                  })),
+          SizedBox(
+            height: 5.h,
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -202,10 +310,9 @@ class _WantATaskState extends State<WantATask> {
                     dairyDatePicker(context);
                   },
                   child: Container(
-                    width: 150.w,
+                    width: 152.w,
                     height: 35.h,
                     alignment: Alignment.center,
-                    margin: EdgeInsets.symmetric(horizontal: 0.w),
                     decoration: BoxDecoration(
                         border: Border.all(width: 0.5.w, color: Colors.grey)),
                     child: dateStatus == false
@@ -221,11 +328,14 @@ class _WantATaskState extends State<WantATask> {
                             "${pickDate.day}-${pickDate.month}-${pickDate.year}"),
                   ),
                 ),
+                SizedBox(
+                  width: 6.w,
+                ),
                 InkWell(
                     onTap: _showTimePicker,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 100.w,
+                      width: 152.w,
                       height: 35.h,
                       decoration: BoxDecoration(
                           border: Border.all(width: 1.w, color: Colors.grey)),
@@ -239,33 +349,30 @@ class _WantATaskState extends State<WantATask> {
           SizedBox(
             height: 5.h,
           ),
-          Container(
-              width: 320.w,
-              height: 35.h,
-              alignment: Alignment.center,
-              child: CustomForm(
-                hinttext:
-                    "No of hours needed to carry out the task(dy default 1hr) ",
-                radius: 5.r,
-                textController: search,
-              )),
+          CustomTextForm(
+            width: 320.w,
+            height: 30.h,
+            hinttext:
+                "Task Duration (Default 1 Hour)",
+            textController: needhour,
+          ),
           SizedBox(
             height: 5.h,
           ),
           Container(
             width: 300.w,
-            height: 35.h,
+            height: 30.h,
             child: TextField(
               controller: location,
               autofocus: false,
               focusNode: startFocusNode,
               style: TextStyle(fontSize: 15.sp),
               decoration: InputDecoration(
-                  hintText: 'Location',
+                  hintText: 'Task Address / Location',
                   hintStyle:
-                      TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp),
+                      TextStyle(fontWeight: FontWeight.w500, fontSize: 13.sp),
                   filled: true,
-                  fillColor: Colors.grey[200],
+                  fillColor: primaryColor,
                   border: InputBorder.none,
                   suffixIcon: _startSearchFieldController.text.isNotEmpty
                       ? IconButton(
@@ -347,99 +454,81 @@ class _WantATaskState extends State<WantATask> {
           SizedBox(
             height: 5.h,
           ),
-          Card(
-            child: Container(
-              alignment: Alignment.center,
-              height: 35.h,
-              width: 150.w,
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(10.r)),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton2<String>(
-                  isExpanded: true,
-                  hint: Text(
-                    'Prefer to get ride from',
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      color: Theme.of(context).hintColor,
-                    ),
-                  ),
-                  // items: preferGetRide
-                  //     .map((String item) => DropdownMenuItem<String>(
-                  //           value: item,
-                  //           child: Text(
-                  //             item,
-                  //             style: TextStyle(
-                  //               fontSize: 13.sp,
-                  //             ),
-                  //           ),
-                  //         ))
-                  //     .toList(),
-                  items: preferGetRide
-                      .map((item) => DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(
-                              "${item}",
-                              style: TextStyle(
-                                fontSize: 13.sp,
-                              ),
-                            ),
-                          ))
-                      .toList(),
-                  value: selectPrefer,
-                  onChanged: (String? value) {
-                    setState(() {
-                      selectPrefer = value;
-                      print("Select Prefer $selectPrefer");
-                    });
-                  },
-                  buttonStyleData: ButtonStyleData(
-                    padding: EdgeInsets.only(left: 3.w),
-                    height: 40,
-                    width: 150,
-                  ),
-                  menuItemStyleData: const MenuItemStyleData(
-                    height: 40,
-                  ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  height: 35.h,
+                  width: 320.w,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10.r)),
+                  child: DropdownButton(
+                      hint: Text(
+                          "${isSelect ? selectedGender : 'Give Task To'}"),
+                      underline: SizedBox(),
+                      icon: const Icon(Icons.keyboard_arrow_down),
+                      value: classValue,
+                      isExpanded: true,
+                      items: genderList
+                          .map((e) => DropdownMenuItem(
+                                onTap: () {
+                                  selectedGender = e['name'].toString();
+                                  gender = e['name'].toString();
+                                  print("Gender $gender");
+                                },
+                                value: e['id'],
+                                child: Text(
+                                  "${e['name']}",
+                                ),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        var id = value;
+                        print("Gender Id $id");
+                        // _con.getClassId(value.toString());
+                        setState(() {
+                          classId = value.toString();
+                          isSelect = true;
+                        });
+                      }),
                 ),
-              ),
+                SizedBox(
+                  height: 5.h,
+                ),
+              ],
             ),
           ),
           SizedBox(
             height: 5.h,
           ),
           Container(
-              width: 90.w,
-              height: 35.h,
-              child: CustomForm(
-                hinttext: "Offering Amount",
-                radius: 5.r,
-                textController: title,
-              )),
-          Card(
-            child: Container(
-              alignment: Alignment.center,
-              height: 35.h,
-              width: 50.w,
-              decoration: BoxDecoration(
-                  border: Border.all(width: 1.w, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(10.r)),
-              child: DropdownButton(
-                underline: SizedBox(),
-                style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-                value: willing,
-                onChanged: (value) {},
-                items: willingPay,
-              ),
+            margin: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+             CustomTextForm(
+              hinttext: "Amount Offering",
+              height: 30.h,
+              width: 250.w,
+             ),
+                Card(
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 30.h,
+                    width: 45.w,
+                    decoration: BoxDecoration(
+                      color: purplColor,
+                        border: Border.all(width: 1.w, color: purplColor),
+                        borderRadius: BorderRadius.circular(5.r)),
+                    child: Text("BDT",style: TextStyle(color: Colors.white),)
+                  ),
+                ),
+              ],
             ),
-          ),
-
-          SizedBox(
-            height: 5.h,
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -452,37 +541,43 @@ class _WantATaskState extends State<WantATask> {
                 hintText: "Note",
                 border: OutlineInputBorder(),
               ),
-              maxLines: 3,
+              minLines: 1,
+              maxLines: 2,
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: 10.h,
           ),
           CustomButtonOne(
-              title: "Sumbit",
-              btnColor: navyBlueColor,
+              title: "Submit",
+              btnColor:navyBlueColor,
+              height: 35.h, 
+              width: 130.w, 
+              radius: 10.r,
               onTab: () {
-                var lat = startPosition!.geometry!.location!.lat;
-                print("Start Lat $lat");
-                var lng = startPosition!.geometry!.location!.lng;
+                
+                // var lat = startPosition!.geometry!.location!.lat;
+                // print("Start Lat $lat");
+                // var lng = startPosition!.geometry!.location!.lng;
+                controller.postTask();
                 // controller.postTask(
-                //     selectSkill: selectSkill,
+                //     selectSkill: ['selectSkill'],
                 //     title: title.text.toString(),
-                //     category: category,
+                //     category: categoryId.toString(),
                 //     location: location.text.toString(),
-                //     preferedGender: preferedGender,
+                //     preferedGender: gender,
                 //     date: dateDairy,
                 //     time: tripTime,
                 //     details: note,
-                //     amount: amount,
+                //     amount: amount.text.toString(),
                 //     lat: lat,
                 //     lng: lng,
-                //     hourAvailable: hourAvailable,
-                //     hourNeed: hourNeed,
-                //     postType: postType,
-                //     country: country,
+                //     hourAvailable: '5',
+                //     hourNeed: needhour.text.toString(),
+                //     postType: "offer",
+                //     country: "BD",
                 //     currency: currency,
-                //     moduleId: 3);
+                //     moduleId: '3');
 
                 40.h;
                 150.w;

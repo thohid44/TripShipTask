@@ -120,7 +120,7 @@ class _GiveTripPostState extends State<GiveTripPost> {
       });
     }
   }
-
+var  fullWidth = 320.w; 
   @override
   Widget build(BuildContext context) {
     var vehicleController = Get.put(VehicleController());
@@ -135,7 +135,7 @@ class _GiveTripPostState extends State<GiveTripPost> {
             height: 4.h,
           ),
           Container(
-            width: 340.w,
+            width: fullWidth,
             height: 30.h,
             child: TextField(
               controller: _startSearchFieldController,
@@ -182,7 +182,7 @@ class _GiveTripPostState extends State<GiveTripPost> {
             height: 5.h,
           ),
           Container(
-            width: 340.w,
+           width: fullWidth,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -191,7 +191,7 @@ class _GiveTripPostState extends State<GiveTripPost> {
                     dairyDatePicker(context);
                   },
                   child: Container(
-                    width: 169.w,
+                    width: 158.w,
                     height: 30.h,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
@@ -214,7 +214,7 @@ class _GiveTripPostState extends State<GiveTripPost> {
                     onTap: _showTimePicker,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 169.w,
+                      width: 158.w,
                       height: 30.h,
                       decoration: BoxDecoration(
                         color: primaryColor,

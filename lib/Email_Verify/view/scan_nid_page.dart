@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tripshiptask/Email_Verify/view/email_verification.dart';
 import 'package:tripshiptask/Email_Verify/view/email_verification_optional_information.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,7 @@ class _ScanNIDPageState extends State<ScanNIDPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Scan",
+        title: Text("Snap",
             style: TextStyle(fontSize: 16.sp, color: Color(0xff6D6E70))),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -206,31 +207,31 @@ class _ScanNIDPageState extends State<ScanNIDPage> {
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
+                          fontSize: 14.sp,
                         ),
                       )),
                 ),
-                // InkWell(
-                //   onTap: () {
-                //     Get.to(EmailVerificationOptionalInfo());
-                //   },
-                //   child: Container(
-                //       alignment: Alignment.center,
-                //       margin: EdgeInsets.only(left: 15.w),
-                //       height: 35.h,
-                //       width: 100.w,
-                //       decoration: BoxDecoration(
-                //           color: navyBlueColor,
-                //           borderRadius: BorderRadius.circular(10.r)),
-                //       child: Text(
-                //         "NEXT >>",
-                //         style: TextStyle(
-                //           color: Colors.white,
-                //           fontWeight: FontWeight.w600,
-                //           fontSize: 16.sp,
-                //         ),
-                //       )),
-                // ),
+                InkWell(
+                  onTap: () {
+                    Get.to(EmailVerification());
+                  },
+                  child: Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(left: 15.w),
+                      height: 35.h,
+                      width: 100.w,
+                      decoration: BoxDecoration(
+                          color: navyBlueColor,
+                          borderRadius: BorderRadius.circular(10.r)),
+                      child: Text(
+                        "NEXT >>",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14.sp,
+                        ),
+                      )),
+                ),
               ],
             ),
           )

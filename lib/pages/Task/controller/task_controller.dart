@@ -35,12 +35,10 @@ class TaskController extends GetxController {
   //     lat,lng,hourAvailable,
   //     hourNeed, postType,country, currency,
   //     moduleId})
-      
-    postTask()   async {
 
-
+  postTask() async {
     var token = _box.read(LocalStoreKey.token);
-print("Token is $token");
+    print("Token is $token");
     // print("Start");
     // print(" Skill is $selectSkill");
     // print("title is $title");
@@ -59,28 +57,27 @@ print("Token is $token");
     // print("country $country");
     // print("currency $currency");
     // print("moduleId $moduleId");
-var data={
-    "selectedskill": [
-        "Neat and clean",
-        "Good looking"
-    ].toList(),
-    "title": "Task test Desctiption",
-    "category": "1",
-    "location": "Bahaddarhat, Chattogram, Bangladesh",
-    "preferred_gender": "Male",
-    "date": "2023-12-07",
-    "time": "15:08",
-    "details": "asfa",
-    "amount": "150",
-    "lat": 22.36416,
-    "lng": 91.8454272,
-    "hour_available": "0",
-    "hour_need": 5,
-    "post_type": "offer",
-    "country": "BD",
-    "currency": "BDT",
-    "moduleId": 3
-};
+    List<String> listOfStrings = ["Neat and clean", "Good looking"];
+    String stringValue = listOfStrings.toString();
+    var data = {
+      "selectedskill": stringValue.toString(),
+      "title": "Task test Desctiption from App",
+      "category": "1",
+      "location": "Bahaddarhat, Chattogram, Bangladesh",
+      "preferred_gender": "Male",
+      "date": "2023-12-07",
+      "time": "15:08",
+      "details": "asfa",
+      "amount": "150",
+      "lat": "22.36416",
+      "lng": " 91.8454272",
+      "hour_available": "1",
+      "hour_need": "5",
+      "post_type": "offer",
+      "country": "BD",
+      "currency": "BDT",
+      "moduleId": "3"
+    };
     // var mapData = {
     //   "selectedskill": selectSkill.toString(),
     //   "title": title,
@@ -105,10 +102,12 @@ var data={
       isLoading(true);
 
       var response = await ApiService().postData(data, "task");
-      var jsonData = jsonDecode(response.body);
+      var jsonData = jsonDecode(response.body.toString());
       print("body ${jsonData}");
       print("status code ${response.statusCode}");
+      isLoading(false);
     } catch (e) {
+         isLoading(false);
       print("Error $e");
     }
   }
@@ -227,7 +226,7 @@ var data={
       client.close();
     }
   }
-  
+
   bidOnTrip({amount, tripId, seat, message}) async {
     var token = _box.read(LocalStoreKey.token);
     print(token);
@@ -332,8 +331,10 @@ var data={
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
         print("counter offer $jsonData");
-        Get.snackbar("Trip Offer", "Agree Successfully ",
-          );
+        Get.snackbar(
+          "Trip Offer",
+          "Agree Successfully ",
+        );
       }
     } catch (e) {
       print("Error $e");
@@ -393,5 +394,4 @@ var data={
       print("Error $e");
     }
   }
-
 }

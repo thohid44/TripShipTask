@@ -70,13 +70,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               )),
                           GestureDetector(
                             onTap: () {
-                              Get.to(UserDeshBoard());
+                             
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  width: 130.w,
+                                  width: 110.w,
+                               
                                   child: CustomText(
                                       "${_box.read(LocalStoreKey.fullName)}",
                                       white,
@@ -84,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       13.sp),
                                 ),
                                 Container(
-                                  width: 130.w,
+                                  width: 110.w,
                                   child: CustomText(
                                       "Acct: ${_box.read(LocalStoreKey.accountNo)}",
                                       white,
@@ -95,15 +96,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           Container(
-                              width: 130.w,
+                              width: 120.w,
                               padding: EdgeInsets.symmetric(
                                   horizontal: 5.w, vertical: 3.h),
                               alignment: Alignment.center,
-                              margin: EdgeInsets.only(right: 15.w),
+                              margin: EdgeInsets.only(right: 5.w),
                               height: 35.h,
                               decoration: BoxDecoration(
                                   color: lightNavyColor,
-                                  borderRadius: BorderRadius.circular(30.r)),
+                                  borderRadius: BorderRadius.circular(20.r)),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -121,11 +122,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 25.h,
+                    height: 28.h,
                   ),
                   TripShipTaskBar(),
                   SizedBox(
-                    height: 25.h,
+                    height: 30.h,
                   ),
                   Container(
                     height: 100.h,
@@ -142,7 +143,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                               color: primaryColor,
                               borderRadius: BorderRadius.circular(10.r),
-                              
+                                boxShadow: [
+                          BoxShadow(
+                            color: Color(0xffF1F4F9)
+                                .withOpacity(0.5), //color of shadow
+                            spreadRadius: 4, //spread radius
+                            blurRadius: 4, // blur radius
+                            offset: Offset(0, 8), // changes position of shadow
+                            //first paramerter of offset is left-right
+                            //second parameter is top to down
+                          ),
+                        ]
                             ),
                             child: Image.asset(imgList[index], 
                             fit: BoxFit.fill,
@@ -175,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 5.h,
+                    height: 4.h,
                   ),
                   Container(
                     height: 80.h,
@@ -185,11 +196,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 5.h,
                   ),
                   Container(
-                      height: 35.h,
-                      margin: EdgeInsets.symmetric(horizontal: 20.w),
+                      height: 28.h,
+                    
                       padding: EdgeInsets.only(
-                        left: 30.w,
-                        top: 5.h,
+                        left: 20.w,
+                        top: 10.h,
+                        bottom: 0.w
                       ),
                       width: double.infinity,
                       decoration: BoxDecoration(
@@ -201,7 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         "New offers",
                         skyColor,
                         FontWeight.bold,
-                        20.sp,
+                        16.sp,
                       )),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 0),
@@ -213,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20.w),
+                  
                     padding: EdgeInsets.only(
                       left: 15.w,
                     ),
@@ -247,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Container(
                     height: 40.h,
-                    margin: EdgeInsets.symmetric(horizontal: 20.w),
+                 
                     padding: EdgeInsets.only(
                       left: 15.w,
                     ),

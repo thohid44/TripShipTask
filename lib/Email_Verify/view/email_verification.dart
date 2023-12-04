@@ -1,3 +1,4 @@
+import 'package:super_tooltip/super_tooltip.dart';
 import 'package:tripshiptask/Email_Verify/view/email_pin_option_screen.dart';
 import 'package:tripshiptask/Email_Verify/view/scan_nid_page.dart';
 import 'package:tripshiptask/Utils/colors.dart';
@@ -7,7 +8,10 @@ import 'package:tripshiptask/Email_Verify/view/profile_photo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:tripshiptask/Widget/customTextForm.dart';
+import 'package:tripshiptask/Widget/custom_text_field.dart';
 import 'package:tripshiptask/pages/Login/controller/LoginController.dart';
+import 'package:tripshiptask/text_constant_file.dart';
 
 import 'email_verification_optional_information.dart';
 
@@ -19,6 +23,7 @@ class EmailVerification extends StatefulWidget {
 }
 
 class _EmailVerificationState extends State<EmailVerification> {
+
   List<Map<String, dynamic>> educationList = [
     {"id": 1, "name": "SSC", "slug": "vaccination"},
     {"id": 2, "name": "HSC", "slug": "deworming"},
@@ -98,7 +103,13 @@ class _EmailVerificationState extends State<EmailVerification> {
     {"id": 30, "name": "30", "slug": "vet_visit"},
     {"id": 31, "name": "31", "slug": "reports"},
   ];
-
+  List<Map<String, dynamic>> bloodList = [
+    {"id": 1, "name": "A+", "slug": "A+"},
+    {"id": 2, "name": "B+", "slug": "B+"},
+    {"id": 3, "name": "B+", "slug": "O+"},
+    {"id": 4, "name": "AB+", "slug": "AB+"},
+  ];
+   var selectBlood;
   var selectEducationType;
   String? educationValue;
   bool isEducation = false;
@@ -144,6 +155,8 @@ class _EmailVerificationState extends State<EmailVerification> {
   String day = "Education";
   String month = "Month";
   String year = "Year";
+  var width = 260.w;
+  var height = 36.h;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -169,300 +182,975 @@ class _EmailVerificationState extends State<EmailVerification> {
           actions: [
             IconButton(
                 onPressed: () {},
-                icon: const Icon(
-                  Icons.filter,
-                  color: Colors.black,
+                icon: Image.asset(
+                  "assets/menu_bar.jpeg",
+                  height: 15.h,
+                  fit: BoxFit.fitHeight,
                 )),
           ],
         ),
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              InkWell(
-                onTap: () {
-                  Get.to(ProfilePhoto());
-                },
-                child: Container(
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      "assets/logo.jpg",
-                      height: 100.h,
-                    )),
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              CustomText("Why do I need to provide the following information?",
-                  Colors.grey, FontWeight.bold, 13.sp),
-              SizedBox(
-                height: 10.h,
-              ),
-              InkWell(
-                onTap: () {
-                  Get.to(ProfilePhoto());
-                },
-                child: Container(
-                  height: 70.h,
-                  width: 70.w,
-                  decoration: BoxDecoration(
-                    color: cameraColor,
-                    borderRadius: BorderRadius.circular(50.r),
+          child: Container(
+            margin: EdgeInsets.only(left: 20. w, right: 5.w),
+            child: Column(
+              children: [
+
+                InkWell(
+                  onTap: () {
+                //    Get.to(ProfilePhoto());
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 80.h,
+                        color: Colors.amber,
+                      child: Image.asset(
+                        "assets/logo2.png",
+                       
+                      )),
+                     
+                       Text(
+                        "TripShipTask",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 13.sp),
+                      ),
+                    Text(
+                        "Connect Assist Earn",
+                        style: TextStyle(
+                            fontWeight: FontWeight.normal, fontSize: 9.sp),
+                      ),
+
+                    ],
+                  )
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                 Container(
+                           
+                              width: 300.w,
+                              child: SuperTooltip(
+                                content: const Text(
+                                  "$facebookText",
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                
+                                onHide: () {
+                                  
+                                },
+                                child: Text(
+                    "Why do I need to provide the following information?",
+                    style: TextStyle(
+                         color: Color(0xffFFBF00),
+                        fontWeight: FontWeight.normal,
+                        fontSize: 12.sp),
                   ),
-                  child: Icon(
-                    Icons.camera_enhance,
-                    size: 40.h,
+                              ),
+                            ),
+                // Container(
+                //   width: 300.w,
+                //   alignment: Alignment.center,
+                //   child: Text(
+                //     "Why do I need to provide the following information?",
+                //     style: TextStyle(
+                //          color: Color(0xffFFBF00),
+                //         fontWeight: FontWeight.normal,
+                //         fontSize: 12.sp),
+                //   ),
+                // ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                InkWell(
+                  onTap: () {
+                    Get.to(ProfilePhoto());
+                  },
+                  child: Container(
+                    height: 70.h,
+                    width: 70.w,
+                    decoration: BoxDecoration(
+                      color: cameraColor,
+                      borderRadius: BorderRadius.circular(50.r),
+                    ),
+                    child: Icon(
+                      Icons.camera_enhance,
+                      size: 40.h,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                            alignment: Alignment.center,
-                            height: 50.h,
-                            width: 150.w,
-                            decoration: BoxDecoration(
-                              color: offWhite,
-                              borderRadius: BorderRadius.circular(10.r),
+                SizedBox(
+                  height: 2.h,
+                ),
+                Text("Upload Photo"),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Container(
+                  child: Column(
+                    children: [
+                      Container(
+                        
+                        child: Row(
+                          children: [
+                            CustomTextForm(
+                              width: width,
+                              height: 36.h,
+                              fontSize: 12.sp,
+                              errorMsg: "NID/Passport/DL is required!",
+                              hinttext: "NID/Passport/DL/BirthCert",
                             ),
-                            child: Text(
-                              "Govt Id/NID/Passport/DL",
-                              style: TextStyle(
-                                  fontSize: 12.sp, color: Colors.black),
-                            )),
-                        InkWell(
-                          onTap: () {
-                            Get.to(ScanNIDPage());
+                            Container(
+                              width: 17.w,
+                            
+                              child: SuperTooltip(
+                                content: const Text(
+                                  "$nidText",
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                
+                                onHide: () {
+                                  
+                                },
+                                child: Icon(
+                                  Icons.question_mark,
+                                  color: Color(0xffFFBF00),
+                                  size: 20.h,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                      
+                        child: Row(
+                           
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Get.to(ScanNIDPage());
+                                },
+                                child: Card(
+                                  elevation: 5,
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: 36.h,
+                                    width: 128.w,
+                                    decoration: BoxDecoration(
+                                      color: offWhite,
+                                      borderRadius: BorderRadius.circular(5.r),
+                                        boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+                  //first paramerter of offset is left-right
+                  //second parameter is top to down
+                ),
+              ]
+                                    ),
+                                    child: Text(
+                                      "ID Photo using Camera",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 10.sp,
+                                          color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                           
+                              InkWell(
+                                onTap: () {
+                                  Get.to(ScanNIDPage());
+                                },
+                                child: Card(
+                                  elevation: 5,
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: 36.h,
+                                    width: 128.w,
+                                    decoration: BoxDecoration(
+                                      color: offWhite,
+                                      borderRadius: BorderRadius.circular(5.r),
+                                        boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+                  //first paramerter of offset is left-right
+                  //second parameter is top to down
+                ),
+              ]
+                                    ),
+                                    child: Text(
+                                      "ID Photo from Gallery",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 10.sp,
+                                          color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                      ),
+                      
+
+                      SizedBox(
+                        height: 2.h,
+                      ),
+
+                      Row(
+
+                        children: [
+                          CustomDropDown(
+                              width: 232.w,
+                              height: 35.h,
+                              selectEducationType: selectEducationType,
+                              title: "Education",
+                            
+                              items: educationList,
+                              selectedValue: selectEducationType,
+                              onChanged: (value) {
+                                print("object $selectEducationType");
+                              },
+                              labelText: "Education"),
+                              Container(
+                              width: 17.w,
+                            
+                              child: SuperTooltip(
+                                content: const Text(
+                                  "$educationText",
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                
+                                onHide: () {
+                                  
+                                },
+                                child: Icon(
+                                  Icons.question_mark,
+                                  color: Color(0xffFFBF00),
+                                  size: 20.h,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                      // 2nd section
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                         Row(
+
+                        children: [
+                          CustomDropDown(
+                              width: 232.w,
+                              height: 35,
+                              selectEducationType: selectEducationType,
+                              title: "Profession",
+                            
+                              items: educationList,
+                              selectedValue: selectEducationType,
+                              onChanged: (value) {
+                                print("object $selectEducationType");
+                              },
+                              labelText: "Profession"),
+                              Container(
+                              width: 17.w,
+                            
+                              child: SuperTooltip(
+                                content: const Text(
+                                  "$professionText",
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                
+                                onHide: () {
+                                  
+                                },
+                                child: Icon(
+                                  Icons.question_mark,
+                                  color: Color(0xffFFBF00),
+                                  size: 20.h,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                     
+                      SizedBox(
+                        height: 2.h,
+                      ),
+ Container(
+                        
+                        child: Row(
+                          children: [
+                            CustomTextForm(
+                              width: width,
+                              height: 36.h,
+                                 fontSize: 12.sp,
+                              errorMsg: "Company Name is Required!",
+                              hinttext: "Company Name",
+                            ),
+                            // Container(
+                            //   width: 17.w,
+                            
+                            //   child: SuperTooltip(
+                            //     content: const Text(
+                            //       "",
+                            //       softWrap: true,
+                            //       style: TextStyle(
+                            //         color: Colors.black,
+                            //       ),
+                            //     ),
+                                
+                            //     onHide: () {
+                                  
+                            //     },
+                            //     child: Icon(
+                            //       Icons.question_mark,
+                            //       color: Color(0xffFFBF00),
+                            //       size: 20.h,
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                      ),
+                    SizedBox(
+                        height: 2.h,
+                      ),
+                       Container(
+                        
+                        child: Row(
+                          children: [
+                            CustomTextForm(
+                              width: width,
+                              height: 36.h,
+                                fontSize: 12.sp,
+                              errorMsg: "Designation is Required!",
+                              hinttext: "Designation",
+                            ),
+                            // Container(
+                            //   width: 17.w,
+                            
+                            //   child: SuperTooltip(
+                            //     content: const Text(
+                            //       "$nidText",
+                            //       softWrap: true,
+                            //       style: TextStyle(
+                            //         color: Colors.black,
+                            //       ),
+                            //     ),
+                                
+                            //     onHide: () {
+                                  
+                            //     },
+                            //     child: Icon(
+                            //       Icons.question_mark,
+                            //       color: Color(0xffFFBF00),
+                            //       size: 20.h,
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                      ),
+                   SizedBox(
+                        height: 2.h,
+                      ),
+                      Container(
+                       
+                        child: Row(
+                         
+                          children: [
+                            Card(
+                              elevation: 5,
+                              child: Container(
+                              alignment: Alignment.center,
+                                    height: 36.h,
+                                    width: 125.w,
+                                decoration: BoxDecoration(
+                                  color: primaryColor,
+                                  borderRadius: BorderRadius.circular(5.r),
+                                    boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+                  //first paramerter of offset is left-right
+                  //second parameter is top to down
+                ),
+              ]
+                                ),
+                                child: Text(
+                                  "Work ID using Camera (Optional)",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 10.sp,
+                                      color: Colors.black),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 3.w,), 
+                            Card(
+                              elevation: 5,
+                              child: Container(
+                                alignment: Alignment.center,
+                                    height: 36.h,
+                                    width: 125.w,
+                                decoration: BoxDecoration(
+                                  color: primaryColor,
+                                  borderRadius: BorderRadius.circular(5.r),
+                                    boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+                  //first paramerter of offset is left-right
+                  //second parameter is top to down
+                ),]
+                                ),
+                                child: Text(
+                                  "Work ID from Gallery \n(Optional)",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 10.sp,
+                                      color: Colors.black),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                             Container(
+                        
+                        child: Row(
+                          children: [
+                            CustomTextForm(
+                              width: width,
+                              height: 36.h,
+                     fontSize: 12.sp,
+                              errorMsg: "Nominee Name is Required!",
+                              hinttext: "Nominee Name",
+                            ),
+                            Container(
+                              width: 17.w,
+                            
+                              child: SuperTooltip(
+                                content: const Text(
+                                  "$nomineeText",
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                
+                                onHide: () {
+                                  
+                                },
+                                child: Icon(
+                                  Icons.question_mark,
+                                  color: Color(0xffFFBF00),
+                                  size: 20.h,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                             Container(
+                        
+                        child: Row(
+                          children: [
+                            CustomTextForm(
+                              width: width,
+                              height: 36.h,
+                              fontSize: 12.sp,
+                              errorMsg: "Nominee Contact is Required!",
+                              hinttext: "Nominee Contact",
+                            ),
+                            // Container(
+                            //   width: 17.w,
+                            
+                            //   child: SuperTooltip(
+                            //     content: const Text(
+                            //       "",
+                            //       softWrap: true,
+                            //       style: TextStyle(
+                            //         color: Colors.black,
+                            //       ),
+                            //     ),
+                                
+                            //     onHide: () {
+                                  
+                            //     },
+                            //     child: Icon(
+                            //       Icons.question_mark,
+                            //       color: Color(0xffFFBF00),
+                            //       size: 20.h,
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                      ),
+                   SizedBox(
+                        height: 2.h,
+                      ),
+                             Container(
+                        
+                        child: Row(
+                          children: [
+                            CustomTextForm(
+                              width: width,
+                              height: 36.h,
+                               fontSize: 12.sp,
+                              errorMsg: "Relationship with Nominee is Required!",
+                              hinttext: "Relationship with Nominee",
+                            ),
+                            // Container(
+                            //   width: 17.w,
+                            
+                            //   child: SuperTooltip(
+                            //     content: const Text(
+                            //       "",
+                            //       softWrap: true,
+                            //       style: TextStyle(
+                            //         color: Colors.black,
+                            //       ),
+                            //     ),
+                                
+                            //     onHide: () {
+                                  
+                            //     },
+                            //     child: Icon(
+                            //       Icons.question_mark,
+                            //       color: Color(0xffFFBF00),
+                            //       size: 20.h,
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+  Row(
+
+                        children: [
+                          CustomDropDown(
+                              width: 232.w,
+                              height: 35,
+                              selectEducationType: selectEducationType,
+                              title: "Question",
+                            
+                           items: securityQuestionList,
+                          selectedValue: selectEducationType,
+                          onChanged: (value) {
+                            print("object $selectEducationType");
                           },
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 50.h,
-                            width: 80.w,
-                            decoration: BoxDecoration(
-                              color: offWhite,
-                              borderRadius: BorderRadius.circular(10.r),
-                            ),
-                            child: Text(
-                              "Front Photo",
-                              style: TextStyle(
-                                  fontSize: 12.sp, color: Colors.black),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          height: 50.h,
-                          width: 80.w,
-                          decoration: BoxDecoration(
-                            color: offWhite,
-                            borderRadius: BorderRadius.circular(10.r),
-                          ),
-                          child: Text(
-                            "Front Photo",
-                            style:
-                                TextStyle(fontSize: 12.sp, color: Colors.black),
-                          ),
-                        ),
-                      ],
-                    ),
+                              labelText: " Security Question"),
 
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    // 2nd section
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                            alignment: Alignment.center,
-                            height: 40.h,
-                            width: 150.w,
-                            decoration: BoxDecoration(
-                              color: offWhite,
-                              borderRadius: BorderRadius.circular(10.r),
+                                Container(
+                              width: 17.w,
+                            
+                              child: SuperTooltip(
+                                content: const Text(
+                                  "$securityQesText",
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                
+                                onHide: () {
+                                  
+                                },
+                                child: Icon(
+                                  Icons.question_mark,
+                                  color: Color(0xffFFBF00),
+                                  size: 20.h,
+                                ),
+                              ),
                             ),
-                            child: Text(
-                              "Profession",
-                              style: TextStyle(
-                                  fontSize: 12.sp, color: Colors.black),
-                            )),
-                        Container(
-                          alignment: Alignment.center,
-                          height: 40.h,
-                          width: 80.w,
-                          decoration: BoxDecoration(
-                            color: offWhite,
-                            borderRadius: BorderRadius.circular(10.r),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.arrow_upward,
-                                size: 20.h,
+                        ],
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Row(
+                        children: [
+                          CustomDropDown(
+                             width: 232.w,
+                                  height: 35,
+                              selectEducationType: selectEducationType,
+                              title: "Answer",
+                              items: sequrityAnswerList,
+                              selectedValue: selectEducationType,
+                              onChanged: (value) {
+                                print("object $selectEducationType");
+                              },
+                              labelText: "Security Answer"),
+                                Container(
+                              width: 17.w,
+                            
+                              child: SuperTooltip(
+                                content: const Text(
+                                  "$securityAnsText",
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                
+                                onHide: () {
+                                  
+                                },
+                                child: Icon(
+                                  Icons.question_mark,
+                                  color: Color(0xffFFBF00),
+                                  size: 20.h,
+                                ),
                               ),
-                              Text(
-                                "ID front \n(Optional)",
-                                style: TextStyle(
-                                    fontSize: 10.sp, color: Colors.black),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          height: 40.h,
-                          width: 80.w,
-                          decoration: BoxDecoration(
-                            color: offWhite,
-                            borderRadius: BorderRadius.circular(10.r),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.arrow_upward,
-                                size: 20.h,
-                              ),
-                              Text(
-                                "ID Back \n(Optional)",
-                                style: TextStyle(
-                                    fontSize: 10.sp, color: Colors.black),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
+                            ),
+                        ],
 
-                    CustomDropDown(
-                        width: 320,
-                           height: 35,
-                        selectEducationType: selectEducationType,
-                        title: "Education",
-                        items: educationList,
-                        selectedValue: selectEducationType,
-                        onChanged: (value) {
-                          print("object $selectEducationType");
-                        },
-                        labelText: "Education"),
-                    CustomDropDown(
-                        width: 320,
-                           height: 35,
-                        selectEducationType: selectEducationType,
-                        title: "Question",
-                        items: securityQuestionList,
-                        selectedValue: selectEducationType,
-                        onChanged: (value) {
-                          print("object $selectEducationType");
-                        },
-                        labelText: "Security Question"),
-                    CustomDropDown(
-                        width: 320,
-                           height: 35,
-                        selectEducationType: selectEducationType,
-                        title: "Answer",
-                        items: sequrityAnswerList,
-                        selectedValue: selectEducationType,
-                        onChanged: (value) {
-                          print("object $selectEducationType");
-                        },
-                        labelText: "Security Answer"),
-
-                    Row(
-                      children: [
-                        Container(
-                          width: 80.w,
-                          decoration: const BoxDecoration(),
-                          child: Text(
-                            "Date of Birth",
-                            style: TextStyle(fontSize: 12.sp),
-                          ),
-                        ),
-                        CustomDropDown(
+                      ),
+ SizedBox(
+                        height: 2.h,
+                      ),
+                      Row(
+                        children: [
+                          Container(
                             width: 60.w,
-                               height: 35,
-                            selectEducationType: selecDay,
-                            title: "Day",
-                            items: dayList,
-                            selectedValue: dayValue,
-                            onChanged: (value) {
-                              print("object $selecDay");
-                            },
-                            labelText: "Day"),
-                        CustomDropDown(
-                            width: 85.w,
-                               height: 35,
-                            selectEducationType: selectMonth,
-                            title: "Month",
-                            items: monthList,
-                            selectedValue: monthValue,
-                            onChanged: (value) {
-                              print("object $selectMonth");
-                            },
-                            labelText: "Month"),
-                        CustomDropDown(
-                            width: 70.w,
-                            height: 35,
-                            selectEducationType: selectYear,
-                            title: "Year",
-                            items: yearList,
-                            selectedValue: yearValue,
-                            onChanged: (value) {
-                              print("object $selectYear");
-                            },
-                            labelText: "Year"),
-                      ],
-                    ),
+                            margin: EdgeInsets.only(left: 5.w),
+                            decoration: const BoxDecoration(),
+                            child: Text(
+                              "Dt of Birth",
+                              style: TextStyle(fontSize: 11.sp),
+                            ),
+                          ),
+                          CustomDropDown(
+                              width: 50.w,
+                              height: 35,
+                              selectEducationType: selecDay,
+                              title: "Day",
+                              
+                              items: dayList,
+                              selectedValue: dayValue,
+                              onChanged: (value) {
+                                print("object $selecDay");
+                              },
+                              labelText: "Day"),
+                          CustomDropDown(
+                              width: 60.w,
+                              height: 35,
+                              selectEducationType: selectMonth,
+                              title: "Month",
+                              items: monthList,
+                              selectedValue: monthValue,
+                              onChanged: (value) {
+                                print("object $selectMonth");
+                              },
+                              labelText: "Month"),
+                          CustomDropDown(
+                              width: 53.w,
+                              height: 35.h,
+                              selectEducationType: selectYear,
+                              title: "Year",
+                              items: yearList,
+                              selectedValue: yearValue,
+                              onChanged: (value) {
+                                print("object $selectYear");
+                              },
+                              labelText: "Year"),
+                                Container(
+                              width: 17.w,
+                            
+                              child: SuperTooltip(
+                                content: const Text(
+                                  "$nidText",
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                
+                                onHide: () {
+                                  
+                                },
+                                child: Icon(
+                                  Icons.question_mark,
+                                  color: Color(0xffFFBF00),
+                                  size: 20.h,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
 
                     SizedBox(
-                      height: 20.h,
-                    ),
-                    CustomButtonOne(
-                        marginLR: 80.w,
-                        width: 100.w,
-                        btnColor: navyBlueColor,
-                        radius: 15.r,
-                        height: 35.h,
-                        title: "NEXT",
-                        onTab: () {
-                          //   if (controller.profilePic.value.isEmpty) {
-                          //     Get.snackbar("Profile", "Filed is required");
-                          //   }
-                          //   if (controller.nidPic1.value.isEmpty) {
-                          //     Get.snackbar("NID", "Filed is required");
-                          //   }
-                          //   if (controller.nidPic2.value.isEmpty) {
-                          //     Get.snackbar("NID", "Filed is required");
-                          //   } else if (educationValue == null) {
-                          //     Get.snackbar("Education", "Filed is required");
-                          //   } else if (questionValue == null) {
-                          //     Get.snackbar("Education", "Filed is required");
-                          //   } else if (answerValue == null) {
-                          //     Get.snackbar("Education", "Filed is required");
-                          //   } else {
-                          //     Get.to(EmailVerificationOptionalInfo());
-                          //   }
-                          Get.to(EmailVerificationOptionalInfo());
-                        }),
+                        height: 2.h,
+                      ),
+                             Container(
+                        
+                        child: Row(
+                          children: [
+                            CustomTextForm(
+                              width: width,
+                              height: 36.h,
+                               fontSize: 12.sp,
+                              errorMsg: "Emergency Contact Name is Required!",
+                              hinttext: "Emergency Contact Name",
+                            ),
+                            Container(
+                              width: 17.w,
+                            
+                              child: SuperTooltip(
+                                content: const Text(
+                                  "$emergencyPersonName",
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                
+                                onHide: () {
+                                  
+                                },
+                                child: Icon(
+                                  Icons.question_mark,
+                                  color: Color(0xffFFBF00),
+                                  size: 20.h,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                     SizedBox(
+                        height: 2.h,
+                      ),
+       Container(
+                        
+                        child: Row(
+                          children: [
+                            CustomTextForm(
+                              width: width,
+                              height: 36.h,
+                               fontSize: 12.sp,
+                              errorMsg: "Emergency Contact Number is Required!",
+                              hinttext: "Emergency Contact Number",
+                            ),
+                            Container(
+                              width: 17.w,
+                            
+                              child: SuperTooltip(
+                                content: const Text(
+                                  "$emergencyPersonNumer",
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                
+                                onHide: () {
+                                  
+                                },
+                                child: Icon(
+                                  Icons.question_mark,
+                                  color: Color(0xffFFBF00),
+                                  size: 20.h,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                   SizedBox(
+                        height: 2.h,
+                      ),
+                             Container(
+                        
+                        child: Row(
+                          children: [
+                            CustomTextForm(
+                              width: width,
+                              height: 36.h,
+                              fontSize: 12.sp,
+                              errorMsg: "Residence Area",
+                              hinttext: "Residence Area (Optional)",
+                            ),
+                            Container(
+                              width: 17.w,
+                            
+                              child: SuperTooltip(
+                                content: const Text(
+                                  "$residenceText",
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                
+                                onHide: () {
+                                  
+                                },
+                                child: Icon(
+                                  Icons.question_mark,
+                                  color: Color(0xffFFBF00),
+                                  size: 20.h,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
 
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                  ],
+                      Row(
+
+                        children: [
+                          CustomDropDown(
+                              width: 232.w,
+                              height: 35,
+                              selectEducationType: selectEducationType,
+                              title: "Blood Group (Optional)",
+                            
+                           items: bloodList,
+                          selectedValue: selectBlood,
+                          onChanged: (value) {
+                            print("object $selectBlood");
+                          },
+                              labelText: "Blood Group(Optional)"),
+                                Container(
+                              width: 17.w,
+                            
+                              child: SuperTooltip(
+                                content: const Text(
+                                  "$bloodText",
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                
+                                onHide: () {
+                                  
+                                },
+                                child: Icon(
+                                  Icons.question_mark,
+                                  color: Color(0xffFFBF00),
+                                  size: 20.h,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                   SizedBox(
+                        height: 2.h,
+                      ),
+                             Container(
+                        
+                        child: Row(
+                          children: [
+                            CustomTextForm(
+                              width: width,
+                              height: 36.h,
+                                fontSize: 12.sp,
+                              errorMsg: "Facebook Link ()",
+                              hinttext: "Facebook Link (Optional)",
+                            ),
+                            Container(
+                              width: 17.w,
+                            
+                              child: SuperTooltip(
+                                content: const Text(
+                                  "$facebookText",
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                
+                                onHide: () {
+                                  
+                                },
+                                child: Icon(
+                                  Icons.question_mark,
+                                  color: Color(0xffFFBF00),
+                                  size: 20.h,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20.h,),
+                      
+                      CustomButtonOne(
+                          marginLR: 80.w,
+                          width: 100.w,
+                          btnColor: navyBlueColor,
+                          radius: 15.r,
+                          height: 35.h,
+                          title: "Submit",
+                          onTab: () {
+                            //   if (controller.profilePic.value.isEmpty) {
+                            //     Get.snackbar("Profile", "Filed is required");
+                            //   }
+                            //   if (controller.nidPic1.value.isEmpty) {
+                            //     Get.snackbar("NID", "Filed is required");
+                            //   }
+                            //   if (controller.nidPic2.value.isEmpty) {
+                            //     Get.snackbar("NID", "Filed is required");
+                            //   } else if (educationValue == null) {
+                            //     Get.snackbar("Education", "Filed is required");
+                            //   } else if (questionValue == null) {
+                            //     Get.snackbar("Education", "Filed is required");
+                            //   } else if (answerValue == null) {
+                            //     Get.snackbar("Education", "Filed is required");
+                            //   } else {
+                            //     Get.to(EmailVerificationOptionalInfo());
+                            //   }
+                            Get.to(EmailVerificationOptionalInfo());
+                          }),
+
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ));
   }
@@ -470,7 +1158,7 @@ class _EmailVerificationState extends State<EmailVerification> {
 
 class CustomDropDown extends StatefulWidget {
   double width;
-  double height; 
+  double height;
   var title;
   var selectEducationType;
   final List<Map<String, dynamic>> items;
@@ -480,7 +1168,7 @@ class CustomDropDown extends StatefulWidget {
 
   CustomDropDown(
       {required this.width,
-      required this.height, 
+      required this.height,
       required this.title,
       required this.items,
       required this.selectedValue,
@@ -499,17 +1187,30 @@ class _CustomDropDownState extends State<CustomDropDown> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 5,
       child: Container(
-          padding: EdgeInsets.only(left: 4.w),
-          decoration: BoxDecoration(color: primaryColor),
+          padding: EdgeInsets.only(left: 10.w),
+          decoration: BoxDecoration(color: primaryColor,
+            boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+                  //first paramerter of offset is left-right
+                  //second parameter is top to down
+                ),
+              ]
+          ),
           alignment: Alignment.center,
-          height:widget.height.h?? 35.h,
-          width: widget.width.w ?? 340.w,
+          height: widget.height.h ?? 35.h,
+          width: widget.width.w ?? 290.w,
           child: DropdownButton(
               isExpanded: true,
               hint: Text(
                 "${isEducation ? valueName : widget.labelText}",
-                style: TextStyle(fontSize: 12.sp),
+                style:
+                    TextStyle(fontSize: 12.sp, fontWeight: FontWeight.normal),
               ),
               underline: SizedBox(),
               icon: const Icon(Icons.keyboard_arrow_down),

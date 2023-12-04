@@ -35,6 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  bool status = true;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,12 +53,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: Colors.black,
               )),
           actions: [
-        IconButton(
-            onPressed: () {
-            
-            },
-            icon: Image.asset("assets/menu_bar.jpeg", height: 15.h, fit: BoxFit.fitHeight,)),
-      ],
+            IconButton(
+                onPressed: () {},
+                icon: Image.asset(
+                  "assets/menu_bar.jpeg",
+                  height: 15.h,
+                  fit: BoxFit.fitHeight,
+                )),
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -66,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 hight: 60.h,
               ),
               Container(
-                height: 110.h,
+                height: 120.h,
                 width: 100.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25.r),
@@ -100,42 +103,88 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         "TripShipTask",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15.sp),
+                            fontWeight: FontWeight.bold, fontSize: 13.sp),
                       ),
-                    )
+                    ),
+                    Text(
+                      "Connect Assist Earn",
+                      style: TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 9.sp),
+                    ),
                   ],
                 ),
               ),
               SizedBox(
                 height: 10,
               ),
-              
               SpaceWidget(
                 hight: 30.h,
               ),
               CustomTextForm(
                   width: 260.w,
                   height: 40.h,
+                  fontSize: 14.sp,
                   textController: _email,
                   hinttext: "Enter Email"),
               SizedBox(
-                height: 15.h,
+                height: 10.h,
               ),
-              CustomTextForm(
-                  width: 260.w,
-                     height: 40.h,
-                  textController: _password,
-                  hinttext: "Enter Password"),
+              UnconstrainedBox(
+                child: Card(
+                  elevation: 5,
+                  child: Container(
+                    width: 260.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(15.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xffF1F4F9)
+                                .withOpacity(0.5), //color of shadow
+                            spreadRadius: 8, //spread radius
+                            blurRadius: 7, // blur radius
+                            offset: Offset(5, 5), // changes position of shadow
+                            //first paramerter of offset is left-right
+                            //second parameter is top to down
+                          ),
+                        ]),
+                    child: TextField(
+                      controller: _password,
+                      autofocus: false,
+                      obscureText: status,
+                      style: TextStyle(fontSize: 15.sp),
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                status = !status;
+                              });
+                            },
+                            icon: status == true
+                                ? Icon(Icons.visibility)
+                                : Icon(Icons.visibility_off)),
+                        hintText: 'Enter Password',
+                        hintStyle: TextStyle(
+                            fontWeight: FontWeight.normal, fontSize: 14.sp),
+                        filled: true,
+                        fillColor: primaryColor,
+                        border: InputBorder.none,
+                      ),
+                      onChanged: (value) {},
+                    ),
+                  ),
+                ),
+              ),
               SpaceWidget(
                 hight: 30.h,
               ),
-
               Obx(() => con.isLoading.value == false
                   ? CustomButtonOne(
                       title: "Login",
                       btnColor: navyBlueColor,
                       marginLR: 80.w,
-                      radius: 20.sp,
+                      radius: 10.sp,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                       onTab: () {
@@ -173,101 +222,101 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SpaceWidget(
-                hight: 5.h,
+                hight: 15.h,
               ),
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: 10.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      child: Text(
-                        "--------------------------",
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          color: skyColor,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        "OR",
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          color: skyColor,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        "--------------------------",
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                          color: skyColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SpaceWidget(
-                hight: 5.h,
-              ),
-              Container(
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        child: FaIcon(FontAwesomeIcons.google, size: 20.h)),
-                    SizedBox(
-                      width: 12.w,
-                    ),
-                    Container(
-                      child: Text(
-                        "Login with Google",
-                        style: TextStyle(
-                          fontSize: 15.sp,
-                          color: skyColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SpaceWidget(
-                hight: 5.h,
-              ),
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(left: 20.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        child: FaIcon(FontAwesomeIcons.facebook, size: 22.h)),
-                    SizedBox(
-                      width: 12.h,
-                    ),
-                    Container(
-                      child: Text(
-                        "Login with Facebook",
-                        style: TextStyle(
-                          fontSize: 15.sp,
-                          color: skyColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
+              // Container(
+              //   alignment: Alignment.center,
+              //   margin: EdgeInsets.symmetric(horizontal: 10.w),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //     children: [
+              //       Container(
+              //         child: Text(
+              //           "-----------------------",
+              //           style: TextStyle(
+              //             fontSize: 16.sp,
+              //             color: skyColor,
+              //             fontWeight: FontWeight.w500,
+              //           ),
+              //         ),
+              //       ),
+              //       Container(
+              //         child: Text(
+              //           "OR",
+              //           style: TextStyle(
+              //             fontSize: 16.sp,
+              //             color: skyColor,
+              //             fontWeight: FontWeight.w500,
+              //           ),
+              //         ),
+              //       ),
+              //       Container(
+              //         child: Text(
+              //           "-----------------------",
+              //           style: TextStyle(
+              //             fontSize: 16.sp,
+              //             fontWeight: FontWeight.w500,
+              //             color: skyColor,
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // SpaceWidget(
+              //   hight: 5.h,
+              // ),
+              // Container(
+              //   alignment: Alignment.center,
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       Container(
+              //           child: FaIcon(FontAwesomeIcons.google, size: 20.h)),
+              //       SizedBox(
+              //         width: 12.w,
+              //       ),
+              //       Container(
+              //         child: Text(
+              //           "Login with Google",
+              //           style: TextStyle(
+              //             fontSize: 15.sp,
+              //             color: skyColor,
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // SpaceWidget(
+              //   hight: 5.h,
+              // ),
+              // Container(
+              //   alignment: Alignment.center,
+              //   margin: EdgeInsets.only(left: 20.w),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       Container(
+              //           child: FaIcon(FontAwesomeIcons.facebook, size: 22.h)),
+              //       SizedBox(
+              //         width: 12.h,
+              //       ),
+              //       Container(
+              //         child: Text(
+              //           "Login with Facebook",
+              //           style: TextStyle(
+              //             fontSize: 15.sp,
+              //             color: skyColor,
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: 5.h,
+              // ),
               Align(
                 alignment: Alignment.center,
                 child: Row(
@@ -283,7 +332,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
-                      width: 20.w,
+                      width: 10.w,
                     ),
                     InkWell(
                       onTap: () {
@@ -291,7 +340,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: Container(
                         child: Text(
-                          "SignUp",
+                          "Sign Up",
                           style: TextStyle(
                             fontSize: 17.sp,
                             fontWeight: FontWeight.w500,
@@ -309,8 +358,46 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+}
 
-  login() {
-    print(_email);
+class LoginTextForm extends StatelessWidget {
+  TextEditingController? textController;
+  double? width;
+  double? height;
+  double? left;
+  double? right;
+  String? hinttext;
+
+  LoginTextForm(
+      {super.key, this.hinttext, this.width, this.height, this.textController});
+  @override
+  Widget build(BuildContext context) {
+    return UnconstrainedBox(
+      child: Container(
+        width: width ?? 100.w,
+        height: height ?? 30.h,
+        decoration: BoxDecoration(
+          color: primaryColor,
+          borderRadius: BorderRadius.circular(5.r),
+        ),
+        child: TextField(
+          controller: textController,
+          autofocus: false,
+          obscureText: true,
+          style: TextStyle(fontSize: 15.sp),
+          decoration: InputDecoration(
+            suffixIcon:
+                IconButton(onPressed: () {}, icon: Icon(Icons.visibility)),
+            hintText: hinttext ?? 'Enter hint text',
+            hintStyle:
+                TextStyle(fontWeight: FontWeight.normal, fontSize: 14.sp),
+            filled: true,
+            fillColor: primaryColor,
+            border: InputBorder.none,
+          ),
+          onChanged: (value) {},
+        ),
+      ),
+    );
   }
 }
