@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     BoxShadow(
                       color: primaryColor,
                       blurStyle: BlurStyle.outer,
-                      spreadRadius: 15.0, //extend the shadow
+                      spreadRadius: 10.0, //extend the shadow
                       // offset: Offset(
                       //   5.0, // Move to right 5  horizontally
                       //   5.0, // Move to bottom 5 Vertically
@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 4.h,
                     ),
                     Container(
                       child: Text(

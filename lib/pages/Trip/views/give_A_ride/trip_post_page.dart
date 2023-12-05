@@ -64,7 +64,7 @@ class _TripGivePostsState extends State<TripGivePosts> {
                     return Card(
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 10.w, vertical: 10.h),
+                            horizontal: 5.w, vertical: 5.h),
                       decoration: BoxDecoration(
                         color: primaryColor,
                       ),
@@ -72,7 +72,8 @@ class _TripGivePostsState extends State<TripGivePosts> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: 225.w,
+                              width: 190.w,
+                              
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -81,28 +82,28 @@ class _TripGivePostsState extends State<TripGivePosts> {
                                         "Start Point1: ${tripData.startPoint} $index ${controller.tripSearchList.length}",
                                         Colors.black,
                                         FontWeight.normal,
-                                        13.sp),
+                                        12.sp),
                                   ),
                                   Container(
                                     child: CustomText(
                                         "Destination: ${tripData.destination}",
                                         Colors.black,
                                         FontWeight.normal,
-                                        13.sp),
+                                        12.sp),
                                   ),
                                   Container(
                                     child: CustomText(
                                         "Offers: ${tripData.bidsCount} ",
                                         Colors.black,
                                         FontWeight.normal,
-                                        13.sp),
+                                        12.sp),
                                   ),
                                   Container(
                                     child: CustomText(
                                         "Vehicle:  ${tripData.vehicleType}",
                                         Colors.black,
                                         FontWeight.normal,
-                                        13.sp),
+                                        12.sp),
                                   ),
                                   Container(
                                     padding:
@@ -111,24 +112,28 @@ class _TripGivePostsState extends State<TripGivePosts> {
                                         "Passenger: ${tripData.vehicleSeat.toString()}",
                                         Colors.black,
                                         FontWeight.normal,
-                                        13.sp),
+                                         12.sp),
                                   ),
                                 ],
                               ),
                             ),
                             Container(
-                              width: 90.w,
+                              alignment: Alignment.topRight,
+                             
+                              width: 78.w,
+                                   height:155.h, 
                               child: Column(
+                             
                                 children: [
                                   Container(
                                     child: CustomText(
-                                        "Amount \$${tripData.pay.toString()}",
+                                        "Amount:${tripData.pay.toString()}",
                                         Colors.black,
                                         FontWeight.normal,
-                                        13.sp),
+                                        10.sp),
                                   ),
                                   SizedBox(
-                                    height: 35.h,
+                                    height: 40.h,
                                   ),
                                   GestureDetector(
                                     onTap: () {
@@ -148,7 +153,7 @@ class _TripGivePostsState extends State<TripGivePosts> {
                                     },
                                     child: Container(
                                       child: CustomText("Details", Colors.black,
-                                          FontWeight.normal, 13.sp),
+                                          FontWeight.normal,  10.sp),
                                     ),
                                   ),
                                   SizedBox(
@@ -156,194 +161,194 @@ class _TripGivePostsState extends State<TripGivePosts> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            AlertDialog(
-                                                title:
-                                                    Text("Make Counter Offer"),
-                                                content: Container(
-                                                    height: 300.h,
-                                                    decoration: BoxDecoration(),
-                                                    child: Form(
-                                                      key: _formOfferkey,
-                                                      child: Column(
-                                                        children: [
-                                                          Container(
-                                                            margin: EdgeInsets
-                                                                .symmetric(
-                                                                    horizontal:
-                                                                        20.w),
-                                                            child:
-                                                                CustomTextField(
-                                                              onChange:
-                                                                  (amount) {
-                                                                amount = amount;
-                                                              },
-                                                              txt: "Amount",
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 8.h,
-                                                          ),
-                                                          Container(
-                                                              width: 300.w,
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              margin: EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          20.w),
-                                                              height: 45,
-                                                              decoration: BoxDecoration(
-                                                                  border: Border.all(
-                                                                      color: Colors
-                                                                          .lightBlue),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10)),
-                                                              child: DropdownButton(
-                                                                  padding: EdgeInsets.symmetric(horizontal: 10.w),
-                                                                  isExpanded: true,
-                                                                  hint: Text(
-                                                                    "${isSelect ? seatNumber : 'How many of you?'}",
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w500,
-                                                                        fontSize:
-                                                                            13.sp),
-                                                                  ),
-                                                                  underline: SizedBox(),
-                                                                  icon: const Icon(Icons.keyboard_arrow_down),
-                                                                  value: seat,
-                                                                  items: items
-                                                                      .map((e) => DropdownMenuItem(
-                                                                            onTap:
-                                                                                () {
-                                                                              setState(() {
-                                                                                seatNumber = e['name'].toString();
-                                                                              });
-                                                                            },
-                                                                            value:
-                                                                                e['id'],
-                                                                            child:
-                                                                                Text(
-                                                                              "${e['name']}",
-                                                                            ),
-                                                                          ))
-                                                                      .toList(),
-                                                                  onChanged: (value) {
-                                                                    seatNumber =
-                                                                        value;
-                                                                    print(
-                                                                        seatNumber);
-                                                                    isSelect =
-                                                                        true;
-                                                                  })),
-                                                          SizedBox(
-                                                            height: 10.h,
-                                                          ),
-                                                          Container(
-                                                            margin: EdgeInsets
-                                                                .symmetric(
-                                                                    horizontal:
-                                                                        20.w),
-                                                            child: TextField(
-                                                              controller:
-                                                                  shortmessage,
-                                                              maxLines: 3,
-                                                              decoration: InputDecoration(
-                                                                  hintText:
-                                                                      "short message (Optional)",
-                                                                  border:
-                                                                      OutlineInputBorder()),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 20.h,
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              CustomButtonOne(
-                                                                  height: 30.h,
-                                                                  width: 100.w,
-                                                                  radius: 5.r,
-                                                                  marginLR:
-                                                                      10.w,
-                                                                  title:
-                                                                      "Cancle",
-                                                                  btnColor:
-                                                                      Colors
-                                                                          .red,
-                                                                  onTab: () {
-                                                                    Get.back();
-                                                                  }),
-                                                              CustomButtonOne(
-                                                                  width: 100.w,
-                                                                  height: 30.h,
-                                                                  radius: 5.r,
-                                                                  marginLR: 0.w,
-                                                                  title:
-                                                                      "Submit",
-                                                                  btnColor:
-                                                                      navyBlueColor,
-                                                                  onTab: () {
-                                                                    print(tripData
-                                                                        .pay
-                                                                        .toString());
-                                                                    print(
-                                                                        amount);
-                                                                    print(
-                                                                        seatNumber);
-                                                                    print(shortmessage
-                                                                        .text
-                                                                        .toString());
-                                                                    var _isValid =
-                                                                        _formOfferkey
-                                                                            .currentState!
-                                                                            .validate();
-                                                                    if (_isValid) {
-                                                                      controller.bidOnTrip(
-                                                                          amount:
-                                                                              amount,
-                                                                          tripId:
-                                                                              "63",
-                                                                          seat:
-                                                                              seatNumber,
-                                                                          message: shortmessage
-                                                                              .text
-                                                                              .toString());
-                                                                    } else {
-                                                                      Get.snackbar(
-                                                                          "",
-                                                                          "Offer not submitted");
-                                                                    }
-                                                                  })
-                                                            ],
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ))),
-                                      );
+                                      // showDialog(
+                                      //   context: context,
+                                      //   builder: (BuildContext context) =>
+                                      //       AlertDialog(
+                                      //           title:
+                                      //               Text("Make Counter Offer"),
+                                      //           content: Container(
+                                      //               height: 300.h,
+                                      //               decoration: BoxDecoration(),
+                                      //               child: Form(
+                                      //                 key: _formOfferkey,
+                                      //                 child: Column(
+                                      //                   children: [
+                                      //                     Container(
+                                      //                       margin: EdgeInsets
+                                      //                           .symmetric(
+                                      //                               horizontal:
+                                      //                                   20.w),
+                                      //                       child:
+                                      //                           CustomTextField(
+                                      //                         onChange:
+                                      //                             (amount) {
+                                      //                           amount = amount;
+                                      //                         },
+                                      //                         txt: "Amount",
+                                      //                       ),
+                                      //                     ),
+                                      //                     SizedBox(
+                                      //                       height: 8.h,
+                                      //                     ),
+                                      //                     Container(
+                                      //                         width: 300.w,
+                                      //                         alignment:
+                                      //                             Alignment
+                                      //                                 .center,
+                                      //                         margin: EdgeInsets
+                                      //                             .symmetric(
+                                      //                                 horizontal:
+                                      //                                     20.w),
+                                      //                         height: 45,
+                                      //                         decoration: BoxDecoration(
+                                      //                             border: Border.all(
+                                      //                                 color: Colors
+                                      //                                     .lightBlue),
+                                      //                             borderRadius:
+                                      //                                 BorderRadius
+                                      //                                     .circular(
+                                      //                                         10)),
+                                      //                         child: DropdownButton(
+                                      //                             padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                      //                             isExpanded: true,
+                                      //                             hint: Text(
+                                      //                               "${isSelect ? seatNumber : 'How many of you?'}",
+                                      //                               style: TextStyle(
+                                      //                                   fontWeight:
+                                      //                                       FontWeight
+                                      //                                           .w500,
+                                      //                                   fontSize:
+                                      //                                       13.sp),
+                                      //                             ),
+                                      //                             underline: SizedBox(),
+                                      //                             icon: const Icon(Icons.keyboard_arrow_down),
+                                      //                             value: seat,
+                                      //                             items: items
+                                      //                                 .map((e) => DropdownMenuItem(
+                                      //                                       onTap:
+                                      //                                           () {
+                                      //                                         setState(() {
+                                      //                                           seatNumber = e['name'].toString();
+                                      //                                         });
+                                      //                                       },
+                                      //                                       value:
+                                      //                                           e['id'],
+                                      //                                       child:
+                                      //                                           Text(
+                                      //                                         "${e['name']}",
+                                      //                                       ),
+                                      //                                     ))
+                                      //                                 .toList(),
+                                      //                             onChanged: (value) {
+                                      //                               seatNumber =
+                                      //                                   value;
+                                      //                               print(
+                                      //                                   seatNumber);
+                                      //                               isSelect =
+                                      //                                   true;
+                                      //                             })),
+                                      //                     SizedBox(
+                                      //                       height: 10.h,
+                                      //                     ),
+                                      //                     Container(
+                                      //                       margin: EdgeInsets
+                                      //                           .symmetric(
+                                      //                               horizontal:
+                                      //                                   20.w),
+                                      //                       child: TextField(
+                                      //                         controller:
+                                      //                             shortmessage,
+                                      //                         maxLines: 3,
+                                      //                         decoration: InputDecoration(
+                                      //                             hintText:
+                                      //                                 "short message (Optional)",
+                                      //                             border:
+                                      //                                 OutlineInputBorder()),
+                                      //                       ),
+                                      //                     ),
+                                      //                     SizedBox(
+                                      //                       height: 20.h,
+                                      //                     ),
+                                      //                     Row(
+                                      //                       children: [
+                                      //                         CustomButtonOne(
+                                      //                             height: 30.h,
+                                      //                             width: 100.w,
+                                      //                             radius: 5.r,
+                                      //                             marginLR:
+                                      //                                 10.w,
+                                      //                             title:
+                                      //                                 "Cancle",
+                                      //                             btnColor:
+                                      //                                 Colors
+                                      //                                     .red,
+                                      //                             onTab: () {
+                                      //                               Get.back();
+                                      //                             }),
+                                      //                         CustomButtonOne(
+                                      //                             width: 100.w,
+                                      //                             height: 30.h,
+                                      //                             radius: 5.r,
+                                      //                             marginLR: 0.w,
+                                      //                             title:
+                                      //                                 "Submit",
+                                      //                             btnColor:
+                                      //                                 navyBlueColor,
+                                      //                             onTab: () {
+                                      //                               print(tripData
+                                      //                                   .pay
+                                      //                                   .toString());
+                                      //                               print(
+                                      //                                   amount);
+                                      //                               print(
+                                      //                                   seatNumber);
+                                      //                               print(shortmessage
+                                      //                                   .text
+                                      //                                   .toString());
+                                      //                               var _isValid =
+                                      //                                   _formOfferkey
+                                      //                                       .currentState!
+                                      //                                       .validate();
+                                      //                               if (_isValid) {
+                                      //                                 controller.bidOnTrip(
+                                      //                                     amount:
+                                      //                                         amount,
+                                      //                                     tripId:
+                                      //                                         "63",
+                                      //                                     seat:
+                                      //                                         seatNumber,
+                                      //                                     message: shortmessage
+                                      //                                         .text
+                                      //                                         .toString());
+                                      //                               } else {
+                                      //                                 Get.snackbar(
+                                      //                                     "",
+                                      //                                     "Offer not submitted");
+                                      //                               }
+                                      //                             })
+                                      //                       ],
+                                      //                     )
+                                      //                   ],
+                                      //                 ),
+                                      //               ))),
+                                      // );
                                     },
                                     child: Container(
                                       padding: EdgeInsets.only(
-                                          left: 10.w,
-                                          right: 10.w,
+                                          left: 5.w,
+                                          right: 5.w,
                                           top: 5.h,
                                           bottom: 5.h),
                                       decoration: BoxDecoration(
                                           color: navyBlueColor,
                                           borderRadius:
-                                              BorderRadius.circular(10.r)),
+                                              BorderRadius.circular(5.r)),
                                       child: CustomText(
                                           "Make offer",
                                           Colors.white,
                                           FontWeight.normal,
-                                          12.sp),
+                                          10.sp),
                                     ),
                                   ),
                                 ],

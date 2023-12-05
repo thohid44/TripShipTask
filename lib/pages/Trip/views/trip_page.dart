@@ -31,7 +31,7 @@ class _TripPageState extends State<TripPage> {
           
           UnconstrainedBox(
             child: Container(
-              width: 320.w,
+              width: 300.w,
              
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,7 +44,7 @@ class _TripPageState extends State<TripPage> {
                     },
                     child: Container(
                       alignment: Alignment.center,
-                    width: 158.w,
+                    width: 149.w,
                       height: 25.h,
                       decoration: BoxDecoration(
                           color: index == 2 ? Color(0xff4CA4C7) : Colors.grey,
@@ -69,7 +69,7 @@ class _TripPageState extends State<TripPage> {
                     },
                     child: Container(
                      alignment: Alignment.center,
-                      width: 158.w,
+                      width: 149.w,
                       height: 25.h,
                       decoration: BoxDecoration(
                           color: index == 3 ? Color(0xff4CA4C7) : Colors.grey,
@@ -93,10 +93,11 @@ class _TripPageState extends State<TripPage> {
           ),
           UnconstrainedBox(
             child: Container(
-              width: 320.w,
-            padding: EdgeInsets.symmetric(horizontal: 5),
+              width: 300.w,
+              margin: EdgeInsets.symmetric(horizontal: 10.w),
+         
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
                     onTap: () {
@@ -105,7 +106,7 @@ class _TripPageState extends State<TripPage> {
                       });
                     },
                     child: Container(
-                        width: 100.w,
+                        width: 90.w,
                         height: 28.h,
                         child: TextField(
                           onTap: () {
@@ -128,7 +129,7 @@ class _TripPageState extends State<TripPage> {
                     },
                     child: Container(
                        alignment: Alignment.center,
-                       width: 100.w,
+                       width: 104.w,
                         height: 28.h,
                       padding:
                           EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
@@ -144,7 +145,7 @@ class _TripPageState extends State<TripPage> {
                           //   size: 20.h,
                           // ),
                           CustomText("Give a Ride Posts", Colors.white,
-                              FontWeight.w700, 11.sp)
+                              FontWeight.w700, 10.sp)
                         ],
                       ),
                     ),
@@ -155,9 +156,10 @@ class _TripPageState extends State<TripPage> {
                         index = 1;
                       });
                     },
+
                     child: Container(
                       alignment: Alignment.center,
-                       width: 100.w,
+                       width: 104.w,
                       height: 28.h,
                       padding:
                           EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
@@ -173,7 +175,7 @@ class _TripPageState extends State<TripPage> {
                           //   size: 20.h,
                           // ),
                           CustomText("Get a Ride Posts", Colors.white,
-                              FontWeight.w700, 11.sp)
+                              FontWeight.w700, 10.sp)
                         ],
                       ),
                     ),

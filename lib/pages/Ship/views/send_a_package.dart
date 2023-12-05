@@ -131,6 +131,7 @@ class _SendAPackageState extends State<SendAPackage> {
   final TextEditingController note = TextEditingController();
 
   var controller = Get.put(SendPackageController());
+  var fullWidth =300.w; 
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -138,55 +139,57 @@ class _SendAPackageState extends State<SendAPackage> {
         SizedBox(
           height: 5.h,
         ),
-        Container(
-          width: 300.w,
-          height: 30.h,
-          child: TextField(
-            controller: _startSearchFieldController,
-            autofocus: false,
-            focusNode: startFocusNode,
-            style: TextStyle(fontSize: 15.sp),
-            decoration: InputDecoration(
-                hintText: 'Pick Up Point',
-                hintStyle:
-                    TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp),
-                filled: true,
-                fillColor: Colors.grey[200],
-                border: InputBorder.none,
-                suffixIcon: _startSearchFieldController.text.isNotEmpty
-                    ? IconButton(
-                        onPressed: () {
-                          setState(() {
-                            predictions = [];
-                            _startSearchFieldController.clear();
-                          });
-                        },
-                        icon: Icon(Icons.clear_outlined),
-                      )
-                    : null),
-            onChanged: (value) {
-              if (_debounce?.isActive ?? false) _debounce!.cancel();
-              _debounce = Timer(const Duration(milliseconds: 1000), () {
-                if (value.isNotEmpty) {
-                  print("Pick Up  $value");
-                  //places api
-                  autoCompleteSearch(value);
-                } else {
-                  //clear out the results
-                  setState(() {
-                    predictions = [];
-                    startPosition = null;
-                  });
-                }
-              });
-            },
+        UnconstrainedBox(
+          child: Container(
+            width: fullWidth, 
+            height: 30.h,
+            child: TextField(
+              controller: _startSearchFieldController,
+              autofocus: false,
+              focusNode: startFocusNode,
+              style: TextStyle(fontSize: 15.sp),
+              decoration: InputDecoration(
+                  hintText: 'Pick Up Point',
+                  hintStyle:
+                      TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp),
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  border: InputBorder.none,
+                  suffixIcon: _startSearchFieldController.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              predictions = [];
+                              _startSearchFieldController.clear();
+                            });
+                          },
+                          icon: Icon(Icons.clear_outlined),
+                        )
+                      : null),
+              onChanged: (value) {
+                if (_debounce?.isActive ?? false) _debounce!.cancel();
+                _debounce = Timer(const Duration(milliseconds: 1000), () {
+                  if (value.isNotEmpty) {
+                    print("Pick Up  $value");
+                    //places api
+                    autoCompleteSearch(value);
+                  } else {
+                    //clear out the results
+                    setState(() {
+                      predictions = [];
+                      startPosition = null;
+                    });
+                  }
+                });
+              },
+            ),
           ),
         ),
         SizedBox(
           height: 2.h,
         ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 20.w),
+          width: fullWidth, 
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -195,7 +198,7 @@ class _SendAPackageState extends State<SendAPackage> {
                   dairyDatePicker(context);
                 },
                 child: Container(
-                  width: 150.w,
+                  width: 149.w,
                   height: 30.h,
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 0.w),
@@ -218,7 +221,7 @@ class _SendAPackageState extends State<SendAPackage> {
                   onTap: _showTimePicker,
                   child: Container(
                     alignment: Alignment.center,
-                    width: 160.w,
+                    width: 149.w,
                     height: 30.h,
                     child: pickupTime != null
                         ? Text(pickuptime!.format(context).toString())
@@ -231,7 +234,7 @@ class _SendAPackageState extends State<SendAPackage> {
           height: 2.h,
         ),
         Container(
-          width: 300.w,
+           width: fullWidth, 
           height: 30.h,
           child: TextField(
             controller: _endSearchFieldController,

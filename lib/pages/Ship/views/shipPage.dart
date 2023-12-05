@@ -22,7 +22,7 @@ class ShipHomePage extends StatefulWidget {
 
 class _ShipHomePageState extends State<ShipHomePage> {
   final TextEditingController search = TextEditingController();
-
+    var fullWidth=300.w;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +31,9 @@ class _ShipHomePageState extends State<ShipHomePage> {
           children: [
             UnconstrainedBox(
               child: Container(
-                width: 346.w,
+                   width: fullWidth,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
                       onTap: () {
@@ -43,7 +43,7 @@ class _ShipHomePageState extends State<ShipHomePage> {
                       },
                       child: Container(
                         alignment: Alignment.center,
-                     width: 171.w,
+                     width: 149.w,
                       height: 25.h,
                         decoration: BoxDecoration(
                             color: index == 1 ? Color(0xff4CA4C7) : Colors.grey,
@@ -67,7 +67,7 @@ class _ShipHomePageState extends State<ShipHomePage> {
                       },
                       child: Container(
                         alignment: Alignment.center,
-                       width: 171.w,
+                       width: 149.w,
                       height: 25.h,
                         decoration: BoxDecoration(
                             color: index == 2 ? Color(0xff4CA4C7) : Colors.grey,
@@ -90,12 +90,12 @@ class _ShipHomePageState extends State<ShipHomePage> {
               height: 5.h,
             ),
             Container(
-              width: 346.w,
+              width: fullWidth,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                  Container(
-                        width: 110.w,
+                        width: 99.w,
                         height: 28.h,
                         child: TextField(
                           onTap: () {
@@ -118,13 +118,13 @@ class _ShipHomePageState extends State<ShipHomePage> {
                     child: Container(
                        alignment: Alignment.center,
                       height: 28.h,
-                      width: 114.w,
+                      width: 99.w,
                      
                       decoration: BoxDecoration(
                           color: index == 3 ? Color(0xff4CA4C7) : Colors.grey,
                           borderRadius: BorderRadius.circular(5.r)),
                       child: CustomText("Ship Carry Posts", Colors.white,
-                              FontWeight.w700, 12.sp)
+                              FontWeight.w700, 11.sp)
                     ),
                   ),
                   InkWell(
@@ -136,7 +136,7 @@ class _ShipHomePageState extends State<ShipHomePage> {
                     child: Container(
                       alignment: Alignment.center,
                       height: 28.h,
-                      width: 114.w,
+                      width: 99.w,
                     
                       decoration: BoxDecoration(
                           color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,

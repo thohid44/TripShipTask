@@ -119,7 +119,7 @@ class _GetARideState extends State<GetARide> {
       });
     }
   }
-
+var fullWidth = 300.w;
   @override
   Widget build(BuildContext context) {
     var vehicleController = Get.put(VehicleController());
@@ -133,7 +133,7 @@ class _GetARideState extends State<GetARide> {
             height: 4.h,
           ),
           Container(
-            width: 340.w,
+            width: 300.w,
             height: 30.h,
             child: TextField(
               controller: _startSearchFieldController,
@@ -180,7 +180,7 @@ class _GetARideState extends State<GetARide> {
             height: 5.h,
           ),
           Container(
-            width: 340.w,
+            width: fullWidth,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -189,7 +189,7 @@ class _GetARideState extends State<GetARide> {
                     dairyDatePicker(context);
                   },
                   child: Container(
-                    width: 169.w,
+                    width: 149.w,
                     height: 30.h,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
@@ -212,7 +212,7 @@ class _GetARideState extends State<GetARide> {
                     onTap: _showTimePicker,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 169.w,
+                      width: 149.w,
                       height: 30.h,
                       decoration: BoxDecoration(
                         color: primaryColor,
@@ -237,7 +237,7 @@ class _GetARideState extends State<GetARide> {
             height: 5.h,
           ),
           Container(
-            width: 346.w,
+             width: fullWidth,
             height: 30.h,
             decoration: BoxDecoration(
               boxShadow: [
@@ -340,8 +340,8 @@ class _GetARideState extends State<GetARide> {
           ),
           Container(
             color: Colors.grey,
-            height: 150.h,
-            width: 346.w,
+            height: 130.h,
+            width: fullWidth,
             child: GoogleMap(
               mapType: MapType.normal,
               markers: {
@@ -365,12 +365,12 @@ class _GetARideState extends State<GetARide> {
           ),
           UnconstrainedBox(
             child: Container(
-              width: 340.w,
+            width: fullWidth,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                      width: 165.w,
+                      width: 140.w,
                       alignment: Alignment.center,
                       height: 30,
                       decoration: BoxDecoration(
@@ -408,7 +408,7 @@ class _GetARideState extends State<GetARide> {
                     width: 5.w,
                   ),
                   Container(
-                      width: 165.w,
+                      width: 155.w,
                       alignment: Alignment.center,
                       height: 30,
                       decoration: BoxDecoration(
@@ -450,12 +450,12 @@ class _GetARideState extends State<GetARide> {
             height: 2.h,
           ),
           Container(
-           width:346.w,
+          width: fullWidth,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                    width: 175.w,
+                    width: 140.w,
                     alignment: Alignment.center,
                     height: 30,
                     decoration: BoxDecoration(
@@ -495,7 +495,7 @@ class _GetARideState extends State<GetARide> {
                 ),
                CustomTextForm(
                 height: 30.h, 
-                width: 120.w, 
+                width: 100.w, 
                 hinttext: "willing To Pay",
                 textController: willPayAmount,
                ), 
@@ -517,7 +517,7 @@ class _GetARideState extends State<GetARide> {
             height: 5.h,
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
+              width: fullWidth,
             child: TextFormField(
               
               controller: note,

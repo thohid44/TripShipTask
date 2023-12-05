@@ -120,7 +120,7 @@ class _GiveTripPostState extends State<GiveTripPost> {
       });
     }
   }
-var  fullWidth = 320.w; 
+var  fullWidth = 310.w; 
   @override
   Widget build(BuildContext context) {
     var vehicleController = Get.put(VehicleController());
@@ -191,7 +191,7 @@ var  fullWidth = 320.w;
                     dairyDatePicker(context);
                   },
                   child: Container(
-                    width: 158.w,
+                    width: 150.w,
                     height: 30.h,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
@@ -214,7 +214,7 @@ var  fullWidth = 320.w;
                     onTap: _showTimePicker,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 158.w,
+                      width: 150.w,
                       height: 30.h,
                       decoration: BoxDecoration(
                         color: primaryColor,
@@ -239,7 +239,7 @@ var  fullWidth = 320.w;
             height: 5.h,
           ),
           Container(
-            width: 346.w,
+            width: fullWidth,
             height: 30.h,
             decoration: BoxDecoration(
               boxShadow: [
@@ -343,7 +343,7 @@ var  fullWidth = 320.w;
           Container(
             color: Colors.grey,
             height: 150.h,
-            width: 346.w,
+            width: fullWidth,
             child: GoogleMap(
               mapType: MapType.normal,
               markers: {
@@ -367,12 +367,12 @@ var  fullWidth = 320.w;
           ),
           UnconstrainedBox(
             child: Container(
-              width: 340.w,
+              width: 300.w, 
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             
                 children: [
                   Container(
-                      width: 165.w,
+                      width: 149.w,
                       alignment: Alignment.center,
                       height: 30,
                       decoration: BoxDecoration(
@@ -407,10 +407,10 @@ var  fullWidth = 320.w;
                             });
                           })),
                   SizedBox(
-                    width: 5.w,
+                    width: 2.w,
                   ),
                   Container(
-                      width: 165.w,
+                      width: 149.w,
                       alignment: Alignment.center,
                       height: 30,
                       decoration: BoxDecoration(
@@ -452,24 +452,24 @@ var  fullWidth = 320.w;
             height: 2.h,
           ),
           Container(
-           width:346.w,
+           width: fullWidth, 
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                    width: 175.w,
+                    width: 160.w,
                     alignment: Alignment.center,
                     height: 30,
                     decoration: BoxDecoration(
                         color: primaryColor,
                         borderRadius: BorderRadius.circular(5.r)),
                     child: DropdownButton(
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
                         isExpanded: true,
                         hint: Text(
                           "${isPreferSelect ? preferToRide : 'Prefer to get ride from'}",
                           style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 13.sp),
+                              fontWeight: FontWeight.normal, fontSize: 12.sp),
                         ),
                         underline: SizedBox(),
                         icon: const Icon(Icons.keyboard_arrow_down),
@@ -497,7 +497,7 @@ var  fullWidth = 320.w;
                 ),
                CustomTextForm(
                 height: 30.h, 
-                width: 120.w, 
+                width: 90.w, 
                 hinttext: "Asking Fare",
                 textController: willPayAmount,
                ), 
@@ -510,16 +510,16 @@ var  fullWidth = 320.w;
                         borderRadius: BorderRadius.circular(5.r)),
                     child: Text(
                       "BDT",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white,fontSize: 12.sp, fontWeight: FontWeight.normal),
                     )),
               ],
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: 2.h,
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
+           
             child: TextFormField(
               controller: note,
               decoration: InputDecoration(
