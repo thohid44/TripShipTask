@@ -38,278 +38,278 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            backgroundColor: Colors.white,
-            appBar: customAppBar(),
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    height: 70.h,
-                    alignment: Alignment.center,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: navyBlueColor,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.r),
-                          topRight: Radius.circular(20.r),
-                        )),
-                    child: InkWell(
-                      onTap: () {},
-                      child: Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                              alignment: Alignment.center,
-                              height: 50.h,
-                              width: 70.w,
-                              child: Icon(
-                                Icons.person,
-                                size: 60.h,
-                                color: white,
-                              )),
-                          GestureDetector(
-                            onTap: () {
-                             
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 110.w,
-                               
-                                  child: CustomText(
-                                      "${_box.read(LocalStoreKey.fullName)}",
-                                      white,
-                                      FontWeight.w500,
-                                      13.sp),
-                                ),
-                                Container(
-                                  width: 110.w,
-                                  child: CustomText(
-                                      "Acct: ${_box.read(LocalStoreKey.accountNo)}",
-                                      white,
-                                      FontWeight.w500,
-                                      13.sp),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                              width: 120.w,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 5.w, vertical: 3.h),
-                              alignment: Alignment.center,
-                              margin: EdgeInsets.only(right: 5.w),
-                              height: 35.h,
-                              decoration: BoxDecoration(
-                                  color: lightNavyColor,
-                                  borderRadius: BorderRadius.circular(20.r)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  CustomText(
-                                    "Balance : 2000TK",
-                                    white,
-                                    FontWeight.w600,
-                                    13.sp,
-                                  ),
-                                ],
-                              ))
-                        ],
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: customAppBar(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 70.h,
+                alignment: Alignment.center,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: navyBlueColor,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.r),
+                      topRight: Radius.circular(20.r),
+                    )),
+                child: InkWell(
+                  onTap: () {},
+                  child: Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 10.w),
+                        child: CircleAvatar(
+                          radius: 25.r,
+                          backgroundImage: AssetImage("assets/Thohid.jpg"),
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 110.w,
+                              child: CustomText(
+                                  "${_box.read(LocalStoreKey.fullName)}",
+                                  white,
+                                  FontWeight.w500,
+                                  13.sp),
+                            ),
+                            Container(
+                              width: 110.w,
+                              child: CustomText(
+                                  "Acct: ${_box.read(LocalStoreKey.accountNo)}",
+                                  white,
+                                  FontWeight.w500,
+                                  13.sp),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                          width: 120.w,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 5.w, vertical: 3.h),
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.only(right: 5.w),
+                          height: 35.h,
+                          decoration: BoxDecoration(
+                              color: lightNavyColor,
+                              borderRadius: BorderRadius.circular(20.r)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              CustomText(
+                                "BAL (t): 2000",
+                                white,
+                                FontWeight.w600,
+                                13.sp,
+                              ),
+                            ],
+                          ))
+                    ],
                   ),
-                  SizedBox(
-                    height: 28.h,
-                  ),
-                  TripShipTaskBar(),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  Container(
-                    height: 100.h,
-                
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: imgList.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: EdgeInsets.symmetric(horizontal: 4.w),
-                         
-                            height: 80.h,
-                            width: 250.w,
-                            decoration: BoxDecoration(
+                ),
+              ),
+              SizedBox(
+                height: 28.h,
+              ),
+              TripShipTaskBar(),
+              SizedBox(
+                height: 30.h,
+              ),
+              Container(
+                height: 100.h,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: imgList.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 4.w),
+                          height: 80.h,
+                          width: 250.w,
+                          decoration: BoxDecoration(
                               color: primaryColor,
                               borderRadius: BorderRadius.circular(10.r),
-                                boxShadow: [
-                          BoxShadow(
-                            color: Color(0xffF1F4F9)
-                                .withOpacity(0.5), //color of shadow
-                            spreadRadius: 4, //spread radius
-                            blurRadius: 4, // blur radius
-                            offset: Offset(0, 8), // changes position of shadow
-                            //first paramerter of offset is left-right
-                            //second parameter is top to down
-                          ),
-                        ]
-                            ),
-                            child: Image.asset(imgList[index], 
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xffF1F4F9)
+                                      .withOpacity(0.5), //color of shadow
+                                  spreadRadius: 4, //spread radius
+                                  blurRadius: 4, // blur radius
+                                  offset: Offset(
+                                      0, 8), // changes position of shadow
+                                  //first paramerter of offset is left-right
+                                  //second parameter is top to down
+                                ),
+                              ]),
+                          child: Image.asset(
+                            imgList[index],
                             fit: BoxFit.fill,
-                            )
-                            
-                          );
-                        }),
-                  ),
-                 
-                  Container(
-                    height: 125.h,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: lowerBannerList.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          elevation: 4,
-                          child: Container(
-                            width: 200.w,
-                              decoration:
-                                  const BoxDecoration(
-                           
-                                  ),
-                              child: Image.asset(
-                                lowerBannerList[index],           
-                                fit: BoxFit.fitWidth,
-                              )),
-                        );
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 4.h,
-                  ),
-                  Container(
-                    height: 80.h,
-                    color: Colors.amberAccent,
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Container(
-                      height: 28.h,
-                    
-                      padding: EdgeInsets.only(
-                        left: 20.w,
-                        top: 10.h,
-                        bottom: 0.w
-                      ),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10.r),
-                              bottomRight: Radius.circular(10.r))),
-                      child: CustomText(
-                        "New offers",
-                        skyColor,
-                        FontWeight.bold,
-                        16.sp,
-                      )),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 0),
-                    decoration: BoxDecoration(color: primaryColor),
-                    child: Text(
-                      "- - - - - - - - - - - - - - - - - - - - - - -",
-                      style: TextStyle(
-                          fontSize: 20.sp, fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                  Container(
-                  
-                    padding: EdgeInsets.only(
-                      left: 15.w,
-                    ),
-                    decoration: BoxDecoration(  color: primaryColor,),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                            alignment: Alignment.center,
-                            height: 40.h,
-                            width: 40.w,
-                            decoration:const BoxDecoration(
-                                color: navyBlueColor, shape: BoxShape.circle),
-                            child: Image.asset("assets/account_bonus.jpeg")),
-                        Container(
-                            alignment: Alignment.center,
-                             height: 40.h,
-                            width: 40.w,
-                            decoration: BoxDecoration(
-                                color: navyBlueColor, shape: BoxShape.circle),
-                            child: Image.asset("assets/rafferal_bonus.jpeg")),
-                        Container(
-                            alignment: Alignment.center,
-                            height: 40.h,
-                            width: 40.w,
-                            decoration: BoxDecoration(
-                                color: navyBlueColor, shape: BoxShape.circle),
-                            child: Image.asset("assets/user_bonus.jpeg")),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 40.h,
-                 
-                    padding: EdgeInsets.only(
-                      left: 15.w,
-                    ),
-                    decoration: BoxDecoration(  color: primaryColor,),
-                   
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                            alignment: Alignment.center,
-                           
-                            width: 80.w,
-                            decoration: BoxDecoration(),
-                            child: Text(
-                              "New Account Bonus", style: TextStyle(
-                                fontSize: 12.sp
-                              ),
-                              textAlign: TextAlign.center,
-                            )),
-                        Container(
-                           
-                            height: 40.h,
-                            width: 90.w,
-                             padding: EdgeInsets.only(top: 8.h),
-                          
-                            child: Text(
-                              "Referral Bonus",style: TextStyle(
-                                fontSize: 12.sp
-                              ),
-                              textAlign: TextAlign.center,
-                            )),
-                        Container(
-                            alignment: Alignment.center,
-                       
-                            width: 80.w,
-                               padding: EdgeInsets.only(top: 3.h),
-                            child: Text(
-                              "Frequent User Bonus",style: TextStyle(
-                                fontSize: 12.sp
-                              ),
-                              textAlign: TextAlign.center,
-                            )),
-                      ],
-                    ),
-                  )
-                ],
+                          ));
+                    }),
               ),
-            )));
+
+              Container(
+                height: 125.h,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: lowerBannerList.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      elevation: 4,
+                      child: Container(
+                          width: 200.w,
+                          decoration: const BoxDecoration(),
+                          child: Image.asset(
+                            lowerBannerList[index],
+                            fit: BoxFit.fitWidth,
+                          )),
+                    );
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 4.h,
+              ),
+              Container(
+                height: 80.h,
+                color: Colors.amberAccent,
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              // Container(
+              //     height: 28.h,
+
+              //     padding: EdgeInsets.only(
+              //       left: 20.w,
+              //       top: 10.h,
+              //       bottom: 0.w
+              //     ),
+              //     width: double.infinity,
+              //     decoration: BoxDecoration(
+              //         color: primaryColor,
+              //         borderRadius: BorderRadius.only(
+              //             bottomLeft: Radius.circular(10.r),
+              //             bottomRight: Radius.circular(10.r))),
+              //     child: CustomText(
+              //       "New offers",
+              //       skyColor,
+              //       FontWeight.bold,
+              //       16.sp,
+              //     )),
+            
+              Container(
+                padding: EdgeInsets.only(
+                  left: 15.w, top: 5.h
+                ),
+                decoration: BoxDecoration(
+                  color: primaryColor,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                        alignment: Alignment.center,
+                        height: 40.h,
+                        width: 40.w,
+                        decoration: const BoxDecoration(
+                            color: navyBlueColor, shape: BoxShape.circle),
+                        child: Image.asset("assets/account_bonus.jpeg")),
+                    Container(
+                        alignment: Alignment.center,
+                        height: 40.h,
+                        width: 40.w,
+                        decoration: BoxDecoration(
+                            color: navyBlueColor, shape: BoxShape.circle),
+                        child: Image.asset("assets/rafferal_bonus.jpeg")),
+                    Container(
+                        alignment: Alignment.center,
+                        height: 40.h,
+                        width: 40.w,
+                        decoration: BoxDecoration(
+                            color: navyBlueColor, shape: BoxShape.circle),
+                        child: Image.asset("assets/user_bonus.jpeg")),
+                  ],
+                ),
+              ),
+              Container(
+                height: 40.h,
+                padding: EdgeInsets.only(
+                  left: 15.w,
+                ),
+                decoration: BoxDecoration(
+                  color: primaryColor,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                        alignment: Alignment.center,
+                        width: 90.w,
+                        decoration: BoxDecoration(),
+                        child: Text(
+                          "Refer Someone",
+                          style: TextStyle(fontSize: 12.sp),
+                          textAlign: TextAlign.center,
+                        )),
+                    Container(
+                        height: 40.h,
+                        width: 90.w,
+                        padding: EdgeInsets.only(top: 12.h),
+                        child: Text(
+                          "Referral Bonus",
+                          style: TextStyle(fontSize: 12.sp),
+                          textAlign: TextAlign.center,
+                        )),
+                    Container(
+                        alignment: Alignment.center,
+                        width: 80.w,
+                        padding: EdgeInsets.only(top: 0.h),
+                        child: Text(
+                          "Transactions",
+                          style: TextStyle(fontSize: 12.sp),
+                          textAlign: TextAlign.center,
+                        )),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+         
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Open Ticket',
+              
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
+  int _currentIndex = 0;
   AppBar customAppBar() {
     return AppBar(
       elevation: 0,
@@ -332,7 +332,11 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               Get.to(UserDeshBoard());
             },
-            icon: Image.asset("assets/menu_bar.jpeg", height: 15.h, fit: BoxFit.fitHeight,)),
+            icon: Image.asset(
+              "assets/menu_bar.jpeg",
+              height: 15.h,
+              fit: BoxFit.fitHeight,
+            )),
       ],
     );
   }

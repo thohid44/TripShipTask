@@ -43,11 +43,12 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
         children: [
           CustomAppBar2(),
           SizedBox(
-            height: 5.h,
+            height: 3.h,
           ),
           UnconstrainedBox(
             child: Container(
-              width: 320.w,
+              width: 306.w,
+              margin: EdgeInsets.symmetric(horizontal: 3.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -63,14 +64,21 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
                     child: Container(
                       alignment: Alignment.center,
                       height: 30.h,
-                      width: 105.w,
+                      width: 99.w,
                       decoration: BoxDecoration(
                           color: tripStatus == widget.trip
                               ? tealColor
                               : Colors.grey,
                           borderRadius: BorderRadius.circular(5.r)),
-                      child: CustomText(
-                          "Trip", Colors.white, FontWeight.w600, 13.sp),
+                      child: Text(
+       
+       "Trip",
+      style: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontSize: 14.sp,
+        letterSpacing: 1.0
+      )),
                     ),
                   ),
                   InkWell(
@@ -85,14 +93,22 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
                     child: Container(
                       alignment: Alignment.center,
                       height: 30.h,
-                        width: 105.w,
+                        width: 99.w,
                       decoration: BoxDecoration(
                           color: shipStatus == widget.ship
                               ? tealColor
                               : Colors.grey,
                           borderRadius: BorderRadius.circular(5.r)),
-                      child: CustomText(
-                          "Ship", Colors.white, FontWeight.w600, 13.sp),
+                      child: Text(
+       
+       "Ship",
+      style: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontSize: 14.sp,
+        letterSpacing: 1.0
+      ),
+    )
                     ),
                   ),
                   InkWell(
@@ -107,14 +123,21 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
                     child: Container(
                       alignment: Alignment.center,
                       height: 30.h,
-                      width: 105.w,
+                     width: 99.w,
                       decoration: BoxDecoration(
                           color: taskStatus == widget.task
                               ? tealColor
                               : Colors.grey,
                           borderRadius: BorderRadius.circular(5.r)),
-                      child: CustomText(
-                          "Task", Colors.white, FontWeight.w600, 13.sp),
+                      child: Text(
+       
+       "Task",
+      style: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontSize: 14.sp,
+        letterSpacing: 1.0
+      ),),
                     ),
                   )
                 ],

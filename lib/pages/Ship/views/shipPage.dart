@@ -22,7 +22,7 @@ class ShipHomePage extends StatefulWidget {
 
 class _ShipHomePageState extends State<ShipHomePage> {
   final TextEditingController search = TextEditingController();
-    var fullWidth=300.w;
+    var fullWidth=306.w;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +31,9 @@ class _ShipHomePageState extends State<ShipHomePage> {
           children: [
             UnconstrainedBox(
               child: Container(
-                   width: fullWidth,
+                width: 306.w,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
                       onTap: () {
@@ -43,7 +43,7 @@ class _ShipHomePageState extends State<ShipHomePage> {
                       },
                       child: Container(
                         alignment: Alignment.center,
-                     width: 149.w,
+                     width: 152.w,
                       height: 25.h,
                         decoration: BoxDecoration(
                             color: index == 1 ? Color(0xff4CA4C7) : Colors.grey,
@@ -52,13 +52,14 @@ class _ShipHomePageState extends State<ShipHomePage> {
                         child: Text(
                           "Send a Package",
                           style: TextStyle(
-                            fontSize: 13.sp,
+                            fontSize: 11.sp,
                             fontWeight: FontWeight.w700,
                             color: Colors.white,
                           ),
                         ),
                       ),
                     ),
+                    
                     GestureDetector(
                       onTap: () {
                         setState(() {
@@ -67,7 +68,7 @@ class _ShipHomePageState extends State<ShipHomePage> {
                       },
                       child: Container(
                         alignment: Alignment.center,
-                       width: 149.w,
+                       width: 152.w,
                       height: 25.h,
                         decoration: BoxDecoration(
                             color: index == 2 ? Color(0xff4CA4C7) : Colors.grey,
@@ -75,7 +76,7 @@ class _ShipHomePageState extends State<ShipHomePage> {
                         child: Text(
                           "Carry a Package",
                           style: TextStyle(
-                            fontSize: 13.sp,
+                            fontSize: 11.sp,
                             fontWeight: FontWeight.w700,
                             color: Colors.white,
                           ),

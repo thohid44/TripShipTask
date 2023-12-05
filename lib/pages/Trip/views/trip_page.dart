@@ -28,11 +28,9 @@ class _TripPageState extends State<TripPage> {
     return Scaffold(
       body: ListView(
         children: [
-          
           UnconstrainedBox(
             child: Container(
-              width: 300.w,
-             
+              width: 306.w,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -44,7 +42,7 @@ class _TripPageState extends State<TripPage> {
                     },
                     child: Container(
                       alignment: Alignment.center,
-                    width: 149.w,
+                      width: 152.w,
                       height: 25.h,
                       decoration: BoxDecoration(
                           color: index == 2 ? Color(0xff4CA4C7) : Colors.grey,
@@ -60,7 +58,6 @@ class _TripPageState extends State<TripPage> {
                       ),
                     ),
                   ),
-                 
                   GestureDetector(
                     onTap: () {
                       setState(() {
@@ -68,8 +65,8 @@ class _TripPageState extends State<TripPage> {
                       });
                     },
                     child: Container(
-                     alignment: Alignment.center,
-                      width: 149.w,
+                      alignment: Alignment.center,
+                      width: 152.w,
                       height: 25.h,
                       decoration: BoxDecoration(
                           color: index == 3 ? Color(0xff4CA4C7) : Colors.grey,
@@ -93,11 +90,9 @@ class _TripPageState extends State<TripPage> {
           ),
           UnconstrainedBox(
             child: Container(
-              width: 300.w,
-              margin: EdgeInsets.symmetric(horizontal: 10.w),
-         
+              width: 306.w,
               child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
                     onTap: () {
@@ -113,42 +108,33 @@ class _TripPageState extends State<TripPage> {
                             Get.to(TripSingleSearchPage());
                           },
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(left: 5.w, top: 5.h),
+                            contentPadding:
+                                EdgeInsets.only(left: 5.w, top: 5.h),
                             hintText: "Search",
+                            hintStyle: TextStyle(fontSize: 11.sp),
                             suffixIcon: Icon(Icons.search),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.r)),
                           ),
                         )),
                   ),
-                     InkWell(
+                  InkWell(
                     onTap: () {
                       setState(() {
                         index = 0;
                       });
                     },
                     child: Container(
-                       alignment: Alignment.center,
-                       width: 104.w,
+                        alignment: Alignment.center,
+                        width: 105.w,
                         height: 28.h,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                      decoration: BoxDecoration(
-                          color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
-                          borderRadius: BorderRadius.circular(5.r)),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          // Icon(
-                          //   Icons.list_alt,
-                          //   color: Colors.white,
-                          //   size: 20.h,
-                          // ),
-                          CustomText("Give a Ride Posts", Colors.white,
-                              FontWeight.w700, 10.sp)
-                        ],
-                      ),
-                    ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 5.w, vertical: 5.h),
+                        decoration: BoxDecoration(
+                            color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
+                            borderRadius: BorderRadius.circular(5.r)),
+                        child: CustomText("Give a Ride Posts", Colors.white,
+                            FontWeight.w700, 11.sp)),
                   ),
                   InkWell(
                     onTap: () {
@@ -156,39 +142,32 @@ class _TripPageState extends State<TripPage> {
                         index = 1;
                       });
                     },
-
-                    child: Container(
-                      alignment: Alignment.center,
-                       width: 104.w,
-                      height: 28.h,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                      decoration: BoxDecoration(
-                          color: index == 1 ? Color(0xff4CA4C7) : Colors.grey,
-                          borderRadius: BorderRadius.circular(5.r)),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          // Icon(
-                          //   Icons.list_alt,
-                          //   color: Colors.white,
-                          //   size: 20.h,
-                          // ),
-                          CustomText("Get a Ride Posts", Colors.white,
-                              FontWeight.w700, 10.sp)
-                        ],
+                    child: Center(
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 105.w,
+                        height: 28.h,
+                        decoration: BoxDecoration(
+                            color: index == 1 ? Color(0xff4CA4C7) : Colors.grey,
+                            borderRadius: BorderRadius.circular(5.r)),
+                        child: Text(
+                          "Get a Ride Posts",
+                          style: TextStyle(
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
-               
                 ],
               ),
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10.w),
-          
-            height: 500.h, child: widgetList[index]),
+              margin: EdgeInsets.symmetric(horizontal: 10.w),
+              height: 500.h,
+              child: widgetList[index]),
         ],
       ),
     );
@@ -294,14 +273,12 @@ class CustomForm extends StatelessWidget {
       controller: textController,
       style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
-        hintText: hinttext ?? "Enter Data",
-        hintStyle: TextStyle(fontSize: 12.sp),
-        border: InputBorder.none,
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(radius ?? 0.0.r)),
-
-         contentPadding: EdgeInsets.only(top: 5.h,left: 3.w)
-      ),
+          hintText: hinttext ?? "Enter Data",
+          hintStyle: TextStyle(fontSize: 12.sp),
+          border: InputBorder.none,
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(radius ?? 0.0.r)),
+          contentPadding: EdgeInsets.only(top: 5.h, left: 3.w)),
     );
   }
 }

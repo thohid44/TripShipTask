@@ -18,7 +18,7 @@ class TaskHomePage extends StatefulWidget {
 
 class _TaskHomePageState extends State<TaskHomePage> {
   final TextEditingController search = TextEditingController();
-
+  var fullWidth = 306.w;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,9 +26,9 @@ class _TaskHomePageState extends State<TaskHomePage> {
         children: [
           UnconstrainedBox(
             child: Container(
-              width: 346.w,
+              width: fullWidth,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
                     onTap: () {
@@ -38,12 +38,12 @@ class _TaskHomePageState extends State<TaskHomePage> {
                     },
                     child: Container(
                       alignment: Alignment.center,
-                      width: 171.w,
+                      width: 152.w,
                       height: 25.h,
                       decoration: BoxDecoration(
                           color: index == 1 ? Color(0xff4CA4C7) : Colors.grey,
                           //E6E7E8
-                        borderRadius: BorderRadius.circular(5.r)),
+                          borderRadius: BorderRadius.circular(5.r)),
                       child: Text(
                         "Give a task",
                         style: TextStyle(
@@ -62,11 +62,11 @@ class _TaskHomePageState extends State<TaskHomePage> {
                     },
                     child: Container(
                       alignment: Alignment.center,
-                     width: 171.w,
+                      width: 152.w,
                       height: 25.h,
                       decoration: BoxDecoration(
                           color: index == 2 ? Color(0xff4CA4C7) : Colors.grey,
-                        borderRadius: BorderRadius.circular(5.r)),
+                          borderRadius: BorderRadius.circular(5.r)),
                       child: Text(
                         "Get a task",
                         style: TextStyle(
@@ -86,25 +86,25 @@ class _TaskHomePageState extends State<TaskHomePage> {
           ),
           UnconstrainedBox(
             child: Container(
-              width: 346.w,
+              width: fullWidth,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                            width: 110.w,
-                            height: 28.h,
-                            child: TextField(
-                              onTap: () {
-                              //  Get.to(TripSingleSearchPage());
-                              },
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.only(left: 5.w, top: 5.h),
-                                hintText: "Search",
-                                suffixIcon: Icon(Icons.search),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5.r)),
-                              ),
-                            )),
+                      width: 100.w,
+                      height: 28.h,
+                      child: TextField(
+                        onTap: () {
+                          //  Get.to(TripSingleSearchPage());
+                        },
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(left: 5.w, top: 5.h),
+                          hintText: "Search",
+                          suffixIcon: Icon(Icons.search),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.r)),
+                        ),
+                      )),
                   InkWell(
                     onTap: () {
                       setState(() {
@@ -112,17 +112,16 @@ class _TaskHomePageState extends State<TaskHomePage> {
                       });
                     },
                     child: Container(
-                      alignment: Alignment.center,
-                      height: 28.h,
-                      width: 114.w,
-                      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                      decoration: BoxDecoration(
-                          color: index == 3 ? Color(0xff4CA4C7) : Colors.grey,
-                          borderRadius: BorderRadius.circular(5.r)),
-                      child:   CustomText("Get a Task Posts", Colors.white,
-                              FontWeight.w500, 12.sp)
-                      
-                    ),
+                        alignment: Alignment.center,
+                        height: 28.h,
+                        width: 100.w,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 5.w, vertical: 5.h),
+                        decoration: BoxDecoration(
+                            color: index == 3 ? Color(0xff4CA4C7) : Colors.grey,
+                            borderRadius: BorderRadius.circular(5.r)),
+                        child: CustomText("Get a Task Posts", Colors.white,
+                            FontWeight.w500, 11.sp)),
                   ),
                   InkWell(
                     onTap: () {
@@ -131,16 +130,16 @@ class _TaskHomePageState extends State<TaskHomePage> {
                       });
                     },
                     child: Container(
-                      alignment: Alignment.center,
-                      height: 28.h,
-                      width: 114.w,
-                      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                      decoration: BoxDecoration(
-                          color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
-                          borderRadius: BorderRadius.circular(5.r)),
-                      child:    CustomText("Give a Task Posts", Colors.white,
-                              FontWeight.w500, 12.sp)
-                    ),
+                        alignment: Alignment.center,
+                        height: 28.h,
+                        width: 100.w,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 5.w, vertical: 5.h),
+                        decoration: BoxDecoration(
+                            color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
+                            borderRadius: BorderRadius.circular(5.r)),
+                        child: CustomText("Give a Task Posts", Colors.white,
+                            FontWeight.w500, 11.sp)),
                   )
                 ],
               ),
@@ -200,12 +199,16 @@ AppBar customAppBar() {
           Icons.arrow_back_ios_new,
           color: Colors.black,
         )),
-      actions: [
-        IconButton(
-            onPressed: () {
-              Get.to(UserDeshBoard());
-            },
-            icon: Image.asset("assets/menu_bar.jpeg", height: 15.h, fit: BoxFit.fitHeight,)),
-      ],
+    actions: [
+      IconButton(
+          onPressed: () {
+            Get.to(UserDeshBoard());
+          },
+          icon: Image.asset(
+            "assets/menu_bar.jpeg",
+            height: 15.h,
+            fit: BoxFit.fitHeight,
+          )),
+    ],
   );
 }
