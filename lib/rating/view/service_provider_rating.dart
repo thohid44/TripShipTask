@@ -163,7 +163,7 @@ class _ServiceProviderRatigState extends State<ServiceProviderRatig> {
                       children: [
                         Container(
                             alignment: Alignment.topLeft,
-                            width: 170.w,
+                            width: 150.w,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -187,7 +187,7 @@ class _ServiceProviderRatigState extends State<ServiceProviderRatig> {
                                 ),
                                 Container(
                                   child: Text(
-                                    "15 Jan 2023, 01:53 PM",
+                                    "15 Jan 2023, 01:59 PM",
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.normal,
@@ -197,14 +197,14 @@ class _ServiceProviderRatigState extends State<ServiceProviderRatig> {
                               ],
                             )),
                         Container(
-                          width: 80.w,
+                          width: 75.w,
                           child: Column(
                             children: [
                               Container(
                                 child: Text(
                                   "148.57",
                                   style: TextStyle(
-                                      fontSize: 16.sp,
+                                      fontSize: 13.sp,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),

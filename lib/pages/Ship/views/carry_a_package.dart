@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:tripshiptask/Widget/customTextForm.dart';
 
 import '../../Trip/views/trip_page.dart';
 import '../controller/carry_package_controller.dart';
@@ -66,7 +67,7 @@ class _CarryAPackageState extends State<CarryAPackage> {
 
   String currency = "USD";
   DateTime _dates = DateTime.now();
-
+var fullwidth = 306; 
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -74,99 +75,99 @@ class _CarryAPackageState extends State<CarryAPackage> {
         SizedBox(
           height: 5.h,
         ),
-        Container(
-            width: 320.w,
-            height: 35.h,
-            child: CustomForm(
-              hinttext: "Pick Up",
-              radius: 5.r,
-              textController: search,
-            )),
+        CustomTextForm(
+            width: fullwidth.w,
+              hinttext: "Pick Up Point",
+              fontSize: 13.sp,
+              textController: pickup,
+            ),
 
         SizedBox(
           height: 5.h,
         ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () {
-                  pickUpDatePicker(context);
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 35.h,
-                  width: 155.w,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1.w, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10.r)),
-                  child: pickStatus == true
-                      ? Text(
-                          "${pickDate.year}-${pickDate.month}-${pickDate.day}",
-                          style: TextStyle(
-                              fontSize: 14.sp,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        )
-                      : Text(" Pick Up Date"),
-                ),
-              ),
-              SizedBox(
-                width: 5.w,
-              ),
-              InkWell(
-                onTap: () {
-                  deliveryDatePicker(context);
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 35.h,
-                  width: 155.w,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1.w, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10.r)),
-                  child: Text(
-                    "${deliveryDate.hour}-${deliveryDate.minute}",
-                    style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
+        UnconstrainedBox(
+          child: Container(
+            width: fullwidth.w,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    pickUpDatePicker(context);
+                  },
+                  child: Card(
+                    elevation: 5,
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 30.h,
+                      width: 150.w,
+                      decoration: BoxDecoration(
+                        color: primaryColor,
+                          border: Border.all(width: 1.w, color: Colors.grey),
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child: pickStatus == true
+                          ? Text(
+                              "${pickDate.year}-${pickDate.month}-${pickDate.day}",
+                              style: TextStyle(
+                                  fontSize: 13.sp,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal),
+                              textAlign: TextAlign.center,
+                            )
+                          : Text("Pick Up Date",  style: TextStyle(
+                                  fontSize: 13.sp,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal),
+                              textAlign: TextAlign.center,),
+                    ),
                   ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: 1.w,
+                ),
+                InkWell(
+                  onTap: () {
+                    deliveryDatePicker(context);
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 30.h,
+                    width: 149.w,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1.w, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5.r)),
+                    child: Text(
+                      "${deliveryDate.hour}-${deliveryDate.minute}",
+                      style: TextStyle(
+                          fontSize: 13.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         SizedBox(
           height: 5.h,
         ),
-        Container(
-            width: 320.w,
-            height: 35.h,
-            alignment: Alignment.center,
-            child: CustomForm(
+      CustomTextForm(
+         width: fullwidth.w,
+         height: 30.h,
               hinttext: "Preferred Drop Off(Optional) ",
-              radius: 5.r,
+             fontSize: 13.sp,
               textController: dropoffpoint,
-            )),
+            ),
         SizedBox(
           height: 5.h,
         ),
-        // Container(
-        //   color: Colors.grey,
-        //   height: 200,
-        //   width: 320.w,
-        // ),
-        SizedBox(
-          height: 5.h,
-        ),
+      
+      
 
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 20.w),
+         width: fullwidth.w,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -176,36 +177,44 @@ class _CarryAPackageState extends State<CarryAPackage> {
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  height: 35.h,
-                  width: 155.w,
+                  height: 30.h,
+                  width: 149.w,
                   decoration: BoxDecoration(
                       border: Border.all(width: 1.w, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10.r)),
+                      borderRadius: BorderRadius.circular(5.r)),
                   child: deliveryStatus == false
                       ? Text(
                           "${deliveryDate.year}-${deliveryDate.month}-${deliveryDate.day}",
                           style: TextStyle(
-                              fontSize: 14.sp,
+                              fontSize: 13.sp,
                               color: Colors.black,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.normal),
                           textAlign: TextAlign.center,
                         )
-                      : Text("Perferred delivery date"),
+                      : Text("Perferred delivery date",  style: TextStyle(
+                                  fontSize: 13.sp,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal),
+                              textAlign: TextAlign.center,),
                 ),
               ),
               SizedBox(
-                width: 5.w,
+                width: 1.w,
               ),
               InkWell(
                 onTap: _showTimePicker,
                 child: Container(
                     alignment: Alignment.center,
                     height: 35.h,
-                    width: 155.w,
+                    width: 150.w,
                     decoration: BoxDecoration(
                         border: Border.all(width: 1.w, color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: Text("data")),
+                        borderRadius: BorderRadius.circular(5.r)),
+                    child: Text("Select Time",  style: TextStyle(
+                                  fontSize: 13.sp,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal),
+                              textAlign: TextAlign.center,)),
               ),
             ],
           ),
@@ -213,63 +222,46 @@ class _CarryAPackageState extends State<CarryAPackage> {
         SizedBox(
           height: 5.h,
         ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 5.w,
-              ),
-              Card(
-                child: Container(
-                  height: 35.h,
-                  width: 90.w,
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Asking amount",
-                    style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black),
-                  ),
+        UnconstrainedBox(
+          child: Container(
+            width: fullwidth.w,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+               
+                CustomTextForm(
+                  width: 120.w, 
+                  height: 30.h, 
+                  hinttext: "Asking amount", 
+                  fontSize: 13.sp, 
                 ),
-              ),
-              Card(
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 30.h,
-                  width: 50.w,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1.w, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10.r)),
-                  child: DropdownButton(
-                    underline: SizedBox(),
-                    style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black),
-                    value: currency,
-                    onChanged: (value) {
-                      currency = value!;
-                      print(currency);
-                    },
-                    items: willingPay,
-                  ),
+               Card(
+                elevation: 5,
+                 child: Container(
+                      alignment: Alignment.center,
+                      height: 30.h,
+                      width: 35.w,
+                      decoration: BoxDecoration(
+                        color: purplColor,
+                      ),
+                      child: Text(
+                        "BDT",
+                        style: TextStyle(color: Colors.white,   fontSize: 12.5.sp,),
+                      )),
+               ),
+                InkWell(
+                  onTap: _showTimePicker,
+                  child: Container(
+                      alignment: Alignment.center,
+                      height: 35.h,
+                      width: 140.w,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 1.w, color: Colors.grey),
+                          borderRadius: BorderRadius.circular(10.r)),
+                      child: Text("Select Time")),
                 ),
-              ),
-              InkWell(
-                onTap: _showTimePicker,
-                child: Container(
-                    alignment: Alignment.center,
-                    height: 35.h,
-                    width: 155.w,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 1.w, color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: Text("data")),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
 

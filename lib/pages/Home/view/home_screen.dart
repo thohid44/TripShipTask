@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               CustomText(
-                                "BAL (t): 2000",
+                                "BAL (TK): 2000",
                                 white,
                                 FontWeight.w600,
                                 13.sp,
@@ -257,7 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 90.w,
                         decoration: BoxDecoration(),
                         child: Text(
-                          "Refer Someone",
+                          "Referral Link",
                           style: TextStyle(fontSize: 12.sp),
                           textAlign: TextAlign.center,
                         )),
@@ -266,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 90.w,
                         padding: EdgeInsets.only(top: 12.h),
                         child: Text(
-                          "Referral Bonus",
+                          "Transactions",
                           style: TextStyle(fontSize: 12.sp),
                           textAlign: TextAlign.center,
                         )),
@@ -275,7 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 80.w,
                         padding: EdgeInsets.only(top: 0.h),
                         child: Text(
-                          "Transactions",
+                          "Green Pass",
                           style: TextStyle(fontSize: 12.sp),
                           textAlign: TextAlign.center,
                         )),
@@ -293,14 +293,20 @@ class _HomeScreenState extends State<HomeScreen> {
             });
           },
           items: const [
-            BottomNavigationBarItem(
+               BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
             ),
-         
+            
+               
+            BottomNavigationBarItem(
+              icon: Icon(Icons.payment),
+              label: 'Payment',
+            ),
+       
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
-              label: 'Open Ticket',
+              label: 'Support Ticket',
               
             ),
           ],
@@ -328,6 +334,9 @@ class _HomeScreenState extends State<HomeScreen> {
         style: TextStyle(color: Colors.black),
       ),
       actions: [
+        IconButton(onPressed: (){
+
+        }, icon: Icon(Icons.notifications, color: Colors.grey,)),
         IconButton(
             onPressed: () {
               Get.to(UserDeshBoard());

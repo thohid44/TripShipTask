@@ -199,6 +199,8 @@ class _OfferATaskState extends State<OfferATask> {
   var categoryName;
   var selectcategory;
   bool isSelectSkill = false;
+  var fullWidth = 306.w;
+  var height = 3;
   @override
   Widget build(BuildContext context) {
     print("Id  from Main Page $categoryId");
@@ -210,98 +212,127 @@ class _OfferATaskState extends State<OfferATask> {
             height: 20.h,
           ),
 
-          Container(
-              alignment: Alignment.center,
-              height: 30.h,
-              width: 320.w,
-              decoration: BoxDecoration(
-                  color: primaryColor,
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(10.r)),
-              child: DropdownButton(
-                  isExpanded: true,
-                  hint:
-                      Text("${isSelect ? selectcategory : 'Select Category'}"),
-                  underline: SizedBox(),
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                  value: classValue,
-                  items: categories
-                      .map((e) => DropdownMenuItem(
-                            onTap: () {
-                              selectcategory = e['name'].toString();
-                            },
-                            value: e['id'],
-                            child: Text(
-                              "${e['name']}",
-                            ),
-                          ))
-                      .toList(),
-                  onChanged: (value) {
-                    var id = value;
-                    categoryId = value;
-                    print("Category Id $id");
-                    // _con.getClassId(value.toString());
-                    setState(() {
-                      classId = value.toString();
-                      isSelect = true;
-                    });
-                  })),
+          UnconstrainedBox(
+            child: Container(
+                alignment: Alignment.center,
+                height: 35.h,
+                width: fullWidth,
+                decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(5.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0xffF1F4F9)
+                            .withOpacity(0.5), //color of shadow
+                        spreadRadius: 8, //spread radius
+                        blurRadius: 7, // blur radius
+                        offset: Offset(3, 5), // changes position of shadow
+                      ),
+                    ]),
+                child: DropdownButton(
+                    isExpanded: true,
+                    hint: Text(
+                        "${isSelect ? selectcategory : 'Select Category'}"),
+                    underline: SizedBox(),
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    value: classValue,
+                    items: categories
+                        .map((e) => DropdownMenuItem(
+                              onTap: () {
+                                selectcategory = e['name'].toString();
+                              },
+                              value: e['id'],
+                              child: Text(
+                                "${e['name']}",
+                              ),
+                            ))
+                        .toList(),
+                    onChanged: (value) {
+                      var id = value;
+                      categoryId = value;
+                      print("Category Id $id");
+                      // _con.getClassId(value.toString());
+                      setState(() {
+                        classId = value.toString();
+                        isSelect = true;
+                      });
+                    })),
+          ),
 
           SizedBox(
-            height: 10.h,
+            height: height.h,
           ),
 
           CustomTextForm(
-            width: 320.w,
+            width: fullWidth,
+            height: 30.w,
             textController: title,
+            fontSize: 12.sp,
             hinttext: "Describe The Task",
           ),
           SizedBox(
-            height: 10.h,
+            height: height.h,
           ),
-          Container(
-              alignment: Alignment.center,
-              height: 30.h,
-              width: 320.w,
-              decoration: BoxDecoration(
-                  color: primaryColor,
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(5.r)),
-              child: DropdownButton(
-                  isExpanded: true,
-                  hint:
-                      Text("${isSelectSkill ? selectSkill : 'Skill Required'}"),
-                  underline: SizedBox(),
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                  value: classValue,
-                  items: skills
-                      .map((e) => DropdownMenuItem(
-                            onTap: () {
-                              selectSkill = e['name'].toString();
-                            },
-                            value: e['id'],
-                            child: Text(
-                              "${e['name']}",
-                            ),
-                          ))
-                      .toList(),
-                  onChanged: (value) {
-                    var id = value;
-                    var skillId = value;
-                    print("Skill Id $id");
-                    // _con.getClassId(value.toString());
-                    setState(() {
-                      classId = value.toString();
-                      isSelectSkill = true;
-                    });
-                  })),
+          UnconstrainedBox(
+            child: Card(
+              elevation: 5,
+              child: Container(
+                  alignment: Alignment.center,
+                  height: 35.h,
+                  width: fullWidth,
+                  decoration: BoxDecoration(
+                      color: primaryColor,
+                  
+                      borderRadius: BorderRadius.circular(5.r),
+                                   boxShadow: [
+                    BoxShadow(
+                      color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                      spreadRadius: 8, //spread radius
+                      blurRadius: 7, // blur radius
+                      offset: Offset(3, 5), // changes position of shadow
+                  
+                    ),
+                  ],
+                      
+                      ),
+                  child: DropdownButton(
+                      isExpanded: true,
+                      hint:
+                          Text("${isSelectSkill ? selectSkill : 'Skill Required'}",
+                          style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.normal,  ),),
+                      underline: SizedBox(),
+                      icon: const Icon(Icons.keyboard_arrow_down),
+                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                      value: classValue,
+                      items: skills
+                          .map((e) => DropdownMenuItem(
+                                onTap: () {
+                                  selectSkill = e['name'].toString();
+                                },
+                                value: e['id'],
+                                child: Text(
+                                  "${e['name']}",
+                                ),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        var id = value;
+                        var skillId = value;
+                        print("Skill Id $id");
+                        // _con.getClassId(value.toString());
+                        setState(() {
+                          classId = value.toString();
+                          isSelectSkill = true;
+                        });
+                      })),
+            ),
+          ),
           SizedBox(
-            height: 5.h,
+            height: height.h,
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
+            width: fullWidth,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -310,18 +341,27 @@ class _OfferATaskState extends State<OfferATask> {
                     dairyDatePicker(context);
                   },
                   child: Container(
-                    width: 152.w,
+                    width: 150.w,
                     height: 35.h,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        border: Border.all(width: 0.5.w, color: Colors.grey)),
+                                   boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ]
+                       ),
                     child: dateStatus == false
                         ? Text(
                             "${pickDate.day}-${pickDate.month}-${pickDate.year}",
                             style: TextStyle(
-                                fontSize: 14.sp,
+                                fontSize: 12.sp,
                                 color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.normal),
                             textAlign: TextAlign.center,
                           )
                         : Text(
@@ -329,16 +369,16 @@ class _OfferATaskState extends State<OfferATask> {
                   ),
                 ),
                 SizedBox(
-                  width: 6.w,
+                  width: 3.w,
                 ),
                 InkWell(
                     onTap: _showTimePicker,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 152.w,
+                      width: 150.w,
                       height: 35.h,
                       decoration: BoxDecoration(
-                          border: Border.all(width: 1.w, color: Colors.grey)),
+                          border: Border.all(width: 0.5.w, color: Colors.grey)),
                       child: pickupTime != null
                           ? Text(pickupTime!.format(context).toString())
                           : Text("Select Time"),
@@ -350,17 +390,17 @@ class _OfferATaskState extends State<OfferATask> {
             height: 5.h,
           ),
           CustomTextForm(
-            width: 320.w,
+            width: fullWidth,
             height: 30.h,
-            hinttext:
-                "Task Duration (Default 1 Hour)",
+            hinttext: "Task Duration (Default 1 Hour)",
+            fontSize: 11.sp,
             textController: needhour,
           ),
           SizedBox(
             height: 5.h,
           ),
           Container(
-            width: 300.w,
+            width: fullWidth,
             height: 30.h,
             child: TextField(
               controller: location,
@@ -370,7 +410,7 @@ class _OfferATaskState extends State<OfferATask> {
               decoration: InputDecoration(
                   hintText: 'Task Address / Location',
                   hintStyle:
-                      TextStyle(fontWeight: FontWeight.w500, fontSize: 13.sp),
+                      TextStyle(fontWeight: FontWeight.normal, fontSize: 11.sp),
                   filled: true,
                   fillColor: primaryColor,
                   border: InputBorder.none,
@@ -441,7 +481,7 @@ class _OfferATaskState extends State<OfferATask> {
               }),
           // End Suggestion List
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
+            width: fullWidth,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -455,20 +495,20 @@ class _OfferATaskState extends State<OfferATask> {
             height: 5.h,
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
+            width: fullWidth,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   alignment: Alignment.center,
                   height: 35.h,
-                  width: 320.w,
+                  width: fullWidth,
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10.r)),
+                      borderRadius: BorderRadius.circular(5.r)),
                   child: DropdownButton(
-                      hint: Text(
-                          "${isSelect ? selectedGender : 'Give Task To'}"),
+                      hint:
+                          Text("${isSelect ? selectedGender : 'Give Task To'}"),
                       underline: SizedBox(),
                       icon: const Icon(Icons.keyboard_arrow_down),
                       value: classValue,
@@ -502,36 +542,37 @@ class _OfferATaskState extends State<OfferATask> {
               ],
             ),
           ),
-          SizedBox(
-            height: 5.h,
-          ),
+
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
+            width: fullWidth,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-             CustomTextForm(
-              hinttext: "Amount Offering",
-              height: 30.h,
-              width: 250.w,
-             ),
+                CustomTextForm(
+                  hinttext: "Amount Offering",
+                  height: 30.h,
+                  width: 251.w,
+                ),
                 Card(
+                  elevation: 5,
                   child: Container(
-                    alignment: Alignment.center,
-                    height: 30.h,
-                    width: 45.w,
-                    decoration: BoxDecoration(
-                      color: purplColor,
-                        border: Border.all(width: 1.w, color: purplColor),
-                        borderRadius: BorderRadius.circular(5.r)),
-                    child: Text("BDT",style: TextStyle(color: Colors.white),)
-                  ),
+                      alignment: Alignment.center,
+                      height: 30.h,
+                      width: 40.w,
+                      decoration: BoxDecoration(
+                          color: purplColor,
+                          border: Border.all(color: purplColor),
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child: Text(
+                        "BDT",
+                        style: TextStyle(color: Colors.white),
+                      )),
                 ),
               ],
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
+            width: fullWidth,
             child: TextFormField(
               onChanged: (value) {
                 note = value;
@@ -546,16 +587,15 @@ class _OfferATaskState extends State<OfferATask> {
             ),
           ),
           SizedBox(
-            height: 10.h,
+            height: 15.h,
           ),
           CustomButtonOne(
               title: "Submit",
-              btnColor:navyBlueColor,
-              height: 35.h, 
-              width: 130.w, 
+              btnColor: navyBlueColor,
+              height: 35.h,
+              width: 130.w,
               radius: 10.r,
               onTab: () {
-                
                 // var lat = startPosition!.geometry!.location!.lat;
                 // print("Start Lat $lat");
                 // var lng = startPosition!.geometry!.location!.lng;

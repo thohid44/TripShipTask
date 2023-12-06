@@ -38,7 +38,6 @@ class _SendAPackageState extends State<SendAPackage> {
   List<Placemark>? placemark;
   GetAddressFromLatLong(lat, lng) async {
     placemark = await placemarkFromCoordinates(lat, lng);
-    
   }
 
   @override
@@ -131,7 +130,8 @@ class _SendAPackageState extends State<SendAPackage> {
   final TextEditingController note = TextEditingController();
 
   var controller = Get.put(SendPackageController());
-  var fullWidth =300.w; 
+  var fullWidth = 306.w;
+  var height = 3;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -140,144 +140,207 @@ class _SendAPackageState extends State<SendAPackage> {
           height: 5.h,
         ),
         UnconstrainedBox(
-          child: Container(
-            width: fullWidth, 
-            height: 30.h,
-            child: TextField(
-              controller: _startSearchFieldController,
-              autofocus: false,
-              focusNode: startFocusNode,
-              style: TextStyle(fontSize: 15.sp),
-              decoration: InputDecoration(
-                  hintText: 'Pick Up Point',
-                  hintStyle:
-                      TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp),
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  border: InputBorder.none,
-                  suffixIcon: _startSearchFieldController.text.isNotEmpty
-                      ? IconButton(
-                          onPressed: () {
-                            setState(() {
-                              predictions = [];
-                              _startSearchFieldController.clear();
-                            });
-                          },
-                          icon: Icon(Icons.clear_outlined),
-                        )
-                      : null),
-              onChanged: (value) {
-                if (_debounce?.isActive ?? false) _debounce!.cancel();
-                _debounce = Timer(const Duration(milliseconds: 1000), () {
-                  if (value.isNotEmpty) {
-                    print("Pick Up  $value");
-                    //places api
-                    autoCompleteSearch(value);
-                  } else {
-                    //clear out the results
-                    setState(() {
-                      predictions = [];
-                      startPosition = null;
-                    });
-                  }
-                });
-              },
+          child: Card(
+            elevation: 5,
+            child: Container(
+              width: fullWidth,
+              height: 30.h,
+              decoration: BoxDecoration(
+                color: primaryColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                    spreadRadius: 8, //spread radius
+                    blurRadius: 7, // blur radius
+                    offset: Offset(3, 5), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: TextField(
+                controller: _startSearchFieldController,
+                autofocus: false,
+                focusNode: startFocusNode,
+                style: TextStyle(fontSize: 13.sp),
+                decoration: InputDecoration(
+                    hintText: 'Pick Up Point',
+                    hintStyle: TextStyle(
+                        fontWeight: FontWeight.normal, fontSize: 13.sp),
+                    filled: true,
+                    fillColor: primaryColor,
+                    border: InputBorder.none,
+                    suffixIcon: _startSearchFieldController.text.isNotEmpty
+                        ? IconButton(
+                            onPressed: () {
+                              setState(() {
+                                predictions = [];
+                                _startSearchFieldController.clear();
+                              });
+                            },
+                            icon: Icon(Icons.clear_outlined),
+                          )
+                        : null),
+                onChanged: (value) {
+                  if (_debounce?.isActive ?? false) _debounce!.cancel();
+                  _debounce = Timer(const Duration(milliseconds: 1000), () {
+                    if (value.isNotEmpty) {
+                      print("Pick Up  $value");
+                      //places api
+                      autoCompleteSearch(value);
+                    } else {
+                      //clear out the results
+                      setState(() {
+                        predictions = [];
+                        startPosition = null;
+                      });
+                    }
+                  });
+                },
+              ),
             ),
           ),
         ),
         SizedBox(
-          height: 2.h,
+          height: height.h,
         ),
-        Container(
-          width: fullWidth, 
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () {
-                  dairyDatePicker(context);
-                },
-                child: Container(
-                  width: 149.w,
-                  height: 30.h,
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: 0.w),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 0.5.w, color: Colors.grey)),
-                  child: dateStatus == false
-                      ? Text(
-                          "${pickUpDate.day}-${pickUpDate.month}-${pickUpDate.year}",
-                          style: TextStyle(
-                              fontSize: 14.sp,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        )
-                      : Text(
-                          "${pickUpDate.day}-${pickUpDate.month}-${pickUpDate.year}"),
+        UnconstrainedBox(
+          child: Container(
+            width: fullWidth,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    dairyDatePicker(context);
+                  },
+                  child: Card(
+                    elevation: 5,
+                    child: Container(
+                      width: 146.w,
+                      height: 30.h,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                     color: primaryColor,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xffF1F4F9)
+                                .withOpacity(0.5), //color of shadow
+                            spreadRadius: 8, //spread radius
+                            blurRadius: 7, // blur radius
+                            offset: Offset(3, 5), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: dateStatus == false
+                          ? Text(
+                              "${pickUpDate.day}-${pickUpDate.month}-${pickUpDate.year}",
+                              style: TextStyle(
+                                  fontSize: 13.sp,
+                                
+                                  fontWeight: FontWeight.normal),
+                              textAlign: TextAlign.center,
+                            )
+                          : Text(
+                              "${pickUpDate.day}-${pickUpDate.month}-${pickUpDate.year}",style: 
+                              TextStyle(fontSize: 13.sp, fontWeight: FontWeight.normal),),
+                    ),
+                  ),
                 ),
-              ),
-              InkWell(
-                  onTap: _showTimePicker,
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 149.w,
-                    height: 30.h,
-                    child: pickupTime != null
-                        ? Text(pickuptime!.format(context).toString())
-                        : Text("Select Time"),
-                  )),
-            ],
+                InkWell(
+                    onTap: _showTimePicker,
+                    child: Card(
+                      elevation: 5,
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 145.w,
+                        height: 30.h,
+                        decoration: BoxDecoration(
+                          color: primaryColor, 
+                                       boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ],
+                        ),
+                        child: pickupTime != null
+                            ? Text(pickuptime!.format(context).toString())
+                            : Text("Select Time", style: TextStyle(
+                              fontSize: 13.sp, fontWeight: FontWeight.normal
+                            ),),
+                      ),
+                    )),
+              ],
+            ),
           ),
         ),
         SizedBox(
-          height: 2.h,
+          height: height.h,
         ),
-        Container(
-           width: fullWidth, 
-          height: 30.h,
-          child: TextField(
-            controller: _endSearchFieldController,
-            autofocus: false,
-            focusNode: endFocusNode,
-            enabled: _startSearchFieldController.text.isNotEmpty &&
-                startPosition != null,
-            style: TextStyle(fontSize: 15.sp),
-            decoration: InputDecoration(
-                hintText: 'Drop Off Point',
-                hintStyle: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                    fontSize: 14.sp),
-                filled: true,
-                fillColor: Colors.grey[200],
-                border: InputBorder.none,
-                suffixIcon: _endSearchFieldController.text.isNotEmpty
-                    ? IconButton(
-                        onPressed: () {
-                          setState(() {
-                            predictions = [];
-                            _endSearchFieldController.clear();
-                          });
-                        },
-                        icon: Icon(Icons.clear_outlined),
-                      )
-                    : null),
-            onChanged: (value) {
-              if (_debounce?.isActive ?? false) _debounce!.cancel();
-              _debounce = Timer(const Duration(milliseconds: 1000), () {
-                if (value.isNotEmpty) {
-                  //places api
-                  autoCompleteSearch(value);
-                } else {
-                  //clear out the results
-                  setState(() {
-                    predictions = [];
-                    endPosition = null;
+        UnconstrainedBox(
+          child: Card(
+            elevation: 5,
+            child: Container(
+              width: fullWidth,
+              height: 30.h,
+              decoration: BoxDecoration(
+                color: primaryColor, 
+                             boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ],
+              ),
+              child: TextField(
+                controller: _endSearchFieldController,
+                autofocus: false,
+                focusNode: endFocusNode,
+                enabled: _startSearchFieldController.text.isNotEmpty &&
+                    startPosition != null,
+                style: TextStyle(fontSize: 13.sp , fontWeight: FontWeight.normal),
+                decoration: InputDecoration(
+                    hintText: 'Drop Off Point',
+                    hintStyle: TextStyle(
+                        fontWeight: FontWeight.normal,
+                    
+                        fontSize: 13.sp),
+                    filled: true,
+                    fillColor: primaryColor,
+                    border: InputBorder.none,
+                    suffixIcon: _endSearchFieldController.text.isNotEmpty
+                        ? IconButton(
+                            onPressed: () {
+                              setState(() {
+                                predictions = [];
+                                _endSearchFieldController.clear();
+                              });
+                            },
+                            icon: Icon(Icons.clear_outlined),
+                          )
+                        : null),
+                onChanged: (value) {
+                  if (_debounce?.isActive ?? false) _debounce!.cancel();
+                  _debounce = Timer(const Duration(milliseconds: 1000), () {
+                    if (value.isNotEmpty) {
+                      //places api
+                      autoCompleteSearch(value);
+                    } else {
+                      //clear out the results
+                      setState(() {
+                        predictions = [];
+                        endPosition = null;
+                      });
+                    }
                   });
-                }
-              });
-            },
+                },
+              ),
+            ),
           ),
         ),
         ListView.builder(
@@ -322,253 +385,333 @@ class _SendAPackageState extends State<SendAPackage> {
               );
             }),
         SizedBox(
-          height: 5.h,
+          height: height.h,
         ),
-        Container(
-          color: Colors.grey,
-          height: 140,
-          width: 320.w,
-        ),
-        SizedBox(
-          height: 5.h,
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () {
-                  dropUpDatePicker(context);
-                },
-                child: Container(
-                  width: 150.w,
-                  height: 30.h,
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: 0.w),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 0.5.w, color: Colors.grey)),
-                  child: dateStatus == false
-                      ? Text(
-                          "${dropUpDate1.day}-${dropUpDate1.month}-${dropUpDate1.year}",
-                          style: TextStyle(
-                              fontSize: 14.sp,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        )
-                      : Text(
-                          "${dropUpDate1.day}-${dropUpDate1.month}-${dropUpDate1.year}"),
+        UnconstrainedBox(
+          child: Card(
+            elevation: 5,
+            child: Container(
+             
+              height: 120,
+              width: fullWidth,
+              decoration: BoxDecoration(
+                color: primaryColor,
+                             boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
                 ),
+              ],
               ),
-              SizedBox(
-                width: 2.w,
-              ),
-              InkWell(
-                onTap: _deliveryTimePicker,
-                child: Container(
-                    alignment: Alignment.center,
-                    height: 30.h,
-                    width: 155.w,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 1.w, color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10.r)),
-                    // ignore: unnecessary_null_comparison
-                    child: delivaryTime != null
-                        ? Text(delivarytime!.format(context).toString())
-                        : Text(
-                            "Perferred delivery time",
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          )),
-              ),
-            ],
+            ),
           ),
         ),
         SizedBox(
-          height: 5.h,
+          height: height.h,
         ),
         UnconstrainedBox(
           child: Container(
-            width: 346.w,
+            width: fullWidth,
             child: Row(
               children: [
+                InkWell(
+                  onTap: () {
+                    dropUpDatePicker(context);
+                  },
+                  child: Card(
+                    elevation: 5,
+                    child: Container(
+                      width: 120.w,
+                      height: 30.h,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration
+                      (
+                        color: primaryColor, 
+                                     boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ],
+                      ),
+                      child: dateStatus == false
+                          ? Text(
+                              "${dropUpDate1.day}-${dropUpDate1.month}-${dropUpDate1.year}",
+                              style: TextStyle(
+                                  fontSize: 13.sp,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal),
+                              textAlign: TextAlign.center,
+                            )
+                          : Text(
+                              "${dropUpDate1.day}-${dropUpDate1.month}-${dropUpDate1.year}",
+                              style: TextStyle(fontSize: 13.sp, color: Colors.black, 
+                              fontWeight: FontWeight.normal),),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 1.w,
+                ),
+                InkWell(
+                  onTap: _deliveryTimePicker,
+                  child: Card(
+                    elevation: 5,
+                    child: Container(
+                        alignment: Alignment.center,
+                        height: 30.h,
+                        width: 164.w,
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                                       boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ],
+                            borderRadius: BorderRadius.circular(5.r)),
+                        // ignore: unnecessary_null_comparison
+                        child: delivaryTime != null
+                            ? Text(delivarytime!.format(context).toString(),
+                             style: TextStyle(
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.normal,
+                                ),)
+                            : Text(
+                                "Perferred delivery time",
+                                style: TextStyle(
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              )),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          height: height.h,
+        ),
+        UnconstrainedBox(
+          child: Container(
+            width: fullWidth,
+            child: Row(
+              children: [
+                CustomTextForm(
+                  width: 105.w,
+                  height: 30.h,
+                  hinttext: "Willing you pay",
+                  fontSize: 12.5.sp,
+                  textController: willingPay,
+                ),
                 Container(
-                    height: 30.h,
-                    width: 120.w,
-                    alignment: Alignment.center,
-                    child: TextField(
-                        controller: willingPay,
-                        decoration: InputDecoration(
-                            hintText: "Willing you pay",
-                            border: OutlineInputBorder(),
-                            hintStyle: TextStyle(fontSize: 12.sp),
-                            contentPadding:
-                                EdgeInsets.only(top: 5.h, left: 3.w)))),
-                Container(
                     alignment: Alignment.center,
                     height: 30.h,
-                    width: 40.w,
+                    width: 35.w,
                     decoration: BoxDecoration(
                       color: purplColor,
-                      border: Border.all(
-                        width: 1.w,
-                      ),
+                         boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ],
                     ),
                     child: Text(
                       "BDT",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12.5.sp,
+                      ),
                     )),
-                SizedBox(
-                  width: 5.w,
+                CustomTextForm(
+                  width: 151.w,
+                  height: 30.h,
+                  hinttext: "What are you sending? ",
+                  fontSize: 12.5.sp,
+                  textController: sendItem,
                 ),
-                Container(
-                    width: 170.w,
-                    height: 30.h,
-                    alignment: Alignment.center,
-                    child: CustomForm(
-                      hinttext: "What are you sending? ",
-                      radius: 5.r,
-                      textController: sendItem,
-                    )),
               ],
             ),
           ),
         ),
         SizedBox(
-          height: 5.h,
+          height: height.h,
         ),
         UnconstrainedBox(
           child: Container(
-            width: 346.w,
+            width: fullWidth,
             child: Row(
               children: [
-                Container(
-                    width: 160.w,
-                    alignment: Alignment.center,
-                    height: 30.h,
-                    decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: DropdownButton(
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        isExpanded: true,
-                        hint: Text(
-                          "${isGoodsSelect ? goodsName : 'Type of Goods'}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 13.sp),
-                        ),
-                        underline: SizedBox(),
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        value: goodsType,
-                        items: goodTypeList
-                            .map((e) => DropdownMenuItem(
-                                  onTap: () {
-                                    goodsName = e['name'].toString();
-                                  },
-                                  value: e['id'],
-                                  child: Text(
-                                    "${e['name']}",
-                                  ),
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            isGoodsSelect = true;
-                          });
-                        })),
-                SizedBox(
-                  width: 5.w,
+                Card(
+                  elevation: 5,
+                  child: Container(
+                      width: 125.w,
+                      alignment: Alignment.center,
+                      height: 30.h,
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(5.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xffF1F4F9)
+                                  .withOpacity(0.5), //color of shadow
+                              spreadRadius: 8, //spread radius
+                              blurRadius: 7, // blur radius
+                              offset:
+                                  Offset(3, 5), // changes position of shadow
+                              //first paramerter of offset is left-right
+                              //second parameter is top to down
+                            ),
+                          ]),
+                      child: DropdownButton(
+                          padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          isExpanded: true,
+                          hint: Text(
+                            "${isGoodsSelect ? goodsName : 'Type of Goods'}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 13.sp),
+                          ),
+                          underline: SizedBox(),
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          value: goodsType,
+                          items: goodTypeList
+                              .map((e) => DropdownMenuItem(
+                                    onTap: () {
+                                      goodsName = e['name'].toString();
+                                    },
+                                    value: e['id'],
+                                    child: Text(
+                                      "${e['name']}",
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              isGoodsSelect = true;
+                            });
+                          })),
                 ),
-                Container(
-                    width: 170.w,
-                    height: 30.h,
-                    alignment: Alignment.center,
-                    child: CustomForm(
-                      hinttext: "Approx value of the goods? ",
-                      radius: 5.r,
-                      textController: approxValue,
-                    )),
+                CustomTextForm(
+                  width: 165.w,
+                  height: 30.h,
+                  hinttext: "Approx value of the goods?",
+                  fontSize: 13.sp,
+                  textController: approxValue,
+                ),
               ],
             ),
           ),
         ),
         SizedBox(
-          height: 5.h,
+          height: height.h,
         ),
         UnconstrainedBox(
           child: Container(
-            width: 346.w,
+            width: fullWidth,
             child: Row(
               children: [
-                Container(
-                    width: 160.w,
-                    alignment: Alignment.center,
-                    height: 30,
-                    decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(5.r)),
-                    child: DropdownButton(
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        isExpanded: true,
-                        hint: Text(
-                          "${isGoodsSelect ? package : 'Packaging Type'}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 13.sp),
-                        ),
-                        underline: SizedBox(),
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        value: packageName,
-                        items: packageList
-                            .map((e) => DropdownMenuItem(
-                                  onTap: () {
-                                    package = e['name'].toString();
-                                    print(package);
-                                  },
-                                  value: e['id'],
-                                  child: Text(
-                                    "${e['name']}",
-                                  ),
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            isPackageSelect = true;
-                          });
-                        })),
-                Container(
+                Card(
+                  elevation: 5,
+                  child: Container(
+                      width: 130.w,
+                      alignment: Alignment.center,
+                      height: 30,
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(5.r),
+                        boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ],),
+                      child: DropdownButton(
+                          padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          isExpanded: true,
+                          hint: Text(
+                            "${isGoodsSelect ? package : 'Packaging Type'}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 13.sp),
+                          ),
+                          underline: SizedBox(),
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          value: packageName,
+                          items: packageList
+                              .map((e) => DropdownMenuItem(
+                                    onTap: () {
+                                      package = e['name'].toString();
+                                      print(package);
+                                    },
+                                    value: e['id'],
+                                    child: Text(
+                                      "${e['name']}",
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              isPackageSelect = true;
+                            });
+                          })),
+                ),
+                CustomTextForm(
                   height: 30.h,
                   width: 110.w,
-                  alignment: Alignment.center,
-                  child: CustomForm(
-                    hinttext: "Weight of package",
-                    radius: 5.r,
-                    textController: weight,
-                  ),
+                  hinttext: "Weight of package",
+                  fontSize: 13.sp,
+                  textController: weight,
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  height: 30.h,
-                  padding: EdgeInsets.symmetric(horizontal: 2.w),
-                  width: 45.w,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1.w, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(5.r)),
-                  child: DropdownButton(
-                    underline: SizedBox(),
-                    isExpanded: true,
-                    style: TextStyle(
-                        fontSize: 11.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                    value: weightOfPackage,
-                    onChanged: (value) {
-                      weightOfPackage = value!;
-                      print(weightOfPackage);
-                    },
-                    items: weightOfPackages,
+                Card(
+                  elevation: 5,
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 30.h,
+                    padding: EdgeInsets.symmetric(horizontal: 2.w),
+                    width: 44.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xffF1F4F9)
+                                .withOpacity(0.5), //color of shadow
+                            spreadRadius: 8, //spread radius
+                            blurRadius: 7, // blur radius
+                            offset: Offset(3, 5), // changes position of shadow
+                            //first paramerter of offset is left-right
+                            //second parameter is top to down
+                          ),
+                        ]),
+                    child: DropdownButton(
+                      underline: SizedBox(),
+                      isExpanded: true,
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black),
+                      value: weightOfPackage,
+                      onChanged: (value) {
+                        weightOfPackage = value!;
+                        print(weightOfPackage);
+                      },
+                      items: weightOfPackages,
+                    ),
                   ),
                 ),
               ],
@@ -579,22 +722,36 @@ class _SendAPackageState extends State<SendAPackage> {
           height: 2.h,
         ),
         UnconstrainedBox(
-          child: Container(
-            width: 346.w,
-            child: TextFormField(
-              controller: note,
-              decoration: InputDecoration(
-                hintText: "Note",
-                border: OutlineInputBorder(),
+          child: Card(
+            elevation: 5,
+            child: Container(
+               
+              decoration: BoxDecoration(color: primaryColor, boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+                  //first paramerter of offset is left-right
+                  //second parameter is top to down
+                ),
+              ]),
+              width: fullWidth,
+              child: TextFormField(
+                controller: note,
+                decoration: InputDecoration(
+                  hintText: "Note",
+                  fillColor: primaryColor,
+                  border: OutlineInputBorder(),
+                ),
+                maxLines: 1,
               ),
-              maxLines: 1,
             ),
           ),
         ),
         SizedBox(
           height: 10.h,
         ),
-    
         CustomButtonOne(
           title: "Submit",
           onTab: () {

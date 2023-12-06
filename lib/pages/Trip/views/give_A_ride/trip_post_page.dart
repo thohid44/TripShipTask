@@ -151,9 +151,9 @@ class _TripGivePostsState extends State<TripGivePosts> {
                             ),
                                 Row(
                               children: [
-                                CustomText("Offered Amt: ", Colors.black,
+                                CustomText("Offered Amt: ${tripData.pay.toString()} ", Colors.black,
                                     FontWeight.bold, 12.sp),
-                                CustomText(" ${tripData.pay.toString()}",
+                                CustomText("",
                                     Colors.black, FontWeight.normal, 12.sp),
                               ],
                             ),

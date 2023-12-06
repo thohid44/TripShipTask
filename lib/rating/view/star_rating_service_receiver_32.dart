@@ -159,12 +159,12 @@ class _StarRating32State extends State<StarRating32> {
                     children: [
                       Container(
                           alignment: Alignment.topLeft,
-                          width: 170.w,
+                          width: 150.w,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                child: Text(
+                                child: const Text(
                                   "Johan Ferguson",
                                   style: TextStyle(
                                     color: Colors.black,
@@ -173,7 +173,7 @@ class _StarRating32State extends State<StarRating32> {
                                 ),
                               ),
                               Container(
-                                child: Text(
+                                child: const Text(
                                   "service Provider",
                                   style: TextStyle(
                                     color: Colors.black,
@@ -193,14 +193,14 @@ class _StarRating32State extends State<StarRating32> {
                             ],
                           )),
                       Container(
-                        width: 80.w,
+                        width: 75.w,
                         child: Column(
                           children: [
                             Container(
                               child: Text(
                                 "148.57",
                                 style: TextStyle(
-                                    fontSize: 16.sp,
+                                    fontSize: 13.sp,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),

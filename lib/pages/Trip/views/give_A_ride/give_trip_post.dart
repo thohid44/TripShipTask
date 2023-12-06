@@ -141,11 +141,11 @@ var  fullWidth = 310.w;
               controller: _startSearchFieldController,
               autofocus: false,
               focusNode: startFocusNode,
-              style: TextStyle(fontSize: 15.sp),
+              style: TextStyle(fontSize: 13.sp),
               decoration: InputDecoration(
                   hintText: 'Start Point',
                   hintStyle:
-                      TextStyle(fontWeight: FontWeight.normal, fontSize: 14.sp),
+                      TextStyle(fontWeight: FontWeight.normal, fontSize: 13.sp),
                   filled: true,
                   fillColor:primaryColor,
                   border: InputBorder.none,
@@ -257,13 +257,13 @@ var  fullWidth = 310.w;
               focusNode: endFocusNode,
               enabled: _startSearchFieldController.text.isNotEmpty &&
                   startPosition != null,
-              style: TextStyle(fontSize: 15.sp),
+              style: TextStyle(fontSize: 13.sp),
               decoration: InputDecoration(
                   hintText: 'Destination',
                   hintStyle: TextStyle(
                       fontWeight: FontWeight.normal,
                       color: Colors.black,
-                      fontSize: 14.sp),
+                      fontSize: 13.sp),
                   filled: true,
                   fillColor:primaryColor,
                   border: InputBorder.none,
@@ -397,7 +397,8 @@ var  fullWidth = 310.w;
                                     },
                                     value: e['id'],
                                     child: Text(
-                                      "${e['name']}",
+                                      "${e['name']}"
+                                      ,style: TextStyle(fontSize: 13.sp),
                                     ),
                                   ))
                               .toList(),
@@ -469,7 +470,7 @@ var  fullWidth = 310.w;
                         hint: Text(
                           "${isPreferSelect ? preferToRide : 'Prefer to get ride from'}",
                           style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 12.sp),
+                              fontWeight: FontWeight.normal, fontSize: 13.sp),
                         ),
                         underline: SizedBox(),
                         icon: const Icon(Icons.keyboard_arrow_down),
@@ -499,6 +500,7 @@ var  fullWidth = 310.w;
                 height: 30.h, 
                 width: 90.w, 
                 hinttext: "Asking Fare",
+                fontSize: 13.sp,
                 textController: willPayAmount,
                ), 
                 Container(
@@ -524,6 +526,7 @@ var  fullWidth = 310.w;
               controller: note,
               decoration: InputDecoration(
                 hintText: "Note",
+                hintStyle: TextStyle(fontSize: 13.sp),
                 border: OutlineInputBorder(),
               ),
               maxLines: 1,

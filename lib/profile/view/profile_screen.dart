@@ -77,11 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SizedBox(
             height: 20.h,
           ),
-          ProfileItem(
-            title: "Profile Info:",
-            value: "Waleed Amin",
-            space: 15.w,
-          ),
+        
            ProfileItem(
             title: "Full Name:",
             value: "Waleed Amin",
@@ -152,26 +148,29 @@ class ProfileItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            child: Text(
-              title??"Title",
-              style: TextStyle(fontSize: 15.sp, color: Colors.black),
+    return Card(
+      elevation: 1,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              child: Text(
+                title??"Title",
+                style: TextStyle(fontSize: 12.sp, color: Colors.black),
+              ),
             ),
-          ),
-         
-          Container(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              value??"Value",
-              style: TextStyle(fontSize: 15.sp, color: Colors.black),
-            ),
-          )
-        ],
+           
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                value??"Value",
+                style: TextStyle(fontSize: 12.sp, color: Colors.black),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
