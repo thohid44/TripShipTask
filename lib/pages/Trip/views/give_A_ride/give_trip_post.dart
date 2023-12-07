@@ -202,7 +202,7 @@ var  fullWidth = 310.w;
                             "${pickDate.day}-${pickDate.month}-${pickDate.year}",
                             style: TextStyle(
                                 fontSize: 13.sp,
-                                color: Colors.black,
+                               
                                 fontWeight: FontWeight.normal),
                             textAlign: TextAlign.center,
                           )
@@ -230,7 +230,10 @@ var  fullWidth = 310.w;
                       ),
                       child: pickupTime != null
                           ? Text(pickupTime!.format(context).toString())
-                          : Text("Select Time"),
+                          : Text("Select Time",  style: TextStyle(
+                                fontSize: 13.sp,
+                               
+                                fontWeight: FontWeight.normal),),
                     )),
               ],
             ),
@@ -262,7 +265,7 @@ var  fullWidth = 310.w;
                   hintText: 'Destination',
                   hintStyle: TextStyle(
                       fontWeight: FontWeight.normal,
-                      color: Colors.black,
+                   
                       fontSize: 13.sp),
                   filled: true,
                   fillColor:primaryColor,

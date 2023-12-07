@@ -1,15 +1,18 @@
-import 'dart:math';
+import 'dart:async';
 
+import 'package:geocoding/geocoding.dart';
+import 'package:google_place/google_place.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
+import 'package:tripshiptask/Widget/customTextForm.dart';
+import 'package:tripshiptask/Widget/custom_text_field.dart';
+import 'package:tripshiptask/pages/Ship/controller/send_package_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:tripshiptask/Widget/customTextForm.dart';
 
 import '../../Trip/views/trip_page.dart';
-import '../controller/carry_package_controller.dart';
 
 class CarryAPackage extends StatefulWidget {
   @override
@@ -17,36 +20,59 @@ class CarryAPackage extends StatefulWidget {
 }
 
 class _CarryAPackageState extends State<CarryAPackage> {
-  var controller = Get.put(CarryPackageController());
+  final _startSearchFieldController = TextEditingController();
+
+  final _endSearchFieldController = TextEditingController();
+
+  DetailsResult? startPosition;
+  DetailsResult? endPosition;
+
+  late FocusNode startFocusNode;
+  late FocusNode endFocusNode;
+
+  late GooglePlace googlePlace;
+
+  List<AutocompletePrediction> predictions = [];
+
+  Timer? _debounce;
+  List<Placemark>? placemark;
+  GetAddressFromLatLong(lat, lng) async {
+    placemark = await placemarkFromCoordinates(lat, lng);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+    String apiKey = 'AIzaSyDLMJOClhhQjkfepu0R8iOCIt7bUpUF0nU';
+    googlePlace = GooglePlace(apiKey);
+
+    startFocusNode = FocusNode();
+    endFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    startFocusNode.dispose();
+    endFocusNode.dispose();
+  }
+
+  void autoCompleteSearch(String value) async {
+    var result = await googlePlace.autocomplete.get(value);
+    if (result != null && result.predictions != null && mounted) {
+      print(result.predictions!.first.description);
+      setState(() {
+        predictions = result.predictions!;
+      });
+    }
+  }
 
   final TextEditingController search = TextEditingController();
 
-  final TextEditingController pickup = TextEditingController();
-  final TextEditingController dropoffpoint = TextEditingController();
-  final TextEditingController note = TextEditingController();
-
-  List<DropdownMenuItem<String>> get typeOfGoods {
-    List<DropdownMenuItem<String>> destination = [
-      const DropdownMenuItem(
-          child: Text("Type of goods"), value: "Type of goods"),
-      const DropdownMenuItem(child: Text("1"), value: "1"),
-    ];
-    return destination;
-  }
-
-  String typeGood = "Type of goods";
-
-  List<DropdownMenuItem<String>> get packageTypes {
-    List<DropdownMenuItem<String>> destination = [
-      const DropdownMenuItem(
-          child: Text("Packaging type"), value: "Packaging type"),
-      const DropdownMenuItem(child: Text("Type 1"), value: "Type 1"),
-      const DropdownMenuItem(child: Text("Type 2"), value: "Type 2"),
-    ];
-    return destination;
-  }
-
-  String packageType = "Packaging type";
+  String deliveryTime = "Perferred delivery time";
 
   List<DropdownMenuItem<String>> get weightOfPackages {
     List<DropdownMenuItem<String>> destination = [
@@ -56,282 +82,711 @@ class _CarryAPackageState extends State<CarryAPackage> {
   }
 
   String weightOfPackage = "KG";
+// Goods
+  var goodsName;
+  String? goodsType;
+  bool isGoodsSelect = false;
+  List<Map<String, dynamic>> goodTypeList = [
+    {"id": 1, "name": "Perishable", "slug": "Perishable"},
+    {"id": 2, "name": "Non-perishable", "slug": "Non-perishable"},
+  ];
+// Package List
+  var packageName;
+  String? package;
+  bool isPackageSelect = false;
+  List<Map<String, dynamic>> packageList = [
+    {"id": 1, "name": "Small Envelope", "slug": "Small Envelope"},
+    {"id": 2, "name": "Large Envelope", "slug": "Large Envelope"},
+    {
+      "id": 3,
+      "name": "Small package(perishable items)",
+      "slug": "Small package(perishable items)"
+    },
+    {
+      "id": 4,
+      "name": "Small package(non-perishable items)",
+      "slug": "Small package(non-perishable items)"
+    },
+    {
+      "id": 5,
+      "name": "Medium package(perishable items)",
+      "slug": "Medium package(perishable items)"
+    },
+    {
+      "id": 6,
+      "name": "Medium package(Non-perishable items)",
+      "slug": "Medium package(Non-perishable items)"
+    },
+  ];
 
-  List<DropdownMenuItem<String>> get willingPay {
-    List<DropdownMenuItem<String>> destination = [
-      const DropdownMenuItem(child: Text("USD"), value: "USD"),
-      const DropdownMenuItem(child: Text("BD"), value: "BD"),
-    ];
-    return destination;
-  }
+  final TextEditingController pickup = TextEditingController();
+  final TextEditingController pickDate = TextEditingController();
+  final TextEditingController willingPay = TextEditingController();
+  final TextEditingController deliveryDate = TextEditingController();
+  final TextEditingController dropOff = TextEditingController();
+  final TextEditingController sendItem = TextEditingController();
+  final TextEditingController approxValue = TextEditingController();
+  final TextEditingController weight = TextEditingController();
+  final TextEditingController note = TextEditingController();
 
-  String currency = "USD";
-  DateTime _dates = DateTime.now();
-var fullwidth = 306; 
+  var controller = Get.put(SendPackageController());
+  var fullWidth = 306.w;
+  var height = 3;
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: [
         SizedBox(
           height: 5.h,
         ),
-        CustomTextForm(
-            width: fullwidth.w,
-              hinttext: "Pick Up Point",
-              fontSize: 13.sp,
-              textController: pickup,
+        UnconstrainedBox(
+          child: Card(
+            elevation: 5,
+            child: Container(
+              width: fullWidth,
+              height: 30.h,
+              decoration: BoxDecoration(
+                color: primaryColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                    spreadRadius: 8, //spread radius
+                    blurRadius: 7, // blur radius
+                    offset: Offset(3, 5), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: TextField(
+                controller: _startSearchFieldController,
+                autofocus: false,
+                focusNode: startFocusNode,
+                style: TextStyle(fontSize: 13.sp),
+                decoration: InputDecoration(
+                    hintText: 'Pick Up Point',
+                    hintStyle: TextStyle(
+                        fontWeight: FontWeight.normal, fontSize: 13.sp),
+                    filled: true,
+                    fillColor: primaryColor,
+                    border: InputBorder.none,
+                    suffixIcon: _startSearchFieldController.text.isNotEmpty
+                        ? IconButton(
+                            onPressed: () {
+                              setState(() {
+                                predictions = [];
+                                _startSearchFieldController.clear();
+                              });
+                            },
+                            icon: Icon(Icons.clear_outlined),
+                          )
+                        : null),
+                onChanged: (value) {
+                  if (_debounce?.isActive ?? false) _debounce!.cancel();
+                  _debounce = Timer(const Duration(milliseconds: 1000), () {
+                    if (value.isNotEmpty) {
+                      print("Pick Up  $value");
+                      //places api
+                      autoCompleteSearch(value);
+                    } else {
+                      //clear out the results
+                      setState(() {
+                        predictions = [];
+                        startPosition = null;
+                      });
+                    }
+                  });
+                },
+              ),
             ),
-
+          ),
+        ),
         SizedBox(
-          height: 5.h,
+          height: height.h,
         ),
         UnconstrainedBox(
           child: Container(
-            width: fullwidth.w,
+            width: fullWidth,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
                   onTap: () {
-                    pickUpDatePicker(context);
+                    dairyDatePicker(context);
                   },
                   child: Card(
                     elevation: 5,
                     child: Container(
-                      alignment: Alignment.center,
+                      width: 140.w,
                       height: 30.h,
-                      width: 150.w,
+                      alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: primaryColor,
-                          border: Border.all(width: 1.w, color: Colors.grey),
-                          borderRadius: BorderRadius.circular(5.r)),
-                      child: pickStatus == true
+                     color: primaryColor,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xffF1F4F9)
+                                .withOpacity(0.5), //color of shadow
+                            spreadRadius: 8, //spread radius
+                            blurRadius: 7, // blur radius
+                            offset: Offset(3, 5), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: dateStatus == false
                           ? Text(
-                              "${pickDate.year}-${pickDate.month}-${pickDate.day}",
+                              "Pickup Date",
                               style: TextStyle(
                                   fontSize: 13.sp,
-                                  color: Colors.black,
+                                
                                   fontWeight: FontWeight.normal),
                               textAlign: TextAlign.center,
                             )
-                          : Text("Pick Up Date",  style: TextStyle(
-                                  fontSize: 13.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.normal),
-                              textAlign: TextAlign.center,),
+                          : Text(
+                              "${pickUpDate.day}-${pickUpDate.month}-${pickUpDate.year}",style: 
+                              TextStyle(fontSize: 13.sp, fontWeight: FontWeight.normal),),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 1.w,
                 ),
                 InkWell(
-                  onTap: () {
-                    deliveryDatePicker(context);
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 30.h,
-                    width: 149.w,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 1.w, color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5.r)),
-                    child: Text(
-                      "${deliveryDate.hour}-${deliveryDate.minute}",
-                      style: TextStyle(
-                          fontSize: 13.sp,
-                          color: Colors.black,
-                          fontWeight: FontWeight.normal),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                    onTap: _showTimePicker,
+                    child: Card(
+                      elevation: 5,
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 151.w,
+                        height: 30.h,
+                        decoration: BoxDecoration(
+                          color: primaryColor, 
+                                       boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
                 ),
+              ],
+                        ),
+                        child: pickupTime != null
+                            ? Text(pickuptime!.format(context).toString())
+                            : Text("Prefered Pick Up Time", style: TextStyle(
+                              fontSize: 13.sp, fontWeight: FontWeight.normal
+                            ),),
+                      ),
+                    )),
               ],
             ),
           ),
         ),
         SizedBox(
-          height: 5.h,
+          height: height.h,
         ),
-      CustomTextForm(
-         width: fullwidth.w,
-         height: 30.h,
-              hinttext: "Preferred Drop Off(Optional) ",
-             fontSize: 13.sp,
-              textController: dropoffpoint,
-            ),
-        SizedBox(
-          height: 5.h,
-        ),
-      
-      
-
-        Container(
-         width: fullwidth.w,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () {
-                  deliveryDatePicker(context);
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 30.h,
-                  width: 149.w,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1.w, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(5.r)),
-                  child: deliveryStatus == false
-                      ? Text(
-                          "${deliveryDate.year}-${deliveryDate.month}-${deliveryDate.day}",
-                          style: TextStyle(
-                              fontSize: 13.sp,
-                              color: Colors.black,
-                              fontWeight: FontWeight.normal),
-                          textAlign: TextAlign.center,
-                        )
-                      : Text("Perferred delivery date",  style: TextStyle(
-                                  fontSize: 13.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.normal),
-                              textAlign: TextAlign.center,),
+        UnconstrainedBox(
+          child: Card(
+            elevation: 5,
+            child: Container(
+              width: fullWidth,
+              height: 30.h,
+              decoration: BoxDecoration(
+                color: primaryColor, 
+                             boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
                 ),
+              ],
               ),
-              SizedBox(
-                width: 1.w,
+              child: TextField(
+                controller: _endSearchFieldController,
+                autofocus: false,
+                focusNode: endFocusNode,
+                enabled: _startSearchFieldController.text.isNotEmpty &&
+                    startPosition != null,
+                style: TextStyle(fontSize: 13.sp , fontWeight: FontWeight.normal),
+                decoration: InputDecoration(
+                    hintText: 'Prefered Drop Off Point(Optional)',
+                    hintStyle: TextStyle(
+                        fontWeight: FontWeight.normal,
+                    
+                        fontSize: 13.sp),
+                    filled: true,
+                    fillColor: primaryColor,
+                    border: InputBorder.none,
+                    suffixIcon: _endSearchFieldController.text.isNotEmpty
+                        ? IconButton(
+                            onPressed: () {
+                              setState(() {
+                                predictions = [];
+                                _endSearchFieldController.clear();
+                              });
+                            },
+                            icon: Icon(Icons.clear_outlined),
+                          )
+                        : null),
+                onChanged: (value) {
+                  if (_debounce?.isActive ?? false) _debounce!.cancel();
+                  _debounce = Timer(const Duration(milliseconds: 1000), () {
+                    if (value.isNotEmpty) {
+                      //places api
+                      autoCompleteSearch(value);
+                    } else {
+                      //clear out the results
+                      setState(() {
+                        predictions = [];
+                        endPosition = null;
+                      });
+                    }
+                  });
+                },
               ),
-              InkWell(
-                onTap: _showTimePicker,
-                child: Container(
-                    alignment: Alignment.center,
-                    height: 35.h,
-                    width: 150.w,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 1.w, color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5.r)),
-                    child: Text("Select Time",  style: TextStyle(
-                                  fontSize: 13.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.normal),
-                              textAlign: TextAlign.center,)),
+            ),
+          ),
+        ),
+        ListView.builder(
+            shrinkWrap: true,
+            itemCount: predictions.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: const CircleAvatar(
+                  child: Icon(
+                    Icons.pin_drop,
+                    color: Colors.white,
+                  ),
+                ),
+                title: Text(
+                  predictions[index].description.toString(),
+                ),
+                onTap: () async {
+                  final placeId = predictions[index].placeId!;
+
+                  final details = await googlePlace.details.get(placeId);
+
+                  if (details != null && details.result != null && mounted) {
+                    if (startFocusNode.hasFocus) {
+                      setState(() {
+                        startPosition = details.result;
+
+                        _startSearchFieldController.text =
+                            details.result!.name!;
+                        predictions = [];
+                      });
+                    } else {
+                      setState(() {
+                        endPosition = details.result;
+                        print(
+                            "Start Point ${endPosition!.geometry!.location!.lat}");
+                        _endSearchFieldController.text = details.result!.name!;
+                        predictions = [];
+                      });
+                    }
+                  }
+                },
+              );
+            }),
+        SizedBox(
+          height: height.h,
+        ),
+        UnconstrainedBox(
+          child: Card(
+            elevation: 5,
+            child: Container(
+             
+              height: 120,
+              width: fullWidth,
+              decoration: BoxDecoration(
+                color: primaryColor,
+                             boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ],
               ),
-            ],
+            ),
           ),
         ),
         SizedBox(
-          height: 5.h,
+          height: height.h,
         ),
         UnconstrainedBox(
           child: Container(
-            width: fullwidth.w,
+            width: fullWidth,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-               
-                CustomTextForm(
-                  width: 120.w, 
-                  height: 30.h, 
-                  hinttext: "Asking amount", 
-                  fontSize: 13.sp, 
-                ),
-               Card(
-                elevation: 5,
-                 child: Container(
-                      alignment: Alignment.center,
-                      height: 30.h,
-                      width: 35.w,
-                      decoration: BoxDecoration(
-                        color: purplColor,
-                      ),
-                      child: Text(
-                        "BDT",
-                        style: TextStyle(color: Colors.white,   fontSize: 12.5.sp,),
-                      )),
-               ),
                 InkWell(
-                  onTap: _showTimePicker,
-                  child: Container(
+                  onTap: () {
+                    dropUpDatePicker(context);
+                  },
+                  child: Card(
+                    elevation: 5,
+                    child: Container(
+                      width: 145.w,
+                      height: 30.h,
                       alignment: Alignment.center,
-                      height: 35.h,
-                      width: 140.w,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 1.w, color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.r)),
-                      child: Text("Select Time")),
+                      decoration: BoxDecoration
+                      (
+                        color: primaryColor, 
+                                     boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ],
+                      ),
+                      child: dateStatus == false
+                          ? Text(
+                              "Possible Delivery Date",
+                              style: TextStyle(
+                                  fontSize: 13.sp,
+                              
+                                  fontWeight: FontWeight.normal),
+                              textAlign: TextAlign.center,
+                            )
+                          : Text(
+                              "${dropUpDate1.day}-${dropUpDate1.month}-${dropUpDate1.year}",
+                              style: TextStyle(fontSize: 13.sp,
+                              fontWeight: FontWeight.normal),),
+                    ),
+                  ),
+                ),
+              
+                InkWell(
+                  onTap: _deliveryTimePicker,
+                  child: Card(
+                    elevation: 5,
+                    child: Container(
+                        alignment: Alignment.center,
+                        height: 30.h,
+                        width: 147.w,
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                                       boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ],
+                            borderRadius: BorderRadius.circular(5.r)),
+                        // ignore: unnecessary_null_comparison
+                        child: delivaryTime != null
+                            ? Text(delivarytime!.format(context).toString(),
+                             style: TextStyle(
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.normal,
+                                ),)
+                            : Text(
+                                "Possible Delivery Time",
+                                style: TextStyle(
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              )),
+                  ),
                 ),
               ],
             ),
           ),
         ),
-
         SizedBox(
-          height: 5.h,
+          height: height.h,
         ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                height: 35.h,
-                width: 320.w,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1.w, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: DropdownButton(
-                  isExpanded: true,
-                  underline: SizedBox(),
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
-                  value: packageType,
-                  onChanged: (value) {
-                    packageType = value!;
-                    print(packageType);
-                  },
-                  items: packageTypes,
+        UnconstrainedBox(
+          child: Container(
+            width: fullWidth,
+            child: Row(
+              children: [
+                CustomTextForm(
+                  width: 100.w,
+                  height: 30.h,
+                  hinttext: "Asking Amount",
+                  fontSize: 12.5.sp,
+                  textController: willingPay,
                 ),
-              ),
-            ],
+                Container(
+                    alignment: Alignment.center,
+                    height: 30.h,
+                    width: 30.w,
+                    decoration: BoxDecoration(
+                      color: purplColor,
+                         boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ],
+                    ),
+                    child: Text(
+                      "BDT",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12.5.sp,
+                      ),
+                    )),
+                      Card(
+                  elevation: 5,
+                  child: Container(
+                      width: 160.w,
+                      alignment: Alignment.center,
+                      height: 30,
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(5.r),
+                        boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ],),
+                      child: DropdownButton(
+                          padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          isExpanded: true,
+                          hint: Text(
+                            "${isGoodsSelect ? package :'Preferred Package Size'}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 12.sp),
+                          ),
+                          underline: SizedBox(),
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          value: packageName,
+                          items: packageList
+                              .map((e) => DropdownMenuItem(
+                                    onTap: () {
+                                      package = e['name'].toString();
+                                      print(package);
+                                    },
+                                    value: e['id'],
+                                    child: Text(
+                                      "${e['name']}",
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              isPackageSelect = true;
+                            });
+                          })),
+                ),
+              
+              ],
+            ),
           ),
         ),
         SizedBox(
-          height: 5.h,
+          height: height.h,
         ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20.w),
-          child: TextFormField(
-            controller: note,
-            decoration: InputDecoration(
-              hintText: "Note",
-              border: OutlineInputBorder(),
+        UnconstrainedBox(
+          child: Container(
+            width: fullWidth,
+            child: Row(
+              children: [
+                Card(
+                  elevation: 5,
+                  child: Container(
+                      width: 125.w,
+                      alignment: Alignment.center,
+                      height: 30.h,
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(5.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xffF1F4F9)
+                                  .withOpacity(0.5), //color of shadow
+                              spreadRadius: 8, //spread radius
+                              blurRadius: 7, // blur radius
+                              offset:
+                                  Offset(3, 5), // changes position of shadow
+                              //first paramerter of offset is left-right
+                              //second parameter is top to down
+                            ),
+                          ]),
+                      child: DropdownButton(
+                          padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          isExpanded: true,
+                          hint: Text(
+                            "${isGoodsSelect ? goodsName : 'Type of Goods'}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 13.sp),
+                          ),
+                          underline: SizedBox(),
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          value: goodsType,
+                          items: goodTypeList
+                              .map((e) => DropdownMenuItem(
+                                    onTap: () {
+                                      goodsName = e['name'].toString();
+                                    },
+                                    value: e['id'],
+                                    child: Text(
+                                      "${e['name']}",
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              isGoodsSelect = true;
+                            });
+                          })),
+                ),
+                CustomTextForm(
+                  width: 165.w,
+                  height: 30.h,
+                  hinttext: "Weight Willing To Carry",
+                  fontSize: 13.sp,
+                  textController: approxValue,
+                ),
+              ],
             ),
-            maxLines: 3,
+          ),
+        ),
+        SizedBox(height: 3.h,),
+        UnconstrainedBox(
+          child: Container(
+            width: 306.w,
+            child: Row(
+              children: [
+                Text("Using your own vehicle?",
+                style: TextStyle(fontWeight: FontWeight.normal, fontSize:13.sp, color: Colors.black)
+                       
+                ),
+              ],
+            )),
+        ),
+        SizedBox(
+          height: height.h,
+        ),
+        UnconstrainedBox(
+          child: Container(
+            width: fullWidth,
+            child: Row(
+              children: [
+              
+                CustomTextForm(
+                  height: 30.h,
+                  width: 160.w,
+                  hinttext: "Weight of package",
+                  fontSize: 13.sp,
+                  textController: weight,
+                ),
+                Card(
+                  elevation: 5,
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 30.h,
+                    padding: EdgeInsets.symmetric(horizontal: 2.w),
+                    width: 50.w,
+                    decoration: BoxDecoration(
+                       
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xffF1F4F9)
+                                .withOpacity(0.5), //color of shadow
+                            spreadRadius: 8, //spread radius
+                            blurRadius: 7, // blur radius
+                            offset: Offset(3, 5), // changes position of shadow
+                            //first paramerter of offset is left-right
+                            //second parameter is top to down
+                          ),
+                        ]),
+                    child: DropdownButton(
+                      underline: SizedBox(),
+                      isExpanded: true,
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black),
+                      value: weightOfPackage,
+                      onChanged: (value) {
+                        weightOfPackage = value!;
+                        print(weightOfPackage);
+                      },
+                      items: weightOfPackages,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 2.h,
+        ),
+        UnconstrainedBox(
+          child: Card(
+            elevation: 5,
+            child: Container(
+               
+              decoration: BoxDecoration(color: primaryColor, boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+                  //first paramerter of offset is left-right
+                  //second parameter is top to down
+                ),
+              ]),
+              width: fullWidth,
+              child: TextFormField(
+                controller: note,
+                decoration: InputDecoration(
+                  hintText: "Note",
+                  fillColor: primaryColor,
+                  border: OutlineInputBorder(),
+                ),
+                maxLines: 1,
+              ),
+            ),
           ),
         ),
         SizedBox(
           height: 10.h,
         ),
         CustomButtonOne(
-          title: "Sumbit",
+          title: "Submit",
           onTab: () {
-            print(pickDate);
-            print(deliveryDate);
+            var pickUpPointLat = startPosition!.geometry!.location!.lat;
+            var pickUpPointLong = startPosition!.geometry!.location!.lng;
+            var dropUpPointLat = startPosition!.geometry!.location!.lat;
+            var dropUpPointLong = startPosition!.geometry!.location!.lng;
 
-            controller.carryPackage(
-                pickup.toString(),
-                pickDate.toString(),
-                pickupTime,
-                dropoffpoint.toString(),
-                deliveryDate,
-                delivaryTime,
-                currency,
-                packageType,
-                note.text.toString());
+            print(
+                "address is ${GetAddressFromLatLong(pickUpPointLat, pickUpPointLong)}");
+            controller.sendPackage(
+                pickup: _startSearchFieldController.text.toString(),
+                pickDate: pickDate.text.toString(),
+                pickTime: pickupTime.toString(),
+                pPointLat: pickUpPointLat,
+                pPointLng: pickUpPointLong,
+                dPointLat: dropUpPointLat,
+                dPointLng: dropUpPointLong,
+                deliveryDate: deliveryDate.text.toString(),
+                deliveryTime: delivaryTime.toString(),
+                dropOff: _endSearchFieldController.text,
+                willingPay: willingPay.text.toString(),
+                sendItem: sendItem.text,
+                goodType: goodsName,
+                approxiValue: approxValue.text.toString(),
+                packageType: package,
+                currency: "BDT",
+                weight: weight.text,
+                note: note.text.toString());
           },
           height: 40.h,
           width: 150.w,
@@ -342,21 +797,17 @@ var fullwidth = 306;
     );
   }
 
-  bool pickStatus = false;
-  bool deliveryStatus = false;
-  DateTime pickDate = DateTime.now();
-  DateTime deliveryDate = DateTime.now();
-  String? selectedDateForBackendDeveloper;
-  pickUpDatePicker(context) async {
+  String? selectedDates;
+
+  DateTime pickUpDate = DateTime.now();
+  var dateDairy;
+  bool dateStatus = false;
+
+  dairyDatePicker(context) async {
     DateTime? userSelectedDate = await showDatePicker(
       context: context,
-      initialDate: pickDate,
-      // firstDate: DateTime(2022),
-      firstDate: DateTime.now(),
-      // firstDate: DateTime(2022, 9, 15),
-
-      // lastDate: DateTime(3000),
-
+      initialDate: pickUpDate,
+      firstDate: DateTime(2021),
       lastDate: DateTime(2030, 01, 01),
     );
 
@@ -364,26 +815,28 @@ var fullwidth = 306;
       return;
     } else {
       setState(() {
-        pickStatus = true;
-        pickDate = userSelectedDate;
-
-        selectedDateForBackendDeveloper =
-            "${pickDate.year}-${pickDate.month}-${pickDate.day}";
-        print("Date $selectedDateForBackendDeveloper");
+        //   dateStatus = true;
+        pickUpDate = userSelectedDate;
+        print(pickUpDate);
+        dateDairy = "${pickUpDate.year}-${pickUpDate.month}-${pickUpDate.day}";
+        pickDate.text = dateDairy;
+        print("Pick Date ${pickDate.text}");
       });
     }
   }
 
-  deliveryDatePicker(context) async {
+  String? selectedDates2;
+
+  DateTime dropUpDate1 = DateTime.now();
+
+  var dateDropUp;
+
+  bool dateStatus2 = false;
+  dropUpDatePicker(context) async {
     DateTime? userSelectedDate = await showDatePicker(
       context: context,
-      initialDate: deliveryDate,
-      // firstDate: DateTime(2022),
-      firstDate: DateTime.now(),
-      // firstDate: DateTime(2022, 9, 15),
-
-      // lastDate: DateTime(3000),
-
+      initialDate: dropUpDate1,
+      firstDate: DateTime(2021),
       lastDate: DateTime(2030, 01, 01),
     );
 
@@ -391,37 +844,69 @@ var fullwidth = 306;
       return;
     } else {
       setState(() {
-        deliveryStatus = true;
-        deliveryDate = userSelectedDate;
-
-        selectedDateForBackendDeveloper =
-            "${deliveryDate.year}-${deliveryDate.month}-${deliveryDate.day}";
-        print("Date $selectedDateForBackendDeveloper");
+        //   dateStatus = true;
+        dropUpDate1 = userSelectedDate;
+        print(dropUpDate1);
+        var dropOffDate =
+            "${dropUpDate1.year}-${dropUpDate1.month}-${dropUpDate1.day}";
+        deliveryDate.text = dropOffDate;
+        print("Delivery Date ${deliveryDate.text}");
       });
     }
   }
 
+  TimeOfDay? pickuptime;
   var pickupTime;
-
   void _showTimePicker() async {
     showTimePicker(context: context, initialTime: TimeOfDay.now())
         .then((value) {
       setState(() {
-        print(value);
-        pickupTime = value;
-        print(pickupTime);
+        pickuptime = value;
+
+        pickupTime = pickuptime!.format(context).toString();
+
+        print("Pick Up $pickupTime");
       });
     });
   }
 
-  TimeOfDay? delivaryTime;
-
+  TimeOfDay? delivarytime;
+  var delivaryTime;
   void _deliveryTimePicker() async {
     showTimePicker(context: context, initialTime: TimeOfDay.now())
         .then((value) {
       setState(() {
-        delivaryTime = value!;
+        delivarytime = value!;
+        delivaryTime = delivarytime!.format(context).toString();
+        print("delivary time $delivaryTime");
       });
     });
+  }
+}
+
+class LavenderTextField extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 30,
+      decoration: BoxDecoration(
+        color: primaryColor,
+        borderRadius: BorderRadius.circular(5),
+        boxShadow: [
+          BoxShadow(
+            color: primaryColor.withOpacity(0.5), // Shadow color
+            spreadRadius: 2,
+            blurRadius: 4,
+            offset: Offset(2, 2),
+          ),
+        ],
+      ),
+      child: TextField(
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+          border: InputBorder.none,
+        ),
+      ),
+    );
   }
 }

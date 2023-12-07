@@ -143,7 +143,7 @@ var fullWidth = 300.w;
               decoration: InputDecoration(
                   hintText: 'Start Point',
                   hintStyle:
-                      TextStyle(fontWeight: FontWeight.w500, fontSize: 14.sp),
+                      TextStyle(fontWeight: FontWeight.normal, fontSize: 13.sp),
                   filled: true,
                   fillColor: primaryColor,
                   border: InputBorder.none,
@@ -200,12 +200,15 @@ var fullWidth = 300.w;
                             "${pickDate.day}-${pickDate.month}-${pickDate.year}",
                             style: TextStyle(
                                 fontSize: 13.sp,
-                                color: Colors.black,
+                               
                                 fontWeight: FontWeight.normal),
                             textAlign: TextAlign.center,
                           )
                         : Text(
-                            "${pickDate.day}-${pickDate.month}-${pickDate.year}"),
+                            "${pickDate.day}-${pickDate.month}-${pickDate.year}",  style: TextStyle(
+                                fontSize: 13.sp,
+                               
+                                fontWeight: FontWeight.normal),),
                   ),
                 ),
                 InkWell(
@@ -228,7 +231,10 @@ var fullWidth = 300.w;
                       ),
                       child: pickupTime != null
                           ? Text(pickupTime!.format(context).toString())
-                          : Text("Select Time"),
+                          : Text("Select Time",  style: TextStyle(
+                                fontSize: 13.sp,
+                               
+                                fontWeight: FontWeight.normal),),
                     )),
               ],
             ),
@@ -255,13 +261,13 @@ var fullWidth = 300.w;
               focusNode: endFocusNode,
               enabled: _startSearchFieldController.text.isNotEmpty &&
                   startPosition != null,
-              style: TextStyle(fontSize: 15.sp),
+              style: TextStyle(fontSize: 13.sp),
               decoration: InputDecoration(
                   hintText: 'Destination',
                   hintStyle: TextStyle(
                       fontWeight: FontWeight.normal,
-                      color: Colors.black,
-                      fontSize: 14.sp),
+                     
+                      fontSize: 13.sp),
                   filled: true,
                  fillColor: primaryColor,
                   border: InputBorder.none,
@@ -455,14 +461,14 @@ var fullWidth = 300.w;
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                    width: 140.w,
+                    width: 130.w,
                     alignment: Alignment.center,
                     height: 30,
                     decoration: BoxDecoration(
                         color: primaryColor,
                         borderRadius: BorderRadius.circular(5.r)),
                     child: DropdownButton(
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
                         isExpanded: true,
                         hint: Text(
                           "${isPreferSelect ? preferToRide : 'Get Ride From'}",
@@ -495,8 +501,9 @@ var fullWidth = 300.w;
                 ),
                CustomTextForm(
                 height: 30.h, 
-                width: 100.w, 
+                width: 110.w, 
                 hinttext: "willing To Pay",
+                fontSize: 13.sp,
                 textController: willPayAmount,
                ), 
                 Container(
@@ -523,6 +530,10 @@ var fullWidth = 300.w;
               controller: note,
               decoration: InputDecoration(
                 hintText: "Note",
+                hintStyle:  TextStyle(
+                                fontSize: 13.sp,
+                               
+                                fontWeight: FontWeight.normal),
                 border: OutlineInputBorder(),
               ),
               maxLines: 3,

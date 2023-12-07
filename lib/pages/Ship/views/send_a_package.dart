@@ -267,7 +267,7 @@ class _SendAPackageState extends State<SendAPackage> {
                         ),
                         child: pickupTime != null
                             ? Text(pickuptime!.format(context).toString())
-                            : Text("Select Time", style: TextStyle(
+                            : Text("Select Pickup Time", style: TextStyle(
                               fontSize: 13.sp, fontWeight: FontWeight.normal
                             ),),
                       ),
@@ -487,7 +487,7 @@ class _SendAPackageState extends State<SendAPackage> {
                                   fontWeight: FontWeight.normal,
                                 ),)
                             : Text(
-                                "Perferred delivery time",
+                                "Possible Delivery Time",
                                 style: TextStyle(
                                   fontSize: 13.sp,
                                   fontWeight: FontWeight.normal,
@@ -540,7 +540,7 @@ class _SendAPackageState extends State<SendAPackage> {
                 CustomTextForm(
                   width: 151.w,
                   height: 30.h,
-                  hinttext: "What are you sending? ",
+                  hinttext: "Sending What? ",
                   fontSize: 12.5.sp,
                   textController: sendItem,
                 ),

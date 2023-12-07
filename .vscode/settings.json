@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "D:/ThohidFlutter/tripshiptask/linux"
+    "cmake.sourceDirectory": "D:/ThohidFlutter/tripshiptask/linux",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
