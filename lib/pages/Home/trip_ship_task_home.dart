@@ -70,15 +70,12 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
                               ? tealColor
                               : Colors.grey,
                           borderRadius: BorderRadius.circular(5.r)),
-                      child: Text(
-       
-       "Trip",
-      style: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        fontSize: 14.sp,
-        letterSpacing: 1.0
-      )),
+                      child: Text("Trip",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14.sp,
+                              letterSpacing: 1.0)),
                     ),
                   ),
                   InkWell(
@@ -91,25 +88,22 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
                       setState(() {});
                     },
                     child: Container(
-                      alignment: Alignment.center,
-                      height: 30.h,
+                        alignment: Alignment.center,
+                        height: 30.h,
                         width: 99.w,
-                      decoration: BoxDecoration(
-                          color: shipStatus == widget.ship
-                              ? tealColor
-                              : Colors.grey,
-                          borderRadius: BorderRadius.circular(5.r)),
-                      child: Text(
-       
-       "Ship",
-      style: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        fontSize: 14.sp,
-        letterSpacing: 1.0
-      ),
-    )
-                    ),
+                        decoration: BoxDecoration(
+                            color: shipStatus == widget.ship
+                                ? tealColor
+                                : Colors.grey,
+                            borderRadius: BorderRadius.circular(5.r)),
+                        child: Text(
+                          "Ship",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14.sp,
+                              letterSpacing: 1.0),
+                        )),
                   ),
                   InkWell(
                     onTap: () {
@@ -123,21 +117,20 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
                     child: Container(
                       alignment: Alignment.center,
                       height: 30.h,
-                     width: 99.w,
+                      width: 99.w,
                       decoration: BoxDecoration(
                           color: taskStatus == widget.task
                               ? tealColor
                               : Colors.grey,
                           borderRadius: BorderRadius.circular(5.r)),
                       child: Text(
-       
-       "Task",
-      style: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        fontSize: 14.sp,
-        letterSpacing: 1.0
-      ),),
+                        "Task",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.sp,
+                            letterSpacing: 1.0),
+                      ),
                     ),
                   )
                 ],
@@ -157,8 +150,8 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
 }
 
 class CustomAppBar2 extends StatelessWidget {
-  final _box = GetStorage(); 
-   CustomAppBar2({
+  final _box = GetStorage();
+  CustomAppBar2({
     super.key,
   });
 
@@ -180,18 +173,17 @@ class CustomAppBar2 extends StatelessWidget {
           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-                alignment: Alignment.center,
-                height: 50.h,
-                width: 70.w,
-                child: Icon(
-                  Icons.person,
-                  size: 60.h,
-                  color: white,
-                )),
+              margin: EdgeInsets.only(left: 10.w),
+              child: CircleAvatar(
+                radius: 25.r,
+                backgroundImage: AssetImage("assets/Thohid.jpg"),
+              ),
+            ),
+            SizedBox(
+              width: 5.w,
+            ),
             GestureDetector(
-              onTap: () {
-             
-              },
+              onTap: () {},
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -212,25 +204,26 @@ class CustomAppBar2 extends StatelessWidget {
               ),
             ),
             Container(
-                width: 120.w,
-                padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(right: 5.w),
-                height: 35.h,
-                decoration: BoxDecoration(
-                    color: lightNavyColor,
-                    borderRadius: BorderRadius.circular(20.r)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    CustomText(
-                      "Balance : 2000TK",
-                      white,
-                      FontWeight.w600,
-                      13.sp,
-                    ),
-                  ],
-                ))
+                // width: 120.w,
+                // padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
+                // alignment: Alignment.center,
+                // margin: EdgeInsets.only(right: 5.w),
+                // height: 35.h,
+                // decoration: BoxDecoration(
+                //     color: lightNavyColor,
+                //     borderRadius: BorderRadius.circular(20.r)),
+                // child: Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: [
+                //     CustomText(
+                //       "BAL (TK): 2000",
+                //       white,
+                //       FontWeight.w600,
+                //       13.sp,
+                //     ),
+                //   ],
+                // ),
+                )
           ],
         ),
       ),

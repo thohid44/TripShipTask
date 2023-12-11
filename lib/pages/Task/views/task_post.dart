@@ -21,60 +21,108 @@ class TaskPost extends StatelessWidget {
                 itemCount: controller.allGiveTaskList.length,
                 itemBuilder: (context, index) {
                   var details = controller.allGiveTaskList[index];
-                  return Card(
+                        return Card(
                     child: Container(
                       padding: EdgeInsets.symmetric(
-                          horizontal: 10.w, vertical: 10.h),
+                          horizontal: 5.w, vertical: 5.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            width: 190.w,
+                            width: 280.w,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+
+                              Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
                                 Container(
-                                  child: CustomText("Title: ${details.title}",
-                                      Colors.black, FontWeight.normal, 13.sp),
-                                ),
-                                Container(
-                                  child: CustomText(
-                                      "Location: ${details.location}]",
-                                      Colors.black,
-                                      FontWeight.normal,
-                                      13.sp),
-                                ),
-                                Container(
-                                  child: CustomText(
-                                      "Offers: ${details.bidsCount}",
-                                      Colors.black,
-                                      FontWeight.normal,
-                                      13.sp),
-                                ),
-                                Container(
-                                  child: CustomText(
-                                      "Date & Time: ${DateFormat.yMMMd().format(details.date)}",
-                                      Colors.black,
-                                      FontWeight.normal,
-                                      13.sp),
+                                    child: Text(
+                                  "Title :",
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
+                                SizedBox(height: 3.h,), 
+                                Expanded(
+                                  child: Text("${details.title}",
+                                      style: TextStyle(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                        maxLines: 1, overflow: TextOverflow.ellipsis,
+                                      ),
                                 ),
                               ],
                             ),
-                          ),
-                          Container(
-                            width: 120.w,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.end,
+                             SizedBox(height: 3.h,), 
+                              Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.symmetric(vertical: 10.h),
-                                  child: CustomText("Amount ${details.amount}",
-                                      Colors.black, FontWeight.normal, 13.sp),
+                                    child: Text(
+                                  "Location :",
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
+                                Expanded(
+                                  child: Text("${details.location}",
+                                      style: TextStyle(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                        maxLines: 1, overflow: TextOverflow.ellipsis,
+                                      ),
                                 ),
-                                InkWell(
-                                  onTap: () {
-                                    var path = details.path!;
+                              ],
+                            ),
+                            SizedBox(height: 3.h,), 
+                                Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                    child: Text(
+                                  "Date & Time: ",
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
+                                Expanded(
+                                  child: Text("${DateFormat.yMMMd().format(details.date)}",
+                                      style: TextStyle(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                        maxLines: 1, overflow: TextOverflow.ellipsis,
+                                      ),
+                                ),
+                              ],
+                            ),
+                           
+                              Container(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                               
+                                 
+                                Row(
+                              children: [
+                                CustomText("Offered Amt: ", Colors.black,
+                                    FontWeight.bold, 12.sp),
+                                CustomText("2000 ",
+                                    Colors.black, FontWeight.normal, 12.sp),
+                              ],
+                            ),
+                              
+                                  GestureDetector(
+                                    onTap: () {
+                                   var path = details.path!;
 
                                     Get.to(TaskDetailPage(path),
                                         duration: Duration(
@@ -84,31 +132,28 @@ class TaskPost extends StatelessWidget {
                                             .leftToRight //transition effect
 
                                         );
-                                  },
-                                  child: Container(
-                                    child: CustomText("Details", Colors.black,
-                                        FontWeight.normal, 13.sp),
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                     height: 25.h,
+                                     width: 60.w,
+                                      decoration: BoxDecoration(
+                                          color: navyBlueColor,
+                                          borderRadius:
+                                              BorderRadius.circular(5.r)),
+                                      child: CustomText("Details", Colors.white,
+                                          FontWeight.bold, 12.sp),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(
-                                      left: 10.w,
-                                      right: 10.w,
-                                      top: 5.h,
-                                      bottom: 5.h),
-                                  decoration: BoxDecoration(
-                                      color: navyBlueColor,
-                                      borderRadius:
-                                          BorderRadius.circular(10.r)),
-                                  child: CustomText("Make offer", Colors.white,
-                                      FontWeight.normal, 13.sp),
-                                ),
+                                ],
+                              ),
+                            ),
                               ],
                             ),
-                          )
+
+                          ),
+
+                    
                         ],
                       ),
                     ),

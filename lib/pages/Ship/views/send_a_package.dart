@@ -760,8 +760,8 @@ class _SendAPackageState extends State<SendAPackage> {
             var dropUpPointLat = startPosition!.geometry!.location!.lat;
             var dropUpPointLong = startPosition!.geometry!.location!.lng;
 
-            print(
-                "address is ${GetAddressFromLatLong(pickUpPointLat, pickUpPointLong)}");
+            // print(
+            //     "address is ${GetAddressFromLatLong(pickUpPointLat, pickUpPointLong)}");
             controller.sendPackage(
                 pickup: _startSearchFieldController.text.toString(),
                 pickDate: pickDate.text.toString(),

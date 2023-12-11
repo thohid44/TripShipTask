@@ -76,8 +76,8 @@ class TripController extends GetxController {
       "destination": des,
       "distance": distance,
       "duration": duration,
-      "vehicle": "2",
-      "vehicle_type": "car",
+      "vehicle": "$howmany",
+      "vehicle_type": "$vehicled",
       "pay": willPay,
       "s_lat": sPointLat.toString(),
       "s_lng": sPointLng.toString(),
@@ -150,8 +150,8 @@ class TripController extends GetxController {
       "destination": des,
       "distance": distance,
       "duration": duration,
-      "vehicle": "2",
-      "vehicle_type": "car",
+      "vehicle": howmany.toString(),
+      "vehicle_type": vehicled.toString(),
       "pay": willPay,
       "s_lat": sPointLat.toString(),
       "s_lng": sPointLng.toString(),
@@ -172,7 +172,7 @@ class TripController extends GetxController {
         print(response.statusCode);
         var jsonData = jsonDecode(response.body);
         print(jsonData);
-        Get.snackbar("Give Ride", "Successfully Store",
+        Get.snackbar("Get Ride", "Successfully Store",
             backgroundColor: primaryColor);
       }
     } catch (e) {

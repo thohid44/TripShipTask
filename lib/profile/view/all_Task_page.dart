@@ -24,11 +24,12 @@ class _AllTaskPageState extends State<AllTaskPage>
     super.initState();
     _tabController = TabController(length: 6, vsync: this);
     _tabController.animateTo(2);
+    controller.getMyTask();
   }
 
   static const List<Tab> _tabs = [
-    Tab(child: const Text('Posted Task')),
-    Tab(text: 'Seek Task'),
+    Tab(child: const Text('Offer a Task')),
+    Tab(text: 'Want a Task'),
     Tab(text: 'Completed Task'),
   ];
   var controller = Get.put(TaskController());
@@ -38,7 +39,7 @@ class _AllTaskPageState extends State<AllTaskPage>
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
-        length: 6,
+        length: 3,
         child: Scaffold(
           appBar: AppBar(
             elevation: 0,
@@ -54,8 +55,7 @@ class _AllTaskPageState extends State<AllTaskPage>
                 print('Tab $index is tapped');
               },
               enableFeedback: true,
-              // Uncomment the line below and remove DefaultTabController if you want to use a custom TabController
-              // controller: _tabController,
+
               tabs: _tabs,
             ),
             title: const Text('TripShipTask'),
@@ -63,8 +63,7 @@ class _AllTaskPageState extends State<AllTaskPage>
           ),
           body: TabBarView(
             physics: BouncingScrollPhysics(),
-            // Uncomment the line below and remove DefaultTabController if you want to use a custom TabController
-            //     controller: _tabController,
+
             children: [
               Obx(() => controller.isLoading.value == false
                   ? ListView.builder(
@@ -154,6 +153,7 @@ class _AllTaskPageState extends State<AllTaskPage>
                         );
                       })
                   : Center(child: CircularProgressIndicator())),
+                  
               FutureBuilder(
                   future: controller.getMyTask(),
                   builder: (context, AsyncSnapshot snapshot) {

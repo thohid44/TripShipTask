@@ -98,7 +98,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                     children: [
                       Container(
                           height: 550.h,
-                          margin: EdgeInsets.symmetric(horizontal: 15.w),
+                          margin: EdgeInsets.symmetric(horizontal: 5.w),
                           child: ListView(
                             children: [
                               SizedBox(
@@ -107,7 +107,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                               TripDetailsWidget(
                                 status: false,
                                 title: "Title",
-                                value: snapshot.data!.tripDetailsModel!.id
+                                value: snapshot.data!.tripDetailsModel!.title
                                     .toString(),
                               ),
                               TripDetailsWidget(
@@ -1052,12 +1052,12 @@ class TripDetailsWidget extends StatelessWidget {
             ? Container(
                 width: 200.w,
                 child: CustomText(
-                    " ${value}", Colors.black, FontWeight.w500, 15.sp),
+                    " ${value}", Colors.black, FontWeight.w500, 13.sp),
               )
             : Container(
                 width: 200.w,
                 child: CustomText(" ${value == "0" ? "NO" : "Yes"}",
-                    Colors.black, FontWeight.w500, 14.sp),
+                    Colors.black, FontWeight.normal, 13.sp),
               ),
       ],
     );

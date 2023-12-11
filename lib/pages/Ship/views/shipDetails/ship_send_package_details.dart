@@ -17,6 +17,8 @@ import 'package:tripshiptask/pages/Ship/views/shipPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:tripshiptask/profile/view/user_deshboard.dart';
 
+import '../../../Home/trip_ship_task_home.dart';
+
 class ShipSendPackageDetails extends StatefulWidget {
   String? path;
   ShipSendPackageDetails({super.key, this.path});
@@ -56,7 +58,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(),
+      appBar:customAppBar(),
       body: FutureBuilder(
           future: shipSendPackageDetails(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -64,7 +66,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
               shipId = snapshot.data!.data!.id;
 
               return Container(
-                margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h),
+                margin: EdgeInsets.only(left: 8.w, right: 8.w, top: 20.h),
                 child: ListView(
                   children: [
                     Container(
@@ -110,7 +112,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                       ),
                     ),
                     Container(
-                      height: 350.h,
+                      height: 300.h,
                       child: ListView.builder(
                           itemCount: snapshot.data!.data!.bids.length,
                           itemBuilder: (context, index) {
@@ -124,7 +126,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                 child: Column(
                                   children: [
                                     ShipDetailsWidget(
-                                        title: "Post By",
+                                        title: "Offer By",
                                         width: 80.0,
                                         valueWidth: 180.0,
                                         value:
@@ -138,7 +140,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                         width: 80.0,
                                         valueWidth: 180.0,
                                         value:
-                                            "${snapshot.data!.data!.bids[index]['amount']}",
+                                            "${snapshot.data!.data!.bids[index]['co']}",
                                         status: false),
                                     ships[index]['co'] == null
                                         ? Container()
@@ -242,8 +244,10 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                 ),
                                               )
                                             : customText(
-                                                title: "Agree",
-                                              )
+                                                title: "Agreed",
+                                              ), 
+
+
                                       ],
                                     ),
                                     ships[index]['accepted'] == 1
@@ -290,23 +294,34 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                 ));
                           }),
                     ),
-                    Row(
+                  _box.read(LocalStoreKey.userId) ==  snapshot.data!.data.userId ?Container():  Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        snapshot.data!.data!.bids.length == 0
-                            ? ElevatedButton.icon(
-                                onPressed: () {},
-                                icon: Icon(Icons.add),
-                                label: Text("Accept"))
-                            : Container(),
-                        snapshot.data!.data!.bids.length == 0
-                            ? ElevatedButton.icon(
-                                onPressed: () {
-                                  makeOffer(context);
-                                },
-                                icon: Icon(Icons.add),
-                                label: Text("Make Offer"))
-                            : Container(),
+                        CustomButtonOne(
+                          width:100.w,
+                          height: 35.h,
+                      title: "Accept",
+                      btnColor: navyBlueColor,
+                      marginLR: 5.w,
+                      radius: 5.r,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                      onTab: () {
+                   
+                      }),
+                         CustomButtonOne(
+                          width:120.w,
+                          height: 35.h,
+                      title: "Make Offer",
+                      btnColor: navyBlueColor,
+                      marginLR: 5.w,
+                      radius: 5.r,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                      onTab: () {
+                    makeOffer(context);
+                      }),
+                       
                       ],
                     )
                   ],
@@ -443,7 +458,7 @@ class ShipDetailsWidget extends StatelessWidget {
                 "$title",
                 style: TextStyle(
                     fontSize: 13.sp,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     color: Colors.black),
               )),
           status == false

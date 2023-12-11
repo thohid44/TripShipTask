@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tripshiptask/Utils/colors.dart';
+import 'package:tripshiptask/pages/Trip/views/please_search.dart';
 import 'package:tripshiptask/pages/Trip/views/trip_search/trip_single_search.dart';
 
 class TripPage extends StatefulWidget {
@@ -105,7 +106,7 @@ class _TripPageState extends State<TripPage> {
                         height: 28.h,
                         child: TextField(
                           onTap: () {
-                            Get.to(TripSingleSearchPage());
+                            Get.to(SearchScreen());
                           },
                           decoration: InputDecoration(
                             contentPadding:

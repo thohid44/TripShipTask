@@ -7,7 +7,7 @@ import 'package:tripshiptask/Utils/localstorekey.dart';
 
 import 'package:tripshiptask/Widget/customText.dart';
 import 'package:tripshiptask/pages/Ship/views/shipDetails/ship_send_package_details.dart';
-import 'package:tripshiptask/pages/Task/controller/task_controller.dart';
+
 import 'package:tripshiptask/pages/Task/model/my_task_details_model.dart';
 
 import 'package:tripshiptask/pages/Trip/views/trip_page.dart';
@@ -73,7 +73,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                   child: Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10.w),
+                        margin: EdgeInsets.symmetric(horizontal: 5.w),
                         height: 550.h,
                         child: status == true
                             ? Center(child: CircularProgressIndicator())
@@ -179,10 +179,10 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                                                                             .w,
                                                                         vertical: 5
                                                                             .h),
-                                                                    decoration: BoxDecoration(
+                                                                    decoration: const BoxDecoration(
                                                                         color: Colors
                                                                             .green),
-                                                                    child: Text(
+                                                                    child: const Text(
                                                                         "Yes"))),
                                                             SizedBox(
                                                               width: 15.w,
@@ -281,18 +281,18 @@ class TripDetailsWidget extends StatelessWidget {
         Container(
           width: 100.w,
           margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-          child: CustomText("$title :", Colors.black, FontWeight.w500, 14.sp),
+          child: CustomText("$title :", Colors.black, FontWeight.w500, 13.sp),
         ),
         status == false
             ? Container(
                 width: 200.w,
                 child: CustomText(
-                    " ${value}", Colors.black, FontWeight.w500, 15.sp),
+                    " ${value}", Colors.black, FontWeight.normal, 13.sp),
               )
             : Container(
                 width: 200.w,
                 child: CustomText(" ${value == "0" ? "NO" : "Yes"}",
-                    Colors.black, FontWeight.w500, 14.sp),
+                    Colors.black, FontWeight.normal, 14.sp),
               ),
       ],
     );

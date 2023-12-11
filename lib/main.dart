@@ -6,8 +6,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tripshiptask/Email_Verify/view/email_verification.dart';
 import 'package:tripshiptask/my_form.dart';
+import 'package:tripshiptask/page_list.dart';
 import 'package:tripshiptask/profile/view/profile_screen.dart';
 import 'package:tripshiptask/rating/view/service_provider_rating.dart';
+import 'package:tripshiptask/splashScreen.dart';
 import 'package:uni_links/uni_links.dart';
 import 'Utils/localstorekey.dart';
 import 'pages/Home/view/home_screen.dart';
@@ -76,7 +78,7 @@ class _MyAppState extends State<MyApp> {
           home: child,
         );
       },
-   child: checkUserType() ? HomeScreen() : LoginScreen(),
+   child: checkUserType() ? HomeScreen() :SplashScreen(),
     );
   }
 

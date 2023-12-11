@@ -1,13 +1,13 @@
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tripshiptask/Widget/customText.dart';
-import 'package:tripshiptask/Widget/customTextForm.dart';
+
 import 'package:tripshiptask/pages/Ship/views/carry_a_package.dart';
 import 'package:tripshiptask/pages/Ship/views/send_a_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:tripshiptask/pages/Ship/views/shipDetails/ship_search_details.dart';
+import 'package:tripshiptask/pages/Ship/views/shipDetails/ship_send_package_details.dart';
 import 'package:tripshiptask/pages/Ship/views/ship_carry_package_post_list.dart';
 import 'package:tripshiptask/pages/Trip/views/trip_search/trip_single_search.dart';
 import 'package:tripshiptask/profile/view/user_deshboard.dart';
@@ -124,8 +124,8 @@ class _ShipHomePageState extends State<ShipHomePage> {
                       decoration: BoxDecoration(
                           color: index == 3 ? Color(0xff4CA4C7) : Colors.grey,
                           borderRadius: BorderRadius.circular(5.r)),
-                      child: CustomText("Ship Carry Posts", Colors.white,
-                              FontWeight.w700, 11.sp)
+                      child: CustomText("Carry Package Posts", Colors.white,
+                              FontWeight.w700, 10.sp)
                     ),
                   ),
                   InkWell(
@@ -142,8 +142,8 @@ class _ShipHomePageState extends State<ShipHomePage> {
                       decoration: BoxDecoration(
                           color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
                           borderRadius: BorderRadius.circular(5.r)),
-                      child:   CustomText("Ship Send Posts", Colors.white,
-                              FontWeight.w700, 11.sp)
+                      child:   CustomText("Send Package Posts", Colors.white,
+                              FontWeight.w700, 10.sp)
                     ),
                   )
                 ],
@@ -286,7 +286,7 @@ class ShipPostItemWidget extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Get.to(ShipPageDetails(), arguments: shipData);
+                  Get.to(ShipSendPackageDetails(), arguments: shipData);
                 },
                 child: Text(
                   "Details",
@@ -315,30 +315,3 @@ class ShipPostItemWidget extends StatelessWidget {
   }
 }
 
-AppBar customAppBar() {
-  return AppBar(
-    elevation: 0,
-    title: Text(
-      "Trip Ship Task",
-      style: TextStyle(color: Colors.black),
-    ),
-    centerTitle: true,
-    backgroundColor: Colors.white,
-    leading: IconButton(
-        onPressed: () {
-          Get.back();
-        },
-        icon: const Icon(
-          Icons.arrow_back_ios_new,
-          color: Colors.black,
-        )),
-    actions: [
-      IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.filter,
-            color: Colors.black,
-          )),
-    ],
-  );
-}

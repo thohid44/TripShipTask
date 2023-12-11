@@ -2,7 +2,6 @@ import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/rating/view/star_rating_service_receiver_32.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -31,7 +30,9 @@ class RatingPage30 extends StatelessWidget {
                 height: 2,
               ),
               Container(
+                width: 306.w,
                 height: 530.h,
+                margin: EdgeInsets.symmetric(horizontal: 15.w),
                 child: ListView(
                   physics: BouncingScrollPhysics(),
                   children: [
@@ -39,10 +40,12 @@ class RatingPage30 extends StatelessWidget {
                         title:
                             " Did the service receiver wear a mask & maintain safe distance?",
                         imgLink: "assets/man.png"),
+                        SizedBox(height: 5.h,), 
                     RatingItemWidget(
                         title:
                             " Was the service receiver willind to give Digital payment?",
                         imgLink: "assets/man.png"),
+                           SizedBox(height: 5.h,), 
                     RatingItemWidget(
                         title:
                             " Was the service receiver courteous and pleasant?",
@@ -98,14 +101,14 @@ class _RatingItemWidgetState extends State<RatingItemWidget> {
     return Container(
       width: double.infinity.w,
       padding: EdgeInsets.only(
-        left: 20.w,
-        right: 20.w,
+        left: 10.w,
+        right: 10.w,
         top: 20.h,
       ),
       height: 130.h,
-      margin: EdgeInsets.symmetric(horizontal: 25.w, vertical: 15.h),
+   
       decoration: BoxDecoration(
-        color: Color(0xffF2F2F2),
+        color:primaryColor,
         borderRadius: BorderRadius.circular(10.r),
         boxShadow: [
           BoxShadow(

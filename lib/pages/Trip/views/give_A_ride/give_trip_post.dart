@@ -49,7 +49,7 @@ class _GiveTripPostState extends State<GiveTripPost> {
    List<Map<String, dynamic>> preferList = [
     {"id": 1, "name": "Male", "slug": "Male"},
     {"id": 2, "name": "Female", "slug": "Female"},
-    {"id": 3, "name": "Any", "slug": "Any"},
+    {"id": 3, "name": "Other", "slug": "Other"},
 
   ];
 
@@ -424,7 +424,7 @@ var  fullWidth = 310.w;
                           padding: EdgeInsets.symmetric(horizontal: 10.w),
                           isExpanded: true,
                           hint: Text(
-                            "${isVehicleSelect ? availableSeat : 'Available Seats'}",
+                            "${isSeatSelect ? availableSeat : 'Available Seats'}",
                             style: TextStyle(
                                 fontWeight: FontWeight.normal, fontSize: 13.sp),
                           ),

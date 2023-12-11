@@ -8,6 +8,7 @@ import 'package:tripshiptask/profile/view/all_Trips_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:tripshiptask/profile/view/all_ship_page.dart';
 import 'package:tripshiptask/rating/view/all_ship_rating_page.dart';
 import 'package:tripshiptask/rating/view/all_task_rating_page.dart';
 import 'package:tripshiptask/rating/view/all_trip_rating_page.dart';
@@ -34,7 +35,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
               elevation: 5,
               child: Container(
                 
-                height: 450.h,
+                height: 600.h,
                 width: 190.w,
                 decoration: BoxDecoration(
                   color: primaryColor
@@ -45,6 +46,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                       height: 10.h,
                     ),
                     ExpansionTile(
+     trailing: SizedBox(),
                       title: Text(
                         "Dashboard",
                         style: TextStyle(
@@ -52,10 +54,10 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                             color: Colors.black,
                             fontSize: 15.sp),
                       ),
-                      children: [],
+                     
                     ),
                     ExpansionTile(
-                      expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
+                     expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
                       title: Text(
                         "Trip",
                         style: TextStyle(
@@ -68,12 +70,14 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                           margin: EdgeInsets.only(left: 40.w),
                           //   height: 40.h,
                           padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
-
+                          decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(width: 0.5.w))
+                          ),
                           child: Text(
                             "Post a Trip",
                             style: TextStyle(
                                 fontSize: 15.sp,
-                                fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.normal,
                                 color: Colors.black),
                           ),
                         ),
@@ -85,12 +89,15 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                           child: Container(
                             margin: EdgeInsets.only(left: 40.w),
                             padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
+                               decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(width: 0.5.w))
+                          ),
                             //      height: 40.h,
                             child: Text(
                               "My Trips",
                               style: TextStyle(
                                   fontSize: 15.sp,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.normal,
                                   color: Colors.black),
                             ),
                           ),
@@ -104,12 +111,14 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                             margin: EdgeInsets.only(left: 40.w),
                             //   height: 40.h,
                             padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
-
+   decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(width: 0.5.w))
+                          ),
                             child: Text(
                               "My Trip offers",
                               style: TextStyle(
                                   fontSize: 15.sp,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.normal,
                                   color: Colors.black),
                             ),
                           ),
@@ -119,18 +128,26 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                             Get.to(AllTripRatingPage(),
                                 transition: Transition.leftToRight);
                           },
-                          child: Container(
+                          child: Row(
+                            children: [
+                              // Icon(Icons.rate_review),
+                              Container(
                             margin: EdgeInsets.only(left: 40.w),
                             padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
+                               decoration: BoxDecoration(
+                      //      border: Border(bottom: BorderSide(width: 0.5.w, color: Colors.black38))
+                          ),
                             //      height: 40.h,
                             child: Text(
                               "My Trip Ratings ",
                               style: TextStyle(
                                   fontSize: 15.sp,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.normal,
                                   color: Colors.black),
                             ),
                           ),
+                            ],
+                          )
                         )
                       ],
                     ),
@@ -148,29 +165,34 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                           margin: EdgeInsets.only(left: 40.w),
                           //   height: 40.h,
                           padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
-
+   decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(width: 0.5.w, color: Colors.black38))
+                          ),
                           child: Text(
                             "Post a Ship",
                             style: TextStyle(
                                 fontSize: 15.sp,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.normal,
                                 color: Colors.black),
                           ),
                         ),
                         InkWell(
                           onTap: () {
-                            Get.to(AllTripsPage(),
+                            Get.to(AllShipPage(),
                                 transition: Transition.leftToRight);
                           },
                           child: Container(
                             margin: EdgeInsets.only(left: 40.w),
                             padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
+                               decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(width: 0.5.w, color: Colors.black38))
+                          ),
                             //      height: 40.h,
                             child: Text(
                               "My Ships",
                               style: TextStyle(
                                   fontSize: 15.sp,
-                                  fontWeight: FontWeight.w600,
+                                 fontWeight: FontWeight.normal,
                                   color: Colors.black),
                             ),
                           ),
@@ -184,12 +206,14 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                             margin: EdgeInsets.only(left: 40.w),
                             //   height: 40.h,
                             padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
-
+   decoration: BoxDecoration(
+                             border: Border(bottom: BorderSide(width: 0.5.w, color: Colors.black38))
+                          ),
                             child: Text(
                               "My Ship offers",
                               style: TextStyle(
                                   fontSize: 15.sp,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.normal,
                                   color: Colors.black),
                             ),
                           ),
@@ -203,11 +227,14 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                             margin: EdgeInsets.only(left: 40.w),
                             padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
                             //      height: 40.h,
+                               decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(width: 0.5.w))
+                          ),
                             child: Text(
                               "My Ship Ratings ",
                               style: TextStyle(
                                   fontSize: 15.sp,
-                                  fontWeight: FontWeight.w600,
+                                 fontWeight: FontWeight.normal,
                                   color: Colors.black),
                             ),
                           ),
@@ -215,7 +242,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                       ],
                     ),
                     ExpansionTile(
-                      expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
+                     expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
                       title: Text(
                         "Task",
                         style: TextStyle(
@@ -224,7 +251,9 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                             fontSize: 15.sp),
                       ),
                       children: [
-                        customText(title: "Post a Task"),
+                        customText(title: "Post a Task",
+                        
+                        ),
                         InkWell(
                           onTap: () {
                             Get.to(AllTaskPage(),
@@ -246,34 +275,35 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                         )
                       ],
                     ),
+
                     Container(
-                      padding: EdgeInsets.only(left: 20.w, top: 10.h),
+                    margin: EdgeInsets.only(left: 18.w, top: 0.h),
                       child: Text(
                         "Referral",
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.black,
-                            fontSize: 15.sp),
+                            fontSize: 13.sp),
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 20.w, top: 10.h),
+                      padding: EdgeInsets.only(left: 18.w, top: 5.h),
                       child: Text(
                         "My Transactions",
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.black,
-                            fontSize: 15.sp),
+                            fontSize: 13.sp),
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 20.w, top: 10.h),
+                      padding: EdgeInsets.only(left: 18.w, top: 5.h),
                       child: Text(
                         "Payment Method",
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.black,
-                            fontSize: 15.sp),
+                            fontSize: 13.sp),
                       ),
                     ),
                   
@@ -294,7 +324,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                       ],
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 20.w, top: 10.h),
+                      padding: EdgeInsets.only(left: 18.w, top: 10.h),
                       child: Text(
                         "Settings",
                         style: TextStyle(
@@ -309,7 +339,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                         Get.offAll(LoginScreen());
                       },
                       child: Container(
-                        padding: EdgeInsets.only(left: 20.w, top: 10.h),
+                        padding: EdgeInsets.only(left: 18.w, top: 10.h),
                         child: Text(
                           "Logout",
                           style: TextStyle(
@@ -338,6 +368,9 @@ class customText extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(left: 40.w),
       padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
+         decoration: BoxDecoration(
+                            border: Border(bottom: BorderSide(width: 0.5.w))
+                          ),
       child: Text(
         "$title",
         style: TextStyle(

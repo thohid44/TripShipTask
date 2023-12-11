@@ -52,12 +52,12 @@ class SendPackageController extends GetxController {
       "pickuppoint": pickup.toString(),
       "date": pickDate.toString(),
       "time": pickTime.toString(),
-      "delivery_date": deliveryDate,
-      "delivery_time": deliveryTime,
-      "dropoffpoint": dropOff,
-      "distance": approxiValue,
+      "delivery_date": deliveryDate.toString(),
+      "delivery_time": deliveryTime.toString(),
+      "dropoffpoint": dropOff.toString(),
+      "distance": approxiValue.toString(),
       "duration": "2",
-      "amount": willingPay,
+      "amount": willingPay.toString(),
       "p_lat": pPointLat.toString(),
       "p_lng": pPointLng.toString(),
       "d_lat": dPointLat.toString(),
@@ -65,7 +65,7 @@ class SendPackageController extends GetxController {
       "document": "books",
       "packagetype": packageType.toString(),
       "weight": weight.toString(),
-      "goodtype": goodType,
+      "goodtype": goodType.toString(),
       "length": "",
       "width": "",
       "height": "",
@@ -82,12 +82,11 @@ class SendPackageController extends GetxController {
       print("ship response ${response.statusCode}");
        var jsonData = jsonDecode(response.body);
         print(jsonData);
-      if (response.statusCode == 201) {
-        print(response.statusCode);
+    
        
         Get.snackbar("Send Package", "Successfully Store",
             backgroundColor: primaryColor);
-      }
+    
     } catch (e) {
       print("Error $e");
     }

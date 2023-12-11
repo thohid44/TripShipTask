@@ -424,7 +424,7 @@ class _CarryAPackageState extends State<CarryAPackage> {
                   child: Card(
                     elevation: 5,
                     child: Container(
-                      width: 145.w,
+                      width: 143.w,
                       height: 30.h,
                       alignment: Alignment.center,
                       decoration: BoxDecoration
@@ -464,7 +464,7 @@ class _CarryAPackageState extends State<CarryAPackage> {
                     child: Container(
                         alignment: Alignment.center,
                         height: 30.h,
-                        width: 147.w,
+                        width: 148.w,
                         decoration: BoxDecoration(
                           color: primaryColor,
                                        boxShadow: [

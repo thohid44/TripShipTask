@@ -21,83 +21,132 @@ class ShipCarryPackagePostList extends StatelessWidget {
                 shipData = controller.shipCarryPostList[index];
                 return Card(
                   child: Container(
-                    width: 320.w,
+                    width: 300.w,
                     padding:
                         EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                           decoration: BoxDecoration(
+                          color: primaryColor
+                        ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          width: 210.w,
+                          width: 285.w,
+                        
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                child: CustomText(
-                                    "Pick Up Point: ${controller.shipSearchList[index].startPoint}",
-                                    Colors.black,
-                                    FontWeight.normal,
-                                    12.sp),
-                              ),
+                         
+                              Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                    child: Text(
+                                  "Pick Up Point :",
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
+                                Expanded(
+                                  child: Text("${controller.shipSearchList[index].startPoint}",
+                                      style: TextStyle(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                        maxLines: 1, overflow: TextOverflow.ellipsis,
+                                      ),
+                                ),
+                              ],
+                            ),
                               SizedBox(
                                 height: 5.h,
                               ),
-                              Container(
-                                child: CustomText(
-                                    "Drop Off Point: ${controller.shipSearchList[index].destination}",
-                                    Colors.black,
-                                    FontWeight.normal,
-                                    13.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 100.w,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              //  Container(
-                              //       child: CustomText(
-                              //           "Amount: ${controller.shipSearchList[index].documents}", Colors.black, FontWeight.normal, 13.sp),
-                              //     ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Get.to(ShipSendPackageDetails(
+                              Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                    child: Text(
+                                  "Drop Off Point: ",
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
+                                Expanded(
+                                  child: Text("${controller.shipSearchList[index].destination}",
+                                      style: TextStyle(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                        maxLines: 1, overflow: TextOverflow.ellipsis,
+                                      ),
+                                ),
+                              ],
+                            ),
+                              SizedBox(height: 3.h),
+                              Row(
+                              children: [
+                                CustomText( "Pick Up Date: ", Colors.black,
+                                    FontWeight.bold, 12.sp),
+                                CustomText("${DateFormat.yMMMd().format(DateTime.parse(controller.shipSearchList[index].pickupDate))}",
+                                    Colors.black, FontWeight.normal, 12.sp),
+                              ],
+                            ),
+                            SizedBox(height: 3.h),
+                                
+                                    Row(
+                                 //     DateFormat.yMMMd().format())
+                              children: [
+                                CustomText( "Delivery Up Date: ", Colors.black,
+                                    FontWeight.bold, 12.sp),
+                                CustomText("${DateFormat.yMMMd().format(DateTime.parse(controller.shipSearchList[index].deliveryDate))}",
+                                    Colors.black, FontWeight.normal, 12.sp),
+                              ],
+                            ),
+                               Container(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                               
+                                 
+                                Row(
+                              children: [
+                                CustomText("Offered Amt: ", Colors.black,
+                                    FontWeight.bold, 12.sp),
+                                CustomText("2000 ",
+                                    Colors.black, FontWeight.normal, 12.sp),
+                              ],
+                            ),
+                              
+                                  GestureDetector(
+                                    onTap: () {
+                                          Get.to(ShipSendPackageDetails(
                                       path: controller
                                           .shipSearchList[index].path
                                           .toString()));
-                                },
-                                child: Text(
-                                  "Details $index ${controller.shipSearchList.length}",
-                                  style: TextStyle(
-                                      color: Colors.blue[800],
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13.sp),
-                                ),
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                     height: 25.h,
+                                     width: 60.w,
+                                      decoration: BoxDecoration(
+                                          color: navyBlueColor,
+                                          borderRadius:
+                                              BorderRadius.circular(5.r)),
+                                      child: CustomText("Details", Colors.white,
+                                          FontWeight.bold, 12.sp),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                height: 20.h,
-                              ),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 8.w, vertical: 7.h),
-                                decoration: BoxDecoration(color: navyBlueColor),
-                                child: Text(
-                                  "Make Offer",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13.sp),
-                                ),
-                              )
+                            ),
                             ],
                           ),
-                        )
+                        ),
+                 
                       ],
                     ),
                   ),

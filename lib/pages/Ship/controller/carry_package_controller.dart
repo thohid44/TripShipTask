@@ -35,7 +35,7 @@ class CarryPackageController extends GetxController {
       "width": "necessitatitripshiptask",
       "height": "voluptas"
     };
-    var response = await ApiService().postData(mapData, "carryshipbids");
+    var response = await ApiService().postData(mapData, "ship");
     if (response.StatusCode == 201) {
       print(response.body);
     }

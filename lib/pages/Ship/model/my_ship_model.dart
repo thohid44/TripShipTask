@@ -25,7 +25,7 @@ class MyShipModel {
 class MyShip {
     List<Package>? sendPackages;
     List<Package>? carryPackages;
-    List<dynamic>? completedShipments;
+    List<Package>? completedShipments;
 
     MyShip({
         this.sendPackages,
@@ -36,7 +36,7 @@ class MyShip {
     factory MyShip.fromJson(Map<String, dynamic> json) => MyShip(
         sendPackages: List<Package>.from(json["send_packages"].map((x) => Package.fromJson(x))),
         carryPackages: List<Package>.from(json["carry_packages"].map((x) => Package.fromJson(x))),
-        completedShipments: List<dynamic>.from(json["completed_shipments"].map((x) => x)),
+        completedShipments: List<Package>.from(json["completed_shipments"].map((x) =>Package.fromJson(x))),
     );
 
   

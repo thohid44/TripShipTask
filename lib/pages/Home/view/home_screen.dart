@@ -6,7 +6,7 @@ import 'package:tripshiptask/pages/Home/trip_ship_task_home.dart';
 import 'package:tripshiptask/profile/view/user_deshboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -94,26 +94,27 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Container(
-                          width: 120.w,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 5.w, vertical: 3.h),
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.only(right: 5.w),
-                          height: 35.h,
-                          decoration: BoxDecoration(
-                              color: lightNavyColor,
-                              borderRadius: BorderRadius.circular(20.r)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              CustomText(
-                                "BAL (TK): 2000",
-                                white,
-                                FontWeight.w600,
-                                13.sp,
-                              ),
-                            ],
-                          ))
+                          // width: 120.w,
+                          // padding: EdgeInsets.symmetric(
+                          //     horizontal: 5.w, vertical: 3.h),
+                          // alignment: Alignment.center,
+                          // margin: EdgeInsets.only(right: 5.w),
+                          // height: 35.h,
+                          // decoration: BoxDecoration(
+                          //     color: lightNavyColor,
+                          //     borderRadius: BorderRadius.circular(20.r)),
+                          // child: Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //   children: [
+                          //     CustomText(
+                          //       "BAL (TK): 2000",
+                          //       white,
+                          //       FontWeight.w600,
+                          //       13.sp,
+                          //     ),
+                          //   ],
+                          // ),
+                          )
                     ],
                   ),
                 ),

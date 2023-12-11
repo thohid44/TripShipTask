@@ -12,6 +12,8 @@ import 'package:tripshiptask/pages/Ship/views/shipPage.dart';
 
 import 'package:intl/intl.dart';
 
+import '../../Home/trip_ship_task_home.dart';
+
 class MyTripsOfferPage extends StatelessWidget {
   const MyTripsOfferPage({super.key});
 
