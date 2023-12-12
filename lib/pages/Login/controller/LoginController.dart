@@ -22,7 +22,8 @@ class LoginController extends GetxController {
     try {
       var mapData = {
         //"email":"test1@abaacorp.com",
-        "email": "waleed.amin08@gmail.com",
+       // "email":"test2@abaacorp.com",
+       "email": "waleed.amin08@gmail.com",
         "password": '123456789'
       };
       isLogLoading(true);

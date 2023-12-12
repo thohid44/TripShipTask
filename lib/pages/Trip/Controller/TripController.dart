@@ -5,7 +5,6 @@ import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:tripshiptask/pages/Trip/model/my_trip_posts_model.dart';
 import 'package:tripshiptask/pages/Trip/model/my_trips_offer_model.dart';
-import 'package:tripshiptask/pages/Trip/model/trip_get_model.dart';
 import 'package:tripshiptask/pages/Trip/model/trip_post_details_model.dart';
 import 'package:tripshiptask/pages/Trip/model/trips_search_model.dart';
 import 'package:get/get.dart';
@@ -18,17 +17,20 @@ import 'package:http/http.dart' as http;
 class TripController extends GetxController {
   final _box = GetStorage();
   var isLoading = false.obs;
+    var isAllLoading = false.obs;
   List<TripSearchM> tripSearchList = <TripSearchM>[].obs;
   List<TripSearchM> gettripSearchList = <TripSearchM>[].obs;
 
   TripPostDetailsModel? tripPostDetailsModel;
 
   List<TripDetailsModel> tripDetailsModel = <TripDetailsModel>[];
+  
   var pth;
   var path1 = ''.obs;
   void onInit() {
     super.onInit();
     getTrips();
+    getMyTrips();
     fetchGetTrips();
     //getTripPostDetails(pth);
   }
@@ -180,11 +182,12 @@ class TripController extends GetxController {
     }
   }
 
+MyTrips? myTrips; 
   getMyTrips() async {
     var token = _box.read(LocalStoreKey.token);
 
     try {
-      isLoading(true);
+      isAllLoading(true);
       var response = await http.get(
         Uri.parse("${baseUrl}mytrip"),
         headers: {
@@ -195,13 +198,17 @@ class TripController extends GetxController {
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
         print(jsonData);
-        update();
-        return MyTripPostsModel.fromJson(jsonData);
+      
+      MyTripPostsModel data=  MyTripPostsModel.fromJson(jsonData);
+myTrips = data.data!;
+ isAllLoading(false);
       }
+
     } catch (e) {
+       isAllLoading(false);
       print("Error $e");
     }
-    update();
+ 
   }
 
   getMyTripsOffer() async {
@@ -409,8 +416,8 @@ class TripController extends GetxController {
   }
 
   tripAgree({bidId}) async {
+    
     var token = _box.read(LocalStoreKey.token);
-
     var mapData = {"agree": '1'};
     print(" bid id $bidId");
     try {
