@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:tripshiptask/Api_services/ApiService.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
+import 'package:http/http.dart' as http;
 
 class TaskRatingController extends GetxController {
   final _box = GetStorage();
@@ -17,52 +18,84 @@ class TaskRatingController extends GetxController {
     //getTripPostDetails(pth);
   }
 
-  taskGiverFeedback({bidderId, shipperId, shipId, bidId, rating, chosenFeedback}) async {
+  taskGiverFeedback({taskerId,taskId, userId, bidId, rating, review}) async {
     var token = _box.read(LocalStoreKey.token);
 
-    var mapData = {
-                "bidderId": bidderId, //carrierid,
-                "shipperId": shipperId,
-                "shipId": shipId,
-                "bidId": bidId,
-                "rating": rating,
-                "review": chosenFeedback,
-            };
 
     try {
       isLoading(true);
-      var response = await ApiService().postData(mapData, "tripgiverfeedback");
+
+      List<String> reviews = ["Behavior", "Punctuality"];
+
+      print(
+          " taskerId $taskerId, taskId $taskId, bidId $bidId, review $review");
+
+      var response = await http.post(
+        Uri.parse("https://app.tripshiptask.com/api/tripgiverfeedback"),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Set the content type to JSON
+        },
+        body: jsonEncode({
+                "bidderId": taskerId,
+                "taskgiverId": userId,
+                "taskId": taskId,
+                "bidId": bidId,
+                "rating": rating,
+                "review": reviews
+}),
+      );
       print(response.statusCode);
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         print(response.statusCode);
+
         var jsonData = jsonDecode(response.body);
-        print(jsonData);
-        Get.snackbar("Rating ", "Successfully Done",
-            backgroundColor: primaryColor);
+       
+        Get.snackbar(
+          "Trip Rating",
+          "Successfully Store",
+        );
+         print("Trip Post $jsonData");
       }
     } catch (e) {
       print("Error $e");
     }
   }
 
-  shipBiderGiveRating({rating, review}) async {
+  taskBiderGiveRating({bidId,taskgiverId,rating, review}) async {
     var token = _box.read(LocalStoreKey.token);
 
-    var mapData = {
-      "rating": "3.5",
-      "review": ["Behavior"]
-    };
-
-    try {
+   try {
       isLoading(true);
-      var response = await ApiService().postData(mapData, "shipbids/9");
+
+      List<String> reviews = ["Behavior", "Punctuality"];
+
+      print(
+          "  taskgiverId $taskgiverId, review $review");
+
+      var response = await http.post(
+        Uri.parse("https://app.tripshiptask.com/api/bid/$bidId"),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json', // Set the content type to JSON
+        },
+        body: jsonEncode({
+    "rating": rating,
+    "review": reviews,
+    "taskgiverId": taskgiverId.toString()
+}),
+      );
       print(response.statusCode);
-      if (response.statusCode == 201) {
-   
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+
         var jsonData = jsonDecode(response.body);
-        print(jsonData);
-        Get.snackbar("Rating ", "Successfully Done",
-            backgroundColor: primaryColor);
+       
+        Get.snackbar(
+          "Get Ride",
+          "Successfully Store",
+        );
+         print("Trip Post $jsonData");
       }
     } catch (e) {
       print("Error $e");
