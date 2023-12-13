@@ -1,6 +1,8 @@
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customText.dart';
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
+import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_details_page.dart';
 import 'package:tripshiptask/pages/Trip/views/trip_offer_negotiate_page.dart';
 
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/pages/Ship/views/shipPage.dart';
 
 import 'package:intl/intl.dart';
+import 'package:tripshiptask/rating/view/trip_bidder_rating.dart';
 
 import '../../Home/trip_ship_task_home.dart';
 
@@ -33,218 +36,160 @@ class MyTripsOfferPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var tripOfferData = snapshot.data.data[index];
 
-                    return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                            child: Container(
-                                height: 200.h,
+                     return Card(
+                              child: Container(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 10.w, vertical: 10.h),
-                                child: Container(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        child: RichText(
-                                          text: TextSpan(
-                                              text: "Start : ",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold),
-                                              children: [
-                                                TextSpan(
-                                                    text:
-                                                        "${tripOfferData.tripStartPoint}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.w500))
-                                              ]),
+                                    horizontal: 5.w, vertical: 5.h),
+                                decoration: BoxDecoration(
+                                  color: primaryColor,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                            child: Text(
+                                          "Start: ",
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )),
+                                       
+                                        Expanded(
+                                          child: Text(
+                                            "${tripOfferData.tripStartPoint}",
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 5.h,
-                                      ),
-                                      Container(
-                                        child: RichText(
-                                          text: TextSpan(
-                                              text: "Destination: ",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold),
-                                              children: [
-                                                TextSpan(
-                                                    text:
-                                                        "${tripOfferData.tripDestination}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.w500))
-                                              ]),
+                                      ],
+                                    ),
+                                     SizedBox(height: 4.h,),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                            child: Text(
+                                          "Destination: ",
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )),
+                                        Expanded(
+                                          child: Text(
+                                            "${tripOfferData.tripDestination}",
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 5.h,
-                                      ),
-                                      Container(
-                                        child: RichText(
-                                          text: TextSpan(
-                                              text: "Date: ",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w600),
-                                              children: [
-                                                TextSpan(
-                                                    text:
-                                                        "${DateFormat.yMMMd().format(DateTime.parse(tripOfferData.tripDate.toString()))}",
-                                                    style: TextStyle(
-                                                        fontSize: 14.sp,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.w500))
-                                              ]),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5.h,
-                                      ),
-                                      Container(
-                                        child: RichText(
-                                          text: TextSpan(
-                                              text: "Sent Offer: ",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w600),
-                                              children: [
-                                                TextSpan(
-                                                    text:
-                                                        "${tripOfferData.amount}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.w600))
-                                              ]),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5.h,
-                                      ),
-                                      Container(
-                                        child: RichText(
-                                          text: TextSpan(
-                                              text: "Negotiate Offer:  ",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 13.sp,
-                                                  fontWeight: FontWeight.bold),
-                                              children: [
-                                                TextSpan(
-                                                    text:
-                                                        "${tripOfferData.co == null ? 'Not yet' : tripOfferData.co}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 13.sp,
-                                                        fontWeight:
-                                                            FontWeight.normal))
-                                              ]),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5.h,
-                                      ),
-                                      Row(
+                                      ],
+                                    ),
+                                     SizedBox(height: 4.h,),
+                                    Row(
+                                      children: [
+                                        CustomText(
+                                            "Offered by : ",
+                                            Colors.black,
+                                            FontWeight.bold,
+                                            12.sp),
+                                        CustomText(
+                                            "M/30/Masters/PrivateJob ",
+                                            Colors.black,
+                                            FontWeight.normal,
+                                            12.sp),
+                                      ],
+                                    ),
+                                 SizedBox(height: 4.h,),
+                                    Container(
+                                      child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          tripOfferData.accepted == '0'
-                                              ? Container(
-                                                  child: Text("Accepted",
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.w600)))
-                                              : Container(
-                                                  margin:
-                                                      EdgeInsets.only(top: 5.h),
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 15,
-                                                      vertical: 5),
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.green),
-                                                  child: GestureDetector(
-                                                    onTap: () {
-                                                      print(
-                                                          "path ${tripOfferData.path}");
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                TripOfferNegotiatePage(
-                                                                    tripOfferData
-                                                                        .path
-                                                                        .toString()),
-                                                          ));
+                                    
 
-                                                      //     showDialog(
-                                                      //   context: context,
-                                                      //   builder: (BuildContext context) =>
-                                                      //       AlertDialog(
-                                                      //           title: Text("Make Offers"),
-                                                      //           content: Container(
-                                                      //               height: 300.h,
-                                                      //               decoration:
-                                                      //                   BoxDecoration(),
-                                                      //               child: Form(
+                                          GestureDetector(
+                                            onTap: () {
+                                              controller.getTripPostDetails(
+                                                  tripOfferData.path.toString());
 
-                                                      //                 child: Column(
-                                                      //                   children: [
-                                                      //                     Container(
-                                                      //                       child:
-                                                      //                           CustomTextField(
-                                                      //                         onChange:
-                                                      //                             (amount) {
-                                                      //                           amount =
-                                                      //                               amount;
-                                                      //                         },
-                                                      //                         txt: "Amount",
-                                                      //                       ),
-                                                      //                     ),
-
-                                                      //                     SizedBox(
-                                                      //                       height: 20.h,
-                                                      //                     ),
-
-                                                      //                     CustomButtonOne(
-                                                      //                         title: "Submit",
-                                                      //                         btnColor:
-                                                      //                             navyBlueColor,
-                                                      //                         onTab: () {
-
-                                                      //                      //     print(amount);
-
-                                                      //                     //  controller.bidOnTrip(amount, );
-
-                                                      //                         })
-                                                      //                   ],
-                                                      //                 ),
-                                                      //               ))),
-                                                      // );
-                                                    },
-                                                    child: Text(
-                                                      "Details",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
+                                              controller.path1.value =
+                                                  tripOfferData.path.toString();
+                                              Get.to(
+                                                  TripDetailsPage(
+                                                    tripOfferData.path.toString(),
                                                   ),
-                                                ),
+                                                  duration: Duration(
+                                                      milliseconds:
+                                                          200), //duration of transitions, default 1 sec
+                                                  transition:
+                                                      Transition.leftToRight);
+                                            },
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              height: 25.h,
+                                              width: 60.w,
+                                              decoration: BoxDecoration(
+                                                  color: navyBlueColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.r)),
+                                              child: CustomText(
+                                                  "Details",
+                                                  Colors.white,
+                                                  FontWeight.bold,
+                                                  12.sp),
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              
+                                           
+                                              Get.to(
+                                                  TripBidderRating(
+                                                   path:tripOfferData.path ,
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds:
+                                                          200), //duration of transitions, default 1 sec
+                                                  transition:
+                                                      Transition.leftToRight);
+                                            },
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              height: 25.h,
+                                              width: 60.w,
+                                              decoration: BoxDecoration(
+                                                  color: navyBlueColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.r)),
+                                              child: CustomText(
+                                                  "Review",
+                                                  Colors.white,
+                                                  FontWeight.bold,
+                                                  12.sp),
+                                            ),
+                                          ),
                                         ],
-                                      )
-                                    ],
-                                  ),
-                                ))));
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
                   });
             }
             return const Center(

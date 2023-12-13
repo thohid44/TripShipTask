@@ -18,31 +18,31 @@ class TaskRatingController extends GetxController {
     //getTripPostDetails(pth);
   }
 
-  taskGiverFeedback({taskerId,taskId, userId, bidId, rating, review}) async {
+  taskGiverFeedback({bidderId, taskgiverId, taskId,bidId, rating, review}) async {
     var token = _box.read(LocalStoreKey.token);
 
 
     try {
       isLoading(true);
 
-      List<String> reviews = ["Behavior", "Punctuality"];
+   
 
       print(
-          " taskerId $taskerId, taskId $taskId, bidId $bidId, review $review");
+          " bidderId $bidderId, taskId $taskId, bidId $bidId, review $review");
 
       var response = await http.post(
-        Uri.parse("https://app.tripshiptask.com/api/tripgiverfeedback"),
+        Uri.parse("https://app.tripshiptask.com/api/taskgiverfeedback"),
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json', // Set the content type to JSON
         },
         body: jsonEncode({
-                "bidderId": taskerId,
-                "taskgiverId": userId,
+                "bidderId": bidderId,
+                "taskgiverId": taskgiverId,
                 "taskId": taskId,
                 "bidId": bidId,
                 "rating": rating,
-                "review": reviews
+                "review": review
 }),
       );
       print(response.statusCode);

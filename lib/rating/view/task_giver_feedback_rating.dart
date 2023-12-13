@@ -12,6 +12,8 @@ import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:tripshiptask/pages/Ship/controller/shipController.dart';
 import 'package:tripshiptask/pages/Ship/controller/ship_rating_controller.dart';
 import 'package:tripshiptask/pages/Ship/model/sh_Snd_Package_Details_M.dart';
+import 'package:tripshiptask/pages/Task/controller/task_rating_controller.dart';
+import 'package:tripshiptask/pages/Task/model/my_task_details_model.dart';
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
 import 'package:tripshiptask/pages/Trip/Controller/trip_rating.dart';
 import 'package:tripshiptask/pages/Trip/model/trip_post_details_model.dart';
@@ -43,12 +45,12 @@ class _TaskGiverFeedBackRatingState extends State<TaskGiverFeedBackRating> {
 
   final _formOfferkey = GlobalKey<FormState>();
 
-  var ratingController = Get.put(ShipRatingController());
+  var ratingController = Get.put(TaskRatingController());
 
   var controller = Get.put(ShipController());
 
-  Future<ShipSendPackageDetailsModel> shipSendPackageDetails() async {
-    print("koli path ${widget.path}");
+  Future<MyTaskDetailsModel> gettaskDetails() async {
+    //print("koli path ${widget.path}");
     var token = _box.read(LocalStoreKey.token);
 
     var response = await http.get(
@@ -60,13 +62,18 @@ class _TaskGiverFeedBackRatingState extends State<TaskGiverFeedBackRating> {
     );
     var jsonData = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      print("koli2 $jsonData");
+      // print("koli2 $jsonData");
     }
-    return ShipSendPackageDetailsModel.fromJson(jsonData);
+    return MyTaskDetailsModel.fromJson(jsonData);
+  }
+
+  void initState() {
+    gettaskDetails();
+    super.initState();
   }
 
   bool status = false;
-  var ship;
+  var task;
   var bidderId;
 
   var bidId;
@@ -95,10 +102,10 @@ class _TaskGiverFeedBackRatingState extends State<TaskGiverFeedBackRating> {
           elevation: 0.h,
         ),
         body: FutureBuilder(
-            future: shipSendPackageDetails(),
+            future: gettaskDetails(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                ship = snapshot.data!.data!;
+                task = snapshot.data!.myTaskDetailsModel!;
 
                 return Center(
                   child: Column(
@@ -118,11 +125,11 @@ class _TaskGiverFeedBackRatingState extends State<TaskGiverFeedBackRating> {
                                 Container(
                                   height: 140.h,
                                   child: ListView.builder(
-                                      itemCount: ship.bids.length,
+                                      itemCount: task.bids.length,
                                       itemBuilder: (context, index) {
-                                        bidderId = ship.bids[index]['user_id'];
+                                        bidderId = task.bids[index]['user_id'];
 
-                                        bidId = ship.bids[index]['id'];
+                                        bidId = task.bids[index]['id'];
 
                                         return Container(
                                           padding: EdgeInsets.only(
@@ -148,7 +155,7 @@ class _TaskGiverFeedBackRatingState extends State<TaskGiverFeedBackRating> {
                                                     children: [
                                                       Container(
                                                         child: Text(
-                                                          "${ship.bids[index]['bidder_name'].toString()}",
+                                                          "${task.bids[index]['bidder_name'].toString()}",
                                                           style: TextStyle(
                                                             color: Colors.black,
                                                             fontSize: 13.sp,
@@ -171,7 +178,7 @@ class _TaskGiverFeedBackRatingState extends State<TaskGiverFeedBackRating> {
                                                       ),
                                                       Container(
                                                         child: Text(
-                                                          " ${DateFormat.yMMMd().format(DateTime.parse(ship.deliveryDate.toString()))},",
+                                                          " ${DateFormat.yMMMd().format(DateTime.parse(task.date.toString()))},",
                                                           style: TextStyle(
                                                             color: Colors.black,
                                                             fontSize: 12.sp,
@@ -189,7 +196,7 @@ class _TaskGiverFeedBackRatingState extends State<TaskGiverFeedBackRating> {
                                                   children: [
                                                     Container(
                                                       child: Text(
-                                                        "${ship.bids[index]['amount'].toString()}.TK",
+                                                        "${task.bids[index]['amount'].toString()}.TK",
                                                         style: TextStyle(
                                                             fontSize: 13.sp,
                                                             fontWeight:
@@ -372,16 +379,16 @@ class _TaskGiverFeedBackRatingState extends State<TaskGiverFeedBackRating> {
                       ),
                       InkWell(
                         onTap: () {
-                          var shipperId = ship.userId.toString();
-                          var shipId = ship.id.toString();
+                          var taskerId = task.userId.toString();
+                          var taskId = task.id.toString();
 
-                          ratingController.shipGiverFeedback(
+                          ratingController.taskGiverFeedback(
                               bidderId: bidderId,
-                              shipperId: shipperId,
+                              taskgiverId: taskerId,
                               bidId: bidId,
-                              shipId: shipId,
+                              taskId: taskId,
                               rating: convertValue.toString(),
-                              reviews: reviews);
+                              review: reviews);
                         },
                         child: Container(
                           decoration: BoxDecoration(

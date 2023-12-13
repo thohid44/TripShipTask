@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:tripshiptask/pages/Task/views/task_details_page.dart';
+import 'package:tripshiptask/rating/view/task_giver_feedback_rating.dart';
 
 class AllTaskPage extends StatefulWidget {
   @override
@@ -24,7 +26,6 @@ class _AllTaskPageState extends State<AllTaskPage>
     super.initState();
     _tabController = TabController(length: 6, vsync: this);
     _tabController.animateTo(2);
-  
   }
 
   static const List<Tab> _tabs = [
@@ -48,14 +49,12 @@ class _AllTaskPageState extends State<AllTaskPage>
               labelColor: Colors.white,
               unselectedLabelColor: Colors.grey,
               labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-
               isScrollable: true,
               physics: BouncingScrollPhysics(),
               onTap: (int index) {
                 print('Tab $index is tapped');
               },
               enableFeedback: true,
-
               tabs: _tabs,
             ),
             title: const Text('TripShipTask'),
@@ -63,208 +62,502 @@ class _AllTaskPageState extends State<AllTaskPage>
           ),
           body: TabBarView(
             physics: BouncingScrollPhysics(),
-
             children: [
               Obx(() => controller.isLoading.value == false
                   ? ListView.builder(
                       physics: BouncingScrollPhysics(),
                       itemCount: controller.myTaskModel2!.offerTasks.length,
                       itemBuilder: (context, index) {
-                       var details = controller.myTaskModel2!.offerTasks;
-
-                        return Card(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10.w, vertical: 10.h),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 190.w,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        child: CustomText(
-                                            "Title: ${controller.myTaskModel2!.offerTasks[index].title}",
-                                            Colors.black,
-                                            FontWeight.normal,
-                                            13.sp),
-                                      ),
-                                      Container(
-                                        child: CustomText(
-                                            "Location: ${controller.myTaskModel2!.offerTasks[index].location}",
-                                            Colors.black,
-                                            FontWeight.normal,
-                                            13.sp),
-                                      ),
-                                      Container(
-                                        child: CustomText(
-                                            "Offers: ${controller.myTaskModel2!.offerTasks[index].hour}",
-                                            Colors.black,
-                                            FontWeight.normal,
-                                            13.sp),
-                                      ),
-                                      Container(
-                                        child: CustomText(
-                                            "Date : ${controller.myTaskModel2!.offerTasks[index].date} ",
-                                            Colors.black,
-                                            FontWeight.normal,
-                                            13.sp),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 120.w,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 10.h),
-                                        child: CustomText(
-                                            "Amount \$ 2400",
-                                            Colors.black,
-                                            FontWeight.normal,
-                                            13.sp),
-                                      ),
-                                      InkWell(
-                                        onTap: () {},
-                                        child: Container(
-                                          child: CustomText(
-                                              "Details",
-                                              Colors.black,
-                                              FontWeight.normal,
-                                              13.sp),
+                        if (controller.myTaskModel2!.offerTasks.isEmpty) {
+                          var details =
+                              controller.myTaskModel2!.offerTasks[index];
+                          return Card(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 5.w, vertical: 5.h),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: 280.w,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                                child: Text(
+                                              "Title :",
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )),
+                                            SizedBox(
+                                              height: 3.h,
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                "${details.title}",
+                                                style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                    ],
+                                        SizedBox(
+                                          height: 3.h,
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                                child: Text(
+                                              "Location :",
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )),
+                                            Expanded(
+                                              child: Text(
+                                                "${details.location}",
+                                                style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 3.h,
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                                child: Text(
+                                              "Date & Time: ",
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )),
+                                            Expanded(
+                                              child: Text(
+                                                "${DateFormat.yMMMd().format(details.date)}",
+                                                style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Container(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  CustomText(
+                                                      "Offered Amt: ",
+                                                      Colors.black,
+                                                      FontWeight.bold,
+                                                      12.sp),
+                                                  CustomText(
+                                                      "2000 ",
+                                                      Colors.black,
+                                                      FontWeight.normal,
+                                                      12.sp),
+                                                ],
+                                              ),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  var path = details.path!;
+
+                                                  Get.to(TaskDetailPage(path),
+                                                      duration: Duration(
+                                                          milliseconds:
+                                                              300), //duration of transitions, default 1 sec
+                                                      transition: Transition
+                                                          .leftToRight //transition effect
+
+                                                      );
+                                                },
+                                                child: Container(
+                                                  alignment: Alignment.center,
+                                                  height: 25.h,
+                                                  width: 60.w,
+                                                  decoration: BoxDecoration(
+                                                      color: navyBlueColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5.r)),
+                                                  child: CustomText(
+                                                      "Details",
+                                                      Colors.white,
+                                                      FontWeight.bold,
+                                                      12.sp),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                )
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
+                          );
+                        }
+                        return Center(
+                          child: Text("No Data"),
                         );
                       })
                   : Center(child: CircularProgressIndicator())),
-            
-                Obx(() => controller.isLoading.value == false
+              Obx(() => controller.isLoading.value == false
                   ? ListView.builder(
                       physics: BouncingScrollPhysics(),
                       itemCount: controller.myTaskModel2!.seekedTasks.length,
                       itemBuilder: (context, index) {
-                       var details = controller.myTaskModel2!.seekedTasks;
-
+                        var details =
+                            controller.myTaskModel2!.seekedTasks[index];
                         return Card(
                           child: Container(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 10.w, vertical: 10.h),
+                                horizontal: 5.w, vertical: 5.h),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  width: 190.w,
+                                  width: 280.w,
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        child: CustomText(
-                                            "Title: ${details[index].title}",
-                                            Colors.black,
-                                            FontWeight.normal,
-                                            13.sp),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                              child: Text(
+                                            "Title :",
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )),
+                                          SizedBox(
+                                            height: 3.h,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              "${details.title}",
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 3.h,
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                              child: Text(
+                                            "Location :",
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )),
+                                          Expanded(
+                                            child: Text(
+                                              "${details.location}",
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 3.h,
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                              child: Text(
+                                            "Date & Time: ",
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )),
+                                          Expanded(
+                                            child: Text(
+                                              "${DateFormat.yMMMd().format(details.date)}",
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                       Container(
-                                        child: CustomText(
-                                            "Location: ${details[index].location}",
-                                            Colors.black,
-                                            FontWeight.normal,
-                                            13.sp),
-                                      ),
-                                      Container(
-                                        child: CustomText(
-                                            "Offers: ${details[index].hour}",
-                                            Colors.black,
-                                            FontWeight.normal,
-                                            13.sp),
-                                      ),
-                                      Container(
-                                        child: CustomText(
-                                            "Date : ${details[index].date} ",
-                                            Colors.black,
-                                            FontWeight.normal,
-                                            13.sp),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                CustomText(
+                                                    "Offered Amt: ",
+                                                    Colors.black,
+                                                    FontWeight.bold,
+                                                    12.sp),
+                                                CustomText(
+                                                    "2000 ",
+                                                    Colors.black,
+                                                    FontWeight.normal,
+                                                    12.sp),
+                                              ],
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                var path = details.path!;
+
+                                                Get.to(TaskDetailPage(path),
+                                                    duration: Duration(
+                                                        milliseconds:
+                                                            300), //duration of transitions, default 1 sec
+                                                    transition: Transition
+                                                        .leftToRight //transition effect
+
+                                                    );
+                                              },
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                height: 25.h,
+                                                width: 60.w,
+                                                decoration: BoxDecoration(
+                                                    color: navyBlueColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.r)),
+                                                child: CustomText(
+                                                    "Details",
+                                                    Colors.white,
+                                                    FontWeight.bold,
+                                                    12.sp),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
                                 ),
-                               
                               ],
                             ),
                           ),
                         );
                       })
                   : Center(child: CircularProgressIndicator())),
-                  
-               Obx(() => controller.isLoading.value == false
+              Obx(() => controller.isLoading.value == false
                   ? ListView.builder(
                       physics: BouncingScrollPhysics(),
                       itemCount: controller.myTaskModel2!.completedTasks.length,
                       itemBuilder: (context, index) {
-                       var completed =controller.myTaskModel2!.completedTasks;
+                        var details =
+                            controller.myTaskModel2!.completedTasks[index];
 
                         return Card(
                           child: Container(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 10.w, vertical: 10.h),
+                                horizontal: 5.w, vertical: 5.h),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  width: 190.w,
+                                  width: 280.w,
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        child: CustomText(
-                                            "Title: ${completed[index].title}",
-                                            Colors.black,
-                                            FontWeight.normal,
-                                            13.sp),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                              child: Text(
+                                            "Title :",
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )),
+                                          SizedBox(
+                                            height: 3.h,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              "${details.title}",
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 3.h,
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                              child: Text(
+                                            "Location :",
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )),
+                                          Expanded(
+                                            child: Text(
+                                              "${details.location}",
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 3.h,
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                              child: Text(
+                                            "Date & Time: ",
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )),
+                                          Expanded(
+                                            child: Text(
+                                              "${DateFormat.yMMMd().format(details.date)}",
+                                              style: TextStyle(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                       Container(
-                                        child: CustomText(
-                                            "Location: ${completed[index].location}",
-                                            Colors.black,
-                                            FontWeight.normal,
-                                            13.sp),
-                                      ),
-                                      Container(
-                                        child: CustomText(
-                                            "Offers: ${completed[index].hour}",
-                                            Colors.black,
-                                            FontWeight.normal,
-                                            13.sp),
-                                      ),
-                                      Container(
-                                        child: CustomText(
-                                            "Date : ${completed[index].date} ",
-                                            Colors.black,
-                                            FontWeight.normal,
-                                            13.sp),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                CustomText(
+                                                    "Offered Amt: ",
+                                                    Colors.black,
+                                                    FontWeight.bold,
+                                                    12.sp),
+                                                CustomText(
+                                                    "2000 ",
+                                                    Colors.black,
+                                                    FontWeight.normal,
+                                                    12.sp),
+                                              ],
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                var path = details.path!;
+
+                                                Get.to(
+                                                    TaskGiverFeedBackRating(
+                                                        path: path),
+                                                    duration: Duration(
+                                                        milliseconds:
+                                                            300), //duration of transitions, default 1 sec
+                                                    transition: Transition
+                                                        .leftToRight //transition effect
+
+                                                    );
+                                              },
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                height: 25.h,
+                                                width: 60.w,
+                                                decoration: BoxDecoration(
+                                                    color: navyBlueColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.r)),
+                                                child: CustomText(
+                                                    "Review",
+                                                    Colors.white,
+                                                    FontWeight.bold,
+                                                    12.sp),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
                                 ),
-                            
                               ],
                             ),
                           ),

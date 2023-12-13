@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tripshiptask/Utils/colors.dart';
+import 'package:tripshiptask/page_list.dart';
 
 import 'package:tripshiptask/splashScreen.dart';
 import 'package:uni_links/uni_links.dart';

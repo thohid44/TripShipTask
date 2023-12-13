@@ -6,8 +6,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:http/http.dart' as http;
 
-
-
 class TripRatingController extends GetxController {
   final _box = GetStorage();
   var isLoading = false.obs;
@@ -19,13 +17,14 @@ class TripRatingController extends GetxController {
     //getTripPostDetails(pth);
   }
 
-  tripGiverFeedback({bidderId, posterId, tripId, bidId, rating, reviews}) async {
+  tripGiverFeedback(
+      {bidderId, posterId, tripId, bidId, rating, reviews}) async {
     var token = _box.read(LocalStoreKey.token);
 
     try {
       isLoading(true);
 
-     // List<String> reviews = ["Behavior", "Punctuality"];
+      // List<String> reviews = ["Behavior", "Punctuality"];
 
       print(
           " bider Id $bidderId , posterId $posterId, tripId $tripId, bidId $bidId, review $reviews");
@@ -50,12 +49,12 @@ class TripRatingController extends GetxController {
         print(response.statusCode);
 
         var jsonData = jsonDecode(response.body);
-       
+
         Get.snackbar(
           "Trip Rating",
           "Successfully Store",
         );
-         print("Trip Post $jsonData");
+        print("Trip Post $jsonData");
       }
     } catch (e) {
       print("Error $e");
@@ -68,21 +67,17 @@ class TripRatingController extends GetxController {
     try {
       isLoading(true);
 
-      List<String> reviews = ["Behavior", "Punctuality"];
+      print("  bidId $bidId, review $review");
 
-      print(
-          "  bidId $bidId, review $review");
-
-      var response = await http.post(
+      var response = await http.patch(
         Uri.parse("https://app.tripshiptask.com/api/tripbids/$bidId"),
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json', // Set the content type to JSON
         },
         body: jsonEncode({
-        
           "rating": rating.toString(),
-          "review": reviews,
+          "review": review,
         }),
       );
       print(response.statusCode);
@@ -90,12 +85,12 @@ class TripRatingController extends GetxController {
         print(response.statusCode);
 
         var jsonData = jsonDecode(response.body);
-       
+
         Get.snackbar(
           "Get Ride",
           "Successfully Store",
         );
-         print("Trip Post $jsonData");
+        print("Trip Post $jsonData");
       }
     } catch (e) {
       print("Error $e");

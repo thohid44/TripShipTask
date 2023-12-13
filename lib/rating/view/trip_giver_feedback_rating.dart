@@ -173,7 +173,7 @@ class _TripGiverFeedBackRatingState extends State<TripGiverFeedBackRating> {
                                                       ),
                                                       Container(
                                                         child: Text(
-                                                          " ${DateFormat.yMMMd().format(DateTime.parse(trip.date.toString()))},",
+                                                          " ${DateFormat.yMMMd().format(DateTime.parse(trip.date.toString()))}",
                                                           style: TextStyle(
                                                             color: Colors.black,
                                                             fontSize: 12.sp,
