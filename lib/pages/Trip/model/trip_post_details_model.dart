@@ -37,7 +37,7 @@ class TripDetailsModel {
   var distance;
   var duration;
   var via;
-  DateTime? date;
+  var date;
   var time;
   var seatsAvailable;
   var destination;
@@ -115,7 +115,7 @@ class TripDetailsModel {
         distance: json["distance"],
         duration: json["duration"],
         via: json["via"],
-        date: DateTime.parse(json["date"]),
+        date: json["date"],
         time: json["time"],
         seatsAvailable: json["seats_available"],
         destination: json["destination"],

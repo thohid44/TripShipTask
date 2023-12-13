@@ -4,16 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:tripshiptask/Email_Verify/view/email_verification.dart';
-import 'package:tripshiptask/my_form.dart';
-import 'package:tripshiptask/page_list.dart';
-import 'package:tripshiptask/profile/view/profile_screen.dart';
-import 'package:tripshiptask/rating/view/service_provider_rating.dart';
+import 'package:tripshiptask/Utils/colors.dart';
+
 import 'package:tripshiptask/splashScreen.dart';
 import 'package:uni_links/uni_links.dart';
 import 'Utils/localstorekey.dart';
 import 'pages/Home/view/home_screen.dart';
-import 'pages/Login/view/login_screen.dart';
+
 import 'dart:io';
 
 void main() async {
@@ -75,7 +72,7 @@ class _MyAppState extends State<MyApp> {
             primarySwatch: Colors.blue,
             primaryColor: Colors.black,
           ),
-          home: child,
+          home: child
         );
       },
    child: checkUserType() ? HomeScreen() :SplashScreen(),
@@ -102,3 +99,84 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
+
+
+
+class RatingList extends StatefulWidget {
+  @override
+  _RatingListState createState() => _RatingListState();
+}
+
+class _RatingListState extends State<RatingList> {
+  List<String> selectedItems = [];
+
+  final List<String> items = [
+    'Professionalism',
+    'Behavior',
+    'Punctuality',
+    'Vehicle Quality',
+    'Navigation',
+    'Cleanliness',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: (items.length / 2).ceil(),
+      itemBuilder: (context, index) {
+        print("object $selectedItems");
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              buildItemTile(index * 2),
+              SizedBox(width: 5.w),
+              buildItemTile(index * 2 + 1),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget buildItemTile(int itemIndex) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            toggleSelection(items[itemIndex]);
+          });
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: selectedItems.contains(items[itemIndex])
+                ? greenColor
+                : Colors.white,
+            borderRadius: BorderRadius.circular(5.r),
+          ),
+          padding: EdgeInsets.all(5.r),
+          child: Center(
+            child: Text(
+              items[itemIndex],
+              style: TextStyle(
+                color:  selectedItems.contains(items[itemIndex])
+                ? Colors.white
+                : Colors.black,
+                fontSize: 12.sp,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void toggleSelection(String item) {
+    if (selectedItems.contains(item)) {
+      selectedItems.remove(item);
+    } else {
+      selectedItems.add(item);
+    }
+  }
+}

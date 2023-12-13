@@ -16,7 +16,7 @@ import 'package:tripshiptask/pages/Task/model/seek_task_model.dart';
 class TaskController extends GetxController {
   final _box = GetStorage();
   var isLoading = false.obs;
-  MyTaskModel2? myTaskModel2;
+  MyAllTaskModel? myTaskModel2;
   MyTaskDetailsModel2? myTaskDetailsModel2;
 
   var path;
@@ -125,9 +125,11 @@ class TaskController extends GetxController {
       );
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
+        print("All Task $jsonData");
 
         MyTaskModel data = MyTaskModel.fromJson(jsonData);
-        myTaskModel2 = data.myTaskModel2;
+        myTaskModel2 = data.data;
+        print("koli ${myTaskModel2!.completedTasks.length}");
         isLoading(false);
       }
     } catch (e) {

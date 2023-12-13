@@ -2,13 +2,11 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:tripshiptask/Api_services/ApiService.dart';
-import 'package:tripshiptask/Api_services/base_url.dart';
-import 'package:tripshiptask/Utils/colors.dart';
+
 import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:http/http.dart' as http;
 
-import '../model/trip_giver_rating_model.dart';
+
 
 class TripRatingController extends GetxController {
   final _box = GetStorage();
@@ -21,16 +19,16 @@ class TripRatingController extends GetxController {
     //getTripPostDetails(pth);
   }
 
-  tripGiverFeedback({bidderId, posterId, tripId, bidId, rating, review}) async {
+  tripGiverFeedback({bidderId, posterId, tripId, bidId, rating, reviews}) async {
     var token = _box.read(LocalStoreKey.token);
 
     try {
       isLoading(true);
 
-      List<String> reviews = ["Behavior", "Punctuality"];
+     // List<String> reviews = ["Behavior", "Punctuality"];
 
       print(
-          " bider Id $bidderId , posterId $posterId, tripId $tripId, bidId $bidId, review $review");
+          " bider Id $bidderId , posterId $posterId, tripId $tripId, bidId $bidId, review $reviews");
 
       var response = await http.post(
         Uri.parse("https://app.tripshiptask.com/api/tripgiverfeedback"),

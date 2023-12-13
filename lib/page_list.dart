@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tripshiptask/rating/view/rating_page_30.dart';
 import 'package:tripshiptask/rating/view/service_provider_rating.dart';
-import 'package:tripshiptask/rating/view/service_provider_rating2.dart';
+import 'package:tripshiptask/rating/view/trip_giver_feedback_rating.dart';
 import 'package:tripshiptask/rating/view/star_rating_service_receiver_32.dart';
 
 class PageList extends StatefulWidget {
@@ -33,7 +33,7 @@ class _PageListState extends State<PageList> {
             tileColor: Colors.teal,
             
             onTap: () {
-              Get.to(ServiceProviderRatig2());
+              Get.to(TripGiverFeedBackRating(path: '',));
             },
             title: Text("ServiceProviderRatig2 "),
           ),

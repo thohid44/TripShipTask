@@ -5,6 +5,7 @@ import 'package:tripshiptask/pages/Ship/controller/shipController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:tripshiptask/rating/view/ship_giver_feedback_rating.dart';
 
 import '../../pages/Ship/views/shipDetails/ship_send_package_details.dart';
 
@@ -509,7 +510,7 @@ class _AllShipPageState extends State<AllShipPage>
 
                                               GestureDetector(
                                               onTap: () {
-                                                Get.to(ShipSendPackageDetails(
+                                                Get.to(ShipGiverFeedBackRating(
                                                     path: controller
                                                         .myShip!
                                                         .completedShipments![
@@ -520,15 +521,15 @@ class _AllShipPageState extends State<AllShipPage>
                                               child: Container(
                                                 alignment: Alignment.center,
                                                 height: 25.h,
-                                                width: 120.w,
+                                                width: 80.w,
                                                 decoration: BoxDecoration(
                                                     color: navyBlueColor,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5.r)),
                                                 child: CustomText(
-                                                    "Give Rating to Test1",
-                                                    Colors.yellow,
+                                                    "Review",
+                                                    Colors.white,
                                                     FontWeight.bold,
                                                     12.sp),
                                               ),

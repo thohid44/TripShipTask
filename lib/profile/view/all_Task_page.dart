@@ -24,7 +24,7 @@ class _AllTaskPageState extends State<AllTaskPage>
     super.initState();
     _tabController = TabController(length: 6, vsync: this);
     _tabController.animateTo(2);
-    controller.getMyTask();
+  
   }
 
   static const List<Tab> _tabs = [
@@ -70,7 +70,7 @@ class _AllTaskPageState extends State<AllTaskPage>
                       physics: BouncingScrollPhysics(),
                       itemCount: controller.myTaskModel2!.offerTasks.length,
                       itemBuilder: (context, index) {
-                        var details = controller.myTaskModel2!.offerTasks;
+                       var details = controller.myTaskModel2!.offerTasks;
 
                         return Card(
                           child: Container(
@@ -153,272 +153,124 @@ class _AllTaskPageState extends State<AllTaskPage>
                         );
                       })
                   : Center(child: CircularProgressIndicator())),
+            
+                Obx(() => controller.isLoading.value == false
+                  ? ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      itemCount: controller.myTaskModel2!.seekedTasks.length,
+                      itemBuilder: (context, index) {
+                       var details = controller.myTaskModel2!.seekedTasks;
+
+                        return Card(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.w, vertical: 10.h),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: 190.w,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        child: CustomText(
+                                            "Title: ${details[index].title}",
+                                            Colors.black,
+                                            FontWeight.normal,
+                                            13.sp),
+                                      ),
+                                      Container(
+                                        child: CustomText(
+                                            "Location: ${details[index].location}",
+                                            Colors.black,
+                                            FontWeight.normal,
+                                            13.sp),
+                                      ),
+                                      Container(
+                                        child: CustomText(
+                                            "Offers: ${details[index].hour}",
+                                            Colors.black,
+                                            FontWeight.normal,
+                                            13.sp),
+                                      ),
+                                      Container(
+                                        child: CustomText(
+                                            "Date : ${details[index].date} ",
+                                            Colors.black,
+                                            FontWeight.normal,
+                                            13.sp),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                               
+                              ],
+                            ),
+                          ),
+                        );
+                      })
+                  : Center(child: CircularProgressIndicator())),
                   
-              FutureBuilder(
-                  future: controller.getMyTask(),
-                  builder: (context, AsyncSnapshot snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return ListView.builder(
-                          physics: BouncingScrollPhysics(),
-                          itemCount: snapshot.data.data.seekedTrips.length,
-                          itemBuilder: (context, index) {
-                            var tripData =
-                                snapshot.data.data.seekedTrips[index];
-                            return Card(
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.w, vertical: 10.h),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: 190.w,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            child: CustomText(
-                                                "Start Point:${snapshot.data.data.completedTrips[index].startPoint}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Destination: ${tripData.destination}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Offers: ${tripData.postType}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Posted by:  ${tripData.via}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Male/25/Bachelor Degree or equivalent/Private job",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Vehicle:  ${tripData.vehicleType}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                        ],
+               Obx(() => controller.isLoading.value == false
+                  ? ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      itemCount: controller.myTaskModel2!.completedTasks.length,
+                      itemBuilder: (context, index) {
+                       var completed =controller.myTaskModel2!.completedTasks;
+
+                        return Card(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.w, vertical: 10.h),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: 190.w,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        child: CustomText(
+                                            "Title: ${completed[index].title}",
+                                            Colors.black,
+                                            FontWeight.normal,
+                                            13.sp),
                                       ),
-                                    ),
-                                    Container(
-                                      width: 120.w,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 10.h),
-                                            child: CustomText(
-                                                "Amount \$${tripData.amount}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Details",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          SizedBox(
-                                            height: 10.h,
-                                          ),
-                                          // Container(
-                                          //   padding: EdgeInsets.only(
-                                          //       left: 10.w,
-                                          //       right: 10.w,
-                                          //       top: 5.h,
-                                          //       bottom: 5.h),
-                                          //   decoration: BoxDecoration(
-                                          //       color: navyBlueColor,
-                                          //       borderRadius:
-                                          //           BorderRadius.circular(
-                                          //               10.r)),
-                                          //   child: CustomText(
-                                          //       "Make offer",
-                                          //       Colors.white,
-                                          //       FontWeight.normal,
-                                          //       13.sp),
-                                          // ),
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 10.h),
-                                            child: CustomText(
-                                                "Passenger: ${tripData.vehicleSeat}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                        ],
+                                      Container(
+                                        child: CustomText(
+                                            "Location: ${completed[index].location}",
+                                            Colors.black,
+                                            FontWeight.normal,
+                                            13.sp),
                                       ),
-                                    )
-                                  ],
+                                      Container(
+                                        child: CustomText(
+                                            "Offers: ${completed[index].hour}",
+                                            Colors.black,
+                                            FontWeight.normal,
+                                            13.sp),
+                                      ),
+                                      Container(
+                                        child: CustomText(
+                                            "Date : ${completed[index].date} ",
+                                            Colors.black,
+                                            FontWeight.normal,
+                                            13.sp),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          });
-                    }
-                    return const Center(
-                        child: CircularProgressIndicator(
-                      color: navyBlueColor,
-                    ));
-                  }),
-              FutureBuilder(
-                  future: controller.getMyTask(),
-                  builder: (context, AsyncSnapshot snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return ListView.builder(
-                          physics: BouncingScrollPhysics(),
-                          itemCount: snapshot.data.data.completedTrips.length,
-                          itemBuilder: (context, index) {
-                            var tripData =
-                                snapshot.data.data.completedTrips[index];
-                            return Card(
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.w, vertical: 10.h),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: 190.w,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            child: CustomText(
-                                                "Title:${snapshot.data.data.completedTrips[index].title}",
-                                                Colors.black,
-                                                FontWeight.bold,
-                                                13.sp),
-                                          ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Start Point:${snapshot.data.data.completedTrips[index].startPoint}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Destination: ${tripData.destination}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Offers: ${tripData.postType}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Posted by:  ${tripData.via}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Male/25/Bachelor Degree or equivalent/Private job",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Vehicle:  ${tripData.vehicleType}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 120.w,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 10.h),
-                                            child: CustomText(
-                                                "Amount \$${tripData.amount}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          Container(
-                                            child: CustomText(
-                                                "Details",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                          SizedBox(
-                                            height: 10.h,
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 10.h),
-                                            child: CustomText(
-                                                "Passenger:  ${tripData.vehicleSeat}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                13.sp),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
-                          });
-                    }
-                    return const Center(
-                        child: CircularProgressIndicator(
-                      color: navyBlueColor,
-                    ));
-                  }),
+                            
+                              ],
+                            ),
+                          ),
+                        );
+                      })
+                  : Center(child: CircularProgressIndicator())),
             ],
           ),
         ),

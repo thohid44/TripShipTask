@@ -8,6 +8,7 @@ import 'package:tripshiptask/pages/Trip/Controller/trip_rating.dart';
 import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_details_page.dart';
 import 'package:tripshiptask/pages/Trip/views/trip_rating_test.dart';
 import 'package:tripshiptask/profile/view/my_posted_trip_details.dart';
+import 'package:tripshiptask/rating/view/trip_giver_feedback_rating.dart';
 
 class AllTripsPage extends StatefulWidget {
   @override
@@ -515,8 +516,8 @@ var ratingContr = Get.put(TripRatingController());
                                               controller.path1.value =
                                                   tripData.path.toString();
                                               Get.to(
-                                                  TripRatingTestPage(
-                                                    tripData.path.toString(),
+                                                  TripGiverFeedBackRating(
+                                                  path:  tripData.path.toString(),
 
                                                   ),
                                                   duration: Duration(

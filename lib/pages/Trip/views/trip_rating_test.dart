@@ -206,7 +206,7 @@ var ratingController = Get.put(TripRatingController());
     var tripId=  trip.id.toString();
    
     var rating= "3.5";
-   ratingController.tripGiverFeedback(bidderId:bidderId ,posterId: posterId, bidId:bidId , tripId:tripId , rating:rating , review:"3" );
+   ratingController.tripGiverFeedback(bidderId:bidderId ,posterId: posterId, bidId:bidId , tripId:tripId , rating:rating , reviews:"3" );
 
 
                           }, child: Text("Give Review"))

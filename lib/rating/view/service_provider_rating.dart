@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 
-import 'service_provider_rating2.dart';
+import 'trip_giver_feedback_rating.dart';
 
 class ServiceProviderRatig extends StatefulWidget {
   const ServiceProviderRatig({super.key});
@@ -221,7 +221,7 @@ class _ServiceProviderRatigState extends State<ServiceProviderRatig> {
               ),
               InkWell(
                 onTap: () {
-                  Get.to(ServiceProviderRatig2());
+                  Get.to(TripGiverFeedBackRating(path: '',));
                 },
                 child: Container(
                   decoration: BoxDecoration(

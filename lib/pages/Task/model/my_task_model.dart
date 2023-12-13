@@ -4,92 +4,89 @@
 
 import 'dart:convert';
 
-MyTaskModel myTaskModelFromJson(String str) => MyTaskModel.fromJson(json.decode(str));
-
-
+MyTaskModel myTaskModelFromJson(String str) =>
+    MyTaskModel.fromJson(json.decode(str));
 
 class MyTaskModel {
-    MyTaskModel2? myTaskModel2;
+  MyAllTaskModel? data;
 
-    MyTaskModel({
-         this.myTaskModel2,
-    });
+  MyTaskModel({
+    required this.data,
+  });
 
-    factory MyTaskModel.fromJson(Map<String, dynamic> json) => MyTaskModel(
-        myTaskModel2: MyTaskModel2.fromJson(json["data"]),
-    );
-
- 
+  factory MyTaskModel.fromJson(Map<String, dynamic> json) => MyTaskModel(
+        data: MyAllTaskModel.fromJson(json["data"]),
+      );
 }
 
-class MyTaskModel2 {
-    List<OfferTask> offerTasks;
-    List<dynamic> seekedTasks;
-    List<dynamic> completedTasks;
+class MyAllTaskModel {
+  List<Task> offerTasks;
+  List<Task> seekedTasks;
+  List<Task> completedTasks;
 
-    MyTaskModel2({
-        required this.offerTasks,
-        required this.seekedTasks,
-        required this.completedTasks,
-    });
+  MyAllTaskModel({
+    required this.offerTasks,
+    required this.seekedTasks,
+    required this.completedTasks,
+  });
 
-    factory MyTaskModel2.fromJson(Map<String, dynamic> json) => MyTaskModel2(
-        offerTasks: List<OfferTask>.from(json["offer_tasks"].map((x) => OfferTask.fromJson(x))),
-        seekedTasks: List<dynamic>.from(json["seeked_tasks"].map((x) => x)),
-        completedTasks: List<dynamic>.from(json["completed_tasks"].map((x) => x)),
-    );
-
-   
+  factory MyAllTaskModel.fromJson(Map<String, dynamic> json) => MyAllTaskModel(
+        offerTasks:
+            List<Task>.from(json["offer_tasks"].map((x) => Task.fromJson(x))),
+        seekedTasks:
+            List<Task>.from(json["seeked_tasks"].map((x) => Task.fromJson(x))),
+        completedTasks: List<Task>.from(
+            json["completed_tasks"].map((x) => Task.fromJson(x))),
+      );
 }
 
-class OfferTask {
-    List<String>? skills;
-    String? category;
-    int? id;
-    int? userId;
-    String? title;
-    String? taskId;
-    String? slug;
-    String? postType;
-    String? path;
-    dynamic? taskRating;
-    LatLng? latLng;
-    String? location;
-    String? description;
-    String? status;
-    int? personNeed;
-    var date;
-    String? time;
-    int? hour;
-    int? amount;
-    String? user;
-    var createdAt;
+class Task {
+  List<String>? skills;
+  var category;
+  int? id;
+  int? userId;
+  var title;
+  var taskId;
+  var slug;
+  var postType;
+  var path;
+  dynamic taskRating;
 
-    OfferTask({
-         this.skills,
-         this.category,
-         this.id,
-         this.userId,
-         this.title,
-         this.taskId,
-         this.slug,
-         this.postType,
-         this.path,
-         this.taskRating,
-         this.latLng,
-         this.location,
-         this.description,
-         this.status,
-         this.personNeed,
-         this.date,
-         this.time,
-         this.hour,
-         this.amount,
-         this.user,
-         this.createdAt,
-    });
+  var location;
+  var description;
+  var status;
+  int? personNeed;
+  var date;
+  var time;
+  int? hour;
+  int? amount;
+  var user;
+  var createdAt;
 
-    factory OfferTask.fromJson(Map<String, dynamic> json) => OfferTask(
+  Task({
+    this.skills,
+    this.category,
+    this.id,
+    this.userId,
+    this.title,
+    this.taskId,
+    this.slug,
+    this.postType,
+    this.path,
+    this.taskRating,
+    this.location,
+    this.description,
+    this.status,
+    this.personNeed,
+    this.date,
+    this.time,
+    this.hour,
+    this.amount,
+    this.user,
+    this.createdAt,
+  });
+
+  factory Task.fromJson(Map<String, dynamic> json) => Task(
         skills: List<String>.from(json["skills"].map((x) => x)),
         category: json["category"],
         id: json["id"],
@@ -100,7 +97,6 @@ class OfferTask {
         postType: json["post_type"],
         path: json["path"],
         taskRating: json["task_rating"],
-        latLng: LatLng.fromJson(json["lat_lng"]),
         location: json["location"],
         description: json["description"],
         status: json["status"],
@@ -111,27 +107,25 @@ class OfferTask {
         amount: json["amount"],
         user: json["user"],
         createdAt: DateTime.parse(json["created_at"]),
-    );
-
-  
+      );
 }
 
-class LatLng {
-    String lat;
-    String lng;
+// class LatLng {
+//     double lat;
+//     double lng;
 
-    LatLng({
-        required this.lat,
-        required this.lng,
-    });
+//     LatLng({
+//         required this.lat,
+//         required this.lng,
+//     });
 
-    factory LatLng.fromJson(Map<String, dynamic> json) => LatLng(
-        lat: json["lat"],
-        lng: json["lng"],
-    );
+//     factory LatLng.fromJson(Map<String, dynamic> json) => LatLng(
+//         lat: json["lat"]?.toDouble(),
+//         lng: json["lng"]?.toDouble(),
+//     );
 
-    Map<String, dynamic> toJson() => {
-        "lat": lat,
-        "lng": lng,
-    };
-}
+//     Map<String, dynamic> toJson() => {
+//         "lat": lat,
+//         "lng": lng,
+//     };
+// }
