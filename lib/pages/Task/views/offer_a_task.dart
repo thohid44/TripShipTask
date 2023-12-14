@@ -282,25 +282,27 @@ class _OfferATaskState extends State<OfferATask> {
                   height: 35.h,
                   width: fullWidth,
                   decoration: BoxDecoration(
-                      color: primaryColor,
-                  
-                      borderRadius: BorderRadius.circular(5.r),
-                                   boxShadow: [
-                    BoxShadow(
-                      color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                      spreadRadius: 8, //spread radius
-                      blurRadius: 7, // blur radius
-                      offset: Offset(3, 5), // changes position of shadow
-                  
-                    ),
-                  ],
-                      
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(5.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0xffF1F4F9)
+                            .withOpacity(0.5), //color of shadow
+                        spreadRadius: 8, //spread radius
+                        blurRadius: 7, // blur radius
+                        offset: Offset(3, 5), // changes position of shadow
                       ),
+                    ],
+                  ),
                   child: DropdownButton(
                       isExpanded: true,
-                      hint:
-                          Text("${isSelectSkill ? selectSkill : 'Skill Required'}",
-                          style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.normal,  ),),
+                      hint: Text(
+                        "${isSelectSkill ? selectSkill : 'Skill Required'}",
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
                       underline: SizedBox(),
                       icon: const Icon(Icons.keyboard_arrow_down),
                       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
@@ -344,17 +346,15 @@ class _OfferATaskState extends State<OfferATask> {
                     width: 150.w,
                     height: 35.h,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                                   boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-              
-                ),
-              ]
-                       ),
+                    decoration: BoxDecoration(boxShadow: [
+                      BoxShadow(
+                        color: Color(0xffF1F4F9)
+                            .withOpacity(0.5), //color of shadow
+                        spreadRadius: 8, //spread radius
+                        blurRadius: 7, // blur radius
+                        offset: Offset(3, 5), // changes position of shadow
+                      ),
+                    ]),
                     child: dateStatus == false
                         ? Text(
                             "${pickDate.day}-${pickDate.month}-${pickDate.year}",
@@ -596,28 +596,28 @@ class _OfferATaskState extends State<OfferATask> {
               width: 130.w,
               radius: 10.r,
               onTab: () {
-                // var lat = startPosition!.geometry!.location!.lat;
-                // print("Start Lat $lat");
-                // var lng = startPosition!.geometry!.location!.lng;
-                controller.postTask();
-                // controller.postTask(
-                //     selectSkill: ['selectSkill'],
-                //     title: title.text.toString(),
-                //     category: categoryId.toString(),
-                //     location: location.text.toString(),
-                //     preferedGender: gender,
-                //     date: dateDairy,
-                //     time: tripTime,
-                //     details: note,
-                //     amount: amount.text.toString(),
-                //     lat: lat,
-                //     lng: lng,
-                //     hourAvailable: '5',
-                //     hourNeed: needhour.text.toString(),
-                //     postType: "offer",
-                //     country: "BD",
-                //     currency: currency,
-                //     moduleId: '3');
+                var lat = startPosition!.geometry!.location!.lat;
+                print("Start Lat $lat");
+                var lng = startPosition!.geometry!.location!.lng;
+
+                controller.postTask(
+                    selectSkill: selectSkill,
+                    title: title.text.toString(),
+                    category: categoryId.toString(),
+                    location: location.text.toString(),
+                    preferedGender: gender,
+                    date: dateDairy,
+                    time: tripTime,
+                    details: note,
+                    amount: amount.text.toString(),
+                    lat: lat,
+                    lng: lng,
+                    hourAvailable: '5',
+                    hourNeed: needhour.text.toString(),
+                    postType: "offer",
+                    country: "BD",
+                    currency: currency,
+                    moduleId: '3');
 
                 40.h;
                 150.w;

@@ -22,6 +22,7 @@ class ApiService {
       isLoading(true);
       var response = await http.post(Uri.parse("$baseUrl$link"),
           headers: {
+            "Content-Type": "application/json",
             'Authorization': 'Bearer ' + token,
             
           },
@@ -32,8 +33,10 @@ class ApiService {
 print("Trip Post $jsonData");
         Get.snackbar("Get Ride", "Successfully Store",
            );
+           isLoading(false);
       }
     } catch (e) {
+        isLoading(false);
       print("Error $e");
     }
   }

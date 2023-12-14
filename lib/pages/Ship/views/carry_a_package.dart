@@ -6,6 +6,7 @@ import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customTextForm.dart';
 import 'package:tripshiptask/Widget/custom_text_field.dart';
+import 'package:tripshiptask/pages/Ship/controller/carry_package_controller.dart';
 import 'package:tripshiptask/pages/Ship/controller/send_package_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -129,7 +130,7 @@ class _CarryAPackageState extends State<CarryAPackage> {
   final TextEditingController weight = TextEditingController();
   final TextEditingController note = TextEditingController();
 
-  var controller = Get.put(SendPackageController());
+  var controller = Get.put(CarryPackageController());
   var fullWidth = 306.w;
   var height = 3;
   @override
@@ -766,9 +767,8 @@ class _CarryAPackageState extends State<CarryAPackage> {
             var dropUpPointLat = startPosition!.geometry!.location!.lat;
             var dropUpPointLong = startPosition!.geometry!.location!.lng;
 
-            print(
-                "address is ${GetAddressFromLatLong(pickUpPointLat, pickUpPointLong)}");
-            controller.sendPackage(
+  
+            controller.carryPackage(
                 pickup: _startSearchFieldController.text.toString(),
                 pickDate: pickDate.text.toString(),
                 pickTime: pickupTime.toString(),

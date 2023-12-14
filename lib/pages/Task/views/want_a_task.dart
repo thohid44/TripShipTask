@@ -8,7 +8,7 @@ import 'package:tripshiptask/Widget/customTextForm.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tripshiptask/pages/Task/controller/task_controller.dart';
+import 'package:tripshiptask/pages/Task/controller/task_seek_post.dart';
 
 class WantATask extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class WantATask extends StatefulWidget {
 }
 
 class _WantATaskState extends State<WantATask> {
-  final controller = Get.put(TaskController());
+  final controller = Get.put(TaskSeekPostController());
   final TextEditingController location = TextEditingController();
   final TextEditingController title = TextEditingController();
   final TextEditingController amount = TextEditingController();
@@ -698,28 +698,27 @@ class _WantATaskState extends State<WantATask> {
               width: 130.w,
               radius: 10.r,
               onTab: () {
-                // var lat = startPosition!.geometry!.location!.lat;
-                // print("Start Lat $lat");
-                // var lng = startPosition!.geometry!.location!.lng;
-                controller.postTask();
-                // controller.postTask(
-                //     selectSkill: ['selectSkill'],
-                //     title: title.text.toString(),
-                //     category: categoryId.toString(),
-                //     location: location.text.toString(),
-                //     preferedGender: gender,
-                //     date: dateDairy,
-                //     time: tripTime,
-                //     details: note,
-                //     amount: amount.text.toString(),
-                //     lat: lat,
-                //     lng: lng,
-                //     hourAvailable: '5',
-                //     hourNeed: needhour.text.toString(),
-                //     postType: "offer",
-                //     country: "BD",
-                //     currency: currency,
-                //     moduleId: '3');
+                var lat = startPosition!.geometry!.location!.lat;
+                print("Start Lat $lat");
+                var lng = startPosition!.geometry!.location!.lng;
+                controller.seekTask(
+                    selectSkill: ['selectSkill'],
+                    title: title.text.toString(),
+                    category: categoryId.toString(),
+                    location: location.text.toString(),
+                    preferedGender: gender,
+                    date: dateDairy,
+                    time: tripTime,
+                    details: note,
+                    amount: amount.text.toString(),
+                    lat: lat,
+                    lng: lng,
+                    hourAvailable: '5',
+                    hourNeed: needhour.text.toString(),
+                    postType: "offer",
+                    country: "BD",
+                    currency: currency,
+                    moduleId: '3');
 
                 40.h;
                 150.w;
