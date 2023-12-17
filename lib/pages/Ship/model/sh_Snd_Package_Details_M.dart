@@ -23,8 +23,8 @@ class ShipSendPackageDetailsModel {
 class ShipSendPackageDetailsM {
   int? id;
   String? shipId;
-  int? shipPosterRating;
-  List<dynamic>? shipPosterFeedback;
+  var shipPosterRating;
+var shipPosterFeedback;
   String? title;
   String? status;
   String? postType;
@@ -113,7 +113,7 @@ class ShipSendPackageDetailsM {
         shipId: json["ship_id"],
         shipPosterRating: json["ship_poster_rating"],
         shipPosterFeedback:
-            List<dynamic>.from(json["ship_poster_feedback"].map((x) => x)),
+           json["ship_poster_feedback"],
         title: json["title"],
         status: json["status"],
         postType: json["post_type"],
@@ -157,37 +157,37 @@ class ShipSendPackageDetailsM {
 class Bid {
   dynamic completedRating;
   dynamic postedRating;
-  List<dynamic>? shipPostedFeedbacks;
-  List<dynamic>? shipCompletedFeedbacks;
-  int? id;
-  int? shipId;
-  int? shipOwner;
+var shipPostedFeedbacks;
+ var shipCompletedFeedbacks;
+  var id;
+  var shipId;
+  var shipOwner;
   String? shipPosterName;
   dynamic shiptitle;
   DateTime? shipdate;
   String? shippath;
-  int? paid;
-  int? amount;
+  var paid;
+  var amount;
   dynamic paymentMethod;
   dynamic carrierAccepted;
   dynamic co;
-  int? complete;
+  var complete;
   String? bidderEducation;
   String? bidderProfession;
   String? education;
-  DateTime? bidderDob;
+  var bidderDob;
   String? bidderSex;
   String? email;
   String? phone;
   String? address;
   String? coverLetter;
-  int? completed;
-  int? userId;
-  int? agree;
-  int? posted;
-  int? accepted;
-  int? feedbackGiven;
-  int? feedbackGot;
+  var completed;
+  var userId;
+  var agree;
+  var posted;
+  var accepted;
+  dynamic feedbackGiven;
+ dynamic feedbackGot;
   String? bidderName;
   String? bidderLocation;
   String? photo;
@@ -237,15 +237,15 @@ class Bid {
         completedRating: json["completed_rating"],
         postedRating: json["posted_rating"],
         shipPostedFeedbacks:
-            List<dynamic>.from(json["ship_posted_feedbacks"].map((x) => x)),
+         json["ship_posted_feedbacks"],
         shipCompletedFeedbacks:
-            List<dynamic>.from(json["ship_completed_feedbacks"].map((x) => x)),
+          json["ship_completed_feedbacks"],
         id: json["id"],
         shipId: json["ship_id"],
         shipOwner: json["ship_owner"],
         shipPosterName: json["ship_poster_name"],
         shiptitle: json["shiptitle"],
-        shipdate: DateTime.parse(json["shipdate"]),
+        shipdate: json["shipdate"],
         shippath: json["shippath"],
         paid: json["paid"],
         amount: json["amount"],

@@ -132,6 +132,7 @@ class _SendAPackageState extends State<SendAPackage> {
   var controller = Get.put(SendPackageController());
   var fullWidth = 306.w;
   var height = 3;
+  var fontSize = 12.sp; 
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -164,7 +165,7 @@ class _SendAPackageState extends State<SendAPackage> {
                 decoration: InputDecoration(
                     hintText: 'Pick Up Point',
                     hintStyle: TextStyle(
-                        fontWeight: FontWeight.normal, fontSize: 13.sp),
+                        fontWeight: FontWeight.normal, fontSize: fontSize),
                     filled: true,
                     fillColor: primaryColor,
                     border: InputBorder.none,
@@ -219,7 +220,7 @@ class _SendAPackageState extends State<SendAPackage> {
                       height: 30.h,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                     color: primaryColor,
+                        color: primaryColor,
                         boxShadow: [
                           BoxShadow(
                             color: Color(0xffF1F4F9)
@@ -234,14 +235,16 @@ class _SendAPackageState extends State<SendAPackage> {
                           ? Text(
                               "${pickUpDate.day}-${pickUpDate.month}-${pickUpDate.year}",
                               style: TextStyle(
-                                  fontSize: 13.sp,
-                                
+                                  fontSize: fontSize,
                                   fontWeight: FontWeight.normal),
                               textAlign: TextAlign.center,
                             )
                           : Text(
-                              "${pickUpDate.day}-${pickUpDate.month}-${pickUpDate.year}",style: 
-                              TextStyle(fontSize: 13.sp, fontWeight: FontWeight.normal),),
+                              "Select Pickup Date",
+                              style: TextStyle(
+                                  fontSize: fontSize,
+                                  fontWeight: FontWeight.normal),
+                            ),
                     ),
                   ),
                 ),
@@ -254,22 +257,26 @@ class _SendAPackageState extends State<SendAPackage> {
                         width: 145.w,
                         height: 30.h,
                         decoration: BoxDecoration(
-                          color: primaryColor, 
-                                       boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-              
-                ),
-              ],
+                          color: primaryColor,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xffF1F4F9)
+                                  .withOpacity(0.5), //color of shadow
+                              spreadRadius: 8, //spread radius
+                              blurRadius: 7, // blur radius
+                              offset:
+                                  Offset(3, 5), // changes position of shadow
+                            ),
+                          ],
                         ),
                         child: pickupTime != null
                             ? Text(pickuptime!.format(context).toString())
-                            : Text("Select Pickup Time", style: TextStyle(
-                              fontSize: 13.sp, fontWeight: FontWeight.normal
-                            ),),
+                            : Text(
+                                "Select Pickup Time",
+                                style: TextStyle(
+                                    fontSize: fontSize,
+                                    fontWeight: FontWeight.normal),
+                              ),
                       ),
                     )),
               ],
@@ -286,16 +293,15 @@ class _SendAPackageState extends State<SendAPackage> {
               width: fullWidth,
               height: 30.h,
               decoration: BoxDecoration(
-                color: primaryColor, 
-                             boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-              
-                ),
-              ],
+                color: primaryColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                    spreadRadius: 8, //spread radius
+                    blurRadius: 7, // blur radius
+                    offset: Offset(3, 5), // changes position of shadow
+                  ),
+                ],
               ),
               child: TextField(
                 controller: _endSearchFieldController,
@@ -303,13 +309,12 @@ class _SendAPackageState extends State<SendAPackage> {
                 focusNode: endFocusNode,
                 enabled: _startSearchFieldController.text.isNotEmpty &&
                     startPosition != null,
-                style: TextStyle(fontSize: 13.sp , fontWeight: FontWeight.normal),
+                style:
+                    TextStyle(fontSize: fontSize, fontWeight: FontWeight.normal),
                 decoration: InputDecoration(
                     hintText: 'Drop Off Point',
                     hintStyle: TextStyle(
-                        fontWeight: FontWeight.normal,
-                    
-                        fontSize: 13.sp),
+                        fontWeight: FontWeight.normal, fontSize: fontSize),
                     filled: true,
                     fillColor: primaryColor,
                     border: InputBorder.none,
@@ -391,20 +396,18 @@ class _SendAPackageState extends State<SendAPackage> {
           child: Card(
             elevation: 5,
             child: Container(
-             
-              height: 120,
+              height: 120.h,
               width: fullWidth,
               decoration: BoxDecoration(
                 color: primaryColor,
-                             boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-              
-                ),
-              ],
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                    spreadRadius: 8, //spread radius
+                    blurRadius: 7, // blur radius
+                    offset: Offset(3, 5), // changes position of shadow
+                  ),
+                ],
               ),
             ),
           ),
@@ -427,32 +430,34 @@ class _SendAPackageState extends State<SendAPackage> {
                       width: 120.w,
                       height: 30.h,
                       alignment: Alignment.center,
-                      decoration: BoxDecoration
-                      (
-                        color: primaryColor, 
-                                     boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-              
-                ),
-              ],
+                      decoration: BoxDecoration(
+                        color: primaryColor,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xffF1F4F9)
+                                .withOpacity(0.5), //color of shadow
+                            spreadRadius: 8, //spread radius
+                            blurRadius: 7, // blur radius
+                            offset: Offset(3, 5), // changes position of shadow
+                          ),
+                        ],
                       ),
                       child: dateStatus == false
                           ? Text(
-                              "${dropUpDate1.day}-${dropUpDate1.month}-${dropUpDate1.year}",
+                              "Select Drop up Date",
                               style: TextStyle(
-                                  fontSize: 13.sp,
+                                  fontSize: fontSize,
                                   color: Colors.black,
                                   fontWeight: FontWeight.normal),
                               textAlign: TextAlign.center,
                             )
                           : Text(
                               "${dropUpDate1.day}-${dropUpDate1.month}-${dropUpDate1.year}",
-                              style: TextStyle(fontSize: 13.sp, color: Colors.black, 
-                              fontWeight: FontWeight.normal),),
+                              style: TextStyle(
+                                  fontSize: fontSize,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal),
+                            ),
                     ),
                   ),
                 ),
@@ -468,28 +473,31 @@ class _SendAPackageState extends State<SendAPackage> {
                         height: 30.h,
                         width: 164.w,
                         decoration: BoxDecoration(
-                          color: primaryColor,
-                                       boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-              
-                ),
-              ],
+                            color: primaryColor,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0xffF1F4F9)
+                                    .withOpacity(0.5), //color of shadow
+                                spreadRadius: 8, //spread radius
+                                blurRadius: 7, // blur radius
+                                offset:
+                                    Offset(3, 5), // changes position of shadow
+                              ),
+                            ],
                             borderRadius: BorderRadius.circular(5.r)),
                         // ignore: unnecessary_null_comparison
                         child: delivaryTime != null
-                            ? Text(delivarytime!.format(context).toString(),
-                             style: TextStyle(
-                                  fontSize: 13.sp,
+                            ? Text(
+                                delivarytime!.format(context).toString(),
+                                style: TextStyle(
+                                  fontSize:fontSize,
                                   fontWeight: FontWeight.normal,
-                                ),)
+                                ),
+                              )
                             : Text(
                                 "Possible Delivery Time",
                                 style: TextStyle(
-                                  fontSize: 13.sp,
+                                  fontSize: fontSize,
                                   fontWeight: FontWeight.normal,
                                 ),
                               )),
@@ -519,29 +527,30 @@ class _SendAPackageState extends State<SendAPackage> {
                     height: 30.h,
                     width: 35.w,
                     decoration: BoxDecoration(
-                      color: purplColor,
-                         boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-              
-                ),
-              ],
+                      color: primaryColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xffF1F4F9)
+                              .withOpacity(0.5), //color of shadow
+                          spreadRadius: 8, //spread radius
+                          blurRadius: 7, // blur radius
+                          offset: Offset(3, 5), // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: Text(
                       "BDT",
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12.5.sp,
+                       
+                        fontSize:fontSize,
+                        fontWeight: FontWeight.normal
                       ),
                     )),
                 CustomTextForm(
                   width: 151.w,
                   height: 30.h,
                   hinttext: "Sending What? ",
-                  fontSize: 12.5.sp,
+                  fontSize: fontSize,
                   textController: sendItem,
                 ),
               ],
@@ -583,7 +592,7 @@ class _SendAPackageState extends State<SendAPackage> {
                           hint: Text(
                             "${isGoodsSelect ? goodsName : 'Type of Goods'}",
                             style: TextStyle(
-                                fontWeight: FontWeight.normal, fontSize: 13.sp),
+                                fontWeight: FontWeight.normal, fontSize: fontSize),
                           ),
                           underline: SizedBox(),
                           icon: const Icon(Icons.keyboard_arrow_down),
@@ -609,7 +618,7 @@ class _SendAPackageState extends State<SendAPackage> {
                   width: 165.w,
                   height: 30.h,
                   hinttext: "Approx value of the goods?",
-                  fontSize: 13.sp,
+                  fontSize:fontSize,
                   textController: approxValue,
                 ),
               ],
@@ -631,24 +640,25 @@ class _SendAPackageState extends State<SendAPackage> {
                       alignment: Alignment.center,
                       height: 30,
                       decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(5.r),
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(5.r),
                         boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-              
-                ),
-              ],),
+                          BoxShadow(
+                            color: Color(0xffF1F4F9)
+                                .withOpacity(0.5), //color of shadow
+                            spreadRadius: 8, //spread radius
+                            blurRadius: 7, // blur radius
+                            offset: Offset(3, 5), // changes position of shadow
+                          ),
+                        ],
+                      ),
                       child: DropdownButton(
                           padding: EdgeInsets.symmetric(horizontal: 5.w),
                           isExpanded: true,
                           hint: Text(
                             "${isGoodsSelect ? package : 'Packaging Type'}",
                             style: TextStyle(
-                                fontWeight: FontWeight.normal, fontSize: 13.sp),
+                                fontWeight: FontWeight.normal, fontSize: fontSize),
                           ),
                           underline: SizedBox(),
                           icon: const Icon(Icons.keyboard_arrow_down),
@@ -675,7 +685,7 @@ class _SendAPackageState extends State<SendAPackage> {
                   height: 30.h,
                   width: 110.w,
                   hinttext: "Weight of package",
-                  fontSize: 13.sp,
+                  fontSize:fontSize,
                   textController: weight,
                 ),
                 Card(
@@ -702,7 +712,7 @@ class _SendAPackageState extends State<SendAPackage> {
                       underline: SizedBox(),
                       isExpanded: true,
                       style: TextStyle(
-                          fontSize: 12.sp,
+                          fontSize: fontSize,
                           fontWeight: FontWeight.normal,
                           color: Colors.black),
                       value: weightOfPackage,
@@ -725,7 +735,6 @@ class _SendAPackageState extends State<SendAPackage> {
           child: Card(
             elevation: 5,
             child: Container(
-               
               decoration: BoxDecoration(color: primaryColor, boxShadow: [
                 BoxShadow(
                   color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow

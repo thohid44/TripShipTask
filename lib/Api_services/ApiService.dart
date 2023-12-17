@@ -22,7 +22,7 @@ class ApiService {
       isLoading(true);
       var response = await http.post(Uri.parse("$baseUrl$link"),
           headers: {
-            "Content-Type": "application/json",
+          
             'Authorization': 'Bearer ' + token,
             
           },

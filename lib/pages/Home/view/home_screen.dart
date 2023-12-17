@@ -61,7 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Container(
                         margin: EdgeInsets.only(left: 10.w),
+                        padding: EdgeInsets.all(5.h),
                         child: CircleAvatar(
+                          backgroundColor: Colors.white,
                           radius: 25.r,
                           backgroundImage: AssetImage("assets/Thohid.jpg"),
                         ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
 
 import 'package:tripshiptask/Utils/localstorekey.dart';
@@ -9,6 +10,7 @@ import 'package:tripshiptask/Widget/customText.dart';
 import 'package:tripshiptask/pages/Ship/views/shipDetails/ship_send_package_details.dart';
 
 import 'package:tripshiptask/pages/Task/model/my_task_details_model.dart';
+import 'package:tripshiptask/pages/Task/views/update_give_task.dart';
 
 import 'package:tripshiptask/pages/Trip/views/trip_page.dart';
 import 'package:flutter/material.dart';
@@ -106,7 +108,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                                   TripDetailsWidget(
                                       status: false,
                                       title: "Task Date",
-                                      value: "${task.date}"),
+                                      value: "${DateFormat.yMMMd().format(task.date)}"),
                                   TripDetailsWidget(
                                       status: false,
                                       title: "Hour needed ",
@@ -195,7 +197,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                                                                             .w,
                                                                         vertical: 5
                                                                             .h),
-                                                                    decoration: BoxDecoration(
+                                                                    decoration: const BoxDecoration(
                                                                         color: Colors
                                                                             .orange),
                                                                     child: Text(
@@ -210,30 +212,57 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                                   SizedBox(
                                     height: 10.h,
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      task.bids.length == 0
-                                          ? ElevatedButton.icon(
-                                              style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      Colors.green),
-                                              onPressed: () {},
-                                              icon: Icon(Icons.add),
-                                              label: Text("Accept"))
-                                          : Container(),
-                                      task.bids.length == 0
-                                          ? ElevatedButton.icon(
-                                              style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      Colors.deepPurple),
-                                              onPressed: () {},
-                                              icon: Icon(Icons.add),
-                                              label: Text("Make Offer"))
-                                          : Container(),
-                                    ],
-                                  )
+                                  task.userId.toString() !=
+                                          _box.read(LocalStoreKey.userId)
+                                      ? Container()
+                                      : Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            ElevatedButton.icon(
+                                                style: ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        Colors.green),
+                                                onPressed: () {},
+                                                icon: Icon(Icons.add),
+                                                label: Text("Accept")),
+                                            SizedBox(width: 10.w),
+                                            ElevatedButton.icon(
+                                                style: ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        Colors.deepPurple),
+                                                onPressed: () {},
+                                                icon: Icon(Icons.add),
+                                                label: Text("Make Offer")),
+                                          ],
+                                        ),
+                                  task.userId.toString() ==
+                                          _box.read(LocalStoreKey.userId)
+                                      ? Container()
+                                      : Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            ElevatedButton.icon(
+                                                style: ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        Colors.green),
+                                                onPressed: () {
+                                                  Get.to(UpdateOfferTask(
+                                                      task.path));
+                                                },
+                                                icon: Icon(Icons.edit),
+                                                label: Text("Edit")),
+                                            SizedBox(width: 10.w),
+                                            ElevatedButton.icon(
+                                                style: ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        Colors.deepPurple),
+                                                onPressed: () {},
+                                                icon: Icon(Icons.remove),
+                                                label: Text("Delete")),
+                                          ],
+                                        ),
                                 ],
                               ),
                       )
@@ -246,28 +275,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
   }
 }
 
-// class TripDetailsWidget extends StatelessWidget {
-//   String? title;
-//   String? value;
-//   TripDetailsWidget({super.key, this.value, this.title});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       children: [
-//         Container(
-//           width: 60.w,
-//           margin: EdgeInsets.all(9),
-//           child: CustomText("$title :", Colors.black, FontWeight.bold, 15.sp),
-//         ),
-//      Container(
-//           width: 260.w,
-//           child: CustomText("$value", Colors.black, FontWeight.w500, 15.sp),
-//         ),
-//       ],
-//     );
-//   }
-// }
 class TripDetailsWidget extends StatelessWidget {
   String? title;
   String? value;

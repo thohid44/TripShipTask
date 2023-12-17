@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "836629306981",
+    "project_id": "tripshiptask-6d521",
+    "storage_bucket": "tripshiptask-6d521.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836629306981:android:2851d6ddf12931e210708c",
+        "android_client_info": {
+          "package_name": "com.tripshiptask.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAj95wOG2OMc6BEpmYTA7hiPBy6F2b7fA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

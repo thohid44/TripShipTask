@@ -2,10 +2,9 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:tripshiptask/Api_services/ApiService.dart';
-import 'package:tripshiptask/Utils/colors.dart';
+import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
-
+import 'package:http/http.dart' as http;
 class TripEditController extends GetxController {
   final _box = GetStorage();
   var isLoading = false.obs;
@@ -16,9 +15,10 @@ class TripEditController extends GetxController {
     super.onInit();
     //getTripPostDetails(pth);
   }
+  
 
-  getTripRide(
-      {startPoint,
+  editGiveTripPost(
+      { slug,startPoint,
       des,
       distance,
       date,
@@ -51,10 +51,20 @@ class TripEditController extends GetxController {
     print("Willing to  pay $willPay");
     print("note is $note");
 
-    var mapData = {
+ 
+
+    try {
+      isLoading(true);
+      var response = await http.patch(Uri.parse("${baseUrl}trip/$slug"),
+          headers: {
+          "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token,
+            
+          },
+          body: jsonEncode({
       "post_type": "offer",
-      "start_point": sPointLat.toString(),
-      "via": "est",
+      "start_point": startPoint.toString(),
+      "via": "",
       "date": date,
       "time": time,
       "destination": des,
@@ -72,20 +82,18 @@ class TripEditController extends GetxController {
       "preferred_passenger": passengerType, // Male or female or any
       "vehicle_seat": howmany,
       "details": note
-    };
-
-    try {
-      isLoading(true);
-      var response = await ApiService().postData(mapData, "");
-      print(response.statusCode);
+    }));
+           print(response.statusCode);
       if (response.statusCode == 201) {
         print(response.statusCode);
         var jsonData = jsonDecode(response.body);
-        print(jsonData);
-        Get.snackbar("Give Ride", "Successfully Store",
-            backgroundColor: primaryColor);
+print("Trip Post $jsonData");
+        Get.snackbar("Get Ride", "Successfully Store",
+           );
+           isLoading(false);
       }
     } catch (e) {
+        isLoading(false);
       print("Error $e");
     }
   }

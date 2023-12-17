@@ -15,6 +15,7 @@ import 'package:tripshiptask/pages/Ship/controller/shipController.dart';
 import 'package:tripshiptask/pages/Ship/model/sh_Snd_Package_Details_M.dart';
 import 'package:tripshiptask/pages/Ship/views/shipPage.dart';
 import 'package:http/http.dart' as http;
+import 'package:tripshiptask/pages/Ship/views/ship_send_package_edit.dart';
 import 'package:tripshiptask/profile/view/user_deshboard.dart';
 
 import '../../../Home/trip_ship_task_home.dart';
@@ -54,17 +55,17 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
     shipSendPackageDetails();
     super.initState();
   }
-
+var path; 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:customAppBar(),
+      appBar: customAppBar(),
       body: FutureBuilder(
           future: shipSendPackageDetails(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               shipId = snapshot.data!.data!.id;
-
+              path = snapshot.data!.data!.path;
               return Container(
                 margin: EdgeInsets.only(left: 8.w, right: 8.w, top: 20.h),
                 child: ListView(
@@ -245,9 +246,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                               )
                                             : customText(
                                                 title: "Agreed",
-                                              ), 
-
-
+                                              ),
                                       ],
                                     ),
                                     ships[index]['accepted'] == 1
@@ -294,36 +293,46 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                 ));
                           }),
                     ),
-                  _box.read(LocalStoreKey.userId) ==  snapshot.data!.data.userId ?Container():  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomButtonOne(
-                          width:100.w,
-                          height: 35.h,
-                      title: "Accept",
-                      btnColor: navyBlueColor,
-                      marginLR: 5.w,
-                      radius: 5.r,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
-                      onTab: () {
-                   
-                      }),
-                         CustomButtonOne(
-                          width:120.w,
-                          height: 35.h,
-                      title: "Make Offer",
-                      btnColor: navyBlueColor,
-                      marginLR: 5.w,
-                      radius: 5.r,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
-                      onTab: () {
-                    makeOffer(context);
-                      }),
-                       
-                      ],
-                    )
+                     CustomButtonOne(
+                        height: 30.h,
+                        width: 100.w,
+                        radius: 5.r,
+                        marginLR: 10.w,
+                        title: "Edit",
+                        btnColor: Colors.green,
+                        onTab: () {
+                          Get.to(ShipSendPackgeEdit(path));
+                        }),
+                    _box.read(LocalStoreKey.userId) ==
+                            snapshot.data!.data.userId
+                        ? Container()
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CustomButtonOne(
+                                  width: 100.w,
+                                  height: 35.h,
+                                  title: "Accept",
+                                  btnColor: navyBlueColor,
+                                  marginLR: 5.w,
+                                  radius: 5.r,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                  onTab: () {}),
+                              CustomButtonOne(
+                                  width: 120.w,
+                                  height: 35.h,
+                                  title: "Make Offer",
+                                  btnColor: navyBlueColor,
+                                  marginLR: 5.w,
+                                  radius: 5.r,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                  onTab: () {
+                                    makeOffer(context);
+                                  }),
+                            ],
+                          )
                   ],
                 ),
               );
@@ -363,6 +372,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                         ),
                       ),
                     ),
+                     
                     SizedBox(
                       height: 8.h,
                     ),
@@ -386,6 +396,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                     SizedBox(
                       height: 20.h,
                     ),
+                  
                     Row(
                       children: [
                         CustomButtonOne(

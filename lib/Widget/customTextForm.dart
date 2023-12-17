@@ -12,6 +12,7 @@ class CustomTextForm extends StatelessWidget {
   String? hinttext;
   String? errorMsg;
   double? fontSize;
+   final ValueChanged<String>? onChanged;
   CustomTextForm(
       {super.key,
       this.hinttext,
@@ -19,6 +20,7 @@ class CustomTextForm extends StatelessWidget {
       this.height,
       this.fontSize,
       this.textController,
+      this.onChanged,
       this.errorMsg});
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,8 @@ class CustomTextForm extends StatelessWidget {
               }
               return null;
             },
-            onChanged: (value) {},
+        onChanged: onChanged,
+
           ),
         ),
       ),

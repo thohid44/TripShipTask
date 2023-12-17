@@ -26,8 +26,8 @@ class MyTaskDetailsModel2 {
     var skills;
     String? category;
     int? id;
-    int? userId;
-    String? title;
+    var userId;
+    var title;
     String? taskId;
     String? slug;
     String? type;
@@ -36,7 +36,7 @@ class MyTaskDetailsModel2 {
     String? country;
     String? currency;
     dynamic facebook;
-  
+    var latLng;
     String? location;
     String? note;
     String? status;
@@ -75,7 +75,7 @@ class MyTaskDetailsModel2 {
          this.country,
          this.currency,
          this.facebook,
-       
+        this.latLng,
          this.location,
          this.note,
          this.status,
@@ -106,7 +106,7 @@ class MyTaskDetailsModel2 {
         category: json["category"],
         id: json["id"],
         userId: json["user_id"],
-        title: json["title"],
+        title: json["title"].toString(),
         taskId: json["task_id"],
         slug: json["slug"],
         type: json["type"],
@@ -115,7 +115,7 @@ class MyTaskDetailsModel2 {
         country: json["country"],
         currency: json["currency"],
         facebook: json["facebook"],
-      
+       latLng: json["lat_lng"],
         location: json["location"],
         note: json["note"],
         status: json["status"],
@@ -178,4 +178,20 @@ class Userinfo {
         "dob": "${dob.year.toString().padLeft(4, '0')}-${dob.month.toString().padLeft(2, '0')}-${dob.day.toString().padLeft(2, '0')}",
         "gender": gender,
     };
+}
+class LatLng {
+    dynamic lat;
+    dynamic lng;
+
+    LatLng({
+        this.lat,
+        this.lng,
+    });
+
+    // factory LatLng.fromJson(Map<String, dynamic> json) => LatLng(
+    //     lat: json["lat"].toDouble(),
+    //     lng: json["lng"].toDouble(),
+    // );
+
+   
 }

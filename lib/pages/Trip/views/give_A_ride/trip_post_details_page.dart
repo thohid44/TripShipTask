@@ -85,9 +85,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
       child: Scaffold(
         appBar: customAppBar(),
 
-        // appBar: AppBar(
-        //   title: Text("Trip Details "),
-        // ),
+     
         body: FutureBuilder(
             future: getTripPostDetails(),
             builder: (context, snapshot) {
@@ -521,8 +519,15 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                         children: [
                           bidButton(
                             ontab: () {
-                              Get.to(TripGivePostEdit(),
-                                  transition: Transition.leftToRight);
+                                       Get.to(
+                                          TripGivePostEdit(
+                                            trip.path.toString(),
+                                          ),
+                                          duration: Duration(
+                                              milliseconds:
+                                                  200), //duration of transitions, default 1 sec
+                                          transition: Transition.leftToRight);
+                     
                             },
                             title: "Edit",
                             width: 80.w,
