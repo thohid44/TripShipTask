@@ -5,6 +5,7 @@ import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customTextForm.dart';
 import 'package:tripshiptask/controller/vehicle_controller.dart';
 import 'package:tripshiptask/final_form.dart';
+import 'package:tripshiptask/google_api_key.dart';
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -16,6 +17,7 @@ import 'package:geocoding/geocoding.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
+import 'package:tripshiptask/pages/map_page.dart';
 
 class GiveTripPost extends StatefulWidget {
   @override
@@ -344,10 +346,15 @@ var  fullWidth = 310.w;
             height: 5.h,
           ),
           Container(
+            height: 100, 
+            child:MapPage2()
+          ),
+          Container(
             color: Colors.grey,
             height: 150.h,
             width: fullWidth,
             child: GoogleMap(
+            
               mapType: MapType.normal,
               markers: {
                 Marker(

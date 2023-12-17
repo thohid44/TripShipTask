@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/page_list.dart';
+import 'package:tripshiptask/pages/Trip/views/map_page.dart';
+import 'package:tripshiptask/pages/map_page.dart';
 
 import 'package:tripshiptask/splashScreen.dart';
 import 'package:uni_links/uni_links.dart';
@@ -73,7 +75,7 @@ class _MyAppState extends State<MyApp> {
             primarySwatch: Colors.blue,
             primaryColor: Colors.black,
           ),
-          home: child
+          home: child,
         );
       },
    child: checkUserType() ? HomeScreen() :SplashScreen(),
