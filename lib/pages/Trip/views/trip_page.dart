@@ -6,13 +6,14 @@ import 'package:tripshiptask/pages/Trip/views/get_a_ride/get_trip_posts.dart';
 
 import 'package:tripshiptask/pages/Trip/views/get_a_ride/get_A_Ride.dart';
 import 'package:tripshiptask/pages/Trip/views/give_A_ride/give_trip_post.dart';
+import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_give_search_page.dart';
 import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tripshiptask/Utils/colors.dart';
-import 'package:tripshiptask/pages/Trip/views/please_search.dart';
-import 'package:tripshiptask/pages/Trip/views/trip_search/trip_single_search.dart';
+import 'package:tripshiptask/pages/Trip/views/trip_give_search_new23.dart';
+
 
 class TripPage extends StatefulWidget {
   TripPage({super.key});
@@ -106,7 +107,7 @@ class _TripPageState extends State<TripPage> {
                         height: 28.h,
                         child: TextField(
                           onTap: () {
-                            Get.to(SearchScreen());
+                            Get.to(TripGiveSearchNew23());
                           },
                           decoration: InputDecoration(
                             contentPadding:

@@ -10,34 +10,21 @@
 // import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
 // import 'package:tripshiptask/pages/Trip/model/trip_give_post_details_model.dart';
 // import 'package:tripshiptask/pages/Trip/model/trip_post_details_model.dart';
-// import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_page.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:get/get.dart';
 // import 'package:get_storage/get_storage.dart';
 // import 'package:http/http.dart' as http;
 
-
-
-// import 'dart:async';
-// import 'dart:convert';
-
-// import 'package:tripshiptask/Api_services/base_url.dart';
 // import 'package:tripshiptask/Utils/colors.dart';
 
-// import 'package:tripshiptask/Utils/localstorekey.dart';
+
 // import 'package:tripshiptask/Widget/customButtonOne.dart';
 
-// import 'package:tripshiptask/Widget/customText.dart';
-// import 'package:tripshiptask/Widget/custom_text_field.dart';
+
 // import 'package:tripshiptask/Widget/widget_button.dart';
 
-// import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
-// import 'package:tripshiptask/pages/Trip/model/trip_post_details_model.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:get/get.dart';
-// import 'package:get_storage/get_storage.dart';
+
 // import 'package:http/http.dart' as http;
 // class TripSearchDeatailsPage extends StatefulWidget {
 //   String path;

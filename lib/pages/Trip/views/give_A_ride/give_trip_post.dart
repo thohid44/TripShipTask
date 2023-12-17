@@ -48,11 +48,10 @@ class _GiveTripPostState extends State<GiveTripPost> {
   var preferToRide;
   String? prefer;
   bool isPreferSelect = false;
-   List<Map<String, dynamic>> preferList = [
+  List<Map<String, dynamic>> preferList = [
     {"id": 1, "name": "Male", "slug": "Male"},
     {"id": 2, "name": "Female", "slug": "Female"},
     {"id": 3, "name": "Other", "slug": "Other"},
-
   ];
 
   String? selectVehicle;
@@ -64,11 +63,9 @@ class _GiveTripPostState extends State<GiveTripPost> {
   var destinationPointLong;
   var destinationPointLat;
 
-   final TextEditingController willPayAmount= TextEditingController();
+  final TextEditingController willPayAmount = TextEditingController();
   final TextEditingController description = TextEditingController();
   final TextEditingController note = TextEditingController();
-
-
 
   var currency;
 
@@ -122,7 +119,8 @@ class _GiveTripPostState extends State<GiveTripPost> {
       });
     }
   }
-var  fullWidth = 310.w; 
+
+  var fullWidth = 310.w;
   @override
   Widget build(BuildContext context) {
     var vehicleController = Get.put(VehicleController());
@@ -132,7 +130,6 @@ var  fullWidth = 310.w;
     return SingleChildScrollView(
       child: Column(
         children: [
-        
           SizedBox(
             height: 4.h,
           ),
@@ -149,7 +146,7 @@ var  fullWidth = 310.w;
                   hintStyle:
                       TextStyle(fontWeight: FontWeight.normal, fontSize: 13.sp),
                   filled: true,
-                  fillColor:primaryColor,
+                  fillColor: primaryColor,
                   border: InputBorder.none,
                   suffixIcon: _startSearchFieldController.text.isNotEmpty
                       ? IconButton(
@@ -163,10 +160,11 @@ var  fullWidth = 310.w;
                         )
                       : null),
               onChanged: (value) {
+                
                 if (_debounce?.isActive ?? false) _debounce!.cancel();
                 _debounce = Timer(const Duration(milliseconds: 1000), () {
                   if (value.isNotEmpty) {
-                    print("start point $value");
+                  
                     //places api
                     autoCompleteSearch(value);
                   } else {
@@ -184,7 +182,7 @@ var  fullWidth = 310.w;
             height: 5.h,
           ),
           Container(
-           width: fullWidth,
+            width: fullWidth,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -203,9 +201,7 @@ var  fullWidth = 310.w;
                         ? Text(
                             "${pickDate.day}-${pickDate.month}-${pickDate.year}",
                             style: TextStyle(
-                                fontSize: 13.sp,
-                               
-                                fontWeight: FontWeight.normal),
+                                fontSize: 13.sp, fontWeight: FontWeight.normal),
                             textAlign: TextAlign.center,
                           )
                         : Text(
@@ -232,10 +228,12 @@ var  fullWidth = 310.w;
                       ),
                       child: pickupTime != null
                           ? Text(pickupTime!.format(context).toString())
-                          : Text("Select Time",  style: TextStyle(
-                                fontSize: 13.sp,
-                               
-                                fontWeight: FontWeight.normal),),
+                          : Text(
+                              "Select Time",
+                              style: TextStyle(
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.normal),
+                            ),
                     )),
               ],
             ),
@@ -265,12 +263,10 @@ var  fullWidth = 310.w;
               style: TextStyle(fontSize: 13.sp),
               decoration: InputDecoration(
                   hintText: 'Destination',
-                  hintStyle: TextStyle(
-                      fontWeight: FontWeight.normal,
-                   
-                      fontSize: 13.sp),
+                  hintStyle:
+                      TextStyle(fontWeight: FontWeight.normal, fontSize: 13.sp),
                   filled: true,
-                  fillColor:primaryColor,
+                  fillColor: primaryColor,
                   border: InputBorder.none,
                   suffixIcon: _endSearchFieldController.text.isNotEmpty
                       ? IconButton(
@@ -284,10 +280,12 @@ var  fullWidth = 310.w;
                         )
                       : null),
               onChanged: (value) {
+                print(value);
                 if (_debounce?.isActive ?? false) _debounce!.cancel();
                 _debounce = Timer(const Duration(milliseconds: 1000), () {
                   if (value.isNotEmpty) {
                     //places api
+                      print("End point $value");
                     autoCompleteSearch(value);
                   } else {
                     //clear out the results
@@ -345,41 +343,14 @@ var  fullWidth = 310.w;
           SizedBox(
             height: 5.h,
           ),
-          Container(
-            height: 100, 
-            child:MapPage2()
-          ),
-          Container(
-            color: Colors.grey,
-            height: 150.h,
-            width: fullWidth,
-            child: GoogleMap(
-            
-              mapType: MapType.normal,
-              markers: {
-                Marker(
-                    position: LatLng(222.341900, 91.815536),
-                    markerId: MarkerId('id'),
-                    icon: BitmapDescriptor.defaultMarkerWithHue(
-                        BitmapDescriptor.hueMagenta)),
-              },
-              initialCameraPosition: CameraPosition(
-                  target: LatLng(222.341900, 91.815536), zoom: 14.47),
-              onMapCreated: (GoogleMapController controller) async {
-                setState(() {
-                  _controller = controller;
-                });
-              },
-            ),
-          ),
+          Container(height: 200.h, child: MapPage2()),
           SizedBox(
             height: 2.h,
           ),
           UnconstrainedBox(
             child: Container(
-              width: 300.w, 
+              width: 300.w,
               child: Row(
-             
                 children: [
                   Container(
                       width: 149.w,
@@ -407,8 +378,8 @@ var  fullWidth = 310.w;
                                     },
                                     value: e['id'],
                                     child: Text(
-                                      "${e['name']}"
-                                      ,style: TextStyle(fontSize: 13.sp),
+                                      "${e['name']}",
+                                      style: TextStyle(fontSize: 13.sp),
                                     ),
                                   ))
                               .toList(),
@@ -463,7 +434,7 @@ var  fullWidth = 310.w;
             height: 2.h,
           ),
           Container(
-           width: fullWidth, 
+            width: fullWidth,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -489,8 +460,7 @@ var  fullWidth = 310.w;
                             .map((e) => DropdownMenuItem(
                                   onTap: () {
                                     preferToRide = e['name'].toString();
-                                    print(
-                                        "Prefer to get ride   $preferToRide");
+                                    print("Prefer to get ride   $preferToRide");
                                   },
                                   value: e['id'],
                                   child: Text(
@@ -506,13 +476,13 @@ var  fullWidth = 310.w;
                 SizedBox(
                   width: 1.w,
                 ),
-               CustomTextForm(
-                height: 30.h, 
-                width: 90.w, 
-                hinttext: "Asking Fare",
-                fontSize: 13.sp,
-                textController: willPayAmount,
-               ), 
+                CustomTextForm(
+                  height: 30.h,
+                  width: 90.w,
+                  hinttext: "Asking Fare",
+                  fontSize: 13.sp,
+                  textController: willPayAmount,
+                ),
                 Container(
                     alignment: Alignment.center,
                     height: 30.h,
@@ -522,7 +492,10 @@ var  fullWidth = 310.w;
                         borderRadius: BorderRadius.circular(5.r)),
                     child: Text(
                       "BDT",
-                      style: TextStyle(color: Colors.white,fontSize: 12.sp, fontWeight: FontWeight.normal),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.normal),
                     )),
               ],
             ),
@@ -531,7 +504,6 @@ var  fullWidth = 310.w;
             height: 2.h,
           ),
           Container(
-           
             child: TextFormField(
               controller: note,
               decoration: InputDecoration(

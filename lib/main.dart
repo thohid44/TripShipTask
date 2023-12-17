@@ -6,7 +6,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/page_list.dart';
+import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_give_search_page.dart';
 import 'package:tripshiptask/pages/Trip/views/map_page.dart';
+import 'package:tripshiptask/pages/Trip/views/please_search.dart';
 import 'package:tripshiptask/pages/map_page.dart';
 
 import 'package:tripshiptask/splashScreen.dart';
@@ -15,6 +17,8 @@ import 'Utils/localstorekey.dart';
 import 'pages/Home/view/home_screen.dart';
 
 import 'dart:io';
+
+import 'pages/Trip/views/trip_search/trip_single_search.dart';
 
 void main() async {
   //final GoogleMapsFlutterPlatform platform = GoogleMapsFlutterPlatform.instance;

@@ -100,7 +100,7 @@ class _ShipHomePageState extends State<ShipHomePage> {
                         height: 28.h,
                         child: TextField(
                           onTap: () {
-                            Get.to(TripSingleSearchPage());
+                         
                           },
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.only(left: 5.w, top: 5.h),

@@ -6,6 +6,7 @@ import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customText.dart';
 import 'package:tripshiptask/Widget/custom_text_field.dart';
+import 'package:tripshiptask/pages/Home/trip_ship_task_home.dart';
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
 import 'package:tripshiptask/pages/Trip/model/trips_search_model.dart';
 import 'package:get_storage/get_storage.dart';
@@ -143,96 +144,99 @@ class _TripGiveSearchPageState extends State<TripGiveSearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 10.h,
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    index = 2;
-                  });
-                },
-                child: Container(
-                    width: 100.w,
-                    height: 30.h,
-                    child: TextField(
-                      onTap: () {
-                        Get.to(TripSingleSearchPage());
-                      },
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(left: 5.w, top: 5.h),
-                        hintText: "Search",
-                        suffixIcon: Icon(Icons.search),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.r)),
-                      ),
-                    )),
-              ),
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    index = 1;
-                  });
-                },
-                child: Container(
-                  width: 100.w,
-                  height: 25.h,
-                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                  decoration: BoxDecoration(
-                      color: index == 1 ? Color(0xff4CA4C7) : Colors.grey,
-                      borderRadius: BorderRadius.circular(5.r)),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // Icon(
-                      //   Icons.list_alt,
-                      //   color: Colors.white,
-                      //   size: 20.h,
-                      // ),
-                      CustomText(
-                          "Give a Post", Colors.white, FontWeight.w700, 12.sp)
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    index = 0;
-                  });
-                },
-                child: Container(
-                  height: 25.h,
-                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                  decoration: BoxDecoration(
-                      color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
-                      borderRadius: BorderRadius.circular(5.r)),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // Icon(
-                      //   Icons.list_alt,
-                      //   color: Colors.white,
-                      //   size: 20.h,
-                      // ),
-                      CustomText("Give Trip Posts", Colors.white,
-                          FontWeight.w700, 13.sp)
-                    ],
-                  ),
-                ),
-              )
-            ],
+    return Scaffold(
+      appBar: customAppBar(),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 10.h,
           ),
-        ),
-        Container(height: 400.h, child: giveTripList[index])
-      ],
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      index = 2;
+                    });
+                  },
+                  child: Container(
+                      width: 100.w,
+                      height: 30.h,
+                      child: TextField(
+                        onTap: () {
+                         // Get.to(TripSingleSearchPage());
+                        },
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(left: 5.w, top: 5.h),
+                          hintText: "Search",
+                          suffixIcon: Icon(Icons.search),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.r)),
+                        ),
+                      )),
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      index = 1;
+                    });
+                  },
+                  child: Container(
+                    width: 100.w,
+                    height: 25.h,
+                    padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                    decoration: BoxDecoration(
+                        color: index == 1 ? Color(0xff4CA4C7) : Colors.grey,
+                        borderRadius: BorderRadius.circular(5.r)),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Icon(
+                        //   Icons.list_alt,
+                        //   color: Colors.white,
+                        //   size: 20.h,
+                        // ),
+                        CustomText(
+                            "Give a Post", Colors.white, FontWeight.w700, 12.sp)
+                      ],
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      index = 0;
+                    });
+                  },
+                  child: Container(
+                    height: 25.h,
+                    padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                    decoration: BoxDecoration(
+                        color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
+                        borderRadius: BorderRadius.circular(5.r)),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Icon(
+                        //   Icons.list_alt,
+                        //   color: Colors.white,
+                        //   size: 20.h,
+                        // ),
+                        CustomText("Give Trip Posts", Colors.white,
+                            FontWeight.w700, 13.sp)
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(height: 400.h, child: giveTripList[index])
+        ],
+      ),
     );
   }
 
