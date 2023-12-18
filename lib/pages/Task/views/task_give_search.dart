@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
@@ -10,6 +11,7 @@ import 'package:tripshiptask/Widget/customText.dart';
 import 'package:tripshiptask/Widget/customTextForm.dart';
 import 'package:tripshiptask/controller/vehicle_controller.dart';
 import 'package:tripshiptask/pages/Home/trip_ship_task_home.dart';
+import 'package:tripshiptask/pages/Ship/model/ship_search_model.dart';
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,16 +20,17 @@ import 'package:google_place/google_place.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
-import 'package:tripshiptask/pages/Trip/model/trips_search_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_details_page.dart';
 
-class TripGiveSearchNew23 extends StatefulWidget {
+import '../model/my_tasks_offer_model.dart';
+
+
+class TaskGiveSearch extends StatefulWidget {
   @override
-  State<TripGiveSearchNew23> createState() => _TripGiveSearchNew23State();
+  State<TaskGiveSearch> createState() => _TaskGiveSearchState();
 }
 
-class _TripGiveSearchNew23State extends State<TripGiveSearchNew23> {
+class _TaskGiveSearchState extends State<TaskGiveSearch> {
   final TextEditingController search = TextEditingController();
 
   bool isVehicleSelect = false;
@@ -125,7 +128,7 @@ class _TripGiveSearchNew23State extends State<TripGiveSearchNew23> {
 
   final _box = GetStorage();
 
-  tripSearch() async {
+  taskWentSearch() async {
     var token = _box.read(LocalStoreKey.token);
     print("search token $token");
 
@@ -137,13 +140,13 @@ class _TripGiveSearchNew23State extends State<TripGiveSearchNew23> {
 
       var response = await http.get(
         Uri.parse(
-            "${baseUrl}trip-search?slat=$startLats&slng=$startLong&dlat=$endLat&dlng=$endLong&sradious&dradious&unit=km&post_type=offer"),
+            "${baseUrl}task-search?post_type=seek"),
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer ' + token,
         },
       );
-      print(response);
+     
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
         print(jsonData);
@@ -151,7 +154,7 @@ class _TripGiveSearchNew23State extends State<TripGiveSearchNew23> {
           status = true;
         });
 
-        return TripSearchModel.fromJson(jsonData);
+        return MyTasksOfferModel.fromJson(jsonData);
       }
     } catch (e) {
       print("Error $e");
@@ -449,7 +452,7 @@ class _TripGiveSearchNew23State extends State<TripGiveSearchNew23> {
             child: CustomButtonOne(
               title: "Search",
               onTab: () {
-                tripSearch();
+                taskWentSearch();
               },
               height: 30.h,
               width: 150.w,
@@ -476,11 +479,11 @@ class _TripGiveSearchNew23State extends State<TripGiveSearchNew23> {
           SizedBox(
             height: 10.h,
           ),
-       status==true?Container(
+       status==false?Container(
         margin: EdgeInsets.only(top: 170.h),
         child: Text("Search Trip"),):   Expanded(
             child: FutureBuilder(
-                future: tripSearch(),
+                future: taskWentSearch(),
                 builder: (context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     print("Search ${snapshot.data.data.length}");
@@ -489,156 +492,144 @@ class _TripGiveSearchNew23State extends State<TripGiveSearchNew23> {
                         itemCount: snapshot.data.data!.length,
                         itemBuilder: (context, index) {
                           var tripData = snapshot.data.data[index];
-                          return Card(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 5.w, vertical: 5.h),
-                              decoration: BoxDecoration(
-                                color: primaryColor,
-                              ),
-                              child: Column(
+                              return Card(
+                  child: Container(
+                    width: 300.w,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                    decoration: BoxDecoration(color: primaryColor),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 285.w,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                          child: Text(
-                                        "Start: ",
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )),
-                                      Expanded(
-                                        child: Text(
-                                          "${tripData.startPoint}",
-                                          style: TextStyle(
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                          child: Text(
-                                        "Destination: ",
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )),
-                                      Expanded(
-                                        child: Text(
-                                          "${tripData.destination}",
-                                          style: TextStyle(
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      CustomText("Offered by : ", Colors.black,
-                                          FontWeight.bold, 12.sp),
-                                      CustomText(
-                                          "M/30/Masters/PrivateJob ",
-                                          Colors.black,
-                                          FontWeight.normal,
-                                          12.sp),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      CustomText("Vehicle: ", Colors.black,
-                                          FontWeight.bold, 12.sp),
-                                      CustomText(
-                                          "${tripData.vehicleType}",
-                                          Colors.black,
-                                          FontWeight.normal,
-                                          12.sp),
-                                    ],
-                                  ),
                                   Container(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            CustomText(
-                                                "Passenger: ",
-                                                Colors.black,
-                                                FontWeight.bold,
-                                                12.sp),
-                                            CustomText(
-                                                "${tripData.vehicleSeat.toString()}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                12.sp),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            CustomText(
-                                                "Offered Amt: ${tripData.pay.toString()} ",
-                                                Colors.black,
-                                                FontWeight.bold,
-                                                12.sp),
-                                            CustomText("", Colors.black,
-                                                FontWeight.normal, 12.sp),
-                                          ],
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            controller.getTripPostDetails(
-                                                tripData.path.toString());
-
-                                            controller.path1.value =
-                                                tripData.path.toString();
-                                            Get.to(
-                                                TripDetailsPage(
-                                                  tripData.path.toString(),
-                                                ),
-                                                duration: Duration(
-                                                    milliseconds:
-                                                        200), //duration of transitions, default 1 sec
-                                                transition:
-                                                    Transition.leftToRight);
-                                          },
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            height: 25.h,
-                                            width: 60.w,
-                                            decoration: BoxDecoration(
-                                                color: navyBlueColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.r)),
-                                            child: CustomText(
-                                                "Details",
-                                                Colors.white,
-                                                FontWeight.bold,
-                                                12.sp),
-                                          ),
-                                        ),
-                                      ],
+                                      child: Text(
+                                    "Pick Up Point :",
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )),
+                                  Expanded(
+                                    child: Text(
+                                      "${tripData.startPoint}",
+                                      style: TextStyle(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                          );
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                      child: Text(
+                                    "Drop Off Point: ",
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )),
+                                  Expanded(
+                                    child: Text(
+                                      "${tripData.destination}",
+                                      style: TextStyle(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 3.h),
+                              Row(
+                                children: [
+                                  CustomText("Pick Up Date: ", Colors.black,
+                                      FontWeight.bold, 12.sp),
+                                  CustomText(
+                                      "     ${DateFormat.yMMMd().format(DateTime.parse(tripData.pickupDate))} ",
+                                      Colors.black,
+                                      FontWeight.normal,
+                                      12.sp),
+                                ],
+                              ),
+                              SizedBox(height: 3.h),
+                              Row(
+                                children: [
+                                  CustomText("Delivery Up Date: ", Colors.black,
+                                      FontWeight.bold, 12.sp),
+                                  CustomText(
+                                      "     ${DateFormat.yMMMd().format(DateTime.parse(tripData.deliveryDate))}",
+                                      Colors.black,
+                                      FontWeight.normal,
+                                      12.sp),
+                                ],
+                              ),
+                              Container(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        CustomText(
+                                            "Offered Amt: ",
+                                            Colors.black,
+                                            FontWeight.bold,
+                                            12.sp),
+                                        CustomText("2000 ", Colors.black,
+                                            FontWeight.normal, 12.sp),
+                                      ],
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        // Get.to(ShipSendPackageDetails(
+                                        //     path: controller
+                                        //         .shipSearchList[index].path
+                                        //         .toString()));
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        height: 25.h,
+                                        width: 60.w,
+                                        decoration: BoxDecoration(
+                                            color: navyBlueColor,
+                                            borderRadius:
+                                                BorderRadius.circular(5.r)),
+                                        child: CustomText(
+                                            "Details",
+                                            Colors.white,
+                                            FontWeight.bold,
+                                            12.sp),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
                         });
                   }
 
