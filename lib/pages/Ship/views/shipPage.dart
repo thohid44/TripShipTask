@@ -11,6 +11,7 @@ import 'package:tripshiptask/pages/Ship/views/shipDetails/ship_send_package_deta
 import 'package:tripshiptask/pages/Ship/views/ship_carry_package_post_list.dart';
 import 'package:tripshiptask/pages/Trip/views/trip_search/trip_single_search.dart';
 import 'package:tripshiptask/profile/view/user_deshboard.dart';
+import 'shipDetails/ship_send_search.dart';
 import 'ship_send_package_post_list_page.dart';
 
 class ShipHomePage extends StatefulWidget {
@@ -100,7 +101,7 @@ class _ShipHomePageState extends State<ShipHomePage> {
                         height: 28.h,
                         child: TextField(
                           onTap: () {
-                         
+                         Get.to(ShipSendPackage());
                           },
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.only(left: 5.w, top: 5.h),
