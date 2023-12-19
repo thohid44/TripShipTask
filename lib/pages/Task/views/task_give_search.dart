@@ -11,7 +11,7 @@ import 'package:tripshiptask/Widget/customText.dart';
 import 'package:tripshiptask/Widget/customTextForm.dart';
 import 'package:tripshiptask/controller/vehicle_controller.dart';
 import 'package:tripshiptask/pages/Home/trip_ship_task_home.dart';
-import 'package:tripshiptask/pages/Ship/model/ship_search_model.dart';
+
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -71,7 +71,8 @@ class _TaskGiveSearchState extends State<TaskGiveSearch> {
 
   final TextEditingController willPayAmount = TextEditingController();
   final TextEditingController description = TextEditingController();
-  final TextEditingController note = TextEditingController();
+  final TextEditingController radius1 = TextEditingController();
+    final TextEditingController radius2 = TextEditingController();
 
   var currency;
 
@@ -188,7 +189,7 @@ class _TaskGiveSearchState extends State<TaskGiveSearch> {
                     focusNode: startFocusNode,
                     style: TextStyle(fontSize: 13.sp),
                     decoration: InputDecoration(
-                        hintText: 'Start Point',
+                        hintText: 'Location',
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.normal, fontSize: 13.sp),
                         filled: true,
@@ -223,11 +224,7 @@ class _TaskGiveSearchState extends State<TaskGiveSearch> {
                   ),
                 ),
               ),
-              CustomTextForm(
-                width: 60.w,
-                height: 30.h,
-                hinttext: "Radius",
-              ),
+             
               SizedBox(width: 4),
               Container(
                 alignment: Alignment.center,
@@ -247,92 +244,7 @@ class _TaskGiveSearchState extends State<TaskGiveSearch> {
           SizedBox(
             height: 5.h,
           ),
-          Container(
-            width: fullWidth,
-            child: Row(
-              children: [
-                Container(
-                  width: 190.w,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5), // Shadow color
-                        spreadRadius: 2,
-                        blurRadius: 4,
-                        offset: Offset(2, 2),
-                      ),
-                    ],
-                  ),
-                  child: TextField(
-                    controller: _endSearchFieldController,
-                    autofocus: false,
-                    focusNode: endFocusNode,
-                    enabled: _startSearchFieldController.text.isNotEmpty &&
-                        startPosition != null,
-                    style: TextStyle(fontSize: 13.sp),
-                    decoration: InputDecoration(
-                        hintText: 'Destination',
-                        hintStyle: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 13.sp),
-                        filled: true,
-                        fillColor: primaryColor,
-                        border: InputBorder.none,
-                        suffixIcon: _endSearchFieldController.text.isNotEmpty
-                            ? IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    predictions = [];
-                                    _endSearchFieldController.clear();
-                                  });
-                                },
-                                icon: Icon(Icons.clear_outlined),
-                              )
-                            : null),
-                    onChanged: (value) {
-                      print(value);
-                      if (_debounce?.isActive ?? false) _debounce!.cancel();
-                      _debounce = Timer(const Duration(milliseconds: 1000), () {
-                        if (value.isNotEmpty) {
-                          //places api
-                          print("End point $value");
-                          autoCompleteSearch(value);
-                        } else {
-                          //clear out the results
-                          setState(() {
-                            predictions = [];
-                            endPosition = null;
-                          });
-                        }
-                      });
-                    },
-                  ),
-                ),
-                CustomTextForm(
-                  width: 60.w,
-                  height: 30.h,
-                  hinttext: "Radius",
-                  fontSize: 12.sp,
-                ),
-                SizedBox(width: 4),
-                Container(
-                  alignment: Alignment.center,
-                  height: 30.h,
-                  width: 40.w,
-                  decoration: BoxDecoration(
-                    color: primaryColor,
-                  ),
-                  child: Text(
-                    "Km",
-                    style: TextStyle(
-                        fontWeight: FontWeight.normal, fontSize: 13.sp),
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
+     
           Container(
             width: fullWidth,
             child: Row(
@@ -349,7 +261,7 @@ class _TaskGiveSearchState extends State<TaskGiveSearch> {
                         padding: EdgeInsets.symmetric(horizontal: 10.w),
                         isExpanded: true,
                         hint: Text(
-                          "${isVehicleSelect ? vehicleName : 'Select Vehicle'}",
+                          "${isVehicleSelect ? vehicleName : 'Select Category'}",
                           style: TextStyle(
                               fontWeight: FontWeight.normal, fontSize: 13.sp),
                         ),

@@ -473,10 +473,12 @@ class _TripGiveSearchNew23State extends State<TripGiveSearchNew23> {
               radius: 5.r,
             ),
           ),
+          
           SizedBox(
             height: 10.h,
           ),
-       status==true?Container(
+
+       status==false?Container(
         margin: EdgeInsets.only(top: 170.h),
         child: Text("Search Trip"),):   Expanded(
             child: FutureBuilder(
