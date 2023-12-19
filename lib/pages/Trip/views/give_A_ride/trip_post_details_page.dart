@@ -486,7 +486,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                   ? Container()
                                   : Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                          MainAxisAlignment.center,
                                       children: [
                                         trip.userId ==
                                                 _box.read(LocalStoreKey.userId)
@@ -500,6 +500,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                                 },
                                                 title: "Accept",
                                               ),
+                                              SizedBox(width:30.w),
                                         trip.userId ==
                                                 _box.read(LocalStoreKey.userId)
                                             ? Container()
@@ -514,7 +515,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                     ),
                             ],
                           )),
-                      Row(
+             trip.userId ==_box.read(LocalStoreKey.userId)?  Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           bidButton(
@@ -543,7 +544,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                             color: Colors.amberAccent,
                           ),
                         ],
-                      )
+                      ):Container(),
                     ],
                   ),
                 );
@@ -558,7 +559,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
     return showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-          title: Text("Make Counter Offer"),
+          title:const Text("Make Counter Offer"),
           content: Container(
               height: 300.h,
               decoration: BoxDecoration(),
