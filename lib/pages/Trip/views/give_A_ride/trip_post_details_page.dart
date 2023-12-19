@@ -84,8 +84,6 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
     return SafeArea(
       child: Scaffold(
         appBar: customAppBar(),
-
-     
         body: FutureBuilder(
             future: getTripPostDetails(),
             builder: (context, snapshot) {
@@ -116,7 +114,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                               TripDetailsWidget(
                                 status: false,
                                 title: "Posted User Id",
-                                value: "${_box.read(LocalStoreKey.userId)}",
+                                value: "${trip.userId}",
                               ),
                               TripDetailsWidget(
                                 status: false,
@@ -130,13 +128,13 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                               ),
                               Container(
                                 height: 300.h,
+                                width: 300.w,
                                 child: ListView.builder(
                                     itemCount: trip.bids.length,
                                     itemBuilder: (context, index) {
                                       print("index  $index");
                                       return Card(
                                         elevation: 5,
-                                        color: Colors.grey,
                                         child: Container(
                                           child: Column(
                                             crossAxisAlignment:
@@ -206,7 +204,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                                                         context,
                                                                         trip.bids[index]['id']
                                                                             .toString(),
-                                                                        trip.bids[index]['amount']
+                                                                        trip.bids[index]['co']
                                                                             .toString());
                                                                   },
                                                                   title:
@@ -271,211 +269,356 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                                       ],
                                                     ),
 
-                                              trip.userId ==
-                                                      _box.read(
-                                                          LocalStoreKey.userId)
-                                                  ? Container()
-                                                  : Row(
-                                                      children: [
-                                                        trip.bids.isNotEmpty
-                                                            ? TripDetailsWidget(
-                                                                status: false,
-                                                                title:
-                                                                    "Counter Offer",
-                                                                value: trip
-                                                                    .bids[index]
-                                                                        [
-                                                                        'amount']
-                                                                    .toString())
-                                                            : Container(),
-                                                      ],
-                                                    ),
+                                          
 
                                               SizedBox(
                                                 height: 5.h,
                                               ),
-                                              trip.bids[index]['co'] == 0
-                                                  ? Container()
-                                                  : Padding(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 10.w),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
+                                          /// Poster Part
+                      Container(child: Column(
+                        children: [
+
+  // bidButton(
+  //                                                                 ontab: () {
+  //                                                                   declineOffer(
+  //                                                                       context);
+  //                                                                 },
+  //                                                                 title:
+  //                                                                     "Decline",
+  //                                                                 color: Colors
+  //                                                                     .red,
+  //                                                               ),
+  //                                                            bidButton(
+  //                                                                 ontab: () {
+  //                                                                   acceptOffer(
+  //                                                                       context,
+  //                                                                       trip.bids[index]['id']
+  //                                                                           .toString(),
+  //                                                                       trip.bids[index]['amount']
+  //                                                                           .toString());
+  //                                                                 },
+  //                                                                 title:
+  //                                                                     "Accept",
+  //                                                                 color: Color(
+  //                                                                     0xff00BC8B),
+  //                                                               ),
+
+                                              Row(
+                                                       
                                                         children: [
-                                                          trip.userId ==
-                                                                  _box.read(
-                                                                      LocalStoreKey
-                                                                          .userId)
-                                                              ? WidgetButton(
-                                                                  title:
-                                                                      "Counter Offer Sent: ${trip.bids[index]['co'].toString()} BDT",
-                                                                )
-                                                              : Container(
-                                                                  child: Text(
-                                                                    "Counter Offer Received: ${trip.bids[index]['co'].toString()} BDT",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize: 12
-                                                                            .sp,
-                                                                        fontWeight:
-                                                                            FontWeight.w500),
-                                                                  ),
-                                                                ),
-                                                          trip.userId ==
-                                                                  _box.read(
-                                                                      LocalStoreKey
-                                                                          .userId)
-                                                              ? bidButton(
-                                                                  ontab: () {
-                                                                    agreeOffer(
-                                                                        context);
-                                                                  },
-                                                                  title:
-                                                                      "Agree",
-                                                                  width: 60.w,
-                                                                  color: Color(
-                                                                      0xff00BC8B),
-                                                                )
-                                                              : bidButton(
-                                                                  title:
-                                                                      "Pending",
-                                                                  color: Colors
-                                                                      .yellow,
-                                                                ),
-                                                          trip.userId ==
-                                                                  _box.read(
-                                                                      LocalStoreKey
-                                                                          .userId)
-                                                              ? bidButton(
-                                                                  ontab: () {
-                                                                    declineOffer(
-                                                                        context);
-                                                                  },
-                                                                  title:
-                                                                      "Decline",
-                                                                  color: Colors
-                                                                      .red,
-                                                                )
-                                                              : bidButton(
+ RichText(
+                                                                        text:
+                                                                            TextSpan(
+                                                                          children: [
+                                                                            TextSpan(
+                                                                              text: "Counter Offer Sent: ",
+                                                                              style: TextStyle(
+                                                                                color: Colors.black,
+                                                                                fontSize: 12.sp,
+                                                                              ),
+                                                                            ),
+                                                                            TextSpan(
+                                                                              text: '${trip.bids[index]['co'].toString()} BDT',
+                                                                              style: TextStyle(
+                                                                                color: Colors.black,
+                                                                                fontSize: 12.sp,
+                                                                                fontWeight: FontWeight.bold,
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                         SizedBox(width: 5.w,),
+                                                        trip.bids[index]['agree']==1?Container(
+                                                          child: Text(  "Agreed",style: TextStyle(
+                                                                        fontSize: 12.sp, fontWeight: FontWeight.w500,color: Colors.green
+                                                                      ),),
+                                                        ):Text(  "Pending",style: TextStyle(fontWeight: FontWeight.w500,
+                                                                        fontSize: 12.sp, color: Colors.red
+                                                                      ),),
+                                 SizedBox(width: 5.w,),
+                                          trip.bids[index]['agree']==1?bidButton(
                                                                   ontab: () {
                                                                     acceptOffer(
                                                                         context,
                                                                         trip.bids[index]['id']
                                                                             .toString(),
-                                                                        trip.bids[index]['amount']
+                                                                        trip.bids[index]['co']
                                                                             .toString());
                                                                   },
                                                                   title:
                                                                       "Accept",
                                                                   color: Color(
                                                                       0xff00BC8B),
-                                                                )
+                                                                ):bidButton(
+                                                                  ontab: () {
+                                                                    agreeOffer(
+                                                                        context);
+                                                                  },
+                                                                  title:
+                                                                      "Agree",
+                                                                  width: 50.w,
+                                                                  color: Color(
+                                                                      0xff00BC8B),
+                                                                ),
+                                                             
+                                                              
+                                                   
                                                         ],
                                                       ),
-                                                    ),
 
-                                              trip.bids[index]['agree'] == 1
-                                                  ? TripDetailsWidget(
-                                                      status: false,
-                                                      title: "Status",
-                                                      value: "Accepted")
-                                                  : Container(),
+                       trip.bids[index]['complete']==0?Container(
+                                      width: 300.w,
+
+                                                      child: Text(  "Finish.",style: TextStyle(fontWeight: FontWeight.w500,
+                                                                          fontSize: 12.sp, color: Colors.green
+                                                                        ),),
+                                                    ):Container(),
+                                     trip.bids[index]['complete']==1?Container(
+                                      width: 300.w,
+
+                                                      child: Text(  "Ride Completed. Awaiting Payment.",style: TextStyle(fontWeight: FontWeight.w500,
+                                                                          fontSize: 12.sp, color: Colors.green
+                                                                        ),),
+                                                    ):Container(),
+
+                                          
+                        ],
+                      ),),
 
                                               SizedBox(
                                                 height: 5.h,
                                               ),
 
-                                              trip.bids[index]['accepted'] == 0
-                                                  ? Container()
-                                                  : Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  left: 10.w),
-                                                          child: Text(
-                                                            "Confirm the Ride? ",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 15.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                        ),
-                                                        CustomButtonOne(
-                                                            width: 70.w,
-                                                            height: 30.h,
-                                                            marginLR: 5.w,
-                                                            radius: 5.r,
-                                                            btnColor:
-                                                                const Color(
-                                                                    0xff039be5),
-                                                            title: "Yes",
-                                                            onTab: () {
-                                                              showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (context) {
-                                                                    return AlertDialog(
-                                                                      content: Container(
-                                                                          alignment: Alignment.center,
-                                                                          width: 200.w,
-                                                                          height: 80.h,
-                                                                          child: Column(
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.center,
-                                                                            children: [
-                                                                              Text(
-                                                                                'Confirm the Ride?',
-                                                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp),
-                                                                              ),
-                                                                              SizedBox(height: 10.h),
-                                                                              Row(
-                                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                                children: [
-                                                                                  CustomButtonOne(width: 70.w, height: 30.h, marginLR: 5.w, fontSize: 15.sp, fontWeight: FontWeight.w700, radius: 5.r, btnColor: Color(0xff296557), title: "Yes", onTab: () {}),
-                                                                                  CustomButtonOne(
-                                                                                      width: 70.w,
-                                                                                      height: 30.h,
-                                                                                      marginLR: 5.w,
-                                                                                      radius: 5.r,
-                                                                                      btnColor: Colors.red,
-                                                                                      title: "No",
-                                                                                      onTab: () {
-                                                                                        Get.back();
-                                                                                      })
-                                                                                ],
-                                                                              ),
-                                                                            ],
-                                                                          )),
-                                                                    );
-                                                                  });
-                                                            }),
-                                                        CustomButtonOne(
-                                                            width: 70.w,
-                                                            height: 30.h,
-                                                            marginLR: 5.w,
-                                                            radius: 5.r,
-                                                            btnColor: Colors
-                                                                .redAccent,
-                                                            title: "No",
-                                                            onTab: () {})
-                                                      ],
-                                                    ),
+                                  
 
-                                              trip.bids[index]['agree'] == 1
-                                                  ? Container()
-                                                  : Container()
+    /////////////////////////////////////////////////////////////        
+                                              // Bidder Section koli
+                                              trip.userId !=
+                                                      _box.read(
+                                                          LocalStoreKey.userId)
+                                                  ? Container(
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                                  children: [
+                                                                    Container(
+                                                                      child:
+                                                                          RichText(
+                                                                        text:
+                                                                            TextSpan(
+                                                                          children: [
+                                                                            TextSpan(
+                                                                              text: "Counter Offer Received: ",
+                                                                              style: TextStyle(
+                                                                                color: Colors.black,
+                                                                                fontSize: 12.sp,
+                                                                              ),
+                                                                            ),
+                                                                            TextSpan(
+                                                                              text: '${trip.bids[index]['co'].toString()} BDT',
+                                                                              style: TextStyle(
+                                                                                color: Colors.black,
+                                                                                fontSize: 12.sp,
+                                                                                fontWeight: FontWeight.bold,
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width:
+                                                                          5.w,
+                                                                    ),
+                                                                    trip.bids[index]['agree'] ==
+                                                                            1
+                                                                        ? bidButton(
+                                                                            ontab:
+                                                                                () {},
+                                                                            width:
+                                                                                50.w,
+                                                                            size:
+                                                                                11.sp,
+                                                                            title:
+                                                                                "Agreed",
+                                                                            color:
+                                                                                Color(0xff00BC8B),
+                                                                          )
+                                                                        : bidButton(
+                                                                            ontab:
+                                                                                () {
+                                                                              acceptOffer(context, trip.bids[index]['id'].toString(), trip.bids[index]['amount'].toString());
+                                                                            },
+                                                                            width:
+                                                                                45.w,
+                                                                            size:
+                                                                                11.sp,
+                                                                            title:
+                                                                                "Agree",
+                                                                            color:
+                                                                                Color(0xff00BC8B),
+                                                                          ),
+                                                                    SizedBox(
+                                                                      width:
+                                                                          5.w,
+                                                                    ),
+                                                                    trip.bids[index]['agree'] ==
+                                                                            1
+                                                                        ? Container()
+                                                                        : bidButton(
+                                                                            width:
+                                                                                45.w,
+                                                                            ontab:
+                                                                                () {
+                                                                              declineOffer(context);
+                                                                            },
+                                                                            title:
+                                                                                "Decline",
+                                                                            size:
+                                                                                11.sp,
+                                                                            color:
+                                                                                Colors.red,
+                                                                          ),
+                                                                  ],
+                                                                ),
+                                                          //
+
+                                                          trip.bids[index][
+                                                                      'accepted'] ==
+                                                                  0
+                                                              ? Container()
+                                                              : Row(
+                                                                  children: [
+                                                                    Container(
+                                                                      child:
+                                                                          Text(
+                                                                        "Confirm the Ride?",
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.black,
+                                                                            fontSize: 12.sp,
+                                                                            fontWeight: FontWeight.w500),
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width:
+                                                                          5.w,
+                                                                    ),
+                                                                    CustomButtonOne(
+                                                                        width: 60
+                                                                            .w,
+                                                                        height: 25
+                                                                            .h,
+                                                                        marginLR:
+                                                                            0.w,
+                                                                        radius:
+                                                                            5.r,
+                                                                        btnColor:
+                                                                            const Color(
+                                                                                0xff039be5),
+                                                                        title:
+                                                                            "Yes",
+                                                                        onTab:
+                                                                            () {
+                                                                          confirmRide(
+                                                                              context);
+                                                                        }),
+                                                                    SizedBox(
+                                                                      width:
+                                                                          5.w,
+                                                                    ),
+                                                                    CustomButtonOne(
+                                                                        width: 60
+                                                                            .w,
+                                                                        height: 25
+                                                                            .h,
+                                                                        marginLR:
+                                                                            0.w,
+                                                                        radius:
+                                                                            5.r,
+                                                                        btnColor:
+                                                                            Colors
+                                                                                .redAccent,
+                                                                        title:
+                                                                            "No",
+                                                                        onTab:
+                                                                            () {})
+                                                                  ],
+                                                                ),
+                                                          SizedBox(
+                                                            height: 5.h,
+                                                          ),
+                                                          trip.bids[index][
+                                                                      'complete'] ==
+                                                                  0
+                                                              ? Container()
+                                                              : Row(
+                                                                  children: [
+                                                                    Container(
+                                                                      child:
+                                                                          Text(
+                                                                        "Ride Completed. Proceed to Pay?",
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.black,
+                                                                            fontSize: 12.sp,
+                                                                            fontWeight: FontWeight.w500),
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width:
+                                                                          5.w,
+                                                                    ),
+                                                                    CustomButtonOne(
+                                                                        width: 50
+                                                                            .w,
+                                                                        height: 25
+                                                                            .h,
+                                                                        marginLR:
+                                                                            0.w,
+                                                                        radius:
+                                                                            5.r,
+                                                                        fontSize: 12
+                                                                            .sp,
+                                                                        btnColor:
+                                                                            const Color(
+                                                                                0xff039be5),
+                                                                        title:
+                                                                            "Yes",
+                                                                        onTab:
+                                                                            () {
+                                                                          confirmRide(
+                                                                              context);
+                                                                        }),
+                                                                    SizedBox(
+                                                                      width:
+                                                                          5.w,
+                                                                    ),
+                                                                    CustomButtonOne(
+                                                                        width: 50
+                                                                            .w,
+                                                                        height: 25
+                                                                            .h,
+                                                                        marginLR:
+                                                                            0.w,
+                                                                        radius:
+                                                                            5.r,
+                                                                        fontSize: 12
+                                                                            .sp,
+                                                                        btnColor:
+                                                                            Colors
+                                                                                .redAccent,
+                                                                        title:
+                                                                            "No",
+                                                                        onTab:
+                                                                            () {})
+                                                                  ],
+                                                                ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  : Container(),
                                             ],
                                           ),
                                         ),
@@ -500,7 +643,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                                 },
                                                 title: "Accept",
                                               ),
-                                              SizedBox(width:30.w),
+                                        SizedBox(width: 30.w),
                                         trip.userId ==
                                                 _box.read(LocalStoreKey.userId)
                                             ? Container()
@@ -515,36 +658,37 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                     ),
                             ],
                           )),
-             trip.userId ==_box.read(LocalStoreKey.userId)?  Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          bidButton(
-                            ontab: () {
-                                       Get.to(
-                                          TripGivePostEdit(
-                                            trip.path.toString(),
-                                          ),
-                                          duration: Duration(
-                                              milliseconds:
-                                                  200), //duration of transitions, default 1 sec
-                                          transition: Transition.leftToRight);
-                     
-                            },
-                            title: "Edit",
-                            width: 80.w,
-                            size: 15.sp,
-                          ),
-                          bidButton(
-                            ontab: () {
-                              cancelTrip(context);
-                            },
-                            title: "Cancel Trip",
-                            width: 100.w,
-                            size: 15.sp,
-                            color: Colors.amberAccent,
-                          ),
-                        ],
-                      ):Container(),
+                      trip.userId == _box.read(LocalStoreKey.userId)
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                bidButton(
+                                  ontab: () {
+                                    Get.to(
+                                        TripGivePostEdit(
+                                          trip.path.toString(),
+                                        ),
+                                        duration: Duration(
+                                            milliseconds:
+                                                200), //duration of transitions, default 1 sec
+                                        transition: Transition.leftToRight);
+                                  },
+                                  title: "Edit",
+                                  width: 80.w,
+                                  size: 15.sp,
+                                ),
+                                bidButton(
+                                  ontab: () {
+                                    cancelTrip(context);
+                                  },
+                                  title: "Cancel Trip",
+                                  width: 100.w,
+                                  size: 15.sp,
+                                  color: Colors.amberAccent,
+                                ),
+                              ],
+                            )
+                          : Container(),
                     ],
                   ),
                 );
@@ -559,7 +703,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
     return showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-          title:const Text("Make Counter Offer"),
+          title: const Text("Make Counter Offer"),
           content: Container(
               height: 300.h,
               decoration: BoxDecoration(),
@@ -925,6 +1069,55 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
     );
   }
 
+  Future<dynamic> confirmRide(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Container(
+                alignment: Alignment.center,
+                width: 200.w,
+                height: 80.h,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Confirm the Ride?',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 15.sp),
+                    ),
+                    SizedBox(height: 10.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            marginLR: 5.w,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w700,
+                            radius: 5.r,
+                            btnColor: Color(0xff296557),
+                            title: "Yes",
+                            onTab: () {}),
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            marginLR: 5.w,
+                            radius: 5.r,
+                            btnColor: Colors.red,
+                            title: "No",
+                            onTab: () {
+                              Get.back();
+                            })
+                      ],
+                    ),
+                  ],
+                )),
+          );
+        });
+  }
+
   // done
   Future<dynamic> cancelTrip(BuildContext context) {
     return showDialog(
@@ -1052,13 +1245,13 @@ class TripDetailsWidget extends StatelessWidget {
         Container(
           width: 100.w,
           margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-          child: CustomText("$title :", Colors.black, FontWeight.w500, 14.sp),
+          child: CustomText("$title :", Colors.black, FontWeight.w500, 13.sp),
         ),
         status == false
             ? Container(
-                width: 200.w,
+                width: 180.w,
                 child: CustomText(
-                    " ${value}", Colors.black, FontWeight.w500, 13.sp),
+                    " ${value}", Colors.black, FontWeight.normal, 13.sp),
               )
             : Container(
                 width: 200.w,

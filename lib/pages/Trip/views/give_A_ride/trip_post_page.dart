@@ -48,6 +48,10 @@ class _TripGivePostsState extends State<TripGivePosts> {
   var seatNumber;
 
   String? selectPassenger;
+  void initState() {
+    controller.getTrips(); 
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,17 +86,19 @@ class _TripGivePostsState extends State<TripGivePosts> {
                                   ),
                                 )),
                                 Expanded(
-                                  child: Text("${tripData.startPoint}",
-                                      style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                        maxLines: 1, overflow: TextOverflow.ellipsis,
-                                      ),
+                                  child: Text(
+                                    "${tripData.startPoint}",
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                               ],
                             ),
-                             Row(
+                            Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
@@ -104,19 +110,18 @@ class _TripGivePostsState extends State<TripGivePosts> {
                                   ),
                                 )),
                                 Expanded(
-                                  child: Text("${tripData.destination}",
-                                      style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.normal,
-                                        
-                                      ), 
-                                      
-                                      maxLines: 1, overflow: TextOverflow.ellipsis,
-                                      ),
+                                  child: Text(
+                                    "${tripData.destination}",
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                               ],
                             ),
-                           
                             Row(
                               children: [
                                 CustomText("Offered by : ", Colors.black,
@@ -125,7 +130,6 @@ class _TripGivePostsState extends State<TripGivePosts> {
                                     Colors.black, FontWeight.normal, 12.sp),
                               ],
                             ),
-
                             Row(
                               children: [
                                 CustomText("Vehicle: ", Colors.black,
@@ -134,30 +138,33 @@ class _TripGivePostsState extends State<TripGivePosts> {
                                     Colors.black, FontWeight.normal, 12.sp),
                               ],
                             ),
-                          
                             Container(
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                               
-                                    Row(
-                              children: [
-                                CustomText("Passenger: ", Colors.black,
-                                    FontWeight.bold, 12.sp),
-                                CustomText("${tripData.vehicleSeat.toString()}",
-                                    Colors.black, FontWeight.normal, 12.sp),
-                              ],
-                            ),
-                                Row(
-                              children: [
-                                CustomText("Offered Amt: ${tripData.pay.toString()} ", Colors.black,
-                                    FontWeight.bold, 12.sp),
-                                CustomText("",
-                                    Colors.black, FontWeight.normal, 12.sp),
-                              ],
-                            ),
-                              
+                                  Row(
+                                    children: [
+                                      CustomText("Passenger: ", Colors.black,
+                                          FontWeight.bold, 12.sp),
+                                      CustomText(
+                                          "${tripData.vehicleSeat.toString()}",
+                                          Colors.black,
+                                          FontWeight.normal,
+                                          12.sp),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      CustomText(
+                                          "Offered Amt: ${tripData.pay.toString()} ",
+                                          Colors.black,
+                                          FontWeight.bold,
+                                          12.sp),
+                                      CustomText("", Colors.black,
+                                          FontWeight.normal, 12.sp),
+                                    ],
+                                  ),
                                   GestureDetector(
                                     onTap: () {
                                       controller.getTripPostDetails(
@@ -176,8 +183,8 @@ class _TripGivePostsState extends State<TripGivePosts> {
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
-                                     height: 25.h,
-                                     width: 60.w,
+                                      height: 25.h,
+                                      width: 60.w,
                                       decoration: BoxDecoration(
                                           color: navyBlueColor,
                                           borderRadius:

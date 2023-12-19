@@ -43,7 +43,7 @@ class CustomButtonOne extends StatelessWidget {
             onTap: onTab,
             child: Container(
                 alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 20.h),
+              //  padding: EdgeInsets.symmetric(horizontal: 20.h),
                 child: Text(
                   title,
                   style: TextStyle(

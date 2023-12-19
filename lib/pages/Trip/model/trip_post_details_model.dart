@@ -25,7 +25,7 @@ class TripDetailsModel {
   var status;
   var slug;
   var path;
-  var userId;
+  int? userId;
   var country;
   var currency;
   var tripPosterRating;
@@ -136,7 +136,7 @@ class TripDetailsModel {
 
 class Bid {
   var id;
-  var userId;
+  int? userId;
   var tripId;
   var title;
   var tripUsername;
