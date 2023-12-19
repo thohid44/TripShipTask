@@ -285,30 +285,30 @@ class CustomForm extends StatelessWidget {
   }
 }
 
-AppBar customAppBar() {
-  return AppBar(
-    elevation: 0,
-    title: const Text(
-      "Trip Ship Task",
-      style: TextStyle(color: Colors.black),
-    ),
-    centerTitle: true,
-    backgroundColor: Colors.white,
-    leading: IconButton(
-        onPressed: () {
-          Get.back();
-        },
-        icon: const Icon(
-          Icons.arrow_back_ios_new,
-          color: Colors.black,
-        )),
-    actions: [
-      IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.menu,
-            color: Colors.black,
-          )),
-    ],
-  );
-}
+// AppBar customAppBar() {
+//   return AppBar(
+//     elevation: 0,
+//     title: const Text(
+//       "Trip Ship Task",
+//       style: TextStyle(color: Colors.black),
+//     ),
+//     centerTitle: true,
+//     backgroundColor: Colors.white,
+//     leading: IconButton(
+//         onPressed: () {
+//           Get.back();
+//         },
+//         icon: const Icon(
+//           Icons.arrow_back_ios_new,
+//           color: Colors.black,
+//         )),
+//     actions: [
+//       IconButton(
+//           onPressed: () {},
+//           icon: const Icon(
+//             Icons.menu,
+//             color: Colors.black,
+//           )),
+//     ],
+//   );
+// }

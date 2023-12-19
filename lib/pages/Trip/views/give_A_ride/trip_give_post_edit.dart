@@ -187,7 +187,7 @@ var end;
                 return Column(
                   children: [
                     SizedBox(
-                      height: 4.h,
+                      height: 14.h,
                     ),
                     Container(
                       width: fullWidth,

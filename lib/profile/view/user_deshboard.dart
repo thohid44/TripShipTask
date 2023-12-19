@@ -263,7 +263,12 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                             title: "My Task",
                           ),
                         ),
-                        customText(title: "My Task Offers"),
+                        InkWell(
+                          onTap: (){
+                               Get.to(AllTaskRatingPage(),
+                                transition: Transition.leftToRight);
+                          },
+                          child: customText(title: "My Task Offers")),
                         
                         InkWell(
                           onTap: () {

@@ -11,6 +11,7 @@ import 'package:tripshiptask/pages/Ship/views/shipDetails/ship_send_package_deta
 
 import 'package:tripshiptask/pages/Task/model/my_task_details_model.dart';
 import 'package:tripshiptask/pages/Task/views/update_give_task.dart';
+import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_details_page.dart';
 
 import 'package:tripshiptask/pages/Trip/views/trip_page.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:tripshiptask/profile/view/user_deshboard.dart';
+
+import '../../Home/trip_ship_task_home.dart';
 
 class TaskDetailPage extends StatefulWidget {
   String path;
@@ -236,33 +239,34 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                                                 label: Text("Make Offer")),
                                           ],
                                         ),
-                                  task.userId.toString() ==
-                                          _box.read(LocalStoreKey.userId)
-                                      ? Container()
-                                      : Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            ElevatedButton.icon(
-                                                style: ElevatedButton.styleFrom(
-                                                    backgroundColor:
-                                                        Colors.green),
-                                                onPressed: () {
-                                                  Get.to(UpdateOfferTask(
-                                                      task.path));
-                                                },
-                                                icon: Icon(Icons.edit),
-                                                label: Text("Edit")),
-                                            SizedBox(width: 10.w),
-                                            ElevatedButton.icon(
-                                                style: ElevatedButton.styleFrom(
-                                                    backgroundColor:
-                                                        Colors.deepPurple),
-                                                onPressed: () {},
-                                                icon: Icon(Icons.remove),
-                                                label: Text("Delete")),
-                                          ],
-                                        ),
+task.userId ==_box.read(LocalStoreKey.userId)?  Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          bidButton(
+                            ontab: () {
+                                      Get.to(UpdateOfferTask(
+                                                      task.path));    
+                                     
+                     
+                            },
+                            title: "Edit Task",
+                            width: 80.w,
+                            size: 15.sp,
+                          ),
+                          bidButton(
+                            ontab: () {
+                             
+                            },
+                            title: "Cancel Task",
+                            width: 100.w,
+                            size: 15.sp,
+                            color: Colors.amberAccent,
+                          ),
+                        ],
+                      ):Container(),
+
+
+                                  
                                 ],
                               ),
                       )

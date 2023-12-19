@@ -44,7 +44,7 @@ class _AllTaskRatingPageState extends State<AllTaskRatingPage> {
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                   child: Text(
-                    "Give Tasks Ratings",
+                    "Offer Tasks Ratings",
                     style: TextStyle(
                         fontSize: 15.sp,
                         color: Colors.white,
@@ -71,7 +71,7 @@ class _AllTaskRatingPageState extends State<AllTaskRatingPage> {
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                   child: Text(
-                    "Get Tasks Ratings",
+                    "Want Tasks Ratings",
                     style: TextStyle(
                         fontSize: 15.sp,
                         color: Colors.white,
