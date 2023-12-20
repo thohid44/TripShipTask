@@ -164,4 +164,6 @@ print("status code ${response.statusCode}");
       print("Error $e");
     }
   }
+
+  void counterShippOffer({required bidId, required String amount}) {}
 }

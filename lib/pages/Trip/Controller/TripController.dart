@@ -385,7 +385,9 @@ class TripController extends GetxController {
   counterTripOffer({bidId, amount}) async {
     var token = _box.read(LocalStoreKey.token);
 
-    var mapData = {"amount": amount};
+   final jsonData = {'co': [5600]};
+final jsonString = jsonEncode(jsonData);
+
     print("amount $amount");
     print("Bid Id $bidId");
     try {
@@ -396,7 +398,7 @@ class TripController extends GetxController {
             'Accept': 'application/json',
             'Authorization': 'Bearer ' + token,
           },
-          body: mapData);
+          body: jsonEncode({'co': [470]}));
 
       print(response.statusCode);
 
@@ -433,20 +435,86 @@ class TripController extends GetxController {
         print("counter offer $jsonData");
         Get.snackbar("Trip Offer", "Agree Successfully ",
             backgroundColor: navyBlueColor);
+        Get.back(); 
+      }
+    } catch (e) {
+      print("Error $e");
+    }
+  }
+ confirmRide({bidId,seat}) async {
+    var token = _box.read(LocalStoreKey.token);
+    var mapData = {"passenger_accepted": '$seat'};
+    print(" bid id $bidId");
+    try {
+      isLoading(true);
+     
+      var response = await http.patch(Uri.parse("${baseUrl}tripbids/$bidId"),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+          body: mapData);
+
+      print(" status code ${response.statusCode}");
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        print("counter $jsonData");
+        Get.snackbar("Trip Ride Confirm", "Successfully ",
+            backgroundColor: navyBlueColor);
+        Get.back(); 
+      }
+    } catch (e) {
+      print("Error $e");
+    }
+  }
+ finishRide({bidId,seat}) async {
+    var token = _box.read(LocalStoreKey.token);
+    var mapData = {
+                    'completed': 1
+                };
+    print(" bid id $bidId");
+    try {
+      isLoading(true);
+     
+      var response = await http.patch(Uri.parse("${baseUrl}tripbids/$bidId"),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+          body: mapData);
+
+      print(" status code ${response.statusCode}");
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        print("counter $jsonData");
+        Get.snackbar("Trip Ride Finish", "Successfully ",
+            backgroundColor: navyBlueColor);
+        Get.back(); 
       }
     } catch (e) {
       print("Error $e");
     }
   }
 
-  tripDisAgree({bidId}) async {
-    var token = _box.read(LocalStoreKey.token);
+  // let tripdatetime = moment(date + ' ' + time);
+  //           let currenttime = moment();
+  //           let timediff = tripdatetime.diff(currenttime, 'minutes');
+  //           if (timediff < 0) {
+  //               var obj = {
+  //                   completed: 1
+  //               };
+  //               var url = '/web/tripbids/' + bid;
 
+  tripDisAgree({bidId}) async {
+
+    var token = _box.read(LocalStoreKey.token);
     var mapData = {"disagree": 2};
     print(" bid id $bidId");
     try {
       isLoading(true);
-      //  var response = await ApiService().postData(mapData, "tripbids/$bidId");
+    
       var response = await http.post(Uri.parse("${baseUrl}tripbids/$bidId"),
           headers: {
             'Accept': 'application/json',
@@ -470,8 +538,6 @@ class TripController extends GetxController {
   tripCashPayment({bidId}) async {
     var token = _box.read(LocalStoreKey.token);
 
-
-
     print(" bid id $bidId");
     try {
       isLoading(true);
@@ -482,7 +548,7 @@ class TripController extends GetxController {
             'Authorization': 'Bearer ' + token,
           },
           body: jsonEncode({"pay": '1', "paymethod": 'cash'}));
-print("Response code ${response.statusCode}");
+      print("Response code ${response.statusCode}");
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
         print("counter offer $jsonData");

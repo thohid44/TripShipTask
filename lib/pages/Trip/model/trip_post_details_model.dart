@@ -159,7 +159,7 @@ class Bid {
   var posted;
   var completed;
   var agree;
-  var complete;
+  int? complete;
   var accepted;
   var paid;
   dynamic? paymentMethod;
