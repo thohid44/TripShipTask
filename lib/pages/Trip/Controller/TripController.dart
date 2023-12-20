@@ -17,14 +17,14 @@ import 'package:http/http.dart' as http;
 class TripController extends GetxController {
   final _box = GetStorage();
   var isLoading = false.obs;
-    var isAllLoading = false.obs;
+  var isAllLoading = false.obs;
   List<TripSearchM> tripSearchList = <TripSearchM>[].obs;
   List<TripSearchM> gettripSearchList = <TripSearchM>[].obs;
 
   TripPostDetailsModel? tripPostDetailsModel;
 
   List<TripDetailsModel> tripDetailsModel = <TripDetailsModel>[];
-  
+
   var pth;
   var path1 = ''.obs;
   void onInit() {
@@ -109,8 +109,7 @@ class TripController extends GetxController {
   }
 
   getTripRide(
-      {
-      startPoint,
+      {startPoint,
       des,
       distance,
       date,
@@ -182,7 +181,7 @@ class TripController extends GetxController {
     }
   }
 
-MyTrips? myTrips; 
+  MyTrips? myTrips;
   getMyTrips() async {
     var token = _box.read(LocalStoreKey.token);
 
@@ -198,17 +197,15 @@ MyTrips? myTrips;
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
         print(jsonData);
-      
-      MyTripPostsModel data=  MyTripPostsModel.fromJson(jsonData);
-myTrips = data.data!;
- isAllLoading(false);
-      }
 
+        MyTripPostsModel data = MyTripPostsModel.fromJson(jsonData);
+        myTrips = data.data!;
+        isAllLoading(false);
+      }
     } catch (e) {
-       isAllLoading(false);
+      isAllLoading(false);
       print("Error $e");
     }
- 
   }
 
   getMyTripsOffer() async {
@@ -416,7 +413,6 @@ myTrips = data.data!;
   }
 
   tripAgree({bidId}) async {
-    
     var token = _box.read(LocalStoreKey.token);
     var mapData = {"agree": '1'};
     print(" bid id $bidId");
@@ -460,6 +456,33 @@ myTrips = data.data!;
 
       print(" status code ${response.statusCode}");
 
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        print("counter offer $jsonData");
+        Get.snackbar("Trip Offer", "Agree Successfully ",
+            backgroundColor: navyBlueColor);
+      }
+    } catch (e) {
+      print("Error $e");
+    }
+  }
+
+  tripCashPayment({bidId}) async {
+    var token = _box.read(LocalStoreKey.token);
+
+
+
+    print(" bid id $bidId");
+    try {
+      isLoading(true);
+
+      var response = await http.patch(Uri.parse("${baseUrl}tripbids/$bidId"),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+          body: jsonEncode({"pay": '1', "paymethod": 'cash'}));
+print("Response code ${response.statusCode}");
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
         print("counter offer $jsonData");

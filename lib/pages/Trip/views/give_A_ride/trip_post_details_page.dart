@@ -588,8 +588,10 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                                                             "Yes",
                                                                         onTab:
                                                                             () {
-                                                                          confirmRide(
-                                                                              context);
+                                                                      {
+                                                  tripPayment(context, trip.bids[index]['id'].toString(),trip.pay
+                                                      );
+                                                }
                                                                         }),
                                                                     SizedBox(
                                                                       width:
@@ -612,7 +614,9 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                                                         title:
                                                                             "No",
                                                                         onTab:
-                                                                            () {})
+                                                                            () {
+                                                                              Get.back();
+                                                                            })
                                                                   ],
                                                                 ),
                                                         ],
@@ -840,10 +844,11 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
   }
 
   Future<dynamic> acceptOffer(BuildContext context, bidsId, acceptAmount) {
+
     return showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-          title: Center(child: Text("Do you Want to Accept?")),
+          title:const Center(child: Text("Do you Want to Accept?")),
           content: Container(
               alignment: Alignment.center,
               height: 85.h,
@@ -904,7 +909,140 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
               ))),
     );
   }
+    Future<dynamic> tripPayment(BuildContext context, bidsId, acceptAmount) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(child: Text("Select payment method",style:TextStyle(
+            fontSize: 13.sp, 
+          ))),
+          content: Container(
+              alignment: Alignment.center,
+              height: 130.h,
+            
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    Container(
+                        alignment: Alignment.center,
+                      
+                        child: Text(
+                          "Payable amount :$acceptAmount BDT",
+                          style: TextStyle(
+                              fontSize: 12.sp, fontWeight: FontWeight.w500),
+                        )),
+                           Container(
+                      
+                      
+                        child: Text(
+                          "Select a payment method to pay the amount",
+                          style: TextStyle(
+                              fontSize: 11.sp, fontWeight: FontWeight.normal),
+                        )),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 90.w,
+                            radius: 5.r,
+                            marginLR: 5.w,
+                            fontSize: 13.sp,
+                            title: "By Cash",
+                            btnColor: Colors.green,
+                            onTab: () {
+                              var bidId = bidsId;
+                        tripCashPayment(context,bidId);
+                            }),
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 90.w,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            fontSize: 13.sp,
+                            title: "E-Pay",
+                            btnColor: navyBlueColor,
+                            onTab: () {
+                            
+                            })
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
 
+  Future<dynamic> tripCashPayment(
+    BuildContext context, bidId
+  ) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(child: Text("Make Payment?")),
+          content: Container(
+              alignment: Alignment.center,
+              height: 85.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+
+                       Container(
+                        alignment: Alignment.center,
+                      
+                        child: Text(
+                          "I give consent to this transaction.",
+                          style: TextStyle(
+                              fontSize: 11.sp, fontWeight: FontWeight.normal),
+                        )),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 70.w,
+                            radius: 5.r,
+                            marginLR: 10.w,
+                            fontSize: 14.sp,
+                            title: "No",
+                            btnColor: Colors.red,
+                            onTab: () {
+                              Get.back();
+                            }),
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            title: "Yes",
+                            btnColor: navyBlueColor,
+                            onTab: () {
+                            controller.tripCashPayment(bidId: bidId);
+          
+                            })
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
   Future<dynamic> agreeOffer(
     BuildContext context,
   ) {

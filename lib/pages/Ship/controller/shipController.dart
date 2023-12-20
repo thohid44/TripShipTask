@@ -18,6 +18,7 @@ class ShipController extends GetxController {
   List<ShipSearchModel> shipSearchList = <ShipSearchModel>[].obs;
   List<ShipSearchModel> shipCarryPostList = <ShipSearchModel>[].obs;
   MyShip? myShip;
+  
   var pth;
   void onInit() {
     super.onInit();
@@ -67,7 +68,7 @@ class ShipController extends GetxController {
     try {
       isLoading(true);
       var response = await ApiService().postData(mapData, "shipbids");
-
+print("status code ${response.statusCode}");
       if (response.statusCode == 202) {
         print(response.statusCode);
         var jsonData = jsonDecode(response.body);

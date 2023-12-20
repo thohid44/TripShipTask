@@ -6,8 +6,8 @@ import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:tripshiptask/pages/Home/view/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
 import 'package:http/http.dart' as http;
+
 
 class LoginController extends GetxController {
   var isLoading = false.obs;
@@ -21,7 +21,7 @@ class LoginController extends GetxController {
     Get.to(HomeScreen());
     try {
       var mapData = {
-   //    "email":"test1@abaacorp.com",
+   // "email":"test1@abaacorp.com",
        //"email":"test2@abaacorp.com",
     "email": "waleed.amin08@gmail.com",
         "password": '123456789'
