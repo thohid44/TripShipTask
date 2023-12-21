@@ -244,7 +244,7 @@ class CustomForm extends StatelessWidget {
       style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
         hintText: hinttext ?? "Enter Data",
-        border: InputBorder.none,
+        border: OutlineInputBorder(),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius ?? 0.0.r)),
       ),

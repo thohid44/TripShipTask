@@ -56,7 +56,9 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
     shipSendPackageDetails();
     super.initState();
   }
-var path; 
+
+  var space = 3;
+  var path;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +68,7 @@ var path;
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               shipId = snapshot.data!.data!.id;
+              ships = snapshot.data!.data!;
               path = snapshot.data!.data!.path;
               return Container(
                 margin: EdgeInsets.only(left: 8.w, right: 8.w, top: 20.h),
@@ -75,37 +78,45 @@ var path;
                       child: Column(
                         children: [
                           ShipDetailsWidget(
-                              title: "PickUp",
+                              title: "PickUp:",
                               value: "${snapshot.data!.data!.startPoint}",
                               status: false),
+                          SizedBox(height: space.h),
                           ShipDetailsWidget(
-                              title: "Drop Off",
+                              title: "Drop Off:",
                               value: "${snapshot.data!.data!.destination}",
                               status: false),
+                          SizedBox(height: space.h),
                           ShipDetailsWidget(
-                              title: "Post By",
+                              title: "Post By:",
                               value: "${snapshot.data!.data!.userId}",
                               status: false),
+                          SizedBox(height: space.h),
                           ShipDetailsWidget(
-                              title: "Package Type",
+                              title: "Package Type:",
                               value: "${snapshot.data!.data!.packageType}",
                               status: false),
+                          SizedBox(height: space.h),
                           ShipDetailsWidget(
-                              title: "Status",
+                              title: "Status:",
                               value: "${snapshot.data!.data!.status}",
                               status: false),
+                          SizedBox(height: space.h),
                           ShipDetailsWidget(
-                              title: "Meterial",
+                              title: "Meterial:",
                               value: "${snapshot.data!.data!.documents}",
                               status: false),
+                          SizedBox(height: space.h),
                           ShipDetailsWidget(
-                              title: "Bid Count",
+                              title: "Bid Count:",
                               value: "${snapshot.data!.data!.bidsCount}",
                               status: false),
+                          SizedBox(height: space.h),
                           ShipDetailsWidget(
                               title: "Willing to pay",
                               value: "${snapshot.data!.data!.amount}",
                               status: false),
+                          SizedBox(height: space.h),
                           ShipDetailsWidget(
                               title: "Document Price",
                               value: "${snapshot.data!.data!.documentPrice}",
@@ -113,6 +124,7 @@ var path;
                         ],
                       ),
                     ),
+                    SizedBox(height: 6.h),
                     Container(
                       height: 300.h,
                       child: ListView.builder(
@@ -120,15 +132,15 @@ var path;
                           itemBuilder: (context, index) {
                             ships = snapshot.data!.data!.bids;
                             return Container(
-                                
                                 padding: EdgeInsets.all(5.h),
                                 decoration: BoxDecoration(
                                   color: Colors.grey[300],
                                 ),
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     ShipDetailsWidget(
-                                        title: "Offer By",
+                                        title: "Offer By:",
                                         width: 80.0,
                                         valueWidth: 180.0,
                                         value:
@@ -138,7 +150,7 @@ var path;
                                       height: 5.h,
                                     ),
                                     ShipDetailsWidget(
-                                        title: "Amount",
+                                        title: "Amount:",
                                         width: 80.0,
                                         valueWidth: 180.0,
                                         value:
@@ -148,271 +160,274 @@ var path;
                                         ? Container()
                                         : ShipDetailsWidget(
                                             title: "Counter Offer",
-                                            width: 80.0,
-                                            valueWidth: 180.0,
+                                            width: 100.0,
+                                            valueWidth: 200.0,
                                             value:
                                                 "${snapshot.data!.data!.bids[index]['co']}",
                                             status: false),
                                     SizedBox(
                                       height: 5.h,
                                     ),
-// Bidder Part 
-  snapshot.data!.data!.userId == _box.read(LocalStoreKey.userId)? Container(
- 
-  )  : Container(
-  child: Column(
-    children: [
-   snapshot.data!.data!.bids[index]['co'] ==
-                                            null
+// Bidder Part
+                                    snapshot.data!.data!.userId ==
+                                            _box.read(LocalStoreKey.userId)
                                         ? Container()
-                                        : Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-
-
-                                          Container(
-                                                      child: Text(
-                                                        "Counter Offer Received ${ships[index]['co']} BDT",
-                                                        style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal),
-                                                      ),
-                                                    ),
-                           ships[index]['agree'] == 1
-                                                  ? Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        height: 30.h,
-                                                        width: 50.w,
-                                                        decoration: BoxDecoration(
-                                                            color: greenColor,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.r)),
-                                                        child: Text(
-                                                          "Agreed",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 12.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700),
-                                                        ),
-                                                      )
-                                                  :                           InkWell(
-                                                      onTap: () {
-                                                        shipId = ships[index]['id'];
-                                                        controller
-                                                            .giveShipAgree(
-                                                                shipId);
-                                                      },
-                                                      child: Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        height: 30.h,
-                                                        width: 50.w,
-                                                        decoration: BoxDecoration(
-                                                            color: greenColor,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.r)),
-                                                        child: Text(
-                                                          "Agree",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 12.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700),
-                                                        ),
-                                                      ),
-                                                    ),
-           ships[index]['agree'] == 1
-                                                  ? Container()
-                                                  :                                     InkWell(
-                                                      onTap: () {},
-                                                      child: Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        height: 30.h,
-                                                        width: 50.w,
-                                                        decoration: BoxDecoration(
-                                                            color: Colors.red,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.r)),
-                                                        child: Text(
-                                                          "Decline",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 12.sp,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700),
-                                                        ),
-                                                      ),
-                                                    ),
-                                            ],
-                                          ),
-
-                                          // Accept Part
-ships[index]['accepted'] == 1
-                                        ?  ShipDetailsWidget(
-                                            title: "Offer Status",
-                                            width: 100.0,
-                                            valueWidth: 180.0,
-                                            
-                                            value:
-                                                "Accepted",
-                                            status: false)
-                                        : Container(),
-
-                                    ships[index]['accepted'] == 0
-                                        ? Container()
-                                        : Row(
-                                            children: [
-                                              Text("Click on 'Finish Shipment' after \ncompleting your shipment",
-                                                 style: TextStyle(
-                                                        color: Colors.redAccent, fontWeight: FontWeight.w400
-                                                      ),),
-                                              SizedBox(
-                                                width: 10.w,
-                                              ),
-                                              InkWell(
-                                                  onTap: () {},
-                                                  child: Container(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 10.w,
-                                                              vertical: 5.h),
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.green),
-                                                      child: Text("Finish Shipment", 
-                                                      style: TextStyle(
-                                                        color: Colors.white, fontWeight: FontWeight.w500
-                                                      ),))),
-                                           
-                                             
-                                            ],
-                                          ),
-                                          //End Accept Part
-    ],
-  ),
-),
-
-// Poster Part
-Container(
-    child: Column(
-      children: [
-
-         Padding(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 10.w),
-                                                      child: Row(
+                                        : Container(
+                                            child: Column(
+                                              children: [
+                                                snapshot.data!.data!.bids[index]
+                                                            ['co'] ==
+                                                        null
+                                                    ? Container()
+                                                    : Row(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
                                                                 .spaceBetween,
                                                         children: [
+                                                          Container(
+                                                            child: Text(
+                                                              "Counter Offer Received ${ships[index]['co']} BDT",
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      12.sp,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal),
+                                                            ),
+                                                          ),
                                                           ships[index][
                                                                       'agree'] ==
                                                                   1
-                                                              ? Container()
-                                                              : Text(
-                                                                  "Counter Offer",
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      fontSize:
-                                                                          13.sp),
-                                                                ),
-                                                          ships[index][
-                                                                      'agree'] ==
-                                                                  1
-                                                              ? Container()
-                                                              : Text(
-                                                                  "${ships[index]['amount'].toString()}",
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                      fontSize:
-                                                                          13.sp)),
-                                                          ships[index][
-                                                                      'agree'] ==
-                                                                  1
-                                                              ? Container()
-                                                              : bidButton(
-                                                                  ontab: () {
-                                                                    // acceptOffer(
-                                                                    //     context,
-                                                                    //     trip.bids[index]['id']
-                                                                    //         .toString(),
-                                                                    //     trip.bids[index]['co']
-                                                                    //         .toString());
+                                                              ? Container(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .center,
+                                                                  height: 30.h,
+                                                                  width: 50.w,
+                                                                  decoration: BoxDecoration(
+                                                                      color:
+                                                                          greenColor,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              5.r)),
+                                                                  child: Text(
+                                                                    "Agreed",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize: 12
+                                                                            .sp,
+                                                                        fontWeight:
+                                                                            FontWeight.w700),
+                                                                  ),
+                                                                )
+                                                              : InkWell(
+                                                                  onTap: () {
+                                                                    shipId = ships[
+                                                                            index]
+                                                                        ['id'];
+                                                                    controller
+                                                                        .giveShipAgree(
+                                                                            shipId);
                                                                   },
-                                                                  title:
-                                                                      "Accept",
-                                                                  color: const Color(
-                                                                      0xff00BC8B),
+                                                                  child:
+                                                                      Container(
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .center,
+                                                                    height:
+                                                                        30.h,
+                                                                    width: 50.w,
+                                                                    decoration: BoxDecoration(
+                                                                        color:
+                                                                            greenColor,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5.r)),
+                                                                    child: Text(
+                                                                      "Agree",
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontSize: 12
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w700),
+                                                                    ),
+                                                                  ),
                                                                 ),
                                                           ships[index][
                                                                       'agree'] ==
                                                                   1
                                                               ? Container()
-                                                              : bidButton(
-                                                                  ontab: () {
-                                                                    // counterOffer(
-                                                                    //     context,
-                                                                    //     trip.bids[index]
-                                                                    //         [
-                                                                    //         'id']);
-                                                                  },
-                                                                  title:
-                                                                      "Again Bid",
-                                                                  color:
-                                                                      purplColor,
+                                                              : InkWell(
+                                                                  onTap: () {},
+                                                                  child:
+                                                                      Container(
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .center,
+                                                                    height:
+                                                                        30.h,
+                                                                    width: 50.w,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .red,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5.r)),
+                                                                    child: Text(
+                                                                      "Decline",
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontSize: 12
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w700),
+                                                                    ),
+                                                                  ),
                                                                 ),
-          ships[index]['accepted'] == 1
-                                        ? ShipDetailsWidget(
-                                            title: "Offer Status: ",
-                                            width: 100.w,
-                                            valueWidth: 180.0,
-                                            value:
-                                                "Accepted${ships[index]['accepted'] }",
-                                            status: false)
-                                        : Container(),
-      ],
-    ),
-  ),
+                                                        ],
+                                                      ),
 
-          ships[index]['accepted'] == 1
-                                        ? ShipDetailsWidget(
-                                            title: "Offer Statis: ",
-                                            width: 100.w,
-                                            valueWidth: 180.0,
-                                            value:
-                                                "Accepted${ships[index]['accepted'] }",
-                                            status: false)
-                                        : Container(),
-      ],
-    ),
-  ),
+                                                // Accept Part
+                                                ships[index]['accepted'] == 1
+                                                    ? ShipDetailsWidget(
+                                                        title: "Offer Status",
+                                                        width: 100.0,
+                                                        valueWidth: 180.0,
+                                                        value: "Accepted",
+                                                        status: false)
+                                                    : Container(),
 
+                                                ships[index]['accepted'] == 0
+                                                    ? Container()
+                                                    : Row(
+                                                        children: [
+                                                          Text(
+                                                            "Click on 'Finish Shipment' after \ncompleting your shipment",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .redAccent,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 10.w,
+                                                          ),
+                                                          InkWell(
+                                                              onTap: () {},
+                                                              child: Container(
+                                                                  padding: EdgeInsets.symmetric(
+                                                                      horizontal:
+                                                                          10.w,
+                                                                      vertical:
+                                                                          5.h),
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                          color:
+                                                                              Colors.green),
+                                                                  child: Text(
+                                                                    "Finish Shipment",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontWeight:
+                                                                            FontWeight.w500),
+                                                                  ))),
+                                                        ],
+                                                      ),
+                                                //End Accept Part
+                                              ],
+                                            ),
+                                          ),
 
-                                
-                                  
+// Poster Part
+                                    Container(
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 0.w),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                ships[index]['agree'] == 1
+                                                    ? Container()
+                                                    : Text(
+                                                        "Counter Offer",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            fontSize: 13.sp),
+                                                      ),
+                                                ships[index]['agree'] == 1
+                                                    ? Container()
+                                                    : Text(
+                                                        "${ships[index]['amount'].toString()}",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            fontSize: 13.sp)),
+                                                ships[index]['agree'] == 1
+                                                    ? Container()
+                                                    : bidButton(
+                                                        ontab: () {
+                                                          // acceptOffer(
+                                                          //     context,
+                                                          //     trip.bids[index]['id']
+                                                          //         .toString(),
+                                                          //     trip.bids[index]['co']
+                                                          //         .toString());
+                                                        },
+                                                        title: "Accept",
+                                                        color: const Color(
+                                                            0xff00BC8B),
+                                                      ),
+
+                                                ships[index]['agree'] == 1
+                                                    ? Container()
+                                                    : bidButton(
+                                                        width: 90.w,
+                                                        ontab: () {
+                                                          counterOffer(
+                                                              context,
+                                                              ships[index]
+                                                                  ['id'],ships[index]
+                                                                  ['amount'] );
+                                                        },
+                                                        title: "Counter Offer",
+                                                        color: purplColor,
+                                                      ),
+                                                ships[index]['accepted'] == 1
+                                                    ? ShipDetailsWidget(
+                                                        title: "Offer Status: ",
+                                                        width: 100.w,
+                                                        valueWidth: 180.0,
+                                                        value:
+                                                            "Accepted${ships[index]['accepted']}",
+                                                        status: false)
+                                                    : Container(),
+                                              ],
+                                            ),
+                                          ),
+                                          ships[index]['accepted'] == 1
+                                              ? ShipDetailsWidget(
+                                                  title: "Offer Status: ",
+                                                  width: 100.w,
+                                                  valueWidth: 180.0,
+                                                  value:
+                                                      "Accepted${ships[index]['accepted']}",
+                                                  status: false)
+                                              : Container(),
+                                        ],
+                                      ),
+                                    ),
+
                                     ships[index]['accepted'] == 0
                                         ? Container()
                                         : Row(
@@ -450,39 +465,35 @@ Container(
                                 ));
                           }),
                     ),
-
-                  _box.read(LocalStoreKey.userId) ==
-                            snapshot.data!.data.userId?  Row(
+                    _box.read(LocalStoreKey.userId) ==
+                            snapshot.data!.data.userId
+                        ? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                bidButton(
-                                  ontab: () {
-                                  
-                        Get.to(ShipSendPackgeEdit(path));
-                                  },
-                                  title: "Edit",
-                                  width: 80.w,
-                                  size: 13.sp,
-                                ),
-                                SizedBox(
-                                  width: 20.w,
-                                ),
-                                bidButton(
-                                  ontab: () {
-                                  
-                                  },
-                                  title: "Cancel Trip",
-                                  width: 100.w,
-                                  size: 13.sp,
-                                  color: Colors.amber,
-                                ),
-                              ],
-                            )
-                        :Container(),
-
-
-                   snapshot.data!.data!.userId == _box.read(LocalStoreKey.userId)? Container()
-                      
+                            children: [
+                              bidButton(
+                                ontab: () {
+                                  Get.to(ShipSendPackgeEdit(path));
+                                },
+                                title: "Edit",
+                                width: 80.w,
+                                size: 13.sp,
+                              ),
+                              SizedBox(
+                                width: 20.w,
+                              ),
+                              bidButton(
+                                ontab: () {},
+                                title: "Cancel Trip",
+                                width: 100.w,
+                                size: 13.sp,
+                                color: Colors.amber,
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    snapshot.data!.data!.userId ==
+                            _box.read(LocalStoreKey.userId)
+                        ? Container()
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -506,7 +517,9 @@ Container(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.bold,
                                   onTab: () {
-                                    makeOffer(context);
+                                    makeOffer(
+                                      context,ships.amount
+                                    );
                                   }),
                             ],
                           )
@@ -522,7 +535,7 @@ Container(
   final _formOfferkey = GlobalKey<FormState>();
   final TextEditingController amount = TextEditingController();
   final TextEditingController shortmessage = TextEditingController();
-  Future<dynamic> makeOffer(BuildContext context) {
+  Future<dynamic> makeOffer(BuildContext context, amt) {
     return showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -535,7 +548,8 @@ Container(
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20.w),
+                      margin: EdgeInsets.symmetric(horizontal: 10.w),
+                      height: 40.h,
                       child: TextFormField(
                         controller: amount,
                         validator: (value) {
@@ -545,19 +559,20 @@ Container(
                           return null;
                         },
                         decoration: InputDecoration(
-                          hintText: "amount",
-                        ),
+                            hintText: "$amt",
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder()),
                       ),
                     ),
-                     
                     SizedBox(
                       height: 8.h,
                     ),
                     Container(
+                      alignment: Alignment.centerLeft,
                       margin: EdgeInsets.symmetric(horizontal: 10.w),
                       child: TextFormField(
                         controller: shortmessage,
-                        maxLines: 3,
+                        maxLines: 2,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter some text';
@@ -573,12 +588,12 @@ Container(
                     SizedBox(
                       height: 20.h,
                     ),
-                  
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomButtonOne(
                             height: 30.h,
-                            width: 100.w,
+                            width: 80.w,
                             radius: 5.r,
                             marginLR: 10.w,
                             title: "Close",
@@ -587,7 +602,7 @@ Container(
                               Get.back();
                             }),
                         CustomButtonOne(
-                            width: 100.w,
+                            width: 80.w,
                             height: 30.h,
                             radius: 5.r,
                             marginLR: 0.w,
@@ -618,6 +633,448 @@ Container(
               ))),
     );
   }
+
+  Future<dynamic> tripPayment(BuildContext context, bidsId, acceptAmount) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(
+              child: Text("Select payment method",
+                  style: TextStyle(
+                    fontSize: 13.sp,
+                  ))),
+          content: Container(
+              alignment: Alignment.center,
+              height: 130.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Payable amount :$acceptAmount BDT",
+                          style: TextStyle(
+                              fontSize: 12.sp, fontWeight: FontWeight.w500),
+                        )),
+                    Container(
+                        child: Text(
+                      "Select a payment method to pay the amount",
+                      style: TextStyle(
+                          fontSize: 11.sp, fontWeight: FontWeight.normal),
+                    )),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 90.w,
+                            radius: 5.r,
+                            marginLR: 5.w,
+                            fontSize: 13.sp,
+                            title: "By Cash",
+                            btnColor: Colors.green,
+                            onTab: () {
+                              var bidId = bidsId;
+                              tripCashPayment(context, bidId);
+                            }),
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 90.w,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            fontSize: 13.sp,
+                            title: "E-Pay",
+                            btnColor: navyBlueColor,
+                            onTab: () {})
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
+
+  Future<dynamic> tripCashPayment(BuildContext context, bidId) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(child: Text("Make Payment?")),
+          content: Container(
+              alignment: Alignment.center,
+              height: 85.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "I give consent to this transaction.",
+                          style: TextStyle(
+                              fontSize: 11.sp, fontWeight: FontWeight.normal),
+                        )),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 70.w,
+                            radius: 5.r,
+                            marginLR: 10.w,
+                            fontSize: 14.sp,
+                            title: "No",
+                            btnColor: Colors.red,
+                            onTab: () {
+                              Get.back();
+                            }),
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            title: "Yes",
+                            btnColor: navyBlueColor,
+                            onTab: () {
+                              //     controller.tripCashPayment(bidId: bidId);
+                            })
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
+
+  // Future<dynamic> agreeOffer(
+  //   BuildContext context,
+  // ) {
+  //   return showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) => AlertDialog(
+  //         title: Center(child: Text("Do you Agree?")),
+  //         content: Container(
+  //             alignment: Alignment.center,
+  //             height: 85.h,
+  //             decoration: BoxDecoration(),
+  //             child: Form(
+  //               key: _formOfferkey,
+  //               child: Column(
+  //                 children: [
+  //                   SizedBox(
+  //                     height: 20.h,
+  //                   ),
+  //                   Row(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: [
+  //                       CustomButtonOne(
+  //                           height: 30.h,
+  //                           width: 70.w,
+  //                           radius: 5.r,
+  //                           marginLR: 10.w,
+  //                           fontSize: 14.sp,
+  //                           title: "No",
+  //                           btnColor: Colors.red,
+  //                           onTab: () {
+  //                             Get.back();
+  //                           }),
+  //                       SizedBox(
+  //                         width: 30.w,
+  //                       ),
+  //                       CustomButtonOne(
+  //                           width: 70.w,
+  //                           height: 30.h,
+  //                           radius: 5.r,
+  //                           marginLR: 0.w,
+  //                           title: "Yes",
+  //                           btnColor: navyBlueColor,
+  //                           onTab: () {
+  //                             controller.tripAgree(bidId: trip.id.toString());
+  //                           })
+  //                     ],
+  //                   )
+  //                 ],
+  //               ),
+  //             ))),
+  //   );
+  // }
+
+  Future<dynamic> counterOffer(BuildContext context, id, amt) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(child: Text("Sent Counter Offer")),
+          content: Container(
+            alignment: Alignment.center,
+            height: 90.h,
+            decoration: BoxDecoration(),
+            child: Form(
+                child: Column(
+              children: [
+                Container(
+                  height: 40.h,
+                  child: CustomForm(
+                    textController: amount,
+                    hinttext: "$amt",
+                    radius: 10.r,
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomButtonOne(
+                        height: 30.h,
+                        width: 70.w,
+                        radius: 5.r,
+                        marginLR: 10.w,
+                        fontSize: 14.sp,
+                        title: "No",
+                        btnColor: Colors.red,
+                        onTab: () {
+                          Get.back();
+                        }),
+                    SizedBox(
+                      width: 30.w,
+                    ),
+                    CustomButtonOne(
+                        width: 70.w,
+                        height: 30.h,
+                        radius: 5.r,
+                        marginLR: 0.w,
+                        title: "Yes",
+                        btnColor: navyBlueColor,
+                        onTab: () {
+                          controller.counterShippOffer(
+                              bidId: id, amount:amt.toString());
+                          Get.back();
+                        })
+                  ],
+                )
+              ],
+            )),
+          )),
+    );
+  }
+
+  // Future<dynamic> declineOffer(
+  //   BuildContext context,
+  // ) {
+  //   return showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) => AlertDialog(
+  //       title: Center(child: Text("Do you want to Decline?")),
+  //       content: Container(
+  //         alignment: Alignment.center,
+  //         height: 85.h,
+  //         decoration: BoxDecoration(),
+  //         child: Column(
+  //           children: [
+  //             SizedBox(
+  //               height: 20.h,
+  //             ),
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               children: [
+  //                 CustomButtonOne(
+  //                     height: 30.h,
+  //                     width: 70.w,
+  //                     radius: 5.r,
+  //                     marginLR: 10.w,
+  //                     fontSize: 14.sp,
+  //                     title: "No",
+  //                     btnColor: Colors.red,
+  //                     onTab: () {
+  //                       Get.back();
+  //                     }),
+  //                 SizedBox(
+  //                   width: 30.w,
+  //                 ),
+  //                 CustomButtonOne(
+  //                     width: 70.w,
+  //                     height: 30.h,
+  //                     radius: 5.r,
+  //                     marginLR: 0.w,
+  //                     title: "Yes",
+  //                     btnColor: navyBlueColor,
+  //                     onTab: () {
+  //                       controller.tripDisAgree(bidId: trip.id.toString());
+  //                     })
+  //               ],
+  //             )
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Future<dynamic> confirmRide(BuildContext context, bidsId) {
+  //   return showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return AlertDialog(
+  //           content: Container(
+  //               alignment: Alignment.center,
+  //               width: 200.w,
+  //               height: 80.h,
+  //               child: Column(
+  //                 mainAxisAlignment: MainAxisAlignment.center,
+  //                 children: [
+  //                   Text(
+  //                     'Confirm the Ride?',
+  //                     style: TextStyle(
+  //                         fontWeight: FontWeight.bold, fontSize: 15.sp),
+  //                   ),
+  //                   SizedBox(height: 10.h),
+  //                   Row(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: [
+  //                       CustomButtonOne(
+  //                           width: 70.w,
+  //                           height: 30.h,
+  //                           marginLR: 5.w,
+  //                           fontSize: 15.sp,
+  //                           fontWeight: FontWeight.w700,
+  //                           radius: 5.r,
+  //                           btnColor: Color(0xff296557),
+  //                           title: "Yes",
+  //                           onTab: () {
+  //                             print("seat Available ${trip.seatsAvailable}");
+  //                             controller.confirmRide(
+  //                                 bidId: bidsId,
+  //                                 seat: trip.seatsAvailable.toString());
+  //                           }),
+  //                       CustomButtonOne(
+  //                           width: 70.w,
+  //                           height: 30.h,
+  //                           marginLR: 5.w,
+  //                           radius: 5.r,
+  //                           btnColor: Colors.red,
+  //                           title: "No",
+  //                           onTab: () {
+  //                             Get.back();
+  //                           })
+  //                     ],
+  //                   ),
+  //                 ],
+  //               )),
+  //         );
+  //       });
+  // }
+
+  // done
+  // Future<dynamic> cancelTrip(BuildContext context) {
+  //   return showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) => AlertDialog(
+  //         title: Center(child: Text("Do you Want to Cancle Trip?")),
+  //         content: Container(
+  //             alignment: Alignment.center,
+  //             height: 85.h,
+  //             decoration: BoxDecoration(),
+  //             child: Form(
+  //               key: _formOfferkey,
+  //               child: Column(
+  //                 children: [
+  //                   Row(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: [
+  //                       CustomButtonOne(
+  //                           height: 30.h,
+  //                           width: 70.w,
+  //                           radius: 5.r,
+  //                           marginLR: 10.w,
+  //                           fontSize: 14.sp,
+  //                           title: "No",
+  //                           btnColor: Colors.red,
+  //                           onTab: () {
+  //                             Get.back();
+  //                           }),
+  //                       SizedBox(
+  //                         width: 30.w,
+  //                       ),
+  //                       CustomButtonOne(
+  //                           width: 70.w,
+  //                           height: 30.h,
+  //                           radius: 5.r,
+  //                           marginLR: 0.w,
+  //                           title: "Yes",
+  //                           btnColor: navyBlueColor,
+  //                           onTab: () {
+  //                             controller.tripCancle(slug: trip.slug.toString());
+  //                           })
+  //                     ],
+  //                   )
+  //                 ],
+  //               ),
+  //             ))),
+  //   );
+  // }
+
+  // Future<dynamic> finishRide(BuildContext context) {
+  //   return showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) => AlertDialog(
+  //         title: Center(child: Text("Want to finish this ride?")),
+  //         content: Container(
+  //             alignment: Alignment.center,
+  //             height: 85.h,
+  //             decoration: BoxDecoration(),
+  //             child: Form(
+  //               key: _formOfferkey,
+  //               child: Column(
+  //                 children: [
+  //                   Row(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: [
+  //                       CustomButtonOne(
+  //                           height: 30.h,
+  //                           width: 70.w,
+  //                           radius: 5.r,
+  //                           marginLR: 10.w,
+  //                           fontSize: 14.sp,
+  //                           title: "No",
+  //                           btnColor: Colors.red,
+  //                           onTab: () {
+  //                             Get.back();
+  //                           }),
+  //                       SizedBox(
+  //                         width: 30.w,
+  //                       ),
+  //                       CustomButtonOne(
+  //                           width: 70.w,
+  //                           height: 30.h,
+  //                           radius: 5.r,
+  //                           marginLR: 0.w,
+  //                           title: "Yes",
+  //                           btnColor: navyBlueColor,
+  //                           onTab: () {
+  //                             controller.tripCancle(slug: trip.slug.toString());
+  //                           })
+  //                     ],
+  //                   )
+  //                 ],
+  //               ),
+  //             ))),
+  //   );
+  // }
 }
 
 class ShipDetailsWidget extends StatelessWidget {
@@ -666,6 +1123,27 @@ class ShipDetailsWidget extends StatelessWidget {
                       Colors.black, FontWeight.w500, 13.sp),
                 ),
         ],
+      ),
+    );
+  }
+}
+
+class CustomForm extends StatelessWidget {
+  TextEditingController? textController;
+  double? radius;
+  String? hinttext;
+
+  CustomForm({super.key, this.hinttext, this.radius, this.textController});
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: textController,
+      style: TextStyle(color: Colors.black),
+      decoration: InputDecoration(
+        hintText: hinttext ?? "Enter Data",
+        border: OutlineInputBorder(),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(radius ?? 0.0.r)),
       ),
     );
   }
