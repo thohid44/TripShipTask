@@ -3,7 +3,6 @@ import 'package:tripshiptask/Api_services/ApiService.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -18,7 +17,7 @@ class ShipController extends GetxController {
   List<ShipSearchModel> shipSearchList = <ShipSearchModel>[].obs;
   List<ShipSearchModel> shipCarryPostList = <ShipSearchModel>[].obs;
   MyShip? myShip;
-  
+
   var pth;
   void onInit() {
     super.onInit();
