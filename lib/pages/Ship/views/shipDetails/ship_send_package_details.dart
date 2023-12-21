@@ -12,6 +12,7 @@ import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customText.dart';
 import 'package:tripshiptask/Widget/widget_button.dart';
 import 'package:tripshiptask/pages/Ship/controller/shipController.dart';
+import 'package:tripshiptask/pages/Ship/controller/ship_process_controller.dart';
 import 'package:tripshiptask/pages/Ship/model/sh_Snd_Package_Details_M.dart';
 import 'package:tripshiptask/pages/Ship/views/shipPage.dart';
 import 'package:http/http.dart' as http;
@@ -59,6 +60,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
 
   var space = 3;
   var path;
+  var shipProController = Get.put(ShipProcessController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,9 +73,21 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
               ships = snapshot.data!.data!;
               path = snapshot.data!.data!.path;
               return Container(
-                margin: EdgeInsets.only(left: 8.w, right: 8.w, top: 20.h),
+                margin: EdgeInsets.only(left: 8.w, right: 8.w, top: 10.h),
                 child: ListView(
                   children: [
+                    Container(
+                      width: 300.w,
+                      alignment: Alignment.center,
+                      child: Text("Send A Package",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                    SizedBox(
+                      height: 4.h,
+                    ),
                     Container(
                       child: Column(
                         children: [
@@ -130,9 +144,10 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                       child: ListView.builder(
                           itemCount: snapshot.data!.data!.bids.length,
                           itemBuilder: (context, index) {
-                            ships = snapshot.data!.data!.bids;
+                            ships = snapshot.data!.data!;
                             return Container(
                                 padding: EdgeInsets.all(5.h),
+                                margin: EdgeInsets.all(5.h),
                                 decoration: BoxDecoration(
                                   color: Colors.grey[300],
                                 ),
@@ -150,13 +165,13 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                       height: 5.h,
                                     ),
                                     ShipDetailsWidget(
-                                        title: "Amount:",
-                                        width: 80.0,
-                                        valueWidth: 180.0,
+                                        title: "Counter Offer Received:",
+                                        width: 180.0,
+                                        valueWidth: 60.0,
                                         value:
                                             "${snapshot.data!.data!.bids[index]['amount']}",
                                         status: false),
-                                    ships[index]['co'] == null
+                                    ships.bids[index]['co'] == null
                                         ? Container()
                                         : ShipDetailsWidget(
                                             title: "Counter Offer",
@@ -186,7 +201,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                         children: [
                                                           Container(
                                                             child: Text(
-                                                              "Counter Offer Received ${ships[index]['co']} BDT",
+                                                              "Counter Offer Received ${ships.bids[index]['co']} BDT",
                                                               style: TextStyle(
                                                                   fontSize:
                                                                       12.sp,
@@ -197,7 +212,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                                           .normal),
                                                             ),
                                                           ),
-                                                          ships[index][
+                                                          ships.bids[index][
                                                                       'agree'] ==
                                                                   1
                                                               ? Container(
@@ -225,12 +240,12 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                                 )
                                                               : InkWell(
                                                                   onTap: () {
-                                                                    shipId = ships[
-                                                                            index]
-                                                                        ['id'];
-                                                                    controller
-                                                                        .giveShipAgree(
-                                                                            shipId);
+                                                                     shipId = ships
+                                                                            .bids[
+                                                                        index]['id'];
+                                                                    agreeOffer(context,shipId);
+                                                                   
+                                                                
                                                                   },
                                                                   child:
                                                                       Container(
@@ -257,7 +272,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                                     ),
                                                                   ),
                                                                 ),
-                                                          ships[index][
+                                                          ships.bids[index][
                                                                       'agree'] ==
                                                                   1
                                                               ? Container()
@@ -292,7 +307,8 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                       ),
 
                                                 // Accept Part
-                                                ships[index]['accepted'] == 1
+                                                ships.bids[index]['accepted'] ==
+                                                        1
                                                     ? ShipDetailsWidget(
                                                         title: "Offer Status",
                                                         width: 100.0,
@@ -301,7 +317,8 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                         status: false)
                                                     : Container(),
 
-                                                ships[index]['accepted'] == 0
+                                                ships.bids[index]['accepted'] ==
+                                                        0
                                                     ? Container()
                                                     : Row(
                                                         children: [
@@ -310,6 +327,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .redAccent,
+                                                                fontSize: 11.sp,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400),
@@ -334,6 +352,8 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                                     style: TextStyle(
                                                                         color: Colors
                                                                             .white,
+                                                                        fontSize: 12
+                                                                            .sp,
                                                                         fontWeight:
                                                                             FontWeight.w500),
                                                                   ))),
@@ -345,9 +365,83 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                           ),
 
 // Poster Part
-                                    Container(
+            snapshot.data!.data!.userId !=
+                                            _box.read(LocalStoreKey.userId) ?Container():                         Container(
                                       child: Column(
                                         children: [
+                                              ships.bids[index]
+                                                                      ['co'] ==
+                                                                  null
+                                                              ? Container()
+                                                              : Padding(
+                                                                  padding: EdgeInsets
+                                                                      .only(
+                                                                          left:
+                                                                              5.w),
+                                                                  child: Row(
+                                                                    children: [
+                                                                      RichText(
+                                                                        text:
+                                                                            TextSpan(
+                                                                          children: [
+                                                                            TextSpan(
+                                                                              text: "Counter Offer Sent: ",
+                                                                              style: TextStyle(
+                                                                                color: Colors.black,
+                                                                                fontSize: 12.sp,
+                                                                              ),
+                                                                            ),
+                                                                            TextSpan(
+                                                                              text: '${ships.bids[index]['co'].toString()} BDT',
+                                                                              style: TextStyle(
+                                                                                color: Colors.black,
+                                                                                fontSize: 12.sp,
+                                                                                fontWeight: FontWeight.bold,
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            5.w,
+                                                                      ),
+                                                                      ships.bids[index]['agree'] ==
+                                                                              1
+                                                                          ? Container(
+                                                                              child: Text(
+                                                                                "Agreed",
+                                                                                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: Colors.green),
+                                                                              ),
+                                                                            )
+                                                                          : Text(
+                                                                              "Pending",
+                                                                              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12.sp, color: Colors.red),
+                                                                            ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            5.w,
+                                                                      ),
+                                                                      ships.bids[index]['accept'] ==
+                                                                              1
+                                                                          ? bidButton(
+                                                                              ontab: () {
+                                                                                // acceptOffer(context, trip.bids[index]['id'].toString(), trip.bids[index]['co'].toString());
+                                                                              },
+                                                                              title: "Accepted",
+                                                                              color: Color(0xff00BC8B),
+                                                                            )
+                                                                          : bidButton(
+                                                                              ontab: () {
+                                                                              
+                                                                              },
+                                                                              title: "Accept",
+                                                                              width: 50.w,
+                                                                              color: Color(0xff00BC8B),
+                                                                            ),
+                                                                    ],
+                                                                  ),
+                                                                ),
                                           Padding(
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 0.w),
@@ -356,79 +450,60 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                ships[index]['agree'] == 1
+                                                ships.bids[index]['agree'] == 1
                                                     ? Container()
                                                     : Text(
-                                                        "Counter Offer",
+                                                        "Counter Offer1",
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.w700,
                                                             fontSize: 13.sp),
                                                       ),
-                                                ships[index]['agree'] == 1
+                                                ships.bids[index]['agree'] == 1
                                                     ? Container()
                                                     : Text(
-                                                        "${ships[index]['amount'].toString()}",
+                                                        "${ships.bids[index]['amount'].toString()}",
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.w700,
                                                             fontSize: 13.sp)),
-                                                ships[index]['agree'] == 1
+                                                ships.bids[index]['agree'] == 1
                                                     ? Container()
                                                     : bidButton(
                                                         ontab: () {
-                                                          // acceptOffer(
-                                                          //     context,
-                                                          //     trip.bids[index]['id']
-                                                          //         .toString(),
-                                                          //     trip.bids[index]['co']
-                                                          //         .toString());
+                                                          acceptOffer(
+                                                              context,
+                                                              ships.bids[index]
+                                                                      ['id']
+                                                                  .toString(),
+                                                              ships.bids[index]
+                                                                      ['amount']
+                                                                  .toString());
                                                         },
                                                         title: "Accept",
                                                         color: const Color(
                                                             0xff00BC8B),
                                                       ),
-
-                                                ships[index]['agree'] == 1
+                                                ships.bids[index]['agree'] == 1
                                                     ? Container()
                                                     : bidButton(
                                                         width: 90.w,
                                                         ontab: () {
                                                           counterOffer(
                                                               context,
-                                                              ships[index]
-                                                                  ['id'],ships[index]
-                                                                  ['amount'] );
+                                                              ships.bids[index]
+                                                                  ['id'],
+                                                              ships.bids[index]
+                                                                  ['co']);
                                                         },
                                                         title: "Counter Offer",
                                                         color: purplColor,
                                                       ),
-                                                ships[index]['accepted'] == 1
-                                                    ? ShipDetailsWidget(
-                                                        title: "Offer Status: ",
-                                                        width: 100.w,
-                                                        valueWidth: 180.0,
-                                                        value:
-                                                            "Accepted${ships[index]['accepted']}",
-                                                        status: false)
-                                                    : Container(),
                                               ],
                                             ),
                                           ),
-                                          ships[index]['accepted'] == 1
-                                              ? ShipDetailsWidget(
-                                                  title: "Offer Status: ",
-                                                  width: 100.w,
-                                                  valueWidth: 180.0,
-                                                  value:
-                                                      "Accepted${ships[index]['accepted']}",
-                                                  status: false)
-                                              : Container(),
-                                        ],
-                                      ),
-                                    ),
-
-                                    ships[index]['accepted'] == 0
+                                          SizedBox(height: 3.h,),
+                                             ships.bids[index]['accepted'] == 0
                                         ? Container()
                                         : Row(
                                             children: [
@@ -461,6 +536,11 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                       child: Text("No"))),
                                             ],
                                           ),
+                                        ],
+                                      ),
+                                    ),
+
+                                 
                                   ],
                                 ));
                           }),
@@ -491,8 +571,8 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                             ],
                           )
                         : Container(),
-                    snapshot.data!.data!.userId ==
-                            _box.read(LocalStoreKey.userId)
+                _box.read(LocalStoreKey.userId)==snapshot.data!.data!.userId 
+                           
                         ? Container()
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -517,9 +597,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.bold,
                                   onTab: () {
-                                    makeOffer(
-                                      context,ships.amount
-                                    );
+                                    makeOffer(context, ships.amount);
                                   }),
                             ],
                           )
@@ -541,7 +619,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
       builder: (BuildContext context) => AlertDialog(
           title: Text("Make Counter Offer"),
           content: Container(
-              height: 300.h,
+              height: 180.h,
               decoration: BoxDecoration(),
               child: Form(
                 key: _formOfferkey,
@@ -600,6 +678,9 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                             btnColor: Colors.red,
                             onTab: () {
                               Get.back();
+                            setState(() {
+                              shipSendPackageDetails();
+                            });
                             }),
                         CustomButtonOne(
                             width: 80.w,
@@ -615,7 +696,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                               var _isValid =
                                   _formOfferkey.currentState!.validate();
                               if (_isValid) {
-                                controller.bidOnGivenShip(
+                                shipProController.bidOnGivenShip(
                                     amount: amount.text.toString(),
                                     shipId: shipId.toString(),
                                     message: shortmessage.text.toString());
@@ -760,58 +841,58 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
     );
   }
 
-  // Future<dynamic> agreeOffer(
-  //   BuildContext context,
-  // ) {
-  //   return showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) => AlertDialog(
-  //         title: Center(child: Text("Do you Agree?")),
-  //         content: Container(
-  //             alignment: Alignment.center,
-  //             height: 85.h,
-  //             decoration: BoxDecoration(),
-  //             child: Form(
-  //               key: _formOfferkey,
-  //               child: Column(
-  //                 children: [
-  //                   SizedBox(
-  //                     height: 20.h,
-  //                   ),
-  //                   Row(
-  //                     mainAxisAlignment: MainAxisAlignment.center,
-  //                     children: [
-  //                       CustomButtonOne(
-  //                           height: 30.h,
-  //                           width: 70.w,
-  //                           radius: 5.r,
-  //                           marginLR: 10.w,
-  //                           fontSize: 14.sp,
-  //                           title: "No",
-  //                           btnColor: Colors.red,
-  //                           onTab: () {
-  //                             Get.back();
-  //                           }),
-  //                       SizedBox(
-  //                         width: 30.w,
-  //                       ),
-  //                       CustomButtonOne(
-  //                           width: 70.w,
-  //                           height: 30.h,
-  //                           radius: 5.r,
-  //                           marginLR: 0.w,
-  //                           title: "Yes",
-  //                           btnColor: navyBlueColor,
-  //                           onTab: () {
-  //                             controller.tripAgree(bidId: trip.id.toString());
-  //                           })
-  //                     ],
-  //                   )
-  //                 ],
-  //               ),
-  //             ))),
-  //   );
-  // }
+  Future<dynamic> agreeOffer(
+    BuildContext context, shipId
+  ) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(child: Text("Do you Agree?")),
+          content: Container(
+              alignment: Alignment.center,
+              height: 85.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 70.w,
+                            radius: 5.r,
+                            marginLR: 10.w,
+                            fontSize: 14.sp,
+                            title: "No",
+                            btnColor: Colors.red,
+                            onTab: () {
+                              Get.back();
+                            }),
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            title: "Yes",
+                            btnColor: navyBlueColor,
+                            onTab: () {
+                              shipProController.giveShipAgree(bidId: ships.id.toString());
+                            })
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
 
   Future<dynamic> counterOffer(BuildContext context, id, amt) {
     return showDialog(
@@ -861,8 +942,8 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                         title: "Yes",
                         btnColor: navyBlueColor,
                         onTab: () {
-                          controller.counterShippOffer(
-                              bidId: id, amount:amt.toString());
+                          shipProController.counterShipOffer(
+                              bidId: id, amount: amt.toString());
                           Get.back();
                         })
                   ],
@@ -873,57 +954,122 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
     );
   }
 
-  // Future<dynamic> declineOffer(
-  //   BuildContext context,
-  // ) {
-  //   return showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) => AlertDialog(
-  //       title: Center(child: Text("Do you want to Decline?")),
-  //       content: Container(
-  //         alignment: Alignment.center,
-  //         height: 85.h,
-  //         decoration: BoxDecoration(),
-  //         child: Column(
-  //           children: [
-  //             SizedBox(
-  //               height: 20.h,
-  //             ),
-  //             Row(
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               children: [
-  //                 CustomButtonOne(
-  //                     height: 30.h,
-  //                     width: 70.w,
-  //                     radius: 5.r,
-  //                     marginLR: 10.w,
-  //                     fontSize: 14.sp,
-  //                     title: "No",
-  //                     btnColor: Colors.red,
-  //                     onTab: () {
-  //                       Get.back();
-  //                     }),
-  //                 SizedBox(
-  //                   width: 30.w,
-  //                 ),
-  //                 CustomButtonOne(
-  //                     width: 70.w,
-  //                     height: 30.h,
-  //                     radius: 5.r,
-  //                     marginLR: 0.w,
-  //                     title: "Yes",
-  //                     btnColor: navyBlueColor,
-  //                     onTab: () {
-  //                       controller.tripDisAgree(bidId: trip.id.toString());
-  //                     })
-  //               ],
-  //             )
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+  Future<dynamic> acceptOffer(BuildContext context, bidsId, acceptAmount) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: const Center(child: Text("Do you Want to Accept?")),
+          content: Container(
+              alignment: Alignment.center,
+              height: 85.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Text(
+                          "Task Amount is :$acceptAmount ",
+                          style: TextStyle(
+                              fontSize: 14.sp, fontWeight: FontWeight.w500),
+                        )),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 70.w,
+                            radius: 5.r,
+                            marginLR: 10.w,
+                            fontSize: 14.sp,
+                            title: "No",
+                            btnColor: Colors.red,
+                            onTab: () {
+                              Get.back();
+                            }),
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            title: "Yes",
+                            btnColor: navyBlueColor,
+                            onTab: () {
+                              var seat = ships.seatsAvailable;
+                              print("seat $seat");
+                              var passenger = ships.vehicleSeat;
+                              var sum =
+                                  int.parse(seat!) + int.parse(passenger!);
+
+                              shipProController.acceptShip(
+                                  bidId: bidsId.toString(), sum: sum);
+                            })
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
+  Future<dynamic> declineOffer(
+    BuildContext context,
+  ) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Center(child: Text("Do you want to Decline?")),
+        content: Container(
+          alignment: Alignment.center,
+          height: 85.h,
+          decoration: BoxDecoration(),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 20.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomButtonOne(
+                      height: 30.h,
+                      width: 70.w,
+                      radius: 5.r,
+                      marginLR: 10.w,
+                      fontSize: 14.sp,
+                      title: "No",
+                      btnColor: Colors.red,
+                      onTab: () {
+                        Get.back();
+                      }),
+                  SizedBox(
+                    width: 30.w,
+                  ),
+                  CustomButtonOne(
+                      width: 70.w,
+                      height: 30.h,
+                      radius: 5.r,
+                      marginLR: 0.w,
+                      title: "Yes",
+                      btnColor: navyBlueColor,
+                      onTab: () {
+                       shipProController.shipDisAgree(bidId: ships.id.toString());
+                      })
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   // Future<dynamic> confirmRide(BuildContext context, bidsId) {
   //   return showDialog(
@@ -1082,6 +1228,7 @@ class ShipDetailsWidget extends StatelessWidget {
   String? value;
   dynamic width;
   dynamic valueWidth;
+   FontWeight? fontWeight;
   late bool status = false;
   ShipDetailsWidget(
       {super.key,
@@ -1089,6 +1236,7 @@ class ShipDetailsWidget extends StatelessWidget {
       this.title,
       this.width,
       this.valueWidth,
+      this.fontWeight, 
       required this.status});
 
   @override
@@ -1103,7 +1251,7 @@ class ShipDetailsWidget extends StatelessWidget {
                 "$title",
                 style: TextStyle(
                     fontSize: 13.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: fontWeight??FontWeight.w500,
                     color: Colors.black),
               )),
           status == false
