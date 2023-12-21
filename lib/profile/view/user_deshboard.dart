@@ -342,6 +342,9 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                     InkWell(
                       onTap: () {
                         _box.remove(LocalStoreKey.token);
+                         _box.remove(LocalStoreKey.accountNo);
+                          _box.remove(LocalStoreKey.fullName);
+                              _box.remove(LocalStoreKey.userId);
                         Get.offAll(LoginScreen());
                       },
                       child: Container(

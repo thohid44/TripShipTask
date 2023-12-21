@@ -52,61 +52,96 @@ class ShipController extends GetxController {
     }
   }
 
-  bidOnGivenShip({amount, shipId, message}) async {
-    var token = _box.read(LocalStoreKey.token);
-    print(token);
-    var mapData = {
-      "bidamount": amount.toString(),
-      "ship_id": shipId.toString(),
-      "message": message.toString()
-    };
-    print("ship amount $amount");
-    print(shipId);
-    print(message);
+//   bidOnGivenShip({amount, shipId, message}) async {
+//     var token = _box.read(LocalStoreKey.token);
+//     print(token);
+//     var mapData = {
+//       "bidamount": amount.toString(),
+//       "ship_id": shipId.toString(),
+//       "message": message.toString()
+//     };
+//     print("ship amount $amount");
+//     print(shipId);
+//     print(message);
 
-    try {
-      isLoading(true);
-      var response = await ApiService().postData(mapData, "shipbids");
-print("status code ${response.statusCode}");
-      if (response.statusCode == 202) {
-        print(response.statusCode);
-        var jsonData = jsonDecode(response.body);
-        print("offer $jsonData");
-        Get.snackbar("Ship Offer", "Make Successfully ",
-            backgroundColor: navyBlueColor);
-      }
-    } catch (e) {
-      print("Error $e");
-    }
-  }
+//     try {
+//       isLoading(true);
+//       var response = await ApiService().postData(mapData, "shipbids");
+// print("status code ${response.statusCode}");
+//       if (response.statusCode == 202) {
+//         print(response.statusCode);
+//         var jsonData = jsonDecode(response.body);
+//         print("offer $jsonData");
+//         Get.snackbar("Ship Offer", "Make Successfully ",
+//             backgroundColor: navyBlueColor);
+//       }
+//     } catch (e) {
+//       print("Error $e");
+//     }
+//   }
 
-  giveShipAgree(bidId) async {
-    var token = _box.read(LocalStoreKey.token);
+//   counterShipOffer({bidId, amount}) async {
+//     var token = _box.read(LocalStoreKey.token);
 
-    var mapData = {"agree": '1'};
-    print(" bid id $bidId");
-    try {
-      isLoading(true);
-      //  var response = await ApiService().postData(mapData, "tripbids/$bidId");
-      var response = await http.patch(Uri.parse("${baseUrl}shipbids/$bidId"),
-          headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + token,
-          },
-          body: mapData);
+//    final jsonData = {'co': [amount]};
+// final jsonString = jsonEncode(jsonData);
+// print("co $jsonString");
+//   List<dynamic> amt = [amount];
+//     print("amount $amount");
+//     print("Bid Id $bidId");
+//     var data = {'co': amt.toString()};
+//     try {
+//       isLoading(true);
 
-      print(" status code ${response.statusCode}");
+//       var response = await http.patch(Uri.parse("${baseUrl}shipbids/$bidId"),
+//           headers: {
+            
+//             'Authorization': 'Bearer ' + token,
+//           },
+//           body: jsonEncode(data));
 
-      if (response.statusCode == 200) {
-        var jsonData = jsonDecode(response.body);
-        print("counter offer $jsonData");
-        Get.snackbar("Trip Offer", "Agree Successfully ",
-            backgroundColor: navyBlueColor);
-      }
-    } catch (e) {
-      print("Error $e");
-    }
-  }
+//       print(response.statusCode);
+
+//       if (response.statusCode == 200) {
+//         print(response.statusCode);
+//         var jsonData = jsonDecode(response.body);
+//         print("counter offer $jsonData");
+//         Get.snackbar("Trip Offer", "Make Successfully ",
+//             backgroundColor: navyBlueColor);
+//       }
+//     } catch (e) {
+//       print("Error $e");
+//     }
+//   }
+
+
+//   giveShipAgree(bidId) async {
+//     var token = _box.read(LocalStoreKey.token);
+
+//     var mapData = {"agree": '1'};
+//     print(" bid id $bidId");
+//     try {
+//       isLoading(true);
+//       //  var response = await ApiService().postData(mapData, "tripbids/$bidId");
+//       var response = await http.patch(Uri.parse("${baseUrl}shipbids/$bidId"),
+//           headers: {
+//             'Accept': 'application/json',
+//             'Authorization': 'Bearer ' + token,
+//           },
+//           body: mapData);
+
+//       print(" status code ${response.statusCode}");
+
+//       if (response.statusCode == 200) {
+//         var jsonData = jsonDecode(response.body);
+//         print("counter offer $jsonData");
+//         Get.snackbar("Trip Offer", "Agree Successfully ",
+//             backgroundColor: navyBlueColor);
+//       }
+//     } catch (e) {
+//       print("Error $e");
+//     }
+//   }
 
   fetchAllSendShip() async {
     var token = _box.read(LocalStoreKey.token);
@@ -164,5 +199,5 @@ print("status code ${response.statusCode}");
     }
   }
 
-  void counterShippOffer({required bidId, required String amount}) {}
+ 
 }
