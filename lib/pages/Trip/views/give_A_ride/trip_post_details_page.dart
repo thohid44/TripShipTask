@@ -483,7 +483,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                                                         acceptOffer(
                                                                             context,
                                                                             trip.bids[index]['id'].toString(),
-                                                                            trip.bids[index]['amount'].toString());
+                                                                            trip.bids[index]['co'].toString());
                                                                       },
                                                                       width:
                                                                           45.w,
@@ -1182,7 +1182,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                         onTab: () {
                           controller.counterTripOffer(
                               bidId: id, amount: amount.text.toString());
-                          Get.back();
+                        
                         })
                   ],
                 )

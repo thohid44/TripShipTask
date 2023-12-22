@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tripshiptask/Api_services/ApiService.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
@@ -59,7 +61,7 @@ class TaskController extends GetxController {
       isLoading(true);
       var response = await http.post(Uri.parse("${baseUrl}task"),
           headers: {
-            "Content-Type": "application/json",
+         //   "Content-Type": "application/json",
             'Authorization': 'Bearer ' + token,
           },
           body: jsonEncode({
@@ -85,11 +87,16 @@ class TaskController extends GetxController {
       if (response.statusCode == 201) {
         print(response.statusCode);
         var jsonData = jsonDecode(response.body);
-        print("Trip Post $jsonData");
-        Get.snackbar(
-          "Get Ride",
-          "Successfully Store",
-        );
+        print("Task Post $jsonData");
+      Fluttertoast.showToast(
+        msg: "This is Center Short Toast",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
         isLoading(false);
       }
     } catch (e) {

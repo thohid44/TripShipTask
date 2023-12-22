@@ -3,11 +3,14 @@ import 'dart:convert';
 
 import 'package:intl/intl.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
+import 'package:tripshiptask/Utils/colors.dart';
 
 import 'package:tripshiptask/Utils/localstorekey.dart';
+import 'package:tripshiptask/Widget/customButtonOne.dart';
 
 import 'package:tripshiptask/Widget/customText.dart';
-import 'package:tripshiptask/pages/Ship/views/shipDetails/ship_send_package_details.dart';
+import 'package:tripshiptask/pages/Ship/views/ship_send_package_details.dart';
+import 'package:tripshiptask/pages/Task/controller/task_process_con.dart';
 
 import 'package:tripshiptask/pages/Task/model/my_task_details_model.dart';
 import 'package:tripshiptask/pages/Task/views/update_give_task.dart';
@@ -40,7 +43,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
 
   bool status = false;
 
-  Future<MyTaskDetailsModel> gettaskDetails() async {
+  Future<MyTaskDetailsModel> getTaskDetails() async {
     //print("koli path ${widget.path}");
     var token = _box.read(LocalStoreKey.token);
 
@@ -58,8 +61,9 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
     return MyTaskDetailsModel.fromJson(jsonData);
   }
 
+  var taskId;
   void initState() {
-    gettaskDetails();
+    getTaskDetails();
     super.initState();
   }
 
@@ -70,18 +74,18 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
     return Scaffold(
         appBar: customAppBar(),
         body: FutureBuilder(
-            future: gettaskDetails(),
+            future: getTaskDetails(),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 var task = snapshot.data.myTaskDetailsModel;
+                taskId = snapshot.data.myTaskDetailsModel.id;
                 return SingleChildScrollView(
                   child: Column(
                     children: [
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 5.w),
                         height: 550.h,
-                        child: status == true
-                            ? Center(child: CircularProgressIndicator())
+                        child
                             : ListView(
                                 children: [
                                   SizedBox(
@@ -111,7 +115,8 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                                   TripDetailsWidget(
                                       status: false,
                                       title: "Task Date",
-                                      value: "${DateFormat.yMMMd().format(task.date)}"),
+                                      value:
+                                          "${DateFormat.yMMMd().format(task.date)}"),
                                   TripDetailsWidget(
                                       status: false,
                                       title: "Hour needed ",
@@ -215,7 +220,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                                   SizedBox(
                                     height: 10.h,
                                   ),
-                                  task.userId.toString() !=
+                                  task.userId.toString() ==
                                           _box.read(LocalStoreKey.userId)
                                       ? Container()
                                       : Row(
@@ -234,39 +239,40 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                                                 style: ElevatedButton.styleFrom(
                                                     backgroundColor:
                                                         Colors.deepPurple),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                               taskProCon.bidTaskOffer(
+                                    amount: "550",
+                                    taskId: taskId.toString(),
+                                    message: "test ");
+                                                },
                                                 icon: Icon(Icons.add),
                                                 label: Text("Make Offer")),
                                           ],
                                         ),
-task.userId ==_box.read(LocalStoreKey.userId)?  Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          bidButton(
-                            ontab: () {
-                                      Get.to(UpdateOfferTask(
-                                                      task.path));    
-                                     
-                     
-                            },
-                            title: "Edit Task",
-                            width: 80.w,
-                            size: 15.sp,
-                          ),
-                          bidButton(
-                            ontab: () {
-                             
-                            },
-                            title: "Cancel Task",
-                            width: 100.w,
-                            size: 15.sp,
-                            color: Colors.amberAccent,
-                          ),
-                        ],
-                      ):Container(),
-
-
-                                  
+                                  task.userId == _box.read(LocalStoreKey.userId)
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            bidButton(
+                                              ontab: () {
+                                                Get.to(
+                                                    UpdateOfferTask(task.path));
+                                              },
+                                              title: "Edit Task",
+                                              width: 80.w,
+                                              size: 15.sp,
+                                            ),
+                                            bidButton(
+                                              ontab: () {},
+                                              title: "Cancel Task",
+                                              width: 100.w,
+                                              size: 15.sp,
+                                              color: Colors.amberAccent,
+                                            ),
+                                          ],
+                                        )
+                                      : Container(),
                                 ],
                               ),
                       )
@@ -277,8 +283,116 @@ task.userId ==_box.read(LocalStoreKey.userId)?  Row(
               return Center(child: CircularProgressIndicator());
             }));
   }
-}
 
+  var taskProCon = Get.put(TaskProcessController());
+  Future<dynamic> makeOffer(BuildContext context, amt) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Text("Make Counter Offer"),
+          content: Container(
+              height: 180.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10.w),
+                      height: 40.h,
+                      child: TextFormField(
+                        controller: amount,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your amount';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            hintText: "$amt",
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder()),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8.h,
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.symmetric(horizontal: 10.w),
+                      child: TextFormField(
+                        controller: shortmessage,
+                        maxLines: 2,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        decoration: const InputDecoration(
+                          hintText: "short message (Optional)",
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 80.w,
+                            radius: 5.r,
+                            marginLR: 10.w,
+                            title: "Close",
+                            btnColor: Colors.red,
+                            onTab: () {
+                              Get.back();
+                              setState(() {
+                                getTaskDetails();
+                              });
+                            }),
+                        CustomButtonOne(
+                            width: 80.w,
+                            height: 30.h,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            title: "Submit",
+                            btnColor: navyBlueColor,
+                            onTab: () {
+   taskProCon.bidTaskOffer(
+                                    amount: amount.text.toString(),
+                                    taskId: taskId.toString(),
+                                    message: shortmessage.text.toString());
+
+                              // print(amount.text.toString());
+
+                              // print(shortmessage.text.toString());
+                              // var _isValid =
+                              //     _formOfferkey.currentState!.validate();
+                              // if (_isValid) {
+                              //   taskProCon.bidTaskOffer(
+                              //       amount: amount.text.toString(),
+                              //       taskId: taskId.toString(),
+                              //       message: shortmessage.text.toString());
+                              // } else {
+                              //   ScaffoldMessenger.of(context)
+                              //       .showSnackBar(const SnackBar(
+                              //     content: Text("Offer not submitted"),
+                              //   ));
+                              // }
+                             
+                            })
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
+}
 
 class TripDetailsWidget extends StatelessWidget {
   String? title;

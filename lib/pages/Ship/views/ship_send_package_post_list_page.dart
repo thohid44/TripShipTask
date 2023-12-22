@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customText.dart';
 import 'package:tripshiptask/pages/Ship/controller/shipController.dart';
-import 'package:tripshiptask/pages/Ship/views/shipDetails/ship_send_package_details.dart';
+import 'package:tripshiptask/pages/Ship/views/ship_send_package_details.dart';
 
 class ShipsendPackagePostList extends StatelessWidget {
   var controller = Get.put(ShipController());

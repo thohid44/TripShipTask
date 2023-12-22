@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tripshiptask/rating/view/ship_giver_feedback_rating.dart';
 
-import '../../pages/Ship/views/shipDetails/ship_send_package_details.dart';
+import '../../pages/Ship/views/ship_send_package_details.dart';
 
 class AllShipPage extends StatefulWidget {
   @override

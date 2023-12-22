@@ -21,7 +21,7 @@ class LoginController extends GetxController {
     Get.to(HomeScreen());
     try {
       var mapData = {
-  //"email":"test1@abaacorp.com",
+// "email":"test1@abaacorp.com",
     //   "email":"test2@abaacorp.com",
   "email": "waleed.amin08@gmail.com",
         "password": '123456789'

@@ -7,7 +7,7 @@ import 'package:tripshiptask/pages/Ship/views/send_a_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:tripshiptask/pages/Ship/views/shipDetails/ship_send_package_details.dart';
+import 'package:tripshiptask/pages/Ship/views/ship_send_package_details.dart';
 import 'package:tripshiptask/pages/Ship/views/ship_carry_package_post_list.dart';
 import 'package:tripshiptask/pages/Trip/views/trip_search/trip_single_search.dart';
 import 'package:tripshiptask/profile/view/user_deshboard.dart';

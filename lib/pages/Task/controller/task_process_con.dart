@@ -18,16 +18,16 @@ var isCashLoading = false.obs;
 var isAgreeLoading = false.obs; 
  var isCounterLoading= false.obs; 
 
-  bidTaskOffer({amount, shipId, message}) async {
+  bidTaskOffer({amount, taskId, message}) async {
     var token = _box.read(LocalStoreKey.token);
     print(token);
     var mapData = {
       "bidamount": amount.toString(),
-      "ship_id": shipId.toString(),
+      "ship_id": taskId.toString(),
       "message": message.toString()
     };
-    print("ship amount $amount");
-    print(shipId);
+    print("task amount $amount");
+    print(taskId);
     print(message);
 
     try {
@@ -40,8 +40,12 @@ print("status code ${response.statusCode}");
         print("offer $jsonData");
         Get.snackbar("Ship Offer", "Make Successfully ",
             backgroundColor: navyBlueColor);
+         
       }
+             isBidLoading(false);
+
     } catch (e) {
+       isBidLoading(false);
       print("Error $e");
     }
   }
@@ -61,7 +65,7 @@ print("co $jsonString");
 
       var response = await http.patch(Uri.parse("${baseUrl}taskbids/$bidId"),
           headers: {
-            
+              "Content-Type": "application/json",
             'Authorization': 'Bearer ' + token,
           },
           body: jsonEncode(data));
@@ -93,6 +97,7 @@ print("co $jsonString");
       var response = await http.patch(Uri.parse("${baseUrl}taskbids/$bidId"),
           headers: {
             'Accept': 'application/json',
+            
             'Authorization': 'Bearer ' + token,
           },
           body: mapData);

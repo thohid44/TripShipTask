@@ -12,7 +12,7 @@ import 'package:tripshiptask/Widget/customTextForm.dart';
 import 'package:tripshiptask/controller/vehicle_controller.dart';
 import 'package:tripshiptask/pages/Home/trip_ship_task_home.dart';
 import 'package:tripshiptask/pages/Ship/model/ship_search_model.dart';
-import 'package:tripshiptask/pages/Ship/views/shipDetails/ship_send_package_details.dart';
+import 'package:tripshiptask/pages/Ship/views/ship_send_package_details.dart';
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

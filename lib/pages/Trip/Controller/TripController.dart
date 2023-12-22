@@ -385,8 +385,7 @@ class TripController extends GetxController {
   counterTripOffer({bidId, amount}) async {
     var token = _box.read(LocalStoreKey.token);
 
-   final jsonData = {'co': [5600]};
-final jsonString = jsonEncode(jsonData);
+   
 
     print("amount $amount");
     print("Bid Id $bidId");
@@ -395,12 +394,17 @@ final jsonString = jsonEncode(jsonData);
 
       var response = await http.patch(Uri.parse("${baseUrl}tripbids/$bidId"),
           headers: {
-            'Accept': 'application/json',
+          
             'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
           },
-          body: jsonEncode({'co': [470]}));
+          body: jsonEncode({'co': [amount]}));
 
       print(response.statusCode);
+          var jsonData = jsonDecode(response.body);
+        print("counter offer $jsonData");
+
+        
 
       // if (response.statusCode == 200) {
       //   print(response.statusCode);
@@ -409,7 +413,9 @@ final jsonString = jsonEncode(jsonData);
       //   Get.snackbar("Trip Offer", "Make Successfully ",
       //       backgroundColor: navyBlueColor);
       // }
+        isLoading(false);
     } catch (e) {
+        isLoading(false);
       print("Error $e");
     }
   }
