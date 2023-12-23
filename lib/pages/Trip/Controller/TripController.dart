@@ -144,7 +144,7 @@ class TripController extends GetxController {
 
     var mapData = {
       "post_type": "seek",
-      "start_point": sPointLat.toString(),
+      "start_point": startPoint.toString(),
       "via": "",
       "date": date,
       "time": time,

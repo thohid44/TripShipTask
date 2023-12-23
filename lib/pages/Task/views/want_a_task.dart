@@ -595,6 +595,7 @@ class _WantATaskState extends State<WantATask> {
                             // _con.getClassId(value.toString());
                             setState(() {
                               classId = value.toString();
+                              
                               isSelect = true;
                             });
                           }),
@@ -702,7 +703,7 @@ class _WantATaskState extends State<WantATask> {
                 print("Start Lat $lat");
                 var lng = startPosition!.geometry!.location!.lng;
                 controller.seekTask(
-                    selectSkill: ['selectSkill'],
+                    selectSkill: selectSkill,
                     title: title.text.toString(),
                     category: categoryId.toString(),
                     location: location.text.toString(),

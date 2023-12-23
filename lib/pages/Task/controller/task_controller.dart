@@ -61,11 +61,11 @@ class TaskController extends GetxController {
       isLoading(true);
       var response = await http.post(Uri.parse("${baseUrl}task"),
           headers: {
-         //   "Content-Type": "application/json",
+            "Accept": "application/json",
             'Authorization': 'Bearer ' + token,
           },
           body: jsonEncode({
-    "selectedskill": selectSkill, 
+    "selectedskill": "$selectSkill", 
     "title": "$title",
     "category": "$category",
     "location": "$location",
@@ -81,7 +81,7 @@ class TaskController extends GetxController {
     "post_type": "offer",
     "country": "BD",
     "currency": "BDT",
-    "moduleId": 3
+    "moduleId": '3'
 }));
       print(response.statusCode);
       if (response.statusCode == 201) {
@@ -89,11 +89,11 @@ class TaskController extends GetxController {
         var jsonData = jsonDecode(response.body);
         print("Task Post $jsonData");
       Fluttertoast.showToast(
-        msg: "This is Center Short Toast",
+        msg: "Task Offer Successfully Store",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.teal,
         textColor: Colors.white,
         fontSize: 16.0
     );

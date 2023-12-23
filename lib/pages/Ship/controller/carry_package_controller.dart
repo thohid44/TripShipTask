@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tripshiptask/Api_services/ApiService.dart';
 import 'package:get/get.dart';
@@ -93,9 +95,17 @@ class CarryPackageController extends GetxController {
       if (response.statusCode == 201) {
         print(response.statusCode);
         var jsonData = jsonDecode(response.body);
-print("Trip Post $jsonData");
-        Get.snackbar("Get Ride", "Successfully Store",
-           );
+print("Ship Post $jsonData");
+     
+      Fluttertoast.showToast(
+        msg: "Carry Ship Successfully Store",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
            isLoading(false);
       }
     } catch (e) {

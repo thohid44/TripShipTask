@@ -67,13 +67,20 @@ class TaskSeekPostController extends GetxController {
 
     try {
       isLoading(true);
+
+   var skillData = [
+        "Neat and clean",
+        "Good looking"
+    ];
+   //   "Accept": "application/json",
+    
       var response = await http.post(Uri.parse("${baseUrl}task"),
           headers: {
-            "Content-Type": "application/json",
+       "Accept": "application/json",
             'Authorization': 'Bearer ' + token,
           },
           body: jsonEncode({
-            "selectedskill": "$selectSkill",
+            "selectedskill":[selectSkill],
             "title": "$title",
             "category": "$category",
             "location": "$location",
@@ -81,7 +88,7 @@ class TaskSeekPostController extends GetxController {
             "date": "$date",
             "time": "$time",
             "details": "$details",
-            "amount": "$amount",
+            "amount": "300",
             "lat": "$lat",
             "lng": "$lng",
             "hour_available": "$hourAvailable",
