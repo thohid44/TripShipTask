@@ -336,7 +336,10 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                             width: 10.w,
                                                           ),
                                                           InkWell(
-                                                              onTap: () {},
+                                                              onTap: () {
+                                                    finishShipment(context,ships.bids[index]['id']
+                                                        );
+                                                              },
                                                               child: Container(
                                                                   padding: EdgeInsets.symmetric(
                                                                       horizontal:
@@ -487,7 +490,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                               1
                                                           ? Container()
                                                           : Text(
-                                                              "Counter Offer1",
+                                                              "Counter Offer",
                                                               style: TextStyle(
                                                                   fontWeight:
                                                                       FontWeight
@@ -513,26 +516,21 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                           ? Container()
                                                           : bidButton(
                                                               ontab: () {
-                                                                shipProController.counterShipOffer(
-                                                                    bidId: ships
-                                                                            .bids[index]
-                                                                        ['id'],
-                                                                    amount:
-                                                                        "300");
-                                                                // acceptOffer(
-                                                                //     context,
-                                                                //     ships.bids[
-                                                                //             index]
-                                                                //             [
-                                                                //             'id']
-                                                                //         .toString(),
-                                                                //     ships.bids[
-                                                                //             index]
-                                                                //             [
-                                                                //             'amount']
-                                                                //         .toString());
+                                                              
+                                                                acceptOffer(
+                                                                    context,
+                                                                    ships.bids[
+                                                                            index]
+                                                                            [
+                                                                            'id']
+                                                                        .toString(),
+                                                                    ships.bids[
+                                                                            index]
+                                                                            [
+                                                                            'amount']
+                                                                        .toString());
                                                               },
-                                                              title: "Accept4",
+                                                              title: "Accept",
                                                               color: const Color(
                                                                   0xff00BC8B),
                                                             ),
@@ -543,70 +541,68 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                           : bidButton(
                                                               width: 90.w,
                                                               ontab: () {
-                                                                shipProController.counterShipOffer(
-                                                                    bidId: ships
-                                                                            .bids[index]
+                                                             
+                                                                counterOffer(
+                                                                    context,
+                                                                    ships.bids[
+                                                                            index]
                                                                         ['id'],
-                                                                    amount:
-                                                                        "300");
-                                                                // counterOffer(
-                                                                //     context,
-                                                                //     ships.bids[
-                                                                //             index]
-                                                                //         ['id'],
-                                                                //     ships.bids[
-                                                                //             index]
-                                                                //         ['amount']);
+                                                                    ships.bids[
+                                                                            index]
+                                                                        ['amount']);
                                                               },
                                                               title:
-                                                                  "Counter Offer2",
+                                                                  "Counter Offer",
                                                               color: purplColor,
                                                             ),
                                                     ],
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  height: 3.h,
+                                                  height: 5.h,
                                                 ),
-                                                ships.bids[index]['accepted'] ==
+                                                ships.bids[index]['complete'] ==
                                                         0
                                                     ? Container()
                                                     : Row(
                                                         children: [
                                                           Text(
-                                                              "Confirm the Shipment?"),
+                                                              "Shipment Completed.\nProceed to Pay?",style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color:Colors.black),),
                                                           SizedBox(
-                                                            width: 20.w,
+                                                            width: 10.w,
                                                           ),
                                                           InkWell(
-                                                              onTap: () {},
+                                                              onTap: () {
+                                                               shipPayment(context, ships.bids[index]['id'],ships.bids[index]['co'] );
+                                                              },
                                                               child: Container(
                                                                   padding: EdgeInsets.symmetric(
                                                                       horizontal:
-                                                                          15.w,
+                                                                          12.w,
+                                                                      
                                                                       vertical:
                                                                           5.h),
                                                                   decoration: BoxDecoration(
                                                                       color: Colors
                                                                           .green),
                                                                   child: Text(
-                                                                      "Yes"))),
+                                                                      "Yes",style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color:Colors.white),))),
                                                           SizedBox(
-                                                            width: 15.w,
+                                                            width: 7.w,
                                                           ),
                                                           InkWell(
                                                               onTap: () {},
                                                               child: Container(
                                                                   padding: EdgeInsets.symmetric(
                                                                       horizontal:
-                                                                          15.w,
+                                                                          12.w,
                                                                       vertical:
                                                                           5.h),
                                                                   decoration: BoxDecoration(
                                                                       color: Colors
                                                                           .orange),
                                                                   child: Text(
-                                                                      "No"))),
+                                                                      "No",style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color:Colors.white),))),
                                                         ],
                                                       ),
                                               ],
@@ -687,6 +683,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
   final _formOfferkey = GlobalKey<FormState>();
   final TextEditingController amount = TextEditingController();
   final TextEditingController shortmessage = TextEditingController();
+  
   Future<dynamic> makeOffer(BuildContext context, amt) {
     return showDialog(
       context: context,
@@ -789,7 +786,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
     );
   }
 
-  Future<dynamic> tripPayment(BuildContext context, bidsId, acceptAmount) {
+  Future<dynamic> shipPayment(BuildContext context, bidsId, acceptAmount) {
     return showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -835,7 +832,8 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                             btnColor: Colors.green,
                             onTab: () {
                               var bidId = bidsId;
-                              tripCashPayment(context, bidId);
+                              shipCashPaymet(context, bidId);
+                             
                             }),
                         SizedBox(
                           width: 20.w,
@@ -857,7 +855,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
     );
   }
 
-  Future<dynamic> tripCashPayment(BuildContext context, bidId) {
+  Future<dynamic> shipCashPaymet(BuildContext context, bidId) {
     return showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -905,7 +903,8 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                             title: "Yes",
                             btnColor: navyBlueColor,
                             onTab: () {
-                              //     controller.tripCashPayment(bidId: bidId);
+                              shipProController.shipCashPayment(bidId: bidId);
+                              Navigator.pop(context);
                             })
                       ],
                     )
@@ -1142,156 +1141,157 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
     );
   }
 
-  // Future<dynamic> confirmRide(BuildContext context, bidsId) {
-  //   return showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return AlertDialog(
-  //           content: Container(
-  //               alignment: Alignment.center,
-  //               width: 200.w,
-  //               height: 80.h,
-  //               child: Column(
-  //                 mainAxisAlignment: MainAxisAlignment.center,
-  //                 children: [
-  //                   Text(
-  //                     'Confirm the Ride?',
-  //                     style: TextStyle(
-  //                         fontWeight: FontWeight.bold, fontSize: 15.sp),
-  //                   ),
-  //                   SizedBox(height: 10.h),
-  //                   Row(
-  //                     mainAxisAlignment: MainAxisAlignment.center,
-  //                     children: [
-  //                       CustomButtonOne(
-  //                           width: 70.w,
-  //                           height: 30.h,
-  //                           marginLR: 5.w,
-  //                           fontSize: 15.sp,
-  //                           fontWeight: FontWeight.w700,
-  //                           radius: 5.r,
-  //                           btnColor: Color(0xff296557),
-  //                           title: "Yes",
-  //                           onTab: () {
-  //                             print("seat Available ${trip.seatsAvailable}");
-  //                             controller.confirmRide(
-  //                                 bidId: bidsId,
-  //                                 seat: trip.seatsAvailable.toString());
-  //                           }),
-  //                       CustomButtonOne(
-  //                           width: 70.w,
-  //                           height: 30.h,
-  //                           marginLR: 5.w,
-  //                           radius: 5.r,
-  //                           btnColor: Colors.red,
-  //                           title: "No",
-  //                           onTab: () {
-  //                             Get.back();
-  //                           })
-  //                     ],
-  //                   ),
-  //                 ],
-  //               )),
-  //         );
-  //       });
-  // }
+  Future<dynamic> confirmShip(BuildContext context, bidsId) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Container(
+                alignment: Alignment.center,
+                width: 200.w,
+                height: 80.h,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Confirm the Ship?',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 15.sp),
+                    ),
+                    SizedBox(height: 10.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            marginLR: 5.w,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w700,
+                            radius: 5.r,
+                            btnColor: Color(0xff296557),
+                            title: "Yes",
+                            onTab: () {
+                              // controller.confirmRide(
+                              //     bidId: bidsId,
+                              //     seat: trip.seatsAvailable.toString());
+                            }),
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            marginLR: 5.w,
+                            radius: 5.r,
+                            btnColor: Colors.red,
+                            title: "No",
+                            onTab: () {
+                              Get.back();
+                            })
+                      ],
+                    ),
+                  ],
+                )),
+          );
+        });
+  }
 
-  // done
-  // Future<dynamic> cancelTrip(BuildContext context) {
-  //   return showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) => AlertDialog(
-  //         title: Center(child: Text("Do you Want to Cancle Trip?")),
-  //         content: Container(
-  //             alignment: Alignment.center,
-  //             height: 85.h,
-  //             decoration: BoxDecoration(),
-  //             child: Form(
-  //               key: _formOfferkey,
-  //               child: Column(
-  //                 children: [
-  //                   Row(
-  //                     mainAxisAlignment: MainAxisAlignment.center,
-  //                     children: [
-  //                       CustomButtonOne(
-  //                           height: 30.h,
-  //                           width: 70.w,
-  //                           radius: 5.r,
-  //                           marginLR: 10.w,
-  //                           fontSize: 14.sp,
-  //                           title: "No",
-  //                           btnColor: Colors.red,
-  //                           onTab: () {
-  //                             Get.back();
-  //                           }),
-  //                       SizedBox(
-  //                         width: 30.w,
-  //                       ),
-  //                       CustomButtonOne(
-  //                           width: 70.w,
-  //                           height: 30.h,
-  //                           radius: 5.r,
-  //                           marginLR: 0.w,
-  //                           title: "Yes",
-  //                           btnColor: navyBlueColor,
-  //                           onTab: () {
-  //                             controller.tripCancle(slug: trip.slug.toString());
-  //                           })
-  //                     ],
-  //                   )
-  //                 ],
-  //               ),
-  //             ))),
-  //   );
-  // }
 
-  // Future<dynamic> finishRide(BuildContext context) {
-  //   return showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) => AlertDialog(
-  //         title: Center(child: Text("Want to finish this ride?")),
-  //         content: Container(
-  //             alignment: Alignment.center,
-  //             height: 85.h,
-  //             decoration: BoxDecoration(),
-  //             child: Form(
-  //               key: _formOfferkey,
-  //               child: Column(
-  //                 children: [
-  //                   Row(
-  //                     mainAxisAlignment: MainAxisAlignment.center,
-  //                     children: [
-  //                       CustomButtonOne(
-  //                           height: 30.h,
-  //                           width: 70.w,
-  //                           radius: 5.r,
-  //                           marginLR: 10.w,
-  //                           fontSize: 14.sp,
-  //                           title: "No",
-  //                           btnColor: Colors.red,
-  //                           onTab: () {
-  //                             Get.back();
-  //                           }),
-  //                       SizedBox(
-  //                         width: 30.w,
-  //                       ),
-  //                       CustomButtonOne(
-  //                           width: 70.w,
-  //                           height: 30.h,
-  //                           radius: 5.r,
-  //                           marginLR: 0.w,
-  //                           title: "Yes",
-  //                           btnColor: navyBlueColor,
-  //                           onTab: () {
-  //                             controller.tripCancle(slug: trip.slug.toString());
-  //                           })
-  //                     ],
-  //                   )
-  //                 ],
-  //               ),
-  //             ))),
-  //   );
-  // }
+  Future<dynamic> cancelShip(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(child: Text("Do you Want to Cancle Ship?")),
+          content: Container(
+              alignment: Alignment.center,
+              height: 85.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 70.w,
+                            radius: 5.r,
+                            marginLR: 10.w,
+                            fontSize: 14.sp,
+                            title: "No",
+                            btnColor: Colors.red,
+                            onTab: () {
+                              Get.back();
+                            }),
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            title: "Yes",
+                            btnColor: navyBlueColor,
+                            onTab: () {
+                           shipProController.shipCancle(slug:ships.slug );
+                            })
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
+
+  Future<dynamic> finishShipment(BuildContext context,bidId) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(child: Text("Want to finish this shipment?",style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),)),
+          content: Container(
+              alignment: Alignment.center,
+              height: 75.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 70.w,
+                            radius: 5.r,
+                            marginLR: 10.w,
+                            fontSize: 14.sp,
+                            title: "No",
+                            btnColor: Colors.red,
+                            onTab: () {
+                           setState(() {
+                                Get.back();
+                           });
+                            }),
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            title: "Yes",
+                            btnColor: navyBlueColor,
+                            onTab: () {
+                             shipProController.finishShip(bidId: bidId);
+                            })
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
 }
 
 class ShipDetailsWidget extends StatelessWidget {

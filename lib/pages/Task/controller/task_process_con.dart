@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:tripshiptask/Api_services/ApiService.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
@@ -23,7 +25,7 @@ var isAgreeLoading = false.obs;
     print(token);
     var mapData = {
       "bidamount": amount.toString(),
-      "ship_id": taskId.toString(),
+      "task_id": taskId.toString(),
       "message": message.toString()
     };
     print("task amount $amount");
@@ -32,17 +34,33 @@ var isAgreeLoading = false.obs;
 
     try {
       isBidLoading(true);
-      var response = await ApiService().postData(mapData, "taskbids");
-print("status code ${response.statusCode}");
-      if (response.statusCode == 202) {
-        print(response.statusCode);
-        var jsonData = jsonDecode(response.body);
-        print("offer $jsonData");
-        Get.snackbar("Ship Offer", "Make Successfully ",
-            backgroundColor: navyBlueColor);
-         
-      }
-             isBidLoading(false);
+  
+        var response = await http.post(Uri.parse("${baseUrl}taskbids"),
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token,
+          },
+          body: jsonEncode({ 
+      "bidamount": amount.toString(),
+      "task_id": taskId.toString(),
+      "message": message.toString()
+    }));
+
+      print(response.statusCode);
+
+      if (response.statusCode == 200) {
+ Fluttertoast.showToast(
+        msg: "Counter offer sent Successfully",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor:navyBlueColor,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+
+
+             isBidLoading(false);}
 
     } catch (e) {
        isBidLoading(false);

@@ -20,6 +20,37 @@ class ShipProcessController extends GetxController {
   var isAgreeLoading = false.obs;
   var isCounterLoading = false.obs;
 
+    var isFinishShipment = false.obs;
+  finishShip({bidId}) async {
+    var token = _box.read(LocalStoreKey.token);
+    var mapData = {'completed': '1'};
+    print(" bid id $bidId");
+    try {
+      isFinishShipment(true);
+
+      var response = await http.patch(Uri.parse("${baseUrl}shipbids/$bidId"),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+          body: mapData);
+
+      print(" status code ${response.statusCode}");
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        print("counter $jsonData");
+        Get.snackbar("Shipment Finish", "Successfully ",
+            backgroundColor: navyBlueColor);
+        Get.back();
+        isFinishShipment(false);
+      }
+    } catch (e) {
+      isFinishShipment(false);
+      print("Error $e");
+    }
+  }
+
   bidOnGivenShip({amount, shipId, message}) async {
     var token = _box.read(LocalStoreKey.token);
     print(token);
@@ -71,11 +102,11 @@ class ShipProcessController extends GetxController {
 
       if (response.statusCode == 200) {
  Fluttertoast.showToast(
-        msg: "This is Center Short Toast",
+        msg: "Counter offer sent Successfully",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
+        backgroundColor:navyBlueColor,
         textColor: Colors.white,
         fontSize: 16.0
     );
@@ -107,8 +138,17 @@ class ShipProcessController extends GetxController {
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
         print("counter offer $jsonData");
-        Get.snackbar("Trip Offer", "Agree Successfully ",
-            backgroundColor: navyBlueColor);
+     
+
+             Fluttertoast.showToast(
+        msg: "Trip Offer Agree Successfully ",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor:navyBlueColor,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
       }
       isAgreeLoading(false);
     } catch (e) {
@@ -135,9 +175,15 @@ class ShipProcessController extends GetxController {
 
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
-        print("counter offer $jsonData");
-        Get.snackbar("Trip Offer", "Agree Successfully ",
-            backgroundColor: navyBlueColor);
+        Fluttertoast.showToast(
+        msg: "Trip Offer Agree Successfully ",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor:navyBlueColor,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
       }
       isDisAgreeloading(false);
     } catch (e) {
@@ -155,7 +201,7 @@ class ShipProcessController extends GetxController {
 
       var response = await http.patch(Uri.parse("${baseUrl}shipbids/$bidId"),
           headers: {
-            'Accept': 'application/json',
+            'Content-Type': "application/json",
             'Authorization': 'Bearer ' + token,
           },
           body: jsonEncode({"pay": '1', "paymethod": 'cash'}));
@@ -163,10 +209,20 @@ class ShipProcessController extends GetxController {
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
         print("counter offer $jsonData");
-        Get.snackbar("Trip Offer", "Agree Successfully ",
-            backgroundColor: navyBlueColor);
+    
+              Fluttertoast.showToast(
+        msg: "Ship Payment Successfully ",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor:navyBlueColor,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
       }
+          isCashLoading(true);
     } catch (e) {
+          isCashLoading(true);
       print("Error $e");
     }
   }

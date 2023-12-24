@@ -95,7 +95,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                                       status: false,
                                       title: "Title",
                                       value:
-                                          "${snapshot.data.myTaskDetailsModel.title}"),
+                                          "${snapshot.data.myTaskDetailsModel.id}"),
                                   TripDetailsWidget(
                                       status: false,
                                       title: "Skills Required",
@@ -227,26 +227,28 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            ElevatedButton.icon(
+                                            ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
                                                     backgroundColor:
                                                         Colors.green),
-                                                onPressed: () {},
-                                                icon: Icon(Icons.add),
-                                                label: Text("Accept")),
+                                                onPressed: () {
+                                                  
+                                                },
+                                            
+                                                child: Text("Accept",style:TextStyle(color: Colors.white))),
                                             SizedBox(width: 10.w),
-                                            ElevatedButton.icon(
+                                            ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
                                                     backgroundColor:
                                                         Colors.deepPurple),
                                                 onPressed: () {
-                                               taskProCon.bidTaskOffer(
-                                    amount: "550",
-                                    taskId: taskId.toString(),
-                                    message: "test ");
+                                         makeOffer(context, task.amount);
+                                             
                                                 },
-                                                icon: Icon(Icons.add),
-                                                label: Text("Make Offer")),
+                                                
+                                                child: Text("Make Offer", 
+                                                style: TextStyle(color: Colors.white),
+                                                )),
                                           ],
                                         ),
                                   task.userId == _box.read(LocalStoreKey.userId)
@@ -392,6 +394,312 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
               ))),
     );
   }
+
+  Future<dynamic> shipPayment(BuildContext context, bidsId, acceptAmount) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(
+              child: Text("Select payment method",
+                  style: TextStyle(
+                    fontSize: 13.sp,
+                  ))),
+          content: Container(
+              alignment: Alignment.center,
+              height: 130.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Payable amount :$acceptAmount BDT",
+                          style: TextStyle(
+                              fontSize: 12.sp, fontWeight: FontWeight.w500),
+                        )),
+                    Container(
+                        child: Text(
+                      "Select a payment method to pay the amount",
+                      style: TextStyle(
+                          fontSize: 11.sp, fontWeight: FontWeight.normal),
+                    )),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 90.w,
+                            radius: 5.r,
+                            marginLR: 5.w,
+                            fontSize: 13.sp,
+                            title: "By Cash",
+                            btnColor: Colors.green,
+                            onTab: () {
+                              var bidId = bidsId;
+                              shipCashPaymet(context, bidId);
+                             
+                            }),
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 90.w,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            fontSize: 13.sp,
+                            title: "E-Pay",
+                            btnColor: navyBlueColor,
+                            onTab: () {})
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
+
+  Future<dynamic> shipCashPaymet(BuildContext context, bidId) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(child: Text("Make Payment?")),
+          content: Container(
+              alignment: Alignment.center,
+              height: 85.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "I give consent to this transaction.",
+                          style: TextStyle(
+                              fontSize: 11.sp, fontWeight: FontWeight.normal),
+                        )),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 70.w,
+                            radius: 5.r,
+                            marginLR: 10.w,
+                            fontSize: 14.sp,
+                            title: "No",
+                            btnColor: Colors.red,
+                            onTab: () {
+                              Get.back();
+                            }),
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            title: "Yes",
+                            btnColor: navyBlueColor,
+                            onTab: () {
+                          
+                            taskProCon.taskCashPayment(bidId: bidId);
+                              Navigator.pop(context);
+                            })
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
+
+  Future<dynamic> agreeOffer(BuildContext context, taskId) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(child: Text("Do you Agree?")),
+          content: Container(
+              alignment: Alignment.center,
+              height: 85.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 70.w,
+                            radius: 5.r,
+                            marginLR: 10.w,
+                            fontSize: 14.sp,
+                            title: "No",
+                            btnColor: Colors.red,
+                            onTab: () {
+                              Get.back();
+                            }),
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            title: "Yes",
+                            btnColor: navyBlueColor,
+                            onTab: () {
+                          taskProCon.taskAgree( taskId);
+                            
+                            })
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
+
+  Future<dynamic> counterOffer(BuildContext context, id, amt) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(child: Text("Sent Counter Offer")),
+          content: Container(
+            alignment: Alignment.center,
+            height: 90.h,
+            decoration: BoxDecoration(),
+            child: Form(
+                child: Column(
+              children: [
+                // Container(
+                //   height: 40.h,
+                //   child: CustomForm(
+                //     textController: amount,
+                //     hinttext: "$amt",
+                //     radius: 10.r,
+                //   ),
+                // ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomButtonOne(
+                        height: 30.h,
+                        width: 70.w,
+                        radius: 5.r,
+                        marginLR: 10.w,
+                        fontSize: 14.sp,
+                        title: "No",
+                        btnColor: Colors.red,
+                        onTab: () {
+                          Get.back();
+                        }),
+                    SizedBox(
+                      width: 30.w,
+                    ),
+                    CustomButtonOne(
+                        width: 70.w,
+                        height: 30.h,
+                        radius: 5.r,
+                        marginLR: 0.w,
+                        title: "Yes",
+                        btnColor: navyBlueColor,
+                        onTab: () {
+                       taskProCon.taskCounterOffer(bidId: id,amount: amount);
+                        })
+                  ],
+                )
+              ],
+            )),
+          )),
+    );
+  }
+
+  Future<dynamic> acceptOffer(BuildContext context, bidsId, acceptAmount) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: const Center(child: Text("Do you Want to Accept?")),
+          content: Container(
+              alignment: Alignment.center,
+              height: 85.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Text(
+                          "Task Amount is :$acceptAmount ",
+                          style: TextStyle(
+                              fontSize: 14.sp, fontWeight: FontWeight.w500),
+                        )),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 70.w,
+                            radius: 5.r,
+                            marginLR: 10.w,
+                            fontSize: 14.sp,
+                            title: "No",
+                            btnColor: Colors.red,
+                            onTab: () {
+                              Get.back();
+                            }),
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            title: "Yes",
+                            btnColor: navyBlueColor,
+                            onTab: () {
+                  
+                             setState(() {
+                              Get.back();
+                              }
+                              
+                              );
+                            })
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
+
+
+
 }
 
 class TripDetailsWidget extends StatelessWidget {
