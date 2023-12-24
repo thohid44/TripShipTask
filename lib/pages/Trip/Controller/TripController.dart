@@ -18,6 +18,7 @@ class TripController extends GetxController {
   final _box = GetStorage();
   var isLoading = false.obs;
   var isAllLoading = false.obs;
+  var isFinish = false.obs;
   List<TripSearchM> tripSearchList = <TripSearchM>[].obs;
   List<TripSearchM> gettripSearchList = <TripSearchM>[].obs;
 
@@ -385,8 +386,6 @@ class TripController extends GetxController {
   counterTripOffer({bidId, amount}) async {
     var token = _box.read(LocalStoreKey.token);
 
-   
-
     print("amount $amount");
     print("Bid Id $bidId");
     try {
@@ -394,17 +393,16 @@ class TripController extends GetxController {
 
       var response = await http.patch(Uri.parse("${baseUrl}tripbids/$bidId"),
           headers: {
-          
             'Authorization': 'Bearer ' + token,
             'Content-Type': 'application/json',
           },
-          body: jsonEncode({'co': [amount]}));
+          body: jsonEncode({
+            'co': [amount]
+          }));
 
       print(response.statusCode);
-          var jsonData = jsonDecode(response.body);
-        print("counter offer $jsonData");
-
-        
+      var jsonData = jsonDecode(response.body);
+      print("counter offer $jsonData");
 
       // if (response.statusCode == 200) {
       //   print(response.statusCode);
@@ -413,9 +411,9 @@ class TripController extends GetxController {
       //   Get.snackbar("Trip Offer", "Make Successfully ",
       //       backgroundColor: navyBlueColor);
       // }
-        isLoading(false);
+      isLoading(false);
     } catch (e) {
-        isLoading(false);
+      isLoading(false);
       print("Error $e");
     }
   }
@@ -441,19 +439,21 @@ class TripController extends GetxController {
         print("counter offer $jsonData");
         Get.snackbar("Trip Offer", "Agree Successfully ",
             backgroundColor: navyBlueColor);
-        Get.back(); 
+        Get.back();
       }
     } catch (e) {
       print("Error $e");
     }
   }
- confirmRide({bidId,seat}) async {
+
+  confirmRide({bidId, seat}) async {
     var token = _box.read(LocalStoreKey.token);
     var mapData = {"passenger_accepted": '$seat'};
     print(" bid id $bidId");
+    print(" Seat id $seat");
     try {
       isLoading(true);
-     
+
       var response = await http.patch(Uri.parse("${baseUrl}tripbids/$bidId"),
           headers: {
             'Accept': 'application/json',
@@ -468,21 +468,22 @@ class TripController extends GetxController {
         print("counter $jsonData");
         Get.snackbar("Trip Ride Confirm", "Successfully ",
             backgroundColor: navyBlueColor);
-        Get.back(); 
+        Get.back();
+        isLoading(false);
       }
     } catch (e) {
+      isLoading(false);
       print("Error $e");
     }
   }
- finishRide({bidId,seat}) async {
+
+  finishRide({bidId}) async {
     var token = _box.read(LocalStoreKey.token);
-    var mapData = {
-                    'completed': 1
-                };
+    var mapData = {'completed': '1'};
     print(" bid id $bidId");
     try {
-      isLoading(true);
-     
+      isFinish(true);
+
       var response = await http.patch(Uri.parse("${baseUrl}tripbids/$bidId"),
           headers: {
             'Accept': 'application/json',
@@ -497,9 +498,11 @@ class TripController extends GetxController {
         print("counter $jsonData");
         Get.snackbar("Trip Ride Finish", "Successfully ",
             backgroundColor: navyBlueColor);
-        Get.back(); 
+        Get.back();
+        isFinish(false);
       }
     } catch (e) {
+      isFinish(false);
       print("Error $e");
     }
   }
@@ -514,13 +517,12 @@ class TripController extends GetxController {
   //               var url = '/web/tripbids/' + bid;
 
   tripDisAgree({bidId}) async {
-
     var token = _box.read(LocalStoreKey.token);
     var mapData = {"disagree": 2};
     print(" bid id $bidId");
     try {
       isLoading(true);
-    
+
       var response = await http.post(Uri.parse("${baseUrl}tripbids/$bidId"),
           headers: {
             'Accept': 'application/json',
@@ -541,32 +543,39 @@ class TripController extends GetxController {
     }
   }
 
+  var isCashPayment = false.obs; 
   tripCashPayment({bidId}) async {
     var token = _box.read(LocalStoreKey.token);
 
     print(" bid id $bidId");
     try {
-      isLoading(true);
+      isCashPayment(true);
 
       var response = await http.patch(Uri.parse("${baseUrl}tripbids/$bidId"),
           headers: {
-            'Accept': 'application/json',
+            'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token,
           },
-          body: jsonEncode({"pay": '1', "paymethod": 'cash'}));
+          body: jsonEncode({
+    "pay": "1",
+    "paymethod": "cash"
+}));
       print("Response code ${response.statusCode}");
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
         print("counter offer $jsonData");
-        Get.snackbar("Trip Offer", "Agree Successfully ",
+        Get.snackbar("Trip Payment", "Agree Successfully ",
             backgroundColor: navyBlueColor);
+             isCashPayment(false);
       }
     } catch (e) {
+       isCashPayment(false);
       print("Error $e");
     }
   }
 
   tripCancle({slug}) async {
+
     var token = _box.read(LocalStoreKey.token);
 
     var mapData = {"status": "canceled", "timediff": "212222"};

@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
-
 class LoginController extends GetxController {
   var isLoading = false.obs;
   var isRegLoading = false.obs;
@@ -20,12 +19,19 @@ class LoginController extends GetxController {
   login(email, password) async {
     Get.to(HomeScreen());
     try {
+      var email1;
+      if (email == '1') {
+        email1 = "test1@abaacorp.com";
+      } else {
+        email1 = "waleed.amin08@gmail.com";
+      }
       var mapData = {
-         "email":"test1@abaacorp.com",
-    //   "email":"test2@abaacorp.com",
- // "email": "waleed.amin08@gmail.com",
+        "email": email1,
+        //   "email":"test2@abaacorp.com",
+        // "email": "waleed.amin08@gmail.com",
         "password": '123456789'
       };
+
       isLogLoading(true);
       var response = await http.post(Uri.parse(url), body: mapData);
       if (response.statusCode == 200) {
