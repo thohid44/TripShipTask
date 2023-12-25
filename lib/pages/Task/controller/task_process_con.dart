@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:tripshiptask/Api_services/ApiService.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
@@ -11,22 +10,22 @@ import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
-class TaskProcessController extends GetxController{
-final _box = GetStorage();
-var isDisAgreeloading = false.obs; 
-var isCashLoading = false.obs; 
- var isCancleLoading = false.obs; 
- var isBidLoading = false.obs; 
-var isAgreeLoading = false.obs; 
- var isCounterLoading= false.obs; 
+class TaskProcessController extends GetxController {
+  final _box = GetStorage();
+  var isDisAgreeloading = false.obs;
+  var isCashLoading = false.obs;
+  var isCancleLoading = false.obs;
+  var isBidLoading = false.obs;
+  var isAgreeLoading = false.obs;
+  var isCounterLoading = false.obs;
 
-  bidTaskOffer({amount, taskId, message}) async {
+  taskMakeOffer({amount, taskId, message}) async {
     var token = _box.read(LocalStoreKey.token);
     print(token);
     var mapData = {
-      "bidamount": amount.toString(),
-      "task_id": taskId.toString(),
-      "message": message.toString()
+      "amount": "$amount",
+      "task_id": "$taskId",
+      "cover_letter": "$message"
     };
     print("task amount $amount");
     print(taskId);
@@ -34,36 +33,34 @@ var isAgreeLoading = false.obs;
 
     try {
       isBidLoading(true);
-  
-        var response = await http.post(Uri.parse("${baseUrl}taskbids"),
+
+      var response = await http.post(Uri.parse("${baseUrl}bid"),
           headers: {
-            "Content-Type": "application/json",
+            "Accept": "application/json",
             'Authorization': 'Bearer ' + token,
           },
-          body: jsonEncode({ 
-      "bidamount": amount.toString(),
-      "task_id": taskId.toString(),
-      "message": message.toString()
-    }));
+          body: jsonEncode({
+            "bidamount": amount.toString(),
+            "task_id": taskId.toString(),
+            "message": message.toString()
+          }));
 
       print(response.statusCode);
 
       if (response.statusCode == 200) {
- Fluttertoast.showToast(
-        msg: "Counter offer sent Successfully",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor:navyBlueColor,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
+        Fluttertoast.showToast(
+            msg: "Counter offer sent Successfully",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: navyBlueColor,
+            textColor: Colors.white,
+            fontSize: 16.0);
 
-
-             isBidLoading(false);}
-
+        isBidLoading(false);
+      }
     } catch (e) {
-       isBidLoading(false);
+      isBidLoading(false);
       print("Error $e");
     }
   }
@@ -71,22 +68,26 @@ var isAgreeLoading = false.obs;
   taskCounterOffer({bidId, amount}) async {
     var token = _box.read(LocalStoreKey.token);
 
-   final jsonData = {'co': [amount]};
-final jsonString = jsonEncode(jsonData);
-print("co $jsonString");
-  List<dynamic> amt = [amount];
+    final jsonData = {
+      'co': [amount]
+    };
+    final jsonString = jsonEncode(jsonData);
+    print("co $jsonString");
+    List<dynamic> amt = [amount];
     print("amount $amount");
     print("Bid Id $bidId");
     var data = {'co': amt.toString()};
     try {
       isCounterLoading(true);
 
-      var response = await http.patch(Uri.parse("${baseUrl}taskbids/$bidId"),
+      var response = await http.patch(Uri.parse("${baseUrl}bid/$bidId"),
           headers: {
-              "Content-Type": "application/json",
+            "Content-Type": "application/json",
             'Authorization': 'Bearer ' + token,
           },
-          body: jsonEncode(data));
+          body: jsonEncode({
+            "co": [amount]
+          }));
 
       print(response.statusCode);
 
@@ -99,7 +100,7 @@ print("co $jsonString");
       }
       isCounterLoading(false);
     } catch (e) {
-        isAgreeLoading(false);
+      isAgreeLoading(false);
       print("Error $e");
     }
   }
@@ -112,10 +113,9 @@ print("co $jsonString");
     try {
       isAgreeLoading(true);
       //  var response = await ApiService().postData(mapData, "tripbids/$bidId");
-      var response = await http.patch(Uri.parse("${baseUrl}taskbids/$bidId"),
+      var response = await http.patch(Uri.parse("${baseUrl}bid/$bidId"),
           headers: {
             'Accept': 'application/json',
-            
             'Authorization': 'Bearer ' + token,
           },
           body: mapData);
@@ -128,23 +128,20 @@ print("co $jsonString");
         Get.snackbar("Trip Offer", "Agree Successfully ",
             backgroundColor: navyBlueColor);
       }
-            isAgreeLoading(false);
-
+      isAgreeLoading(false);
     } catch (e) {
-            isAgreeLoading(false);
+      isAgreeLoading(false);
       print("Error $e");
     }
   }
 
-
-    taskDisAgree({bidId}) async {
-
+  taskDisAgree({bidId}) async {
     var token = _box.read(LocalStoreKey.token);
     var mapData = {"disagree": 2};
     print(" bid id $bidId");
     try {
       isDisAgreeloading(true);
-    
+
       var response = await http.post(Uri.parse("${baseUrl}taskbids/$bidId"),
           headers: {
             'Accept': 'application/json',
@@ -160,12 +157,125 @@ print("co $jsonString");
         Get.snackbar("Trip Offer", "Agree Successfully ",
             backgroundColor: navyBlueColor);
       }
-       isDisAgreeloading(false);
+      isDisAgreeloading(false);
     } catch (e) {
-       isDisAgreeloading(false);
+      isDisAgreeloading(false);
       print("Error $e");
     }
   }
+
+  taskAccept(bidId) async {
+    var token = _box.read(LocalStoreKey.token);
+
+    var mapData = {"accepted": '1'};
+    print(" bid id $bidId");
+    try {
+      isAgreeLoading(true);
+
+      var response = await http.patch(Uri.parse("${baseUrl}bid/$bidId"),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+          body: mapData);
+
+      print(" status code ${response.statusCode}");
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        print("counter offer $jsonData");
+        Get.snackbar("Trip Offer", "Agree Successfully ",
+            backgroundColor: navyBlueColor);
+      }
+      isAgreeLoading(false);
+    } catch (e) {
+      isAgreeLoading(false);
+      print("Error $e");
+    }
+  }
+    taskFinish(bidId) async {
+    var token = _box.read(LocalStoreKey.token);
+
+    var mapData = {"completed": '1'};
+    print(" bid id $bidId");
+    try {
+      isAgreeLoading(true);
+
+      var response = await http.patch(Uri.parse("${baseUrl}bid/$bidId"),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+          body: mapData);
+
+      print(" status code ${response.statusCode}");
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        Fluttertoast.showToast(msg: "Task Successfully Finish");
+      }
+      isAgreeLoading(false);
+    } catch (e) {
+      isAgreeLoading(false);
+      print("Error $e");
+    }
+  }
+
+  taskerAccepted(bidId) async {
+    var token = _box.read(LocalStoreKey.token);
+
+    var mapData = {"tasker_accepted": '1'};
+    print(" bid id $bidId");
+    try {
+      isAgreeLoading(true);
+
+      var response = await http.patch(Uri.parse("${baseUrl}bid/$bidId"),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+          body: mapData);
+
+      print(" status code ${response.statusCode}");
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        Fluttertoast.showToast(msg: "Task Successfully Finish");
+      }
+      isAgreeLoading(false);
+    } catch (e) {
+      isAgreeLoading(false);
+      print("Error $e");
+    }
+  }
+   taskerConfirmed(bidId) async {
+    var token = _box.read(LocalStoreKey.token);
+
+    var mapData = {"tasker_confirmed": '1'};
+    print(" bid id $bidId");
+    try {
+      isAgreeLoading(true);
+
+      var response = await http.patch(Uri.parse("${baseUrl}bid/$bidId"),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+          body: mapData);
+
+      print(" status code ${response.statusCode}");
+
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        Fluttertoast.showToast(msg: "Task Successfully Finish");
+      }
+      isAgreeLoading(false);
+    } catch (e) {
+      isAgreeLoading(false);
+      print("Error $e");
+    }
+  }
+
 
   taskCashPayment({bidId}) async {
     var token = _box.read(LocalStoreKey.token);
@@ -174,9 +284,9 @@ print("co $jsonString");
     try {
       isCashLoading(true);
 
-      var response = await http.patch(Uri.parse("${baseUrl}taskbids/$bidId"),
+      var response = await http.patch(Uri.parse("${baseUrl}bid/$bidId"),
           headers: {
-            'Accept': 'application/json',
+            'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token,
           },
           body: jsonEncode({"pay": '1', "paymethod": 'cash'}));
@@ -185,6 +295,36 @@ print("co $jsonString");
         var jsonData = jsonDecode(response.body);
         print("counter offer $jsonData");
         Get.snackbar("Trip Offer", "Agree Successfully ",
+            backgroundColor: navyBlueColor);
+      }
+         isCashLoading(false);
+    } catch (e) {
+        isCashLoading(false);
+      print("Error $e");
+
+    }
+  }
+
+  taskCancleOffer({id}) async {
+    var token = _box.read(LocalStoreKey.token);
+
+    var mapData = {"status": "canceled", "timediff": "212222"};
+    print(" bid id $id");
+    try {
+      isCancleLoading(true);
+      //  var response = await ApiService().postData(mapData, "tripbids/$bidId");
+      var response =
+          await http.patch(Uri.parse("${baseUrl}canceltaskoffer/$id"),
+              headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + token,
+              },
+              body: mapData);
+      print(" status code ${response.statusCode}");
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        print("counter offer $jsonData");
+        Get.snackbar("Trip Offer", "Cancel Successfully ",
             backgroundColor: navyBlueColor);
       }
     } catch (e) {

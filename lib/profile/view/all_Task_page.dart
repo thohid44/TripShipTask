@@ -555,6 +555,32 @@ class _AllTaskPageState extends State<AllTaskPage>
                                           ],
                                         ),
                                       ),
+
+                                        GestureDetector(
+                                    onTap: () {
+                                   var path = details.path!;
+
+                                    Get.to(TaskDetailPage(path),
+                                        duration: Duration(
+                                            milliseconds:
+                                                300), //duration of transitions, default 1 sec
+                                        transition: Transition
+                                            .leftToRight //transition effect
+
+                                        );
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                     height: 25.h,
+                                     width: 60.w,
+                                      decoration: BoxDecoration(
+                                          color: navyBlueColor,
+                                          borderRadius:
+                                              BorderRadius.circular(5.r)),
+                                      child: CustomText("Details", Colors.white,
+                                          FontWeight.bold, 12.sp),
+                                    ),
+                                  ),
                                     ],
                                   ),
                                 ),

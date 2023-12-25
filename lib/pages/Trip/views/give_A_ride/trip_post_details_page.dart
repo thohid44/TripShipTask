@@ -21,6 +21,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_give_post_edit.dart';
+import 'package:tripshiptask/pages/Trip/views/trip_E_payment.dart';
 
 class TripDetailsPage extends StatefulWidget {
   String path;
@@ -281,53 +282,52 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                                   ? Container(
                                                       child: Column(
                                                         children: [
-
-                                      trip.bids[index][
+                                                          trip.bids[index][
                                                                       'complete'] ==
                                                                   0
                                                               ? Container()
-                                                              : Row(
-                                                                  children: [
-                                                                    Container(
-                                                                      child:
-                                                                          Text(
-                                                                        "Ride Completed. Proceed to Pay?",
-                                                                        style: TextStyle(
-                                                                            color:
-                                                                                Colors.black,
-                                                                            fontSize: 12.sp,
-                                                                            fontWeight: FontWeight.w500),
-                                                                      ),
+                                                              : Row(children: [
+                                                                  Container(
+                                                                    child: Text(
+                                                                      "Ride Completed. Proceed to Pay?",
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .black,
+                                                                          fontSize: 12
+                                                                              .sp,
+                                                                          fontWeight:
+                                                                              FontWeight.w500),
                                                                     ),
-                                                                    SizedBox(
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 5.w,
+                                                                  ),
+                                                                  CustomButtonOne(
                                                                       width:
-                                                                          5.w,
-                                                                    ),
-                                                                    CustomButtonOne(
-                                                                        width: 50
-                                                                            .w,
-                                                                        height: 25
-                                                                            .h,
-                                                                        marginLR:
-                                                                            0.w,
-                                                                        radius:
-                                                                            5.r,
-                                                                        fontSize: 12
-                                                                            .sp,
-                                                                        btnColor:
-                                                                            const Color(
-                                                                                0xff039be5),
-                                                                        title:
-                                                                            "Yes",
-                                                                        onTab:
-                                                                            () {
-                                                                          {
-                                                                            tripPayment(
-                                                                                context,
-                                                                                trip.bids[index]['id'].toString(),
-                                                                                trip.pay);
-                                                                          }
-                                                                        })]),
+                                                                          50.w,
+                                                                      height:
+                                                                          25.h,
+                                                                      marginLR:
+                                                                          0.w,
+                                                                      radius:
+                                                                          5.r,
+                                                                      fontSize:
+                                                                          12.sp,
+                                                                      btnColor:
+                                                                          const Color(
+                                                                              0xff039be5),
+                                                                      title:
+                                                                          "Yes",
+                                                                      onTab:
+                                                                          () {
+                                                                        {
+                                                                          tripPayment(
+                                                                              context,
+                                                                              trip.bids[index]['id'].toString(),
+                                                                              trip.pay);
+                                                                        }
+                                                                      })
+                                                                ]),
                                                           trip.bids[index]
                                                                       ['co'] ==
                                                                   null
@@ -429,15 +429,14 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                                                         ontab:
                                                                             () {
                                                                           finishRide(
-                                                                              context,  trip.bids[index]['id'].toString());
+                                                                              context,
+                                                                              trip.bids[index]['id'].toString());
                                                                         },
                                                                       ),
                                                                     )
                                                                   : Container(),
                                                             ],
                                                           ),
-
-                                                          
                                                           trip.bids[index][
                                                                       'complete'] ==
                                                                   1
@@ -456,7 +455,6 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                                                   ),
                                                                 )
                                                               : Container(),
-                                                              
                                                         ],
                                                       ),
                                                     )
@@ -1004,7 +1002,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
     );
   }
 
-  Future<dynamic> tripPayment(BuildContext context, bidsId, acceptAmount) {
+  Future<void> tripPayment(BuildContext context, bidsId, acceptAmount) {
     return showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -1063,7 +1061,12 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                             fontSize: 13.sp,
                             title: "E-Pay",
                             btnColor: navyBlueColor,
-                            onTab: () {})
+                            onTab: () {
+                              // var bidId = bidsId;
+                              // tripEPayment(context, bidId);
+                              Get.to(TripEPaymentPage());
+                           
+                            })
                       ],
                     )
                   ],
@@ -1072,7 +1075,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
     );
   }
 
-  Future<dynamic> tripCashPayment(BuildContext context, bidId) {
+  Future<void> tripCashPayment(BuildContext context, bidId) {
     return showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -1120,7 +1123,8 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                             title: "Yes",
                             btnColor: navyBlueColor,
                             onTab: () {
-                              controller.tripCashPayment(bidId: bidId);
+                              controller.tripEPayment(bidId: bidId);
+                              Navigator.pop(context);
                             })
                       ],
                     )
@@ -1130,7 +1134,65 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
     );
   }
 
-  Future<dynamic> agreeOffer(
+  Future<void> tripEPayment(BuildContext context, bidId) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(child: Text("Make E-Payment?")),
+          content: Container(
+              alignment: Alignment.center,
+              height: 85.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "I give consent to this transaction.",
+                          style: TextStyle(
+                              fontSize: 11.sp, fontWeight: FontWeight.normal),
+                        )),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 70.w,
+                            radius: 5.r,
+                            marginLR: 10.w,
+                            fontSize: 14.sp,
+                            title: "No",
+                            btnColor: Colors.red,
+                            onTab: () {
+                              Get.back();
+                            }),
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            title: "Yes",
+                            btnColor: navyBlueColor,
+                            onTab: () {
+                              Get.to(TripEPaymentPage());
+                            })
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
+
+  agreeOffer(
     BuildContext context,
   ) {
     return showDialog(
@@ -1232,7 +1294,6 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                         onTab: () {
                           controller.counterTripOffer(
                               bidId: id, amount: amount.text.toString());
-                        
                         })
                   ],
                 )
@@ -1397,7 +1458,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
     );
   }
 
-  Future<dynamic> finishRide(BuildContext context,bidId) {
+  Future<dynamic> finishRide(BuildContext context, bidId) {
     return showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -1502,8 +1563,8 @@ class bidButton extends StatelessWidget {
           "$title",
           style: TextStyle(
               color: Colors.white,
-              fontSize: size ?? 12.sp,
-              fontWeight: FontWeight.w700),
+              fontSize: size ?? 11.sp,
+              fontWeight: FontWeight.w400),
         ),
       ),
     );

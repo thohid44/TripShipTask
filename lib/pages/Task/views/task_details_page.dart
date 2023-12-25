@@ -84,199 +84,515 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                     children: [
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 5.w),
-                        height: 550.h,
-                        child
-                            : ListView(
-                                children: [
-                                  SizedBox(
-                                    height: 15.h,
-                                  ),
-                                  TripDetailsWidget(
-                                      status: false,
-                                      title: "Title",
-                                      value:
-                                          "${snapshot.data.myTaskDetailsModel.id}"),
-                                  TripDetailsWidget(
-                                      status: false,
-                                      title: "Skills Required",
-                                      value: "${task.skills[0]}"),
-                                  TripDetailsWidget(
-                                      status: false,
-                                      title: " Task Location",
-                                      value: "${task!.location}"),
-                                  TripDetailsWidget(
-                                      status: false,
-                                      title: " Offered Amount",
-                                      value: "${task.amount.toString()}.Tk"),
-                                  TripDetailsWidget(
-                                      status: false,
-                                      title: "Time",
-                                      value: "${task.time}"),
-                                  TripDetailsWidget(
-                                      status: false,
-                                      title: "Task Date",
-                                      value:
-                                          "${DateFormat.yMMMd().format(task.date)}"),
-                                  TripDetailsWidget(
-                                      status: false,
-                                      title: "Hour needed ",
-                                      value: "${task.hourNeed} hour"),
-                                  task.bids.length != 0
-                                      ? Container(
-                                          height: 400.h,
-                                          child: ListView.builder(
-                                              itemCount: snapshot
-                                                  .data
-                                                  .myTaskDetailsModel
-                                                  .bids
-                                                  .length,
-                                              itemBuilder: (context, index) {
-                                                return Container(
-                                                    margin:
-                                                        EdgeInsets.all(10.h),
-                                                    padding:
-                                                        EdgeInsets.all(5.h),
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.grey[300],
-                                                    ),
-                                                    child: Column(
-                                                      children: [
-                                                        ShipDetailsWidget(
-                                                            title: "Post By",
-                                                            width: 80.0,
-                                                            valueWidth: 180.0,
-                                                            value:
-                                                                "${snapshot.data!.myTaskDetailsModel!.bids[index]['bidder_name']}",
-                                                            status: false),
-                                                        SizedBox(
-                                                          height: 5.h,
-                                                        ),
-                                                        ShipDetailsWidget(
-                                                            title: "Amount",
-                                                            width: 80.0,
-                                                            valueWidth: 180.0,
-                                                            value:
-                                                                "${snapshot.data!.myTaskDetailsModel!.bids[index]['amount']}",
-                                                            status: false),
-                                                        SizedBox(
-                                                          height: 5.h,
-                                                        ),
-                                                        snapshot.data!.myTaskDetailsModel!
-                                                                            .bids[
-                                                                        index][
-                                                                    'accepted'] ==
-                                                                1
-                                                            ? Container(
-                                                                child:
-                                                                    customText(
-                                                                  title:
-                                                                      "Offer accepted",
-                                                                ),
-                                                              )
-                                                            : Container(),
-                                                        Row(
-                                                          children: [
-                                                            Text(
-                                                                "Confirm the Shipment?"),
-                                                            SizedBox(
-                                                              width: 20.w,
-                                                            ),
-                                                            InkWell(
-                                                                onTap: () {},
-                                                                child: Container(
-                                                                    padding: EdgeInsets.symmetric(
-                                                                        horizontal: 15
-                                                                            .w,
-                                                                        vertical: 5
-                                                                            .h),
-                                                                    decoration: const BoxDecoration(
-                                                                        color: Colors
-                                                                            .green),
-                                                                    child: const Text(
-                                                                        "Yes"))),
-                                                            SizedBox(
-                                                              width: 15.w,
-                                                            ),
-                                                            InkWell(
-                                                                onTap: () {},
-                                                                child: Container(
-                                                                    padding: EdgeInsets.symmetric(
-                                                                        horizontal: 15
-                                                                            .w,
-                                                                        vertical: 5
-                                                                            .h),
-                                                                    decoration: const BoxDecoration(
-                                                                        color: Colors
-                                                                            .orange),
-                                                                    child: Text(
-                                                                        "No"))),
-                                                          ],
-                                                        )
-                                                      ],
-                                                    ));
-                                              }),
-                                        )
-                                      : Container(),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  task.userId.toString() ==
-                                          _box.read(LocalStoreKey.userId)
-                                      ? Container()
-                                      : Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                    backgroundColor:
-                                                        Colors.green),
-                                                onPressed: () {
-                                                  
-                                                },
-                                            
-                                                child: Text("Accept",style:TextStyle(color: Colors.white))),
-                                            SizedBox(width: 10.w),
-                                            ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                    backgroundColor:
-                                                        Colors.deepPurple),
-                                                onPressed: () {
-                                         makeOffer(context, task.amount);
-                                             
-                                                },
-                                                
-                                                child: Text("Make Offer", 
-                                                style: TextStyle(color: Colors.white),
-                                                )),
-                                          ],
+                        height: 650.h,
+                        child: ListView(
+                          children: [
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            TripDetailsWidget(
+                                status: false,
+                                title: "Title",
+                                value:
+                                    "${snapshot.data.myTaskDetailsModel.id}"),
+                            TripDetailsWidget(
+                                status: false,
+                                title: "Skills Required",
+                                value: "${task.skills[0]}"),
+                            TripDetailsWidget(
+                                status: false,
+                                title: " Task Location",
+                                value: "${task!.location}"),
+                            TripDetailsWidget(
+                                status: false,
+                                title: " Offered Amount",
+                                value: "${task.amount.toString()}.Tk"),
+                            TripDetailsWidget(
+                                status: false,
+                                title: "Time",
+                                value: "${task.time}"),
+                            TripDetailsWidget(
+                                status: false,
+                                title: "Task Date",
+                                value:
+                                    "${DateFormat.yMMMd().format(task.date)}"),
+                            TripDetailsWidget(
+                                status: false,
+                                title: "Hour needed ",
+                                value: "${task.hourNeed} hour"),
+                            Container(
+                              height: 400.h,
+                              child: ListView.builder(
+                                  itemCount: snapshot
+                                      .data.myTaskDetailsModel.bids.length,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                        margin: EdgeInsets.all(10.h),
+                                        padding: EdgeInsets.all(5.h),
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[300],
                                         ),
-                                  task.userId == _box.read(LocalStoreKey.userId)
-                                      ? Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                        child: Column(
                                           children: [
-                                            bidButton(
-                                              ontab: () {
-                                                Get.to(
-                                                    UpdateOfferTask(task.path));
-                                              },
-                                              title: "Edit Task",
-                                              width: 80.w,
-                                              size: 15.sp,
+                                            ShipDetailsWidget(
+                                                title: "Post By",
+                                                width: 80.0,
+                                                valueWidth: 180.0,
+                                                value:
+                                                    "${snapshot.data!.myTaskDetailsModel!.bids[index]['bidder_name']}",
+                                                status: false),
+                                            SizedBox(
+                                              height: 5.h,
                                             ),
-                                            bidButton(
-                                              ontab: () {},
-                                              title: "Cancel Task",
-                                              width: 100.w,
-                                              size: 15.sp,
-                                              color: Colors.amberAccent,
+                                            ShipDetailsWidget(
+                                                title: "Amount",
+                                                width: 80.0,
+                                                valueWidth: 180.0,
+                                                value:
+                                                    "${snapshot.data!.myTaskDetailsModel!.bids[index]['amount']}",
+                                                status: false),
+                                            SizedBox(
+                                              height: 5.h,
                                             ),
+                                               ShipDetailsWidget(
+                                                title: "Payment Status",
+                                                width: 110.0,
+                                                valueWidth: 180.0,
+                                                value:
+                                                    "${snapshot.data!.myTaskDetailsModel!.bids[index]['paid']}",
+                                                status: false),
+                                            SizedBox(
+                                              height: 5.h,
+                                            ),
+// Task Poster Part Start
+
+                                           Container(
+                                            child: Column(
+                                              children: [
+                                                // after make offer part Start
+                task.bids[index]['amount'] ==null?Container(): Padding(
+                                              padding:
+                                                  EdgeInsets.only(left: 0.w),
+                                              child: Row(
+                                                children: [
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      children: [
+                                                        TextSpan(
+                                                          text:
+                                                              "Counter Offer Recieved: ",
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 12.sp,
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          text:
+                                                              '${task.bids[index]['amount'].toString()} BDT',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 2.w,
+                                                  ),
+                                                  task.bids[index]
+                                                              ['accepted'] ==
+                                                          1
+                                                      ? bidButton(
+                                                          ontab: () {
+                                                            //     acceptOffer(context, task.bids[index]['id'].toString(), task.bids[index]['amount'].toString());
+                                                          },
+                                                          title: "Accepted",
+                                                          color:
+                                                              Color(0xff00BC8B),
+                                                        )
+                                                      : bidButton(
+                                                          ontab: () {
+                                                            acceptOffer(
+                                                                context,
+                                                                task.bids[index]
+                                                                        ['id']
+                                                                    .toString(),
+                                                                task.bids[index]
+                                                                        [
+                                                                        'amount']
+                                                                    .toString());
+                                                          },
+                                                          title: "Accept",
+                                                          width: 45.w,
+                                                          color:
+                                                              Color(0xff00BC8B),
+                                                        ),
+                                                  SizedBox(
+                                                    width: 5.w,
+                                                  ),
+                                                  task.bids[index]['co'] != null
+                                                      ? Container()
+                                                      : bidButton(
+                                                          width: 70.w,
+                                                          ontab: () {
+                                                            counterOffer(
+                                                                context,
+                                                                task.bids[index]
+                                                                        ['id']
+                                                                    .toString(),
+                                                                task.bids[index]
+                                                                        [
+                                                                        'amount']
+                                                                    .toString());
+                                                          },
+                                                          title:
+                                                              "Counter Offer",
+                                                          color:
+                                                              Color(0xff00BC8B),
+                                                        ),
+                                                ],
+                                              ),
+                                            ),
+                                            // after make offer part end
+                                              ],
+                                            ),
+                                           ),
+
+                                            SizedBox(
+                                              height: 5.h,
+                                            ),
+                                            // Make Offer End
+                                            // task.bids[index]['co'] == null
+                                            //     ? Container()
+                                            //     :
+
+                                            Padding(
+                                              padding:
+                                                  EdgeInsets.only(left: 0.w),
+                                              child: Row(
+                                                children: [
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      children: [
+                                                        TextSpan(
+                                                          text:
+                                                              "Counter Offer Sent: ",
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 12.sp,
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          text:
+                                                              '${task.bids[index]['co'].toString()} BDT',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 12.sp,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 5.w,
+                                                  ),
+                                                  task.bids[index]['agree'] == 1
+                                                      ? Container(
+                                                          child: Text(
+                                                            "Agreed",
+                                                            style: TextStyle(
+                                                                fontSize: 12.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                color: Colors
+                                                                    .green),
+                                                          ),
+                                                        )
+                                                      : Text(
+                                                          "Pending",
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 12.sp,
+                                                              color:
+                                                                  Colors.red),
+                                                        ),
+                                                  SizedBox(
+                                                    width: 5.w,
+                                                  ),
+                                                  task.bids[index]
+                                                              ['accepted'] ==
+                                                          1
+                                                      ? bidButton(
+                                                          ontab: () {
+                                                            //    acceptOffer(context, task.bids[index]['id'].toString(), task.bids[index]['co'].toString());
+                                                          },
+                                                          title: "Accepted",
+                                                          color:
+                                                              Color(0xff00BC8B),
+                                                        )
+                                                      : bidButton(
+                                                          ontab: () {
+                                                            acceptOffer(
+                                                                context,
+                                                                task.bids[index]
+                                                                        ['id']
+                                                                    .toString(),
+                                                                task.bids[index]
+                                                                        ['co']
+                                                                    .toString());
+                                                          },
+                                                          title: "Accept",
+                                                          width: 50.w,
+                                                          color: navyBlueColor,
+                                                        ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 5.h,
+                                            ),
+                                            // If Bidder Accepted , then Confirm is show Part Start
+                                            
+                                    task.bids[index]['tasker_accepted'] ==0 ? Container(
+                                    
+                                    ): Row(
+                                              children: [
+                                               
+                                                Text(
+                                                  "Offer Accepted. Confirm The Task",
+                                                  style: TextStyle(
+                                                      fontSize: 12.sp,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.black),
+                                                ),
+                                                SizedBox(
+                                                  width: 10.w,
+                                                ),
+                                                InkWell(
+                                                    onTap: () {
+                                                      taskerConfirmed(
+                                                        context,
+                                                        task.bids[index]['id'],
+                                                      );
+                                                   
+                                                    },
+                                                    child: Container(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal:
+                                                                    12.w,
+                                                                vertical: 5.h),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                color: Colors
+                                                                    .green),
+                                                        child: Text(
+                                                          "Confirm",
+                                                          style: TextStyle(
+                                                              fontSize: 12.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color:
+                                                                  Colors.white),
+                                                        ))),
+                                              ],
+                                            ),
+                                            // If Bidder Accepted , then Confirm is show Part End
+
+                                            SizedBox(
+                                              height: 5.h,
+                                            ),
+
+                                            // If Task Confirm or Agree
+                                   task.bids[index]['tasker_confirmed'] ==0 ? Container():   Row(
+                                              children: [
+                                                Text(
+                                                  "Task Confirmed. Waitting For Finish",
+                                                  style: TextStyle(
+                                                      fontSize: 12.sp,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.red),
+                                                ),
+                                                SizedBox(
+                                                  width: 10.w,
+                                                ),
+                                                // InkWell(
+                                                //     onTap: () {
+                                                //       taskFinish(
+                                                //           context,
+                                                //           task.bids[index]
+                                                //               ['id']);
+                                                //     },
+                                                //     child: Container(
+                                                //         padding: EdgeInsets
+                                                //             .symmetric(
+                                                //                 horizontal:
+                                                //                     12.w,
+                                                //                 vertical: 5.h),
+                                                //         decoration:
+                                                //             BoxDecoration(
+                                                //                 color: Colors
+                                                //                     .green),
+                                                //         child: Text(
+                                                //           "Finish",
+                                                //           style: TextStyle(
+                                                //               fontSize: 12.sp,
+                                                //               fontWeight:
+                                                //                   FontWeight
+                                                //                       .w500,
+                                                //               color:
+                                                //                   Colors.white),
+                                                //         ),),
+                                                //         ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5.h,
+                                            ),
+                                            // If Task complete
+                              task.bids[index]['complete'] ==0? Container():  Row(
+                                              children: [
+                                                Text(
+                                                  "Task Completed. Proceed to Pay?",
+                                                  style: TextStyle(
+                                                      fontSize: 12.sp,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.black),
+                                                ),
+                                                SizedBox(
+                                                  width: 10.w,
+                                                ),
+                                                InkWell(
+                                                    onTap: () {
+                                                      shipPayment(
+                                                          context,
+                                                          task.bids[index]
+                                                              ['id'],
+                                                          task.bids[index]
+                                                              ['co']);
+                                                    },
+                                                    child: Container(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal:
+                                                                    12.w,
+                                                                vertical: 5.h),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                color: Colors
+                                                                    .green),
+                                                        child: Text(
+                                                          "Yes",
+                                                          style: TextStyle(
+                                                              fontSize: 12.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color:
+                                                                  Colors.white),
+                                                        ))),
+                                                SizedBox(
+                                                  width: 7.w,
+                                                ),
+                                                InkWell(
+                                                    onTap: () {},
+                                                    child: Container(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal:
+                                                                    12.w,
+                                                                vertical: 5.h),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                color: Colors
+                                                                    .orange),
+                                                        child: Text(
+                                                          "No",
+                                                          style: TextStyle(
+                                                              fontSize: 12.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color:
+                                                                  Colors.white),
+                                                        ))),
+                                              ],
+                                            ),
+                                        
                                           ],
-                                        )
-                                      : Container(),
-                                ],
-                              ),
+                                        ));
+                                  }),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Container(
+                              height: 50.h,
+                              child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.green),
+                                            onPressed: () {},
+                                            child: Text("Accept",
+                                                style: TextStyle(
+                                                    fontSize: 12.sp,
+                                                    color: Colors.white))),
+                                        SizedBox(width: 10.w),
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    Colors.deepPurple),
+                                            onPressed: () {
+                                              makeOffer(context, task.amount);
+                                            },
+                                            child: Text(
+                                              "Make Offer",
+                                              style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  color: Colors.white),
+                                            )),
+                                      ],
+                                    ),
+                            ),
+                            task.userId == _box.read(LocalStoreKey.userId)
+                                ? Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      bidButton(
+                                        ontab: () {
+                                          Get.to(UpdateOfferTask(task.path));
+                                        },
+                                        title: "Edit Task",
+                                        width: 80.w,
+                                        size: 15.sp,
+                                      ),
+                                      bidButton(
+                                        ontab: () {},
+                                        title: "Cancel Task",
+                                        width: 100.w,
+                                        size: 15.sp,
+                                        color: Colors.amberAccent,
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                          ],
+                        ),
                       )
                     ],
                   ),
@@ -287,6 +603,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
   }
 
   var taskProCon = Get.put(TaskProcessController());
+
   Future<dynamic> makeOffer(BuildContext context, amt) {
     return showDialog(
       context: context,
@@ -364,28 +681,22 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                             title: "Submit",
                             btnColor: navyBlueColor,
                             onTab: () {
-   taskProCon.bidTaskOffer(
+                              print(amount.text.toString());
+
+                              print(shortmessage.text.toString());
+                              var _isValid =
+                                  _formOfferkey.currentState!.validate();
+                              if (_isValid) {
+                                taskProCon.taskMakeOffer(
                                     amount: amount.text.toString(),
                                     taskId: taskId.toString(),
                                     message: shortmessage.text.toString());
-
-                              // print(amount.text.toString());
-
-                              // print(shortmessage.text.toString());
-                              // var _isValid =
-                              //     _formOfferkey.currentState!.validate();
-                              // if (_isValid) {
-                              //   taskProCon.bidTaskOffer(
-                              //       amount: amount.text.toString(),
-                              //       taskId: taskId.toString(),
-                              //       message: shortmessage.text.toString());
-                              // } else {
-                              //   ScaffoldMessenger.of(context)
-                              //       .showSnackBar(const SnackBar(
-                              //     content: Text("Offer not submitted"),
-                              //   ));
-                              // }
-                             
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text("Offer not submitted"),
+                                ));
+                              }
                             })
                       ],
                     )
@@ -433,7 +744,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                       children: [
                         CustomButtonOne(
                             height: 30.h,
-                            width: 90.w,
+                            width: 80.w,
                             radius: 5.r,
                             marginLR: 5.w,
                             fontSize: 13.sp,
@@ -442,14 +753,13 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                             onTab: () {
                               var bidId = bidsId;
                               shipCashPaymet(context, bidId);
-                             
                             }),
                         SizedBox(
                           width: 20.w,
                         ),
                         CustomButtonOne(
                             height: 30.h,
-                            width: 90.w,
+                            width: 80.w,
                             radius: 5.r,
                             marginLR: 0.w,
                             fontSize: 13.sp,
@@ -512,9 +822,8 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                             title: "Yes",
                             btnColor: navyBlueColor,
                             onTab: () {
-                          
-                            taskProCon.taskCashPayment(bidId: bidId);
-                              Navigator.pop(context);
+                              taskProCon.taskCashPayment(bidId: bidId);
+                             
                             })
                       ],
                     )
@@ -565,8 +874,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                             title: "Yes",
                             btnColor: navyBlueColor,
                             onTab: () {
-                          taskProCon.taskAgree( taskId);
-                            
+                              taskProCon.taskAgree(taskId);
                             })
                       ],
                     )
@@ -588,14 +896,14 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
             child: Form(
                 child: Column(
               children: [
-                // Container(
-                //   height: 40.h,
-                //   child: CustomForm(
-                //     textController: amount,
-                //     hinttext: "$amt",
-                //     radius: 10.r,
-                //   ),
-                // ),
+                Container(
+                  height: 40.h,
+                  child: CustomForm(
+                    textController: amount,
+                    hinttext: "$amt",
+                    radius: 10.r,
+                  ),
+                ),
                 SizedBox(
                   height: 20.h,
                 ),
@@ -624,7 +932,8 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                         title: "Yes",
                         btnColor: navyBlueColor,
                         onTab: () {
-                       taskProCon.taskCounterOffer(bidId: id,amount: amount);
+                          taskProCon.taskCounterOffer(
+                              bidId: id, amount: amount.text.toString());
                         })
                   ],
                 )
@@ -671,6 +980,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                             btnColor: Colors.red,
                             onTab: () {
                               Get.back();
+                              setState(() {});
                             }),
                         SizedBox(
                           width: 30.w,
@@ -683,12 +993,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                             title: "Yes",
                             btnColor: navyBlueColor,
                             onTab: () {
-                  
-                             setState(() {
-                              Get.back();
-                              }
-                              
-                              );
+                              taskProCon.taskAccept(bidsId);
                             })
                       ],
                     )
@@ -698,8 +1003,170 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
     );
   }
 
+  //  Tasker Confirmed
+  Future<dynamic> taskerConfirmed(BuildContext context, bidId) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(
+              child: Text(
+            "Want to Confirm?",
+            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+          )),
+          content: Container(
+              alignment: Alignment.center,
+              height: 75.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 70.w,
+                            radius: 5.r,
+                            marginLR: 10.w,
+                            fontSize: 14.sp,
+                            title: "No",
+                            btnColor: Colors.red,
+                            onTab: () {
+                              setState(() {
+                                Get.back();
+                              });
+                            }),
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            title: "Yes",
+                            btnColor: navyBlueColor,
+                            onTab: () {
+                              taskProCon.taskerConfirmed(bidId);
+                            })
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
 
+  //  tasker accepted
+  Future<dynamic> taskerAccepted(BuildContext context, bidId) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(
+              child: Text(
+            "Want to Confirm?",
+            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+          )),
+          content: Container(
+              alignment: Alignment.center,
+              height: 75.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 70.w,
+                            radius: 5.r,
+                            marginLR: 10.w,
+                            fontSize: 14.sp,
+                            title: "No",
+                            btnColor: Colors.red,
+                            onTab: () {
+                              setState(() {
+                                Get.back();
+                              });
+                            }),
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            title: "Yes",
+                            btnColor: navyBlueColor,
+                            onTab: () {
+                              taskProCon.taskerAccepted(bidId);
+                            })
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
 
+  //  task Finish
+  Future<dynamic> taskFinish(BuildContext context, bidId) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: Center(
+              child: Text(
+            "Want to Finish?",
+            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+          )),
+          content: Container(
+              alignment: Alignment.center,
+              height: 75.h,
+              decoration: BoxDecoration(),
+              child: Form(
+                key: _formOfferkey,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButtonOne(
+                            height: 30.h,
+                            width: 70.w,
+                            radius: 5.r,
+                            marginLR: 10.w,
+                            fontSize: 14.sp,
+                            title: "No",
+                            btnColor: Colors.red,
+                            onTab: () {
+                              setState(() {
+                                Get.back();
+                              });
+                            }),
+                        SizedBox(
+                          width: 30.w,
+                        ),
+                        CustomButtonOne(
+                            width: 70.w,
+                            height: 30.h,
+                            radius: 5.r,
+                            marginLR: 0.w,
+                            title: "Yes",
+                            btnColor: navyBlueColor,
+                            onTab: () {
+                              taskProCon.taskFinish(bidId);
+                            })
+                      ],
+                    )
+                  ],
+                ),
+              ))),
+    );
+  }
 }
 
 class TripDetailsWidget extends StatelessWidget {
@@ -729,6 +1196,27 @@ class TripDetailsWidget extends StatelessWidget {
                     Colors.black, FontWeight.normal, 14.sp),
               ),
       ],
+    );
+  }
+}
+
+class CustomForm extends StatelessWidget {
+  TextEditingController? textController;
+  double? radius;
+  String? hinttext;
+
+  CustomForm({super.key, this.hinttext, this.radius, this.textController});
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: textController,
+      style: TextStyle(color: Colors.black),
+      decoration: InputDecoration(
+        hintText: hinttext ?? "Enter Data",
+        border: OutlineInputBorder(),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(radius ?? 0.0.r)),
+      ),
     );
   }
 }

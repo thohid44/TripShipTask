@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:tripshiptask/Api_services/ApiService.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/colors.dart';
@@ -10,6 +11,7 @@ import 'package:tripshiptask/pages/Trip/model/trips_search_model.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:tripshiptask/pages/Trip/views/trip_E_payment.dart';
 
 // Counter offer, trip agree, accept trip, bidOnTrip
 
@@ -543,7 +545,8 @@ class TripController extends GetxController {
     }
   }
 
-  var isCashPayment = false.obs; 
+  var isCashPayment = false.obs;
+
   tripCashPayment({bidId}) async {
     var token = _box.read(LocalStoreKey.token);
 
@@ -556,26 +559,60 @@ class TripController extends GetxController {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token,
           },
-          body: jsonEncode({
-    "pay": "1",
-    "paymethod": "cash"
-}));
+          body: jsonEncode({"pay": "1", "paymethod": "cash"}));
       print("Response code ${response.statusCode}");
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
         print("counter offer $jsonData");
         Get.snackbar("Trip Payment", "Agree Successfully ",
             backgroundColor: navyBlueColor);
-             isCashPayment(false);
+        isCashPayment(false);
       }
     } catch (e) {
-       isCashPayment(false);
+      isCashPayment(false);
+      print("Error $e");
+    }
+  }
+
+  var isEPayment = false.obs;
+
+  tripEPayment({context,bidId}) async {
+    var token = _box.read(LocalStoreKey.token);
+
+    print(" bid id $bidId");
+    try {
+      isEPayment(true);
+
+      var response = await http.patch(Uri.parse("${baseUrl}tripbids/$bidId"),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+          body: jsonEncode({
+            "module": "trip",
+            "post_type": "offer",
+            "currency": "BDT",
+            "bid": "7"
+          }));
+      print("Response code ${response.statusCode}");
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        print("Peyment Process $jsonData");
+
+        Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TripEPaymentPage()),
+            );
+
+        isEPayment(false);
+      }
+    } catch (e) {
+      isEPayment(false);
       print("Error $e");
     }
   }
 
   tripCancle({slug}) async {
-
     var token = _box.read(LocalStoreKey.token);
 
     var mapData = {"status": "canceled", "timediff": "212222"};

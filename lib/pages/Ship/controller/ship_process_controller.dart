@@ -22,6 +22,7 @@ class ShipProcessController extends GetxController {
 
     var isFinishShipment = false.obs;
   finishShip({bidId}) async {
+    
     var token = _box.read(LocalStoreKey.token);
     var mapData = {'completed': '1'};
     print(" bid id $bidId");
