@@ -15,7 +15,7 @@ import 'package:tripshiptask/Widget/custom_text_field.dart';
 import 'package:tripshiptask/pages/Login/controller/LoginController.dart';
 import 'package:tripshiptask/text_constant_file.dart';
 
-import 'email_verification_optional_information.dart';
+
 
 class EmailVerification extends StatefulWidget {
   const EmailVerification({super.key});
@@ -344,9 +344,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                                           spreadRadius: 8, //spread radius
                                           blurRadius: 7, // blur radius
                                           offset: Offset(3,
-                                              5), // changes position of shadow
-                                          //first paramerter of offset is left-right
-                                          //second parameter is top to down
+                                              5), 
                                         ),
                                       ]),
                                   child: Text(
@@ -379,9 +377,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                                           spreadRadius: 8, //spread radius
                                           blurRadius: 7, // blur radius
                                           offset: Offset(3,
-                                              5), // changes position of shadow
-                                          //first paramerter of offset is left-right
-                                          //second parameter is top to down
+                                              5), 
                                         ),
                                       ]),
                                   child: Text(
@@ -1048,14 +1044,29 @@ print("Facebook Link   ${controller.facebookLink.value}");
                             }
                             if (controller.nidPic2.value.isEmpty) {
                               Get.snackbar("NID", "Filed is required");
-                            } else if (educationValue == null) {
+                            } else if (controller.education.value.isEmpty) {
                               Get.snackbar("Education", "Filed is required");
-                            } else if (questionValue == null) {
+                            } else if (controller.question.value.isEmpty) {
                               Get.snackbar("Question", "Filed is required");
-                            } else if (answerValue == null) {
-                              Fluttertoast.showToast(msg:"  Answer Filed is required");
-                            //  Get.snackbar("Answer", "Filed is required");
-                            } else {
+                            } else if (controller.answer.value.isEmpty) {
+
+                              Fluttertoast.showToast(msg:"Answer Filed is required");
+                        
+                            }  else if (controller.idPic1.value.isEmpty) {
+                            Fluttertoast.showToast(msg:"Work ID Front Filed is required");
+                            } else if (controller.idPic2.value.isEmpty) {
+                              Fluttertoast.showToast(msg:"Work ID Back Filed is required");
+                            }
+                            // else if (controller.day.value.isEmpty) {
+                            // Fluttertoast.showToast(msg:"Day Filed is required");
+                            // } else if (controller.month.value.isEmpty) {
+                            //   Fluttertoast.showToast(msg:"Month Filed is required");
+                            // } else if (controller.year.value.isEmpty) {
+                            //   Fluttertoast.showToast(msg:"Year Filed is required");
+                        
+                          //  }
+                            
+                            else {
                              controller.registrationTwo();
                             }
                            

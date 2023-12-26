@@ -124,7 +124,7 @@ class LoginController extends GetxController {
     try {
       isLoadingReg2(true);
       //multipart post
-      http.MultipartRequest request = http.MultipartRequest('POST', url);
+      http.MultipartRequest request = http.MultipartRequest('GET', url);
 
       request.fields['identity_no'] = identityNo.value.toString();
       request.fields['user_id'] = userId.value.toString();
