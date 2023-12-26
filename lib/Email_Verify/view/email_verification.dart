@@ -1,4 +1,6 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:super_tooltip/super_tooltip.dart';
+import 'package:tripshiptask/Email_Verify/scan_work_id.dart';
 import 'package:tripshiptask/Email_Verify/view/email_pin_option_screen.dart';
 import 'package:tripshiptask/Email_Verify/view/scan_nid_page.dart';
 import 'package:tripshiptask/Utils/colors.dart';
@@ -23,7 +25,6 @@ class EmailVerification extends StatefulWidget {
 }
 
 class _EmailVerificationState extends State<EmailVerification> {
-
   List<Map<String, dynamic>> educationList = [
     {"id": 1, "name": "SSC", "slug": "vaccination"},
     {"id": 2, "name": "HSC", "slug": "deworming"},
@@ -33,6 +34,12 @@ class _EmailVerificationState extends State<EmailVerification> {
     {"id": 6, "name": "BBA", "slug": "medicine"},
     {"id": 7, "name": "MBA", "slug": "vet_visit"},
     {"id": 8, "name": "MA", "slug": "reports"},
+  ];
+  List<Map<String, dynamic>> professionList = [
+    {"id": 1, "name": "Engr", "slug": "Engr"},
+    {"id": 2, "name": "Doctor", "slug": "Doctor"},
+    {"id": 3, "name": "Army", "slug": "Army"},
+  
   ];
   List<Map<String, dynamic>> securityQuestionList = [
     {"id": 1, "name": "What is your pet name", "slug": "petname"},
@@ -109,10 +116,14 @@ class _EmailVerificationState extends State<EmailVerification> {
     {"id": 3, "name": "B+", "slug": "O+"},
     {"id": 4, "name": "AB+", "slug": "AB+"},
   ];
-   var selectBlood;
+  var selectBlood;
   var selectEducationType;
   String? educationValue;
   bool isEducation = false;
+  var selectProfessionType;
+  String? professionLValue;
+  bool isProfession = false;
+
   var selectQuestionType;
   String? questionValue;
   bool isQuestion = false;
@@ -191,76 +202,57 @@ class _EmailVerificationState extends State<EmailVerification> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.only(left: 20. w, right: 5.w),
+            margin: EdgeInsets.only(left: 20.w, right: 5.w),
             child: Column(
               children: [
-
                 InkWell(
-                  onTap: () {
-                //    Get.to(ProfilePhoto());
-                  },
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 80.h,
-                        color: Colors.amber,
-                      child: Image.asset(
-                        "assets/logo2.png",
-                       
-                      )),
-                     
-                       Text(
-                        "TripShipTask",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 13.sp),
-                      ),
-                    Text(
-                        "Connect Assist Earn",
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 9.sp),
-                      ),
-
-                    ],
-                  )
-                ),
+                    onTap: () {
+                      //    Get.to(ProfilePhoto());
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                            height: 80.h,
+                            color: Colors.amber,
+                            child: Image.asset(
+                              "assets/logo2.png",
+                            )),
+                        Text(
+                          "TripShipTask",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 13.sp),
+                        ),
+                        Text(
+                          "Connect Assist Earn",
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 9.sp),
+                        ),
+                      ],
+                    )),
                 SizedBox(
                   height: 10.h,
                 ),
-                 Container(
-                           
-                              width: 300.w,
-                              child: SuperTooltip(
-                                content: const Text(
-                                  "$facebookText",
-                                  softWrap: true,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                
-                                onHide: () {
-                                  
-                                },
-                                child: Text(
-                    "Why do I need to provide the following information?",
-                    style: TextStyle(
-                         color: Color(0xffFFBF00),
-                        fontWeight: FontWeight.normal,
-                        fontSize: 12.sp),
+                Container(
+                  width: 300.w,
+                  child: SuperTooltip(
+                    content: const Text(
+                      "$facebookText",
+                      softWrap: true,
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                    onHide: () {},
+                    child: Text(
+                      "Why do I need to provide the following information?",
+                      style: TextStyle(
+                          color: Color(0xffFFBF00),
+                          fontWeight: FontWeight.normal,
+                          fontSize: 12.sp),
+                    ),
                   ),
-                              ),
-                            ),
-                // Container(
-                //   width: 300.w,
-                //   alignment: Alignment.center,
-                //   child: Text(
-                //     "Why do I need to provide the following information?",
-                //     style: TextStyle(
-                //          color: Color(0xffFFBF00),
-                //         fontWeight: FontWeight.normal,
-                //         fontSize: 12.sp),
-                //   ),
-                // ),
+                ),
+               
                 SizedBox(
                   height: 10.h,
                 ),
@@ -292,7 +284,6 @@ class _EmailVerificationState extends State<EmailVerification> {
                   child: Column(
                     children: [
                       Container(
-                        
                         child: Row(
                           children: [
                             CustomTextForm(
@@ -301,10 +292,15 @@ class _EmailVerificationState extends State<EmailVerification> {
                               fontSize: 12.sp,
                               errorMsg: "NID/Passport/DL is required!",
                               hinttext: "NID/Passport/DL/BirthCert",
+                              onChanged: (value) {
+                                controller.identityNo.value = value;
+
+                                print(
+                                    "NId Number ${controller.identityNo.value}");
+                              },
                             ),
                             Container(
                               width: 17.w,
-                            
                               child: SuperTooltip(
                                 content: const Text(
                                   "$nidText",
@@ -313,10 +309,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                                     color: Colors.black,
                                   ),
                                 ),
-                                
-                                onHide: () {
-                                  
-                                },
+                                onHide: () {},
                                 child: Icon(
                                   Icons.question_mark,
                                   color: Color(0xffFFBF00),
@@ -329,277 +322,233 @@ class _EmailVerificationState extends State<EmailVerification> {
                       ),
 
                       Container(
-                      
                         child: Row(
-                           
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Get.to(ScanNIDPage());
-                                },
-                                child: Card(
-                                  elevation: 5,
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height: 36.h,
-                                    width: 128.w,
-                                    decoration: BoxDecoration(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Get.to(ScanNIDPage());
+                              },
+                              child: Card(
+                                elevation: 5,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: 36.h,
+                                  width: 128.w,
+                                  decoration: BoxDecoration(
                                       color: offWhite,
                                       borderRadius: BorderRadius.circular(5.r),
-                                        boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-                  //first paramerter of offset is left-right
-                  //second parameter is top to down
-                ),
-              ]
-                                    ),
-                                    child: Text(
-                                      "ID Photo using Camera",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 10.sp,
-                                          color: Colors.black),
-                                    ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0xffF1F4F9).withOpacity(
+                                              0.5), //color of shadow
+                                          spreadRadius: 8, //spread radius
+                                          blurRadius: 7, // blur radius
+                                          offset: Offset(3,
+                                              5), // changes position of shadow
+                                          //first paramerter of offset is left-right
+                                          //second parameter is top to down
+                                        ),
+                                      ]),
+                                  child: Text(
+                                    "ID Photo using Camera",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 10.sp,
+                                        color: Colors.black),
                                   ),
                                 ),
                               ),
-                           
-                              InkWell(
-                                onTap: () {
-                                  Get.to(ScanNIDPage());
-                                },
-                                child: Card(
-                                  elevation: 5,
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height: 36.h,
-                                    width: 128.w,
-                                    decoration: BoxDecoration(
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Get.to(ScanNIDPage());
+                              },
+                              child: Card(
+                                elevation: 5,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: 36.h,
+                                  width: 128.w,
+                                  decoration: BoxDecoration(
                                       color: offWhite,
                                       borderRadius: BorderRadius.circular(5.r),
-                                        boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-                  //first paramerter of offset is left-right
-                  //second parameter is top to down
-                ),
-              ]
-                                    ),
-                                    child: Text(
-                                      "ID Photo from Gallery",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 10.sp,
-                                          color: Colors.black),
-                                    ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0xffF1F4F9).withOpacity(
+                                              0.5), //color of shadow
+                                          spreadRadius: 8, //spread radius
+                                          blurRadius: 7, // blur radius
+                                          offset: Offset(3,
+                                              5), // changes position of shadow
+                                          //first paramerter of offset is left-right
+                                          //second parameter is top to down
+                                        ),
+                                      ]),
+                                  child: Text(
+                                    "ID Photo from Gallery",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 10.sp,
+                                        color: Colors.black),
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
+                        ),
                       ),
-                      
 
                       SizedBox(
                         height: 2.h,
                       ),
 
                       Row(
-
                         children: [
                           CustomDropDown(
-                              width: 232.w,
+                              width: 212.w,
                               height: 35.h,
                               selectEducationType: selectEducationType,
                               title: "Education",
-                            
                               items: educationList,
                               selectedValue: selectEducationType,
                               onChanged: (value) {
+                            controller.education.value = value; 
+                            print("Education ${   controller.education.value}");
                                 print("object $selectEducationType");
                               },
                               labelText: "Education"),
-                              Container(
-                              width: 17.w,
-                            
-                              child: SuperTooltip(
-                                content: const Text(
-                                  "$educationText",
-                                  softWrap: true,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                
-                                onHide: () {
-                                  
-                                },
-                                child: Icon(
-                                  Icons.question_mark,
-                                  color: Color(0xffFFBF00),
-                                  size: 20.h,
+                          Container(
+                            width: 15.w,
+                            child: SuperTooltip(
+                              content: const Text(
+                                "$educationText",
+                                softWrap: true,
+                                style: TextStyle(
+                                  color: Colors.black,
                                 ),
                               ),
+                              onHide: () {},
+                              child: Icon(
+                                Icons.question_mark,
+                                color: Color(0xffFFBF00),
+                                size: 20.h,
+                              ),
                             ),
+                          ),
                         ],
                       ),
                       // 2nd section
                       SizedBox(
                         height: 2.h,
                       ),
-                         Row(
-
+                      Row(
                         children: [
-                          CustomDropDown(
-                              width: 232.w,
-                              height: 35,
+                       CustomDropDown(
+                              width: 212.w,
+                              height: 35.h,
                               selectEducationType: selectEducationType,
                               title: "Profession",
-                            
-                              items: educationList,
-                              selectedValue: selectEducationType,
+                              items: professionList,
+                              selectedValue: selectProfessionType,
                               onChanged: (value) {
+                            controller.education.value = value; 
+                            print("Profession ${   controller.education.value}");
                                 print("object $selectEducationType");
                               },
                               labelText: "Profession"),
-                              Container(
-                              width: 17.w,
-                            
-                              child: SuperTooltip(
-                                content: const Text(
-                                  "$professionText",
-                                  softWrap: true,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                
-                                onHide: () {
-                                  
-                                },
-                                child: Icon(
-                                  Icons.question_mark,
-                                  color: Color(0xffFFBF00),
-                                  size: 20.h,
+
+                          Container(
+                            width: 17.w,
+                            child: SuperTooltip(
+                              content: const Text(
+                                "$professionText",
+                                softWrap: true,
+                                style: TextStyle(
+                                  color: Colors.black,
                                 ),
                               ),
+                              onHide: () {},
+                              child: Icon(
+                                Icons.question_mark,
+                                color: Color(0xffFFBF00),
+                                size: 20.h,
+                              ),
                             ),
+                          ),
                         ],
                       ),
-                     
+
                       SizedBox(
                         height: 2.h,
                       ),
- Container(
-                        
+                      Container(
                         child: Row(
                           children: [
                             CustomTextForm(
                               width: width,
                               height: 36.h,
-                                 fontSize: 12.sp,
+                              fontSize: 12.sp,
                               errorMsg: "Company Name is Required!",
                               hinttext: "Company Name",
+                              onChanged: (value) {
+                                controller.companyName.value = value;
+                                print(
+                                    "Company Name ${controller.companyName.value}");
+                              },
                             ),
-                            // Container(
-                            //   width: 17.w,
-                            
-                            //   child: SuperTooltip(
-                            //     content: const Text(
-                            //       "",
-                            //       softWrap: true,
-                            //       style: TextStyle(
-                            //         color: Colors.black,
-                            //       ),
-                            //     ),
-                                
-                            //     onHide: () {
-                                  
-                            //     },
-                            //     child: Icon(
-                            //       Icons.question_mark,
-                            //       color: Color(0xffFFBF00),
-                            //       size: 20.h,
-                            //     ),
-                            //   ),
-                            // ),
+                           
                           ],
                         ),
                       ),
-                    SizedBox(
-                        height: 2.h,
-                      ),
-                       Container(
-                        
-                        child: Row(
-                          children: [
-                            CustomTextForm(
-                              width: width,
-                              height: 36.h,
-                                fontSize: 12.sp,
-                              errorMsg: "Designation is Required!",
-                              hinttext: "Designation",
-                            ),
-                            // Container(
-                            //   width: 17.w,
-                            
-                            //   child: SuperTooltip(
-                            //     content: const Text(
-                            //       "$nidText",
-                            //       softWrap: true,
-                            //       style: TextStyle(
-                            //         color: Colors.black,
-                            //       ),
-                            //     ),
-                                
-                            //     onHide: () {
-                                  
-                            //     },
-                            //     child: Icon(
-                            //       Icons.question_mark,
-                            //       color: Color(0xffFFBF00),
-                            //       size: 20.h,
-                            //     ),
-                            //   ),
-                            // ),
-                          ],
-                        ),
-                      ),
-                   SizedBox(
+                      SizedBox(
                         height: 2.h,
                       ),
                       Container(
-                       
                         child: Row(
+                          children: [
+                            CustomTextForm(
+                              width: width,
+                              height: 36.h,
+                              fontSize: 12.sp,
+                              errorMsg: "Designation is Required!",
+                              hinttext: "Designation",
+                              onChanged: (value) {
+                                controller.designation.value = value;
+                                print(
+                                    "Designation ${controller.designation.value}");
+                              },
+                            ),
                          
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Container(
+                        child: Row(
                           children: [
                             Card(
                               elevation: 5,
                               child: Container(
-                              alignment: Alignment.center,
-                                    height: 36.h,
-                                    width: 125.w,
+                                alignment: Alignment.center,
+                                height: 36.h,
+                                width: 125.w,
                                 decoration: BoxDecoration(
-                                  color: primaryColor,
-                                  borderRadius: BorderRadius.circular(5.r),
+                                    color: primaryColor,
+                                    borderRadius: BorderRadius.circular(5.r),
                                     boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-                  //first paramerter of offset is left-right
-                  //second parameter is top to down
-                ),
-              ]
-                                ),
+                                      BoxShadow(
+                                        color: Color(0xffF1F4F9)
+                                            .withOpacity(0.5), //color of shadow
+                                        spreadRadius: 8, //spread radius
+                                        blurRadius: 7, // blur radius
+                                        offset: Offset(
+                                            3, 5), // changes position of shadow
+                                        //first paramerter of offset is left-right
+                                        //second parameter is top to down
+                                      ),
+                                    ]),
                                 child: Text(
                                   "Work ID using Camera (Optional)",
                                   style: TextStyle(
@@ -610,33 +559,42 @@ class _EmailVerificationState extends State<EmailVerification> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 3.w,), 
+                            SizedBox(
+                              width: 3.w,
+                            ),
                             Card(
                               elevation: 5,
-                              child: Container(
-                                alignment: Alignment.center,
-                                    height: 36.h,
-                                    width: 125.w,
-                                decoration: BoxDecoration(
-                                  color: primaryColor,
-                                  borderRadius: BorderRadius.circular(5.r),
-                                    boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-                  //first paramerter of offset is left-right
-                  //second parameter is top to down
-                ),]
-                                ),
-                                child: Text(
-                                  "Work ID from Gallery \n(Optional)",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 10.sp,
-                                      color: Colors.black),
-                                  textAlign: TextAlign.center,
+                              child: InkWell(
+                                  onTap: () {
+                                Get.to(ScanWorkId());
+                              },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: 36.h,
+                                  width: 125.w,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius: BorderRadius.circular(5.r),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0xffF1F4F9)
+                                              .withOpacity(0.5), //color of shadow
+                                          spreadRadius: 8, //spread radius
+                                          blurRadius: 7, // blur radius
+                                          offset: Offset(
+                                              3, 5), // changes position of shadow
+                                          //first paramerter of offset is left-right
+                                          //second parameter is top to down
+                                        ),
+                                      ]),
+                                  child: Text(
+                                    "Work ID from Gallery \n(Optional)",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 10.sp,
+                                        color: Colors.black),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
                               ),
                             ),
@@ -646,20 +604,23 @@ class _EmailVerificationState extends State<EmailVerification> {
                       SizedBox(
                         height: 2.h,
                       ),
-                             Container(
-                        
+                      Container(
                         child: Row(
                           children: [
                             CustomTextForm(
                               width: width,
                               height: 36.h,
-                     fontSize: 12.sp,
+                              fontSize: 12.sp,
                               errorMsg: "Nominee Name is Required!",
                               hinttext: "Nominee Name",
+                              onChanged: (value) {
+                                controller.nomineeName.value = value;
+                                print(
+                                    "Nominee Name ${controller.nomineeName.value}");
+                              },
                             ),
                             Container(
                               width: 17.w,
-                            
                               child: SuperTooltip(
                                 content: const Text(
                                   "$nomineeText",
@@ -668,10 +629,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                                     color: Colors.black,
                                   ),
                                 ),
-                                
-                                onHide: () {
-                                  
-                                },
+                                onHide: () {},
                                 child: Icon(
                                   Icons.question_mark,
                                   color: Color(0xffFFBF00),
@@ -685,8 +643,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                       SizedBox(
                         height: 2.h,
                       ),
-                             Container(
-                        
+                      Container(
                         child: Row(
                           children: [
                             CustomTextForm(
@@ -695,112 +652,76 @@ class _EmailVerificationState extends State<EmailVerification> {
                               fontSize: 12.sp,
                               errorMsg: "Nominee Contact is Required!",
                               hinttext: "Nominee Contact",
+                              onChanged: (value) {
+                                controller.nomineeName.value = value;
+                                print(
+                                    "Nominee Name ${controller.nomineeName.value}");
+                              },
                             ),
-                            // Container(
-                            //   width: 17.w,
-                            
-                            //   child: SuperTooltip(
-                            //     content: const Text(
-                            //       "",
-                            //       softWrap: true,
-                            //       style: TextStyle(
-                            //         color: Colors.black,
-                            //       ),
-                            //     ),
-                                
-                            //     onHide: () {
-                                  
-                            //     },
-                            //     child: Icon(
-                            //       Icons.question_mark,
-                            //       color: Color(0xffFFBF00),
-                            //       size: 20.h,
-                            //     ),
-                            //   ),
-                            // ),
+                       
                           ],
                         ),
                       ),
-                   SizedBox(
+                      SizedBox(
                         height: 2.h,
                       ),
-                             Container(
-                        
+                      Container(
                         child: Row(
                           children: [
                             CustomTextForm(
                               width: width,
                               height: 36.h,
-                               fontSize: 12.sp,
-                              errorMsg: "Relationship with Nominee is Required!",
+                              fontSize: 12.sp,
+                              errorMsg:
+                                  "Relationship with Nominee is Required!",
                               hinttext: "Relationship with Nominee",
+                              onChanged: (value) {
+                                controller.nominneeRelation.value = value;
+                                print(
+                                    "Relationship with Nominee  ${controller.nominneeRelation.value}");
+                              },
                             ),
-                            // Container(
-                            //   width: 17.w,
-                            
-                            //   child: SuperTooltip(
-                            //     content: const Text(
-                            //       "",
-                            //       softWrap: true,
-                            //       style: TextStyle(
-                            //         color: Colors.black,
-                            //       ),
-                            //     ),
-                                
-                            //     onHide: () {
-                                  
-                            //     },
-                            //     child: Icon(
-                            //       Icons.question_mark,
-                            //       color: Color(0xffFFBF00),
-                            //       size: 20.h,
-                            //     ),
-                            //   ),
-                            // ),
+                         
                           ],
                         ),
                       ),
                       SizedBox(
                         height: 2.h,
                       ),
-  Row(
-
+                      Row(
                         children: [
                           CustomDropDown(
-                              width: 232.w,
+                              width: 212.w,
                               height: 35,
                               selectEducationType: selectEducationType,
                               title: "Question",
-                            
-                           items: securityQuestionList,
-                          selectedValue: selectEducationType,
-                          onChanged: (value) {
-                            print("object $selectEducationType");
-                          },
-                              labelText: " Security Question"),
-
-                                Container(
-                              width: 17.w,
-                            
-                              child: SuperTooltip(
-                                content: const Text(
-                                  "$securityQesText",
-                                  softWrap: true,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
+                              items: securityQuestionList,
+                              selectedValue: selectEducationType,
+                              onChanged: (value) {
+                                             controller.question.value = value;
+                                    print("Question ${controller.question.value}");
+                              
                                 
-                                onHide: () {
-                                  
-                                },
-                                child: Icon(
-                                  Icons.question_mark,
-                                  color: Color(0xffFFBF00),
-                                  size: 20.h,
+                              },
+                              labelText: " Security Question"),
+                          Container(
+                            width: 17.w,
+                            child: SuperTooltip(
+                              content: const Text(
+                                "$securityQesText",
+                                softWrap: true,
+                                style: TextStyle(
+                                  color: Colors.black,
                                 ),
                               ),
+                              onHide: () {},
+                              child: Icon(
+                                Icons.question_mark,
+                                color: Color(0xffFFBF00),
+                                size: 20.h,
+                              ),
                             ),
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -809,80 +730,81 @@ class _EmailVerificationState extends State<EmailVerification> {
                       Row(
                         children: [
                           CustomDropDown(
-                             width: 232.w,
-                                  height: 35,
+                              width: 212.w,
+                              height: 35,
                               selectEducationType: selectEducationType,
                               title: "Answer",
                               items: sequrityAnswerList,
                               selectedValue: selectEducationType,
                               onChanged: (value) {
+                            
+                               controller.answer.value = value;
+                                    print("Month ${controller.answer.value}");
                                 print("object $selectEducationType");
                               },
                               labelText: "Security Answer"),
-                                Container(
-                              width: 17.w,
-                            
-                              child: SuperTooltip(
-                                content: const Text(
-                                  "$securityAnsText",
-                                  softWrap: true,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                
-                                onHide: () {
-                                  
-                                },
-                                child: Icon(
-                                  Icons.question_mark,
-                                  color: Color(0xffFFBF00),
-                                  size: 20.h,
+                          Container(
+                            width: 17.w,
+                            child: SuperTooltip(
+                              content: const Text(
+                                "$securityAnsText",
+                                softWrap: true,
+                                style: TextStyle(
+                                  color: Colors.black,
                                 ),
                               ),
+                              onHide: () {},
+                              child: Icon(
+                                Icons.question_mark,
+                                color: Color(0xffFFBF00),
+                                size: 20.h,
+                              ),
                             ),
+                          ),
                         ],
-
                       ),
- SizedBox(
+                      SizedBox(
                         height: 2.h,
                       ),
                       Row(
                         children: [
                           Container(
-                            width: 60.w,
+                            width: 70.w,
                             margin: EdgeInsets.only(left: 5.w),
                             decoration: const BoxDecoration(),
                             child: Text(
-                              "Dt of Birth",
+                              "Date of Birth",
                               style: TextStyle(fontSize: 11.sp),
                             ),
                           ),
                           CustomDropDown(
-                              width: 50.w,
-                              height: 35,
+                              width: 43.w,
+                              height: 35.h,
                               selectEducationType: selecDay,
                               title: "Day",
-                              
                               items: dayList,
                               selectedValue: dayValue,
                               onChanged: (value) {
+                               controller.day.value = value;
+                                    print("Day ${controller.day.value}");
                                 print("object $selecDay");
                               },
                               labelText: "Day"),
                           CustomDropDown(
-                              width: 60.w,
+                              width: 55.w,
                               height: 35,
                               selectEducationType: selectMonth,
                               title: "Month",
                               items: monthList,
                               selectedValue: monthValue,
                               onChanged: (value) {
+                                 controller.month.value = value;
+                                    print("Month ${controller.month.value}");
                                 print("object $selectMonth");
                               },
                               labelText: "Month"),
                           CustomDropDown(
-                              width: 53.w,
+                              width: 48.w,
                               height: 35.h,
                               selectEducationType: selectYear,
                               title: "Year",
@@ -890,50 +812,49 @@ class _EmailVerificationState extends State<EmailVerification> {
                               selectedValue: yearValue,
                               onChanged: (value) {
                                 print("object $selectYear");
+                                controller.year.value = value;
                               },
                               labelText: "Year"),
-                                Container(
-                              width: 17.w,
-                            
-                              child: SuperTooltip(
-                                content: const Text(
-                                  "$nidText",
-                                  softWrap: true,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                
-                                onHide: () {
-                                  
-                                },
-                                child: Icon(
-                                  Icons.question_mark,
-                                  color: Color(0xffFFBF00),
-                                  size: 20.h,
+                          Container(
+                            width: 17.w,
+                            child: SuperTooltip(
+                              content: const Text(
+                                "$nidText",
+                                softWrap: true,
+                                style: TextStyle(
+                                  color: Colors.black,
                                 ),
                               ),
+                              onHide: () {},
+                              child: Icon(
+                                Icons.question_mark,
+                                color: Color(0xffFFBF00),
+                                size: 20.h,
+                              ),
                             ),
+                          ),
                         ],
                       ),
 
-                    SizedBox(
+                      SizedBox(
                         height: 2.h,
                       ),
-                             Container(
-                        
+                      Container(
                         child: Row(
                           children: [
                             CustomTextForm(
                               width: width,
                               height: 36.h,
-                               fontSize: 12.sp,
+                              fontSize: 12.sp,
                               errorMsg: "Emergency Contact Name is Required!",
                               hinttext: "Emergency Contact Name",
+                         onChanged: (value){
+controller.emergencyContactName.value = value; 
+print("Emergency Contact Name  ${controller.emergencyContactName.value}");
+                              },
                             ),
                             Container(
                               width: 17.w,
-                            
                               child: SuperTooltip(
                                 content: const Text(
                                   "$emergencyPersonName",
@@ -942,10 +863,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                                     color: Colors.black,
                                   ),
                                 ),
-                                
-                                onHide: () {
-                                  
-                                },
+                                onHide: () {},
                                 child: Icon(
                                   Icons.question_mark,
                                   color: Color(0xffFFBF00),
@@ -956,23 +874,25 @@ class _EmailVerificationState extends State<EmailVerification> {
                           ],
                         ),
                       ),
-                     SizedBox(
+                      SizedBox(
                         height: 2.h,
                       ),
-       Container(
-                        
+                      Container(
                         child: Row(
                           children: [
                             CustomTextForm(
                               width: width,
                               height: 36.h,
-                               fontSize: 12.sp,
+                              fontSize: 12.sp,
                               errorMsg: "Emergency Contact Number is Required!",
                               hinttext: "Emergency Contact Number",
+                            onChanged: (value){
+controller.emergencyContactNumber.value = value; 
+print("Emergency Contact Number  ${controller.emergencyContactNumber.value}");
+                              },
                             ),
                             Container(
                               width: 17.w,
-                            
                               child: SuperTooltip(
                                 content: const Text(
                                   "$emergencyPersonNumer",
@@ -981,10 +901,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                                     color: Colors.black,
                                   ),
                                 ),
-                                
-                                onHide: () {
-                                  
-                                },
+                                onHide: () {},
                                 child: Icon(
                                   Icons.question_mark,
                                   color: Color(0xffFFBF00),
@@ -995,11 +912,10 @@ class _EmailVerificationState extends State<EmailVerification> {
                           ],
                         ),
                       ),
-                   SizedBox(
+                      SizedBox(
                         height: 2.h,
                       ),
-                             Container(
-                        
+                      Container(
                         child: Row(
                           children: [
                             CustomTextForm(
@@ -1008,10 +924,13 @@ class _EmailVerificationState extends State<EmailVerification> {
                               fontSize: 12.sp,
                               errorMsg: "Residence Area",
                               hinttext: "Residence Area (Optional)",
+                                onChanged: (value){
+controller.residanceArea.value = value; 
+print("Residence Area  ${controller.residanceArea.value}");
+                              },
                             ),
                             Container(
                               width: 17.w,
-                            
                               child: SuperTooltip(
                                 content: const Text(
                                   "$residenceText",
@@ -1020,10 +939,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                                     color: Colors.black,
                                   ),
                                 ),
-                                
-                                onHide: () {
-                                  
-                                },
+                                onHide: () {},
                                 child: Icon(
                                   Icons.question_mark,
                                   color: Color(0xffFFBF00),
@@ -1036,61 +952,57 @@ class _EmailVerificationState extends State<EmailVerification> {
                       ),
 
                       Row(
-
                         children: [
                           CustomDropDown(
-                              width: 232.w,
+                              width: 212.w,
                               height: 35,
                               selectEducationType: selectEducationType,
                               title: "Blood Group (Optional)",
-                            
-                           items: bloodList,
-                          selectedValue: selectBlood,
-                          onChanged: (value) {
-                            print("object $selectBlood");
-                          },
+                              items: bloodList,
+                              selectedValue: selectBlood,
+                              onChanged: (value) {
+                                print("object $selectBlood");
+                              },
                               labelText: "Blood Group(Optional)"),
-                                Container(
-                              width: 17.w,
-                            
-                              child: SuperTooltip(
-                                content: const Text(
-                                  "$bloodText",
-                                  softWrap: true,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                
-                                onHide: () {
-                                  
-                                },
-                                child: Icon(
-                                  Icons.question_mark,
-                                  color: Color(0xffFFBF00),
-                                  size: 20.h,
+                          Container(
+                            width: 17.w,
+                            child: SuperTooltip(
+                              content: const Text(
+                                "$bloodText",
+                                softWrap: true,
+                                style: TextStyle(
+                                  color: Colors.black,
                                 ),
                               ),
+                              onHide: () {},
+                              child: Icon(
+                                Icons.question_mark,
+                                color: Color(0xffFFBF00),
+                                size: 20.h,
+                              ),
                             ),
+                          ),
                         ],
                       ),
-                   SizedBox(
+                      SizedBox(
                         height: 2.h,
                       ),
-                             Container(
-                        
+                      Container(
                         child: Row(
                           children: [
                             CustomTextForm(
                               width: width,
                               height: 36.h,
-                                fontSize: 12.sp,
+                              fontSize: 12.sp,
                               errorMsg: "Facebook Link ()",
                               hinttext: "Facebook Link (Optional)",
+                                 onChanged: (value){
+controller.facebookLink.value = value; 
+print("Facebook Link   ${controller.facebookLink.value}");
+                              },
                             ),
                             Container(
                               width: 17.w,
-                            
                               child: SuperTooltip(
                                 content: const Text(
                                   "$facebookText",
@@ -1099,10 +1011,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                                     color: Colors.black,
                                   ),
                                 ),
-                                
-                                onHide: () {
-                                  
-                                },
+                                onHide: () {},
                                 child: Icon(
                                   Icons.question_mark,
                                   color: Color(0xffFFBF00),
@@ -1113,8 +1022,10 @@ class _EmailVerificationState extends State<EmailVerification> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 20.h,),
-                      
+                      SizedBox(
+                        height: 20.h,
+                      ),
+
                       CustomButtonOne(
                           marginLR: 80.w,
                           width: 100.w,
@@ -1123,24 +1034,31 @@ class _EmailVerificationState extends State<EmailVerification> {
                           height: 35.h,
                           title: "Submit",
                           onTab: () {
-                            //   if (controller.profilePic.value.isEmpty) {
-                            //     Get.snackbar("Profile", "Filed is required");
-                            //   }
-                            //   if (controller.nidPic1.value.isEmpty) {
-                            //     Get.snackbar("NID", "Filed is required");
-                            //   }
-                            //   if (controller.nidPic2.value.isEmpty) {
-                            //     Get.snackbar("NID", "Filed is required");
-                            //   } else if (educationValue == null) {
-                            //     Get.snackbar("Education", "Filed is required");
-                            //   } else if (questionValue == null) {
-                            //     Get.snackbar("Education", "Filed is required");
-                            //   } else if (answerValue == null) {
-                            //     Get.snackbar("Education", "Filed is required");
-                            //   } else {
-                            //     Get.to(EmailVerificationOptionalInfo());
-                            //   }
-                            Get.to(EmailVerificationOptionalInfo());
+                            print("Edu ${controller.education.value}");
+                            if (controller.profilePic.value.isEmpty) {
+                          //    Get.snackbar("Profile", "Filed is required");
+                                Fluttertoast.showToast(msg:"Profile Field is required", 
+                                
+                                gravity: ToastGravity.CENTER
+                                );
+                            }
+                            if (controller.nidPic1.value.isEmpty) {
+                            //  Get.snackbar("NID", "Filed is required");
+                                 Fluttertoast.showToast(msg:"NID Filed is required");
+                            }
+                            if (controller.nidPic2.value.isEmpty) {
+                              Get.snackbar("NID", "Filed is required");
+                            } else if (educationValue == null) {
+                              Get.snackbar("Education", "Filed is required");
+                            } else if (questionValue == null) {
+                              Get.snackbar("Question", "Filed is required");
+                            } else if (answerValue == null) {
+                              Fluttertoast.showToast(msg:"  Answer Filed is required");
+                            //  Get.snackbar("Answer", "Filed is required");
+                            } else {
+                             controller.registrationTwo();
+                            }
+                           
                           }),
 
                       SizedBox(
@@ -1190,18 +1108,16 @@ class _CustomDropDownState extends State<CustomDropDown> {
       elevation: 5,
       child: Container(
           padding: EdgeInsets.only(left: 10.w),
-          decoration: BoxDecoration(color: primaryColor,
-            boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-                  //first paramerter of offset is left-right
-                  //second parameter is top to down
-                ),
-              ]
-          ),
+          decoration: BoxDecoration(color: primaryColor, boxShadow: [
+            BoxShadow(
+              color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+              spreadRadius: 8, //spread radius
+              blurRadius: 7, // blur radius
+              offset: Offset(3, 5), // changes position of shadow
+              //first paramerter of offset is left-right
+              //second parameter is top to down
+            ),
+          ]),
           alignment: Alignment.center,
           height: widget.height.h ?? 35.h,
           width: widget.width.w ?? 290.w,
@@ -1222,25 +1138,29 @@ class _CustomDropDownState extends State<CustomDropDown> {
                             con.education.value = valueName = e['name'];
                             print(con.education.value);
                           }
+                           if (widget.title == "Profession") {
+                            con.profession.value = valueName = e['name'];
+                            print(con.profession.value);
+                          }
                           if (widget.title == "Question") {
-                            con.education.value = valueName = e['name'];
-                            print(con.education.value);
+                            con.question.value = valueName = e['name'];
+                            print(con.question.value);
                           }
                           if (widget.title == "Answer") {
-                            con.education.value = valueName = e['name'];
-                            print(con.education.value);
+                            con.answer.value = valueName = e['name'];
+                            print(con.answer.value);
                           }
                           if (widget.title == "Day") {
                             con.education.value = valueName = e['name'];
                             print(con.education.value);
                           }
                           if (widget.title == "Month") {
-                            con.education.value = valueName = e['name'];
-                            print(con.education.value);
+                            con.month.value = valueName = e['name'];
+                            print(con.month.value);
                           }
                           if (widget.title == "Year") {
-                            con.education.value = valueName = e['name'];
-                            print(con.education.value);
+                            con.year.value = valueName = e['name'];
+                            print(con.year.value);
                           }
                           if (widget.title == "Blood") {
                             con.bloodGroup.value = valueName = e['name'];
