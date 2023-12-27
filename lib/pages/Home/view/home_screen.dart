@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:tripshiptask/support_Ticket/view/trip_support_ticket.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -293,6 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap: (index) {
             setState(() {
               _currentIndex = index;
+              gotPage(index);
             });
           },
           items: const [
@@ -310,12 +312,18 @@ class _HomeScreenState extends State<HomeScreen> {
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
               label: 'Support Ticket',
+          
               
             ),
           ],
         ),
       ),
     );
+  }
+  gotPage(index){
+   if(index==2){
+    Get.to(TripSupportTicketPage());
+   }
   }
 
   int _currentIndex = 0;

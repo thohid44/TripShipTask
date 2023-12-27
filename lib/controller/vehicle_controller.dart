@@ -4,7 +4,6 @@ import 'package:tripshiptask/Api_services/base_url.dart';
 
 import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:tripshiptask/controller/vehicle_model.dart';
-import 'package:tripshiptask/pages/Trip/model/my_trip_posts_model.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
