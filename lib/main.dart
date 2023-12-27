@@ -74,9 +74,9 @@ class _MyAppState extends State<MyApp> {
       builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Trip Ship Task',
+          title: 'TripShipTask',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.blue
             primaryColor: Colors.black,
           ),
           home: child,
