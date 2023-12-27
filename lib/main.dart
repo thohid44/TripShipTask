@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           title: 'TripShipTask',
           theme: ThemeData(
-            primarySwatch: Colors.blue
+            primarySwatch: Colors.blue,
             primaryColor: Colors.black,
           ),
           home: child,
@@ -88,12 +88,16 @@ class _MyAppState extends State<MyApp> {
 
   ///
   bool checkUserType() {
+
     var result1 = _box.read(LocalStoreKey.token.toString());
     if (result1 != null) {
+      
       return true;
-    }
 
+    }
+    
     return false;
+
   }
 }
 

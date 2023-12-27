@@ -7,6 +7,8 @@ import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/app_constants.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:http/http.dart' as http;
+import 'package:tripshiptask/pages/Ship/model/my_ship_model.dart';
+import 'package:tripshiptask/support_Ticket/model/ticket_category_model.dart';
 
 class SupportController extends GetxController {
   final _box = GetStorage();
@@ -16,6 +18,12 @@ class SupportController extends GetxController {
   var message = ''.obs;
   var refLink = ''.obs;
   var file = ''.obs;
+
+  void onInit() {
+   
+    super.onInit();
+     getTicketCategory();
+  }
 
   supportSumbit() async {
     var token = _box.read(LocalStoreKey.token);
@@ -53,7 +61,9 @@ class SupportController extends GetxController {
       print("Error $e");
     }
   }
-var isLoading =false.obs; 
+
+  var isLoading = false.obs;
+  List<TicketCategoryModel> ticketCategoryList = <TicketCategoryModel>[].obs;
 
   getTicketCategory() async {
     var token = _box.read(LocalStoreKey.token);
@@ -70,9 +80,11 @@ var isLoading =false.obs;
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
         print(jsonData);
+           for (Map<String, dynamic> index in jsonData) {
+          ticketCategoryList.add(TicketCategoryModel.fromJson(index));
+        }
+       
 
-        // MyShipModel data = MyShipModel.fromJson(jsonData);
-        // myShip = data.data;
         isLoading(false);
       }
     } catch (e) {
@@ -81,7 +93,7 @@ var isLoading =false.obs;
     }
   }
 
-    getMyTicket() async {
+  getMyTicket() async {
     var token = _box.read(LocalStoreKey.token);
 
     try {
@@ -97,8 +109,7 @@ var isLoading =false.obs;
         var jsonData = jsonDecode(response.body);
         print(jsonData);
 
-        // MyShipModel data = MyShipModel.fromJson(jsonData);
-        // myShip = data.data;
+
         isLoading(false);
       }
     } catch (e) {
@@ -106,5 +117,4 @@ var isLoading =false.obs;
       print("Error $e");
     }
   }
-
 }
