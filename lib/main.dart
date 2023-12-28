@@ -74,7 +74,7 @@ class _MyAppState extends State<MyApp> {
       builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Trip Ship Task',
+          title: 'TripShipTask',
           theme: ThemeData(
             primarySwatch: Colors.blue,
             primaryColor: Colors.black,
@@ -88,12 +88,16 @@ class _MyAppState extends State<MyApp> {
 
   ///
   bool checkUserType() {
+
     var result1 = _box.read(LocalStoreKey.token.toString());
     if (result1 != null) {
+      
       return true;
-    }
 
+    }
+    
     return false;
+
   }
 }
 
