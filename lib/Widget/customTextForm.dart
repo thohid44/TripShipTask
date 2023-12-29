@@ -1,9 +1,10 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // Final Form
 
-class CustomTextForm extends StatelessWidget {
+class CustomTextForm1 extends StatelessWidget {
   TextEditingController? textController;
   double? width;
   double? height;
@@ -12,8 +13,8 @@ class CustomTextForm extends StatelessWidget {
   String? hinttext;
   String? errorMsg;
   double? fontSize;
-   final ValueChanged<String>? onChanged;
-  CustomTextForm(
+  final ValueChanged<String>? onChanged;
+  CustomTextForm1(
       {super.key,
       this.hinttext,
       this.width,
@@ -29,7 +30,7 @@ class CustomTextForm extends StatelessWidget {
         elevation: 5,
         child: Container(
           width: width ?? 100.w,
-          height: height ?? 25.h,
+          height: 38,
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: primaryColor,
@@ -50,8 +51,8 @@ class CustomTextForm extends StatelessWidget {
             style: TextStyle(fontSize: 11.sp),
             decoration: InputDecoration(
               hintText: hinttext ?? 'Enter hint text',
-              hintStyle:
-                  TextStyle(fontWeight: FontWeight.normal, fontSize: fontSize?? 11.sp),
+              hintStyle: TextStyle(
+                  fontWeight: FontWeight.normal, fontSize: fontSize ?? 11.sp),
               filled: true,
               fillColor: primaryColor,
               border: InputBorder.none,
@@ -62,9 +63,89 @@ class CustomTextForm extends StatelessWidget {
               }
               return null;
             },
-        onChanged: onChanged,
-
+            onChanged: onChanged,
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomTextForm extends StatelessWidget {
+  TextEditingController? textController;
+  double? width;
+  double? height;
+  double? left;
+  double? right;
+  String? hinttext;
+  String? errorMsg;
+  double? fontSize;
+  final ValueChanged<String>? onChanged;
+  CustomTextForm(
+      {super.key,
+      this.hinttext,
+      this.width,
+      this.height,
+      this.fontSize,
+      this.textController,
+      this.onChanged,
+      this.errorMsg});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 8,
+      color: primaryColor,
+      shadowColor: primaryColor,
+      borderRadius: BorderRadius.circular(5),
+      child: Container(
+        alignment: Alignment.center,
+        width: width ?? 100.w,
+          height: 38.h,
+        child: TextFormField(
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            height: 1.5, // Line height
+          ),
+          controller: textController,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(8.0),
+            hintText: hinttext ?? 'Enter hint text',
+            hintStyle: GoogleFonts.inter(
+                                fontWeight: FontWeight.normal, fontSize: 14.sp),
+            filled: true,
+            fillColor: primaryColor,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(11.0),
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(11.0),
+              borderSide: BorderSide.none,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(11.0),
+              borderSide: BorderSide.none,
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(11.0),
+              borderSide: BorderSide.none,
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(11.0),
+              borderSide: BorderSide.none,
+            ),
+            errorStyle:
+                TextStyle(height: 0), // Removes extra space for error text
+          ),
+
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return errorMsg;
+              }
+              return null;
+            },
+            onChanged: onChanged,
         ),
       ),
     );

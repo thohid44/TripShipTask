@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customTextForm.dart';
@@ -68,36 +69,33 @@ class _LoginScreenState extends State<LoginScreen> {
               SpaceWidget(
                 hight: 60.h,
               ),
+
               Container(
                 height: 120.h,
                 width: 100.w,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.r),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: primaryColor,
-                      blurStyle: BlurStyle.outer,
-                      spreadRadius: 10.0, //extend the shadow
-                      // offset: Offset(
-                      //   5.0, // Move to right 5  horizontally
-                      //   5.0, // Move to bottom 5 Vertically
-                      // ),
-                    )
-                  ],
-                ),
+                    borderRadius: BorderRadius.circular(25.r),
+                    color: primaryColor,
+                    boxShadow: [
+                      BoxShadow(
+                          color: primaryColor,
+                          offset: Offset(0, 7.0),
+                          blurRadius: 6.0,
+                          spreadRadius: 4.0)
+                    ]),
                 child: Column(
                   children: [
                     Container(
-                      width: 80.w,
-                      height: 80.h,
+                      width: 85.w,
+                      height: 85.h,
                       alignment: Alignment.center,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage("assets/logo.jpeg")),
+                            image: AssetImage("assets/transLogo.png")),
                       ),
                     ),
                     SizedBox(
-                      height: 4.h,
+                      height: 0.h,
                     ),
                     Container(
                       child: Text(
@@ -114,9 +112,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
+              
+
               SizedBox(
-                height: 10,
+                height: 40.h,
               ),
+
               SpaceWidget(
                 hight: 30.h,
               ),
@@ -126,6 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   fontSize: 14.sp,
                   textController: _email,
                   hinttext: "Enter Email"),
+
               SizedBox(
                 height: 10.h,
               ),
@@ -165,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ? Icon(Icons.visibility)
                                 : Icon(Icons.visibility_off)),
                         hintText: 'Enter Password',
-                        hintStyle: TextStyle(
+                        hintStyle: GoogleFonts.inter(
                             fontWeight: FontWeight.normal, fontSize: 14.sp),
                         filled: true,
                         fillColor: primaryColor,
@@ -214,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.center,
                 child: Text(
                   "Forgot Password?",
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     fontSize: 15.sp,
                     fontWeight: FontWeight.w600,
                     color: skyColor,
@@ -325,7 +327,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                       child: Text(
                         "Don't Have an Account ?",
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           fontSize: 15.sp,
                           color: skyColor,
                         ),
@@ -341,7 +343,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Container(
                         child: Text(
                           "Sign Up",
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                             fontSize: 17.sp,
                             fontWeight: FontWeight.w500,
                             color: skyColor,

@@ -15,8 +15,6 @@ import 'package:tripshiptask/Widget/custom_text_field.dart';
 import 'package:tripshiptask/pages/Login/controller/LoginController.dart';
 import 'package:tripshiptask/text_constant_file.dart';
 
-
-
 class EmailVerification extends StatefulWidget {
   const EmailVerification({super.key});
 
@@ -39,7 +37,6 @@ class _EmailVerificationState extends State<EmailVerification> {
     {"id": 1, "name": "Engr", "slug": "Engr"},
     {"id": 2, "name": "Doctor", "slug": "Doctor"},
     {"id": 3, "name": "Army", "slug": "Army"},
-  
   ];
   List<Map<String, dynamic>> securityQuestionList = [
     {"id": 1, "name": "What is your pet name", "slug": "petname"},
@@ -116,10 +113,14 @@ class _EmailVerificationState extends State<EmailVerification> {
     {"id": 3, "name": "B+", "slug": "O+"},
     {"id": 4, "name": "AB+", "slug": "AB+"},
   ];
-  var selectBlood;
+var selectBlood;
+  String? bloodValue;
+
   var selectEducationType;
+
   String? educationValue;
   bool isEducation = false;
+
   var selectProfessionType;
   String? professionLValue;
   bool isProfession = false;
@@ -252,7 +253,6 @@ class _EmailVerificationState extends State<EmailVerification> {
                     ),
                   ),
                 ),
-               
                 SizedBox(
                   height: 10.h,
                 ),
@@ -343,8 +343,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                                               0.5), //color of shadow
                                           spreadRadius: 8, //spread radius
                                           blurRadius: 7, // blur radius
-                                          offset: Offset(3,
-                                              5), 
+                                          offset: Offset(3, 5),
                                         ),
                                       ]),
                                   child: Text(
@@ -376,8 +375,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                                               0.5), //color of shadow
                                           spreadRadius: 8, //spread radius
                                           blurRadius: 7, // blur radius
-                                          offset: Offset(3,
-                                              5), 
+                                          offset: Offset(3, 5),
                                         ),
                                       ]),
                                   child: Text(
@@ -408,8 +406,9 @@ class _EmailVerificationState extends State<EmailVerification> {
                               items: educationList,
                               selectedValue: selectEducationType,
                               onChanged: (value) {
-                            controller.education.value = value; 
-                            print("Education ${   controller.education.value}");
+                                controller.education.value = value;
+                                print(
+                                    "Education ${controller.education.value}");
                                 print("object $selectEducationType");
                               },
                               labelText: "Education"),
@@ -439,7 +438,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                       ),
                       Row(
                         children: [
-                       CustomDropDown(
+                          CustomDropDown(
                               width: 212.w,
                               height: 35.h,
                               selectEducationType: selectEducationType,
@@ -447,12 +446,12 @@ class _EmailVerificationState extends State<EmailVerification> {
                               items: professionList,
                               selectedValue: selectProfessionType,
                               onChanged: (value) {
-                            controller.education.value = value; 
-                            print("Profession ${   controller.education.value}");
+                                controller.education.value = value;
+                                print(
+                                    "Profession ${controller.education.value}");
                                 print("object $selectEducationType");
                               },
                               labelText: "Profession"),
-
                           Container(
                             width: 17.w,
                             child: SuperTooltip(
@@ -492,7 +491,6 @@ class _EmailVerificationState extends State<EmailVerification> {
                                     "Company Name ${controller.companyName.value}");
                               },
                             ),
-                           
                           ],
                         ),
                       ),
@@ -514,7 +512,6 @@ class _EmailVerificationState extends State<EmailVerification> {
                                     "Designation ${controller.designation.value}");
                               },
                             ),
-                         
                           ],
                         ),
                       ),
@@ -561,9 +558,9 @@ class _EmailVerificationState extends State<EmailVerification> {
                             Card(
                               elevation: 5,
                               child: InkWell(
-                                  onTap: () {
-                                Get.to(ScanWorkId());
-                              },
+                                onTap: () {
+                                  Get.to(ScanWorkId());
+                                },
                                 child: Container(
                                   alignment: Alignment.center,
                                   height: 36.h,
@@ -573,12 +570,12 @@ class _EmailVerificationState extends State<EmailVerification> {
                                       borderRadius: BorderRadius.circular(5.r),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Color(0xffF1F4F9)
-                                              .withOpacity(0.5), //color of shadow
+                                          color: Color(0xffF1F4F9).withOpacity(
+                                              0.5), //color of shadow
                                           spreadRadius: 8, //spread radius
                                           blurRadius: 7, // blur radius
-                                          offset: Offset(
-                                              3, 5), // changes position of shadow
+                                          offset: Offset(3,
+                                              5), // changes position of shadow
                                           //first paramerter of offset is left-right
                                           //second parameter is top to down
                                         ),
@@ -654,7 +651,6 @@ class _EmailVerificationState extends State<EmailVerification> {
                                     "Nominee Name ${controller.nomineeName.value}");
                               },
                             ),
-                       
                           ],
                         ),
                       ),
@@ -677,7 +673,6 @@ class _EmailVerificationState extends State<EmailVerification> {
                                     "Relationship with Nominee  ${controller.nominneeRelation.value}");
                               },
                             ),
-                         
                           ],
                         ),
                       ),
@@ -694,10 +689,8 @@ class _EmailVerificationState extends State<EmailVerification> {
                               items: securityQuestionList,
                               selectedValue: selectEducationType,
                               onChanged: (value) {
-                                             controller.question.value = value;
-                                    print("Question ${controller.question.value}");
-                              
-                                
+                                controller.question.value = value;
+                                print("Question ${controller.question.value}");
                               },
                               labelText: " Security Question"),
                           Container(
@@ -733,9 +726,8 @@ class _EmailVerificationState extends State<EmailVerification> {
                               items: sequrityAnswerList,
                               selectedValue: selectEducationType,
                               onChanged: (value) {
-                            
-                               controller.answer.value = value;
-                                    print("Month ${controller.answer.value}");
+                                controller.answer.value = value;
+                                print("Month ${controller.answer.value}");
                                 print("object $selectEducationType");
                               },
                               labelText: "Security Answer"),
@@ -781,8 +773,8 @@ class _EmailVerificationState extends State<EmailVerification> {
                               items: dayList,
                               selectedValue: dayValue,
                               onChanged: (value) {
-                               controller.day.value = value;
-                                    print("Day ${controller.day.value}");
+                                controller.day.value = value;
+                                print("Day ${controller.day.value}");
                                 print("object $selecDay");
                               },
                               labelText: "Day"),
@@ -794,8 +786,8 @@ class _EmailVerificationState extends State<EmailVerification> {
                               items: monthList,
                               selectedValue: monthValue,
                               onChanged: (value) {
-                                 controller.month.value = value;
-                                    print("Month ${controller.month.value}");
+                                controller.month.value = value;
+                                print("Month ${controller.month.value}");
                                 print("object $selectMonth");
                               },
                               labelText: "Month"),
@@ -844,9 +836,10 @@ class _EmailVerificationState extends State<EmailVerification> {
                               fontSize: 12.sp,
                               errorMsg: "Emergency Contact Name is Required!",
                               hinttext: "Emergency Contact Name",
-                         onChanged: (value){
-controller.emergencyContactName.value = value; 
-print("Emergency Contact Name  ${controller.emergencyContactName.value}");
+                              onChanged: (value) {
+                                controller.emergencyContactName.value = value;
+                                print(
+                                    "Emergency Contact Name  ${controller.emergencyContactName.value}");
                               },
                             ),
                             Container(
@@ -882,9 +875,10 @@ print("Emergency Contact Name  ${controller.emergencyContactName.value}");
                               fontSize: 12.sp,
                               errorMsg: "Emergency Contact Number is Required!",
                               hinttext: "Emergency Contact Number",
-                            onChanged: (value){
-controller.emergencyContactNumber.value = value; 
-print("Emergency Contact Number  ${controller.emergencyContactNumber.value}");
+                              onChanged: (value) {
+                                controller.emergencyContactNumber.value = value;
+                                print(
+                                    "Emergency Contact Number  ${controller.emergencyContactNumber.value}");
                               },
                             ),
                             Container(
@@ -920,9 +914,10 @@ print("Emergency Contact Number  ${controller.emergencyContactNumber.value}");
                               fontSize: 12.sp,
                               errorMsg: "Residence Area",
                               hinttext: "Residence Area (Optional)",
-                                onChanged: (value){
-controller.residanceArea.value = value; 
-print("Residence Area  ${controller.residanceArea.value}");
+                              onChanged: (value) {
+                                controller.residanceArea.value = value;
+                                print(
+                                    "Residence Area  ${controller.residanceArea.value}");
                               },
                             ),
                             Container(
@@ -949,17 +944,20 @@ print("Residence Area  ${controller.residanceArea.value}");
 
                       Row(
                         children: [
-                          CustomDropDown(
-                              width: 212.w,
-                              height: 35,
-                              selectEducationType: selectEducationType,
-                              title: "Blood Group (Optional)",
+
+                             CustomDropDown(
+                              width: 205.w,
+                              height: 35.h,
+                              selectEducationType: selectBlood,
+                              title: "Blood",
                               items: bloodList,
-                              selectedValue: selectBlood,
+                              selectedValue: bloodValue,
                               onChanged: (value) {
                                 print("object $selectBlood");
+                                controller.bloodGroup.value = value;
                               },
-                              labelText: "Blood Group(Optional)"),
+                              labelText: "Blood"),
+                         
                           Container(
                             width: 17.w,
                             child: SuperTooltip(
@@ -992,9 +990,10 @@ print("Residence Area  ${controller.residanceArea.value}");
                               fontSize: 12.sp,
                               errorMsg: "Facebook Link ()",
                               hinttext: "Facebook Link (Optional)",
-                                 onChanged: (value){
-controller.facebookLink.value = value; 
-print("Facebook Link   ${controller.facebookLink.value}");
+                              onChanged: (value) {
+                                controller.facebookLink.value = value;
+                                print(
+                                    "Facebook Link   ${controller.facebookLink.value}");
                               },
                             ),
                             Container(
@@ -1032,44 +1031,43 @@ print("Facebook Link   ${controller.facebookLink.value}");
                           onTab: () {
                             print("Edu ${controller.education.value}");
                             if (controller.profilePic.value.isEmpty) {
-                          //    Get.snackbar("Profile", "Filed is required");
-                                Fluttertoast.showToast(msg:"Profile Field is required", 
-                                
-                                gravity: ToastGravity.CENTER
-                                );
+                              //    Get.snackbar("Profile", "Filed is required");
+                              Fluttertoast.showToast(
+                                  msg: "Profile Field is required",
+                                  gravity: ToastGravity.CENTER);
                             }
                             if (controller.nidPic1.value.isEmpty) {
-                            //  Get.snackbar("NID", "Filed is required");
-                                 Fluttertoast.showToast(msg:"NID Filed is required");
+                              //  Get.snackbar("NID", "Filed is required");
+                              Fluttertoast.showToast(
+                                  msg: "NID Field is required");
                             }
                             if (controller.nidPic2.value.isEmpty) {
-                              Get.snackbar("NID", "Filed is required");
+                              Get.snackbar("NID", "Field is required");
                             } else if (controller.education.value.isEmpty) {
-                              Get.snackbar("Education", "Filed is required");
+                              Get.snackbar("Education", "Field is required");
                             } else if (controller.question.value.isEmpty) {
-                              Get.snackbar("Question", "Filed is required");
+                              Get.snackbar("Question", "Field is required");
                             } else if (controller.answer.value.isEmpty) {
-
-                              Fluttertoast.showToast(msg:"Answer Filed is required");
-                        
-                            }  else if (controller.idPic1.value.isEmpty) {
-                            Fluttertoast.showToast(msg:"Work ID Front Filed is required");
+                              Fluttertoast.showToast(
+                                  msg: "Answer Field is required");
+                            } else if (controller.idPic1.value.isEmpty) {
+                              Fluttertoast.showToast(
+                                  msg: "Work ID Front Field is required");
                             } else if (controller.idPic2.value.isEmpty) {
-                              Fluttertoast.showToast(msg:"Work ID Back Filed is required");
+                              Fluttertoast.showToast(
+                                  msg: "Work ID Back Field is required");
+                            } else if (controller.day.value.isEmpty) {
+                              Fluttertoast.showToast(
+                                  msg: "Day Field is required");
+                            } else if (controller.month.value.isEmpty) {
+                              Fluttertoast.showToast(
+                                  msg: "Month Field is required");
+                            } else if (controller.year.value.isEmpty) {
+                              Fluttertoast.showToast(
+                                  msg: "Year Field is required");
+                            } else {
+                              controller.registrationTwo();
                             }
-                            // else if (controller.day.value.isEmpty) {
-                            // Fluttertoast.showToast(msg:"Day Filed is required");
-                            // } else if (controller.month.value.isEmpty) {
-                            //   Fluttertoast.showToast(msg:"Month Filed is required");
-                            // } else if (controller.year.value.isEmpty) {
-                            //   Fluttertoast.showToast(msg:"Year Filed is required");
-                        
-                          //  }
-                            
-                            else {
-                             controller.registrationTwo();
-                            }
-                           
                           }),
 
                       SizedBox(
@@ -1149,7 +1147,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                             con.education.value = valueName = e['name'];
                             print(con.education.value);
                           }
-                           if (widget.title == "Profession") {
+                          if (widget.title == "Profession") {
                             con.profession.value = valueName = e['name'];
                             print(con.profession.value);
                           }
@@ -1162,8 +1160,8 @@ class _CustomDropDownState extends State<CustomDropDown> {
                             print(con.answer.value);
                           }
                           if (widget.title == "Day") {
-                            con.education.value = valueName = e['name'];
-                            print(con.education.value);
+                            con.day.value = valueName = e['name'];
+                            print(con.day.value);
                           }
                           if (widget.title == "Month") {
                             con.month.value = valueName = e['name'];

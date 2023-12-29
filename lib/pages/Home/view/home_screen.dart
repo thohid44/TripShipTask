@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:tripshiptask/support_Ticket/view/my_tickets_page.dart';
 import 'package:tripshiptask/support_Ticket/view/trip_support_ticket.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -322,7 +323,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
   gotPage(index){
    if(index==2){
-    Get.to(TripSupportTicketPage());
+    Get.to(MyTicketsPage());
    }
   }
 

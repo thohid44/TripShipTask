@@ -9,14 +9,14 @@ import 'package:tripshiptask/Widget/customTextForm.dart';
 import 'package:tripshiptask/pages/Home/trip_ship_task_home.dart';
 import 'package:tripshiptask/support_Ticket/controller/support_controller.dart';
 
-class TripSupportTicketPage extends StatefulWidget {
-  const TripSupportTicketPage({super.key});
+class OpenATicket extends StatefulWidget {
+  const OpenATicket({super.key});
 
   @override
-  State<TripSupportTicketPage> createState() => _TripSupportTicketPageState();
+  State<OpenATicket> createState() => _OpenATicketState();
 }
 
-class _TripSupportTicketPageState extends State<TripSupportTicketPage> {
+class _OpenATicketState extends State<OpenATicket> {
   var supportCon = Get.put(SupportController());
   final ImagePicker _picker = ImagePicker();
   var image;
