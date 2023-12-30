@@ -20,16 +20,16 @@ class LoginController extends GetxController {
     Get.to(HomeScreen());
     try {
       var email1;
-      // if (email == '1') {
-      //   email1 = "test1@abaacorp.com";
-      // } else {
-      //   email1 = "waleed.amin08@gmail.com";
-      // }
+      if (email == '1') {
+        email1 = "test1@abaacorp.com";
+      } else {
+        email1 = "waleed.amin08@gmail.com";
+      }
       var mapData = {
-        "email": email,
+        "email": email1,
         //   "email":"test2@abaacorp.com",
         // "email": "waleed.amin08@gmail.com",
-        "password": password
+        "password": '123456789'
       };
 
       isLoading(true);

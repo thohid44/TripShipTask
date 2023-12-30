@@ -56,33 +56,61 @@ class TaskController extends GetxController {
     print("country $country");
     print("currency $currency");
     print("moduleId $moduleId");
+  var mapData = {
+    "selectedskill": [
+        "Neat and clean",
+        "Good looking"
+    ],
+    "title": "Task test Desctiption",
+    "category": "1",
+    "location": "Bahaddarhat, Chattogram, Bangladesh",
+    "preferred_gender": "Male",
+    "date": "2023-12-07",
+    "time": "15:08",
+    "details": "asfa",
+    "amount": "150",
+    "lat": 22.36416,
+    "lng": 91.8454272,
+    "hour_available": "0",
+    "hour_need": 5,
+    "post_type": "offer",
+    "country": "BD",
+    "currency": "BDT",
+    "moduleId": 3
+};
 
     try {
       isLoading(true);
       var response = await http.post(Uri.parse("${baseUrl}task"),
           headers: {
-            "Accept": "application/json",
+             "Content-Type": "application/json",
+                  "Accept": "application/json",
             'Authorization': 'Bearer ' + token,
           },
           body: jsonEncode({
-    "selectedskill": "$selectSkill", 
-    "title": "$title",
-    "category": "$category",
-    "location": "$location",
-    "preferred_gender": "$preferedGender",
-    "date": "$date",
-    "time": "$time",
-    "details": "$details",
-    "amount": "$amount",
-    "lat": "$lat",
-    "lng": "$lng",
-    "hour_available": "$hourAvailable",
-    "hour_need": "$hourNeed",
+    "selectedskill": [
+        "Neat and clean",
+        "Good looking"
+    ],
+    "title": "Task test Desctiption",
+    "category": "1",
+    "location": "Bahaddarhat, Chattogram, Bangladesh",
+    "preferred_gender": "Male",
+    "date": "2023-12-07",
+    "time": "15:08",
+    "details": "asfa",
+    "amount": "150",
+    "lat": 22.36416,
+    "lng": 91.8454272,
+    "hour_available": "0",
+    "hour_need": 5,
     "post_type": "offer",
     "country": "BD",
     "currency": "BDT",
-    "moduleId": '3'
-}));
+    "moduleId": 3
+})
+
+);
       print(response.statusCode);
       if (response.statusCode == 201) {
         print(response.statusCode);

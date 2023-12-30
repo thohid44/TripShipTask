@@ -1,24 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+void main() => runApp(const MyApp());
 
-class AmarPayWebView extends StatefulWidget {
-  var url;
-   AmarPayWebView({super.key, this.url});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
-  State<AmarPayWebView> createState() => _AmarPayWebViewState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          useMaterial3: true,
+        ),
+        home: const MyStatefulWidget());
+  }
 }
 
-class _AmarPayWebViewState extends State<AmarPayWebView> {
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({super.key});
+
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   late final WebViewController controller;
   var loadingPercentage = 0;
   var currentUrl = '';
-var url;
+var url = "https://www.google.com";
   @override
   void initState() {
     super.initState();
-    var url = widget.url;
     controller = WebViewController()
       ..setNavigationDelegate(NavigationDelegate(
         onPageStarted: (url) {
@@ -48,7 +61,7 @@ var url;
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('AamarPay'),
+          title: const Text('Flutter WebView example'),
         ),
         body: Stack(
           children: [

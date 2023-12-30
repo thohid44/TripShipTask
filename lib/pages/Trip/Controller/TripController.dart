@@ -576,7 +576,7 @@ class TripController extends GetxController {
 
   var isEPayment = false.obs;
 
-  tripEPayment({context,bidId}) async {
+  tripEPayment({context,bidId, module, postType}) async {
     var token = _box.read(LocalStoreKey.token);
 
     print(" bid id $bidId");
@@ -589,10 +589,10 @@ class TripController extends GetxController {
             'Authorization': 'Bearer ' + token,
           },
           body: jsonEncode({
-            "module": "trip",
-            "post_type": "offer",
+            "module": "$module",
+            "post_type": "$postType",
             "currency": "BDT",
-            "bid": "7"
+            "bid": "$bidId"
           }));
       print("Response code ${response.statusCode}");
       if (response.statusCode == 200) {

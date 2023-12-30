@@ -1,4 +1,6 @@
 import 'package:get_storage/get_storage.dart';
+import 'package:tripshiptask/Transaction/controller/transaction_controller.dart';
+import 'package:tripshiptask/Transaction/view/my_transaction_page.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:tripshiptask/Widget/customText.dart';
@@ -37,8 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/lowerBanner/lb5.png',
     'assets/lowerBanner/lb6.png',
   ];
+ 
   @override
   Widget build(BuildContext context) {
+   
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -321,9 +325,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+ 
   gotPage(index){
    if(index==2){
     Get.to(MyTicketsPage());
+   }if(index==1){
+    Get.to(MyTransactionPage());
    }
   }
 

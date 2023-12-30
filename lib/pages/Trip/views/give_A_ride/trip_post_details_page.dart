@@ -1123,7 +1123,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                             title: "Yes",
                             btnColor: navyBlueColor,
                             onTab: () {
-                              controller.tripEPayment(bidId: bidId);
+                              controller.tripEPayment(bidId: bidId, postType:trip.postType);
                               Navigator.pop(context);
                             })
                       ],

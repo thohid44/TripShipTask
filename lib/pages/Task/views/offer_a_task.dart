@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_place/google_place.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customTextForm.dart';
-import 'package:tripshiptask/Widget/drop_down_widget.dart';
-import 'package:tripshiptask/pages/Ship/views/shipPage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tripshiptask/pages/Task/controller/task_controller.dart';
+import 'package:tripshiptask/pages/Task/controller/task_seek_post.dart';
 
 class OfferATask extends StatefulWidget {
   @override
@@ -17,7 +17,7 @@ class OfferATask extends StatefulWidget {
 }
 
 class _OfferATaskState extends State<OfferATask> {
-  final controller = Get.put(TaskController());
+  final controller = Get.put(TaskSeekPostController());
   final TextEditingController location = TextEditingController();
   final TextEditingController title = TextEditingController();
   final TextEditingController amount = TextEditingController();
@@ -201,10 +201,12 @@ class _OfferATaskState extends State<OfferATask> {
   bool isSelectSkill = false;
   var fullWidth = 306.w;
   var height = 3;
+ int fontSize = 12; 
   @override
   Widget build(BuildContext context) {
     print("Id  from Main Page $categoryId");
     print("Id  from Main Page $gender");
+
     return Scaffold(
       body: Column(
         children: [
@@ -212,27 +214,33 @@ class _OfferATaskState extends State<OfferATask> {
             height: 20.h,
           ),
 
-          UnconstrainedBox(
+          Card(
+            elevation: 5,
             child: Container(
                 alignment: Alignment.center,
                 height: 35.h,
                 width: fullWidth,
                 decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(5.r),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0xffF1F4F9)
-                            .withOpacity(0.5), //color of shadow
-                        spreadRadius: 8, //spread radius
-                        blurRadius: 7, // blur radius
-                        offset: Offset(3, 5), // changes position of shadow
-                      ),
-                    ]),
+                  color: primaryColor,
+                  borderRadius: BorderRadius.circular(5.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color:
+                          Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                      spreadRadius: 8, //spread radius
+                      blurRadius: 7, // blur radius
+                      offset: Offset(3, 5), // changes position of shadow
+                    ),
+                  ],
+                ),
                 child: DropdownButton(
                     isExpanded: true,
                     hint: Text(
-                        "${isSelect ? selectcategory : 'Select Category'}"),
+                      "${isSelect ? selectcategory : 'Select Category'}",
+                      style: GoogleFonts.inter(
+                          fontSize: fontSize.sp, fontWeight: FontWeight.normal),
+                      textAlign: TextAlign.center,
+                    ),
                     underline: SizedBox(),
                     icon: const Icon(Icons.keyboard_arrow_down),
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
@@ -245,6 +253,7 @@ class _OfferATaskState extends State<OfferATask> {
                               value: e['id'],
                               child: Text(
                                 "${e['name']}",
+                                style: GoogleFonts.inter(color: Colors.black, fontWeight: FontWeight.normal, fontSize: fontSize.sp ),
                               ),
                             ))
                         .toList(),
@@ -268,67 +277,68 @@ class _OfferATaskState extends State<OfferATask> {
             width: fullWidth,
             height: 30.w,
             textController: title,
-            fontSize: 12.sp,
+            fontSize: fontSize.sp,
             hinttext: "Describe The Task",
           ),
           SizedBox(
             height: height.h,
           ),
-          UnconstrainedBox(
-            child: Card(
-              elevation: 5,
-              child: Container(
-                  alignment: Alignment.center,
-                  height: 35.h,
-                  width: fullWidth,
-                  decoration: BoxDecoration(
+       Material(
+      elevation: 8,
+      color: primaryColor,
+      shadowColor: primaryColor,
+      borderRadius: BorderRadius.circular(5),
+            child: Container(
+                alignment: Alignment.center,
+                height: 38.h,
+                width: fullWidth,
+                decoration: BoxDecoration(
                     color: primaryColor,
+                  
                     borderRadius: BorderRadius.circular(5.r),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0xffF1F4F9)
-                            .withOpacity(0.5), //color of shadow
-                        spreadRadius: 8, //spread radius
-                        blurRadius: 7, // blur radius
-                        offset: Offset(3, 5), // changes position of shadow
-                      ),
-                    ],
+                                 boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                    spreadRadius: 8, //spread radius
+                    blurRadius: 7, // blur radius
+                    offset: Offset(3, 5), // changes position of shadow
+                
                   ),
-                  child: DropdownButton(
-                      isExpanded: true,
-                      hint: Text(
-                        "${isSelectSkill ? selectSkill : 'Skill Required'}",
-                        style: TextStyle(
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      underline: SizedBox(),
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                      value: classValue,
-                      items: skills
-                          .map((e) => DropdownMenuItem(
-                                onTap: () {
-                                  selectSkill = e['name'].toString();
-                                },
-                                value: e['id'],
-                                child: Text(
-                                  "${e['name']}",
-                                ),
-                              ))
-                          .toList(),
-                      onChanged: (value) {
-                        var id = value;
-                        var skillId = value;
-                        print("Skill Id $id");
-                        // _con.getClassId(value.toString());
-                        setState(() {
-                          classId = value.toString();
-                          isSelectSkill = true;
-                        });
-                      })),
-            ),
+                ],
+                    ),
+                child: DropdownButton(
+                    isExpanded: true,
+                    hint: Text(
+                      "${isSelectSkill ? selectSkill : 'Skill Required'}",
+                      style: GoogleFonts.inter(
+                          fontSize: fontSize.sp, fontWeight: FontWeight.normal),
+                      textAlign: TextAlign.center,
+                    ),
+                    underline: SizedBox(),
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    value: classValue,
+                    items: skills
+                        .map((e) => DropdownMenuItem(
+                              onTap: () {
+                                selectSkill = e['name'].toString();
+                              },
+                              value: e['id'],
+                              child: Text(
+                                "${e['name']}", style: GoogleFonts.inter(fontSize: fontSize.sp, fontWeight:FontWeight.normal),
+                              ),
+                            ))
+                        .toList(),
+                    onChanged: (value) {
+                      var id = value;
+                      var skillId = value;
+                      print("Skill Id $id");
+                      // _con.getClassId(value.toString());
+                      setState(() {
+                        classId = value.toString();
+                        isSelectSkill = true;
+                      });
+                    })),
           ),
           SizedBox(
             height: height.h,
@@ -336,115 +346,157 @@ class _OfferATaskState extends State<OfferATask> {
           Container(
             width: fullWidth,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
                   onTap: () {
                     dairyDatePicker(context);
                   },
-                  child: Container(
-                    width: 150.w,
-                    height: 35.h,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(boxShadow: [
-                      BoxShadow(
-                        color: Color(0xffF1F4F9)
-                            .withOpacity(0.5), //color of shadow
-                        spreadRadius: 8, //spread radius
-                        blurRadius: 7, // blur radius
-                        offset: Offset(3, 5), // changes position of shadow
+                  child: Card(
+                    elevation: 5,
+                    child: Container(
+                      width: 148.w,
+                      height: 35.h,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: primaryColor,
+                                     boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ],
                       ),
-                    ]),
-                    child: dateStatus == false
-                        ? Text(
-                            "${pickDate.day}-${pickDate.month}-${pickDate.year}",
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                color: Colors.black,
-                                fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.center,
-                          )
-                        : Text(
-                            "${pickDate.day}-${pickDate.month}-${pickDate.year}"),
+                      child: dateStatus == false
+                          ? Text(
+                              "${pickDate.day}-${pickDate.month}-${pickDate.year}",
+                              style: GoogleFonts.inter(
+                                  fontSize:fontSize.sp, fontWeight: FontWeight.normal),
+                              textAlign: TextAlign.center,
+                            )
+                          : Text(
+                              "${pickDate.day}-${pickDate.month}-${pickDate.year}",
+                              style: GoogleFonts.inter(
+                                  fontSize: fontSize.sp, fontWeight: FontWeight.normal),
+                              textAlign: TextAlign.center,
+                            ),
+                    ),
                   ),
                 ),
-                SizedBox(
-                  width: 3.w,
-                ),
+              
                 InkWell(
                     onTap: _showTimePicker,
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 150.w,
-                      height: 35.h,
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 0.5.w, color: Colors.grey)),
-                      child: pickupTime != null
-                          ? Text(pickupTime!.format(context).toString())
-                          : Text("Select Time"),
+                    child: Card(
+                      elevation: 5,
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 143.w,
+                        height: 35.h,
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                                       boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ],
+                           ),
+                        child: pickupTime != null
+                            ? Text(pickupTime!.format(context).toString())
+                            : Text(
+                                "Select Time",
+                                style: GoogleFonts.inter(
+                                    fontSize: fontSize.sp,
+                                    fontWeight: FontWeight.normal),
+                                textAlign: TextAlign.center,
+                              ),
+                      ),
                     )),
               ],
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: height.h,
           ),
           CustomTextForm(
             width: fullWidth,
             height: 30.h,
             hinttext: "Task Duration (Default 1 Hour)",
-            fontSize: 11.sp,
+            fontSize:fontSize.sp,
             textController: needhour,
           ),
           SizedBox(
-            height: 5.h,
+            height: height.h,
           ),
-          Container(
-            width: fullWidth,
-            height: 30.h,
-            child: TextField(
-              controller: location,
-              autofocus: false,
-              focusNode: startFocusNode,
-              style: TextStyle(fontSize: 15.sp),
-              decoration: InputDecoration(
-                  hintText: 'Task Address / Location',
-                  hintStyle:
-                      TextStyle(fontWeight: FontWeight.normal, fontSize: 11.sp),
-                  filled: true,
-                  fillColor: primaryColor,
-                  border: InputBorder.none,
-                  suffixIcon: _startSearchFieldController.text.isNotEmpty
-                      ? IconButton(
-                          onPressed: () {
-                            setState(() {
-                              predictions = [];
-                              _startSearchFieldController.clear();
-                            });
-                          },
-                          icon: Icon(Icons.clear_outlined),
-                        )
-                      : null),
-              onChanged: (value) {
-                if (_debounce?.isActive ?? false) _debounce!.cancel();
-                _debounce = Timer(const Duration(milliseconds: 1000), () {
-                  if (value.isNotEmpty) {
-                    print("start point $value");
-                    //places api
-                    autoCompleteSearch(value);
-                  } else {
-                    //clear out the results
-                    setState(() {
-                      predictions = [];
-                      startPosition = null;
+          Card(
+            elevation: 5,
+            child: UnconstrainedBox(
+              child: Container(
+                width: fullWidth,
+                height: 38.h,
+                decoration: BoxDecoration(
+                  color: primaryColor, 
+                               boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ],
+                ),
+                child: TextField(
+                  controller: location,
+                  autofocus: false,
+                  focusNode: startFocusNode,
+                  style: GoogleFonts.inter(fontSize:fontSize.sp, fontWeight: FontWeight.normal),
+                  decoration: InputDecoration(
+                      hintText: 'Task Address / Location',
+                      hintStyle: GoogleFonts.inter(
+                          fontWeight: FontWeight.normal, fontSize: fontSize.sp),
+                      filled: true,
+                      fillColor: primaryColor,
+                      border: InputBorder.none,
+                      suffixIcon: _startSearchFieldController.text.isNotEmpty
+                          ? IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  predictions = [];
+                                  _startSearchFieldController.clear();
+                                });
+                              },
+                              icon: Icon(Icons.clear_outlined),
+                            )
+                          : null),
+                  onChanged: (value) {
+                    if (_debounce?.isActive ?? false) _debounce!.cancel();
+                    _debounce = Timer(const Duration(milliseconds: 1000), () {
+                      if (value.isNotEmpty) {
+                        print("start point $value");
+                        //places api
+                        autoCompleteSearch(value);
+                      } else {
+                        //clear out the results
+                        setState(() {
+                          predictions = [];
+                          startPosition = null;
+                        });
+                      }
                     });
-                  }
-                });
-              },
+                  },
+                ),
+              ),
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: height.h,
           ),
           ListView.builder(
               shrinkWrap: true,
@@ -459,6 +511,7 @@ class _OfferATaskState extends State<OfferATask> {
                   ),
                   title: Text(
                     predictions[index].description.toString(),
+                    style: GoogleFonts.inter(fontSize: fontSize.sp, fontWeight:FontWeight.normal),
                   ),
                   onTap: () async {
                     final placeId = predictions[index].placeId!;
@@ -480,110 +533,158 @@ class _OfferATaskState extends State<OfferATask> {
                 );
               }),
           // End Suggestion List
-          Container(
-            width: fullWidth,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: 5.w,
-                ),
-              ],
-            ),
-          ),
+        
           SizedBox(
-            height: 5.h,
+            height: height.h,
           ),
-          Container(
-            width: fullWidth,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  height: 35.h,
-                  width: fullWidth,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(5.r)),
-                  child: DropdownButton(
-                      hint:
-                          Text("${isSelect ? selectedGender : 'Give Task To'}"),
-                      underline: SizedBox(),
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      value: classValue,
-                      isExpanded: true,
-                      items: genderList
-                          .map((e) => DropdownMenuItem(
-                                onTap: () {
-                                  selectedGender = e['name'].toString();
-                                  gender = e['name'].toString();
-                                  print("Gender $gender");
-                                },
-                                value: e['id'],
-                                child: Text(
-                                  "${e['name']}",
-                                ),
-                              ))
-                          .toList(),
-                      onChanged: (value) {
-                        var id = value;
-                        print("Gender Id $id");
-                        // _con.getClassId(value.toString());
-                        setState(() {
-                          classId = value.toString();
-                          isSelect = true;
-                        });
-                      }),
+          UnconstrainedBox(
+            child: Card(
+              elevation: 5,
+              child: Container(
+                width: fullWidth,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      height: 38.h,
+                      width: fullWidth,
+                      decoration: BoxDecoration(
+                 color: primaryColor,
+                          borderRadius: BorderRadius.circular(5.r),
+                                       boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                    spreadRadius: 8, //spread radius
+                    blurRadius: 7, // blur radius
+                    offset: Offset(3, 5), // changes position of shadow
+                
+                  ),
+                ],
+                          ),
+                      child: DropdownButton(
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          hint: Text(
+                            "${isSelect ? selectedGender : 'Give Task To'}",
+                            style: TextStyle(
+                                fontSize: 13.sp, fontWeight: FontWeight.normal),
+                          ),
+                          underline: SizedBox(),
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          value: classValue,
+                          
+                          isExpanded: true,
+                          items: genderList
+                              .map((e) => DropdownMenuItem(
+                                    onTap: () {
+                                      selectedGender = e['name'].toString();
+                                      gender = e['name'].toString();
+                                      print("Gender $gender");
+                                    },
+                                    value: e['id'],
+                                    child: Text(
+                                      "${e['name']}",
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            var id = value;
+                            print("Gender Id $id");
+                            // _con.getClassId(value.toString());
+                            setState(() {
+                              classId = value.toString();
+                              
+                              isSelect = true;
+                            });
+                          }),
+                    ),
+                    SizedBox(
+                      height: height.h,
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 5.h,
-                ),
-              ],
+              ),
             ),
           ),
 
-          Container(
-            width: fullWidth,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomTextForm(
-                  hinttext: "Amount Offering",
-                  height: 30.h,
-                  width: 251.w,
-                ),
-                Card(
-                  elevation: 5,
-                  child: Container(
-                      alignment: Alignment.center,
-                      height: 30.h,
-                      width: 40.w,
-                      decoration: BoxDecoration(
-                          color: purplColor,
-                          border: Border.all(color: purplColor),
-                          borderRadius: BorderRadius.circular(5.r)),
-                      child: Text(
-                        "BDT",
-                        style: TextStyle(color: Colors.white),
-                      )),
+          UnconstrainedBox(
+            child: Container(
+              width: fullWidth,
+              decoration: BoxDecoration(
+                color: primaryColor,
+                             boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
                 ),
               ],
+              ),
+              child: Row(
+                
+                children: [
+                  CustomTextForm(
+                    hinttext: "Amount Offering",
+                    height: 30.h,
+                    fontSize: 13.sp,
+                    width: 251.w,
+                  ),
+                  Card(
+                    elevation: 5,
+                    child: Container(
+                        alignment: Alignment.center,
+                        height: 38.h,
+                        width: 40.w,
+                        decoration: BoxDecoration(
+                            color: primaryColor,
+                            border: Border.all(color: primaryColor),
+                            borderRadius: BorderRadius.circular(5.r)),
+                        child: Text(
+                          "BDT",
+                          style: GoogleFonts.inter(
+                              color: Colors.black,
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.normal),
+                        )),
+                  ),
+                ],
+              ),
             ),
           ),
-          Container(
-            width: fullWidth,
-            child: TextFormField(
-              onChanged: (value) {
-                note = value;
-                print("note is $note");
-              },
-              decoration: InputDecoration(
-                hintText: "Note",
-                border: OutlineInputBorder(),
+          UnconstrainedBox(
+            child: Card(
+              elevation: 5,
+              child: Container(
+                width: fullWidth,
+                decoration: BoxDecoration(
+                  color: primaryColor,
+                               boxShadow: [
+                BoxShadow(
+                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                  spreadRadius: 8, //spread radius
+                  blurRadius: 7, // blur radius
+                  offset: Offset(3, 5), // changes position of shadow
+              
+                ),
+              ],
+                ),
+                child: TextFormField(
+                  onChanged: (value) {
+                    note = value;
+                    print("note is $note");
+                  },
+                  decoration: InputDecoration(
+                    hintText: "Note ",
+                    hintStyle:
+                        GoogleFonts.inter(fontSize: fontSize.sp, fontWeight: FontWeight.normal),
+                    border: OutlineInputBorder(borderSide: BorderSide.none),
+                  ),
+                  minLines: 1,
+                  maxLines: 2,
+                ),
               ),
-              minLines: 1,
-              maxLines: 2,
             ),
           ),
           SizedBox(
@@ -599,8 +700,7 @@ class _OfferATaskState extends State<OfferATask> {
                 var lat = startPosition!.geometry!.location!.lat;
                 print("Start Lat $lat");
                 var lng = startPosition!.geometry!.location!.lng;
-
-                controller.postTask(
+                controller.seekTask(
                     selectSkill: selectSkill,
                     title: title.text.toString(),
                     category: categoryId.toString(),
@@ -624,6 +724,9 @@ class _OfferATaskState extends State<OfferATask> {
                 navyBlueColor;
                 10.r;
               }),
+              SizedBox(
+            height: 15.h,
+          ),
         ],
       ),
     );

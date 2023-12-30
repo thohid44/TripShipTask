@@ -115,7 +115,7 @@ class _TripEPaymentPageState extends State<TripEPaymentPage> {
                            Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AmarPayWebView()),
+                            builder: (context) => AmarPayWebView(url:"")),
                       );
                       }
                    

@@ -678,7 +678,7 @@ class _WantATaskState extends State<WantATask> {
                     print("note is $note");
                   },
                   decoration: InputDecoration(
-                    hintText: "Note",
+                    hintText: "Note seek",
                     hintStyle:
                         TextStyle(fontSize: 13.sp, fontWeight: FontWeight.normal),
                     border: OutlineInputBorder(),

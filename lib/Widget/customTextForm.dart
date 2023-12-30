@@ -112,7 +112,7 @@ class CustomTextForm extends StatelessWidget {
             contentPadding: EdgeInsets.all(8.0),
             hintText: hinttext ?? 'Enter hint text',
             hintStyle: GoogleFonts.inter(
-                                fontWeight: FontWeight.normal, fontSize: 14.sp),
+                                fontWeight: FontWeight.normal, fontSize: fontSize ?? 13.sp),
             filled: true,
             fillColor: primaryColor,
             border: OutlineInputBorder(
