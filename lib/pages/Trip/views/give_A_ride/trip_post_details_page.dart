@@ -101,10 +101,22 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                               SizedBox(
                                 height: 15.h,
                               ),
-                              TripDetailsWidget(
+                              // TripDetailsWidget(
+                              //   status: false,
+                              //   title: "Title",
+                              //   value: snapshot.data!.tripDetailsModel!.title
+                              //       .toString(),
+                              // ),
+                               TripDetailsWidget(
                                 status: false,
-                                title: "Title",
-                                value: snapshot.data!.tripDetailsModel!.title
+                                title: "Start Point",
+                                value: snapshot.data!.tripDetailsModel!.startPoint
+                                    .toString(),
+                              ),
+                               TripDetailsWidget(
+                                status: false,
+                                title: "Start Point",
+                                value: snapshot.data!.tripDetailsModel!.destination
                                     .toString(),
                               ),
                               TripDetailsWidget(
@@ -1065,7 +1077,6 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                               // var bidId = bidsId;
                               // tripEPayment(context, bidId);
                               Get.to(TripEPaymentPage());
-                           
                             })
                       ],
                     )
@@ -1123,7 +1134,8 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                             title: "Yes",
                             btnColor: navyBlueColor,
                             onTab: () {
-                              controller.tripEPayment(bidId: bidId, postType:trip.postType);
+                              controller.tripEPayment(
+                                  bidId: bidId, postType: trip.postType);
                               Navigator.pop(context);
                             })
                       ],

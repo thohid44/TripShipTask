@@ -56,28 +56,7 @@ class TaskController extends GetxController {
     print("country $country");
     print("currency $currency");
     print("moduleId $moduleId");
-  var mapData = {
-    "selectedskill": [
-        "Neat and clean",
-        "Good looking"
-    ],
-    "title": "Task test Desctiption",
-    "category": "1",
-    "location": "Bahaddarhat, Chattogram, Bangladesh",
-    "preferred_gender": "Male",
-    "date": "2023-12-07",
-    "time": "15:08",
-    "details": "asfa",
-    "amount": "150",
-    "lat": 22.36416,
-    "lng": 91.8454272,
-    "hour_available": "0",
-    "hour_need": 5,
-    "post_type": "offer",
-    "country": "BD",
-    "currency": "BDT",
-    "moduleId": 3
-};
+
 
     try {
       isLoading(true);
@@ -88,22 +67,19 @@ class TaskController extends GetxController {
             'Authorization': 'Bearer ' + token,
           },
           body: jsonEncode({
-    "selectedskill": [
-        "Neat and clean",
-        "Good looking"
-    ],
-    "title": "Task test Desctiption",
-    "category": "1",
-    "location": "Bahaddarhat, Chattogram, Bangladesh",
-    "preferred_gender": "Male",
-    "date": "2023-12-07",
-    "time": "15:08",
-    "details": "asfa",
-    "amount": "150",
-    "lat": 22.36416,
-    "lng": 91.8454272,
-    "hour_available": "0",
-    "hour_need": 5,
+    "selectedskill": [selectSkill],
+    "title": "$title",
+    "category": "$category",
+    "location": "$location",
+    "preferred_gender": "$preferedGender",
+    "date": "$date",
+    "time": "$time",
+    "details": "$details",
+    "amount": "140",
+    "lat": lat,
+    "lng": lng,
+    "hour_available": "$hourAvailable",
+    "hour_need": "$hourNeed",
     "post_type": "offer",
     "country": "BD",
     "currency": "BDT",
@@ -111,13 +87,17 @@ class TaskController extends GetxController {
 })
 
 );
-      print(response.statusCode);
+    
+          print(response.statusCode);
+        var jsonData = jsonDecode(response.body);
+  print("Task Post $jsonData");
+
       if (response.statusCode == 201) {
         print(response.statusCode);
         var jsonData = jsonDecode(response.body);
-        print("Task Post $jsonData");
+      
       Fluttertoast.showToast(
-        msg: "Task Offer Successfully Store",
+        msg: "Task Offer Successfully Stored",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
@@ -132,6 +112,8 @@ class TaskController extends GetxController {
       print("Error $e");
     }
   }
+
+
   updateGiveTask(
       {slug,
       selectSkill,title, category, location, preferedGender,
@@ -187,10 +169,12 @@ class TaskController extends GetxController {
     "moduleId": 3
 }));
       print(response.statusCode);
-      if (response.statusCode == 201) {
-        print(response.statusCode);
         var jsonData = jsonDecode(response.body);
-        print("Trip Post $jsonData");
+        print("task Post $jsonData");
+      if (response.statusCode == 200) {
+       
+        var jsonData = jsonDecode(response.body);
+        print("task Post $jsonData");
         Get.snackbar(
           "Give Task",
           "Successfully Update",

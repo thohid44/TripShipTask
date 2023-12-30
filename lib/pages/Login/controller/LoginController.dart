@@ -7,6 +7,7 @@ import 'package:tripshiptask/pages/Home/view/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:tripshiptask/pages/Login/view/email_pin_option_screen.dart';
 
 class LoginController extends GetxController {
   var isLoading = false.obs;
@@ -77,6 +78,7 @@ class LoginController extends GetxController {
       var response = await http.post(Uri.parse(url), body: mapData);
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
+           Get.to(EmailOtpScreen());
       }
       isRegLoading(false);
     } catch (e) {

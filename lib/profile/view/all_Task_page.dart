@@ -192,7 +192,7 @@ class _AllTaskPageState extends State<AllTaskPage>
                                                 onTap: () {
                                                   var path = details.path!;
 
-                                                  Get.to(TaskDetailPage(path),
+                                                  Get.to(TaskDetailPage(path,""),
                                                       duration: Duration(
                                                           milliseconds:
                                                               300), //duration of transitions, default 1 sec
@@ -360,7 +360,7 @@ class _AllTaskPageState extends State<AllTaskPage>
                                               onTap: () {
                                                 var path = details.path!;
 
-                                                Get.to(TaskDetailPage(path),
+                                                Get.to(TaskDetailPage(path,""),
                                                     duration: Duration(
                                                         milliseconds:
                                                             300), //duration of transitions, default 1 sec
@@ -560,7 +560,7 @@ class _AllTaskPageState extends State<AllTaskPage>
                                     onTap: () {
                                    var path = details.path!;
 
-                                    Get.to(TaskDetailPage(path),
+                                    Get.to(TaskDetailPage(path,""),
                                         duration: Duration(
                                             milliseconds:
                                                 300), //duration of transitions, default 1 sec

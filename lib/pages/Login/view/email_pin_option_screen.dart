@@ -1,7 +1,9 @@
 import 'dart:math';
 
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
+import 'package:tripshiptask/pages/Home/trip_ship_task_home.dart';
 import 'package:tripshiptask/profile/view/profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -27,51 +29,73 @@ class _EmailOtpScreenState extends State<EmailOtpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        title: Text(
-          "E-mail Verification",
-          style: TextStyle(
-              fontSize: 15.sp,
-              fontWeight: FontWeight.w500,
-              color: Colors.black),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.black,
-            )),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.filter,
-                color: Colors.black,
-              )),
-        ],
-      ),
+      appBar: customAppBar(),
       body: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(
               height: 20.h,
             ),
-            Container(
-              height: 100.h,
-              child: Image.asset("assets/logo.jpg"),
-            ),
+          
+              Container(
+                height: 120.h,
+                width: 100.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25.r),
+                    color: primaryColor,
+                    boxShadow: [
+                      BoxShadow(
+                          color: primaryColor,
+                          offset: Offset(0, 7.0),
+                          blurRadius: 6.0,
+                          spreadRadius: 4.0)
+                    ]),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 85.w,
+                      height: 85.h,
+                      alignment: Alignment.center,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/transLogo.png")),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 0.h,
+                    ),
+                    Container(
+                      child: Text(
+                        "TripShipTask",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 13.sp),
+                      ),
+                    ),
+                    Text(
+                      "Connect Assist Earn",
+                      style: TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 9.sp),
+                    ),
+                  ],
+                ),
+              ),
+              
+
             SizedBox(
               height: 50.h,
             ),
+           
+              Container(
+              child: Text(
+                " An OTP has been sent to your phone.",
+                style: GoogleFonts.inter(fontSize: 12.sp, color: Colors.black),
+              ),
+            ),
+            SizedBox(height: 15.h,), 
             Container(
               child: Text(
-                "Enter PIN",
-                style: TextStyle(fontSize: 14.sp, color: Colors.black),
+                "Enter OTP Code",
+                style: GoogleFonts.inter(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.black),
               ),
             ),
             SizedBox(
@@ -187,19 +211,9 @@ class _EmailOtpScreenState extends State<EmailOtpScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+            
                 CustomButtonOne(
-                    title: "CANCEL",
-                    height: 40.h,
-                    radius: 10.r,
-                    fontWeight: FontWeight.normal,
-                    marginLR: 0,
-                    btnColor: navyBlueColor,
-                    onTab: () {}),
-                SizedBox(
-                  width: 30.w,
-                ),
-                CustomButtonOne(
-                    title: "SUBMIT",
+                    title: "Verify OTP",
                     height: 40.h,
                     fontWeight: FontWeight.normal,
                     radius: 10.r,

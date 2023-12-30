@@ -27,6 +27,13 @@ class _TripGetPostState extends State<TripGetPosts> {
   var tripId;
 
   bool selectPassengerStatus = false;
+
+//   Car  4
+// Mini Van/Micro 7
+// Motorcycle
+// Electric Scooter
+// CNG/TukTuk 2
+// Rickshaw
   List<Map<String, dynamic>> items = [
     {
       "id": 1,

@@ -16,6 +16,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tripshiptask/pages/Login/view/privacy_policy.dart';
 
+import 'email_pin_option_screen.dart';
+
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
 
@@ -24,7 +26,7 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-    var logInController = Get.put(LoginController());
+  var logInController = Get.put(LoginController());
   final TextEditingController name = TextEditingController();
   final TextEditingController phone = TextEditingController();
   final TextEditingController email = TextEditingController();
@@ -59,14 +61,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return SafeArea(
         child: Scaffold(
       //backgroundColor: Colors.white,
-     
+
       body: Form(
         key: formkey,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 30.h,) , 
-                Container(
+              SizedBox(
+                height: 30.h,
+              ),
+              Container(
                 height: 100.h,
                 width: 95.w,
                 decoration: BoxDecoration(
@@ -123,30 +127,30 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               UnconstrainedBox(
                 child: Row(
                   children: [
-                 Material(
-      elevation: 8,
-      color: primaryColor,
-      shadowColor: primaryColor,
-      borderRadius: BorderRadius.circular(5),
+                    Material(
+                      elevation: 8,
+                      color: primaryColor,
+                      shadowColor: primaryColor,
+                      borderRadius: BorderRadius.circular(5),
                       child: Container(
-                                width: 40.w,
-                                height: 38.h,
-                                decoration: BoxDecoration(
-                                    color: primaryColor,
-                                    borderRadius: BorderRadius.circular(0.r),
-                                   // border: Border.all(width: 0.1),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Color(0xffF1F4F9)
-                                            .withOpacity(0.5), //color of shadow
-                                        spreadRadius: 8, //spread radius
-                                        blurRadius: 7, // blur radius
-                                        offset: Offset(
-                                            5, 5), // changes position of shadow
-                                      ),
-                                    ]),
-                                    child: Image.asset("assets/bangla.png"),
-                                    ),
+                        width: 40.w,
+                        height: 38.h,
+                        decoration: BoxDecoration(
+                            color: primaryColor,
+                            borderRadius: BorderRadius.circular(0.r),
+                            // border: Border.all(width: 0.1),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0xffF1F4F9)
+                                    .withOpacity(0.5), //color of shadow
+                                spreadRadius: 8, //spread radius
+                                blurRadius: 7, // blur radius
+                                offset:
+                                    Offset(5, 5), // changes position of shadow
+                              ),
+                            ]),
+                        child: Image.asset("assets/bangla.png"),
+                      ),
                     ),
                     CustomTextForm(
                       width: 250.w,
@@ -228,7 +232,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             errorMsg: "Phone Number is Required",
                             hinttext: "WhatsApp Number",
                             onChanged: (value) {
-                            
                               logInController.whatsAppNumber.value = value;
                             },
                           ),
@@ -249,10 +252,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 8.h,
               ),
               Material(
-                  elevation: 8,
-      color: primaryColor,
-      shadowColor: primaryColor,
-      borderRadius: BorderRadius.circular(5),
+                elevation: 8,
+                color: primaryColor,
+                shadowColor: primaryColor,
+                borderRadius: BorderRadius.circular(5),
                 child: Container(
                     width: width,
                     height: 38.h,
@@ -273,8 +276,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         isExpanded: true,
                         hint: Text(
                           "${isSelect ? genderName : 'Gender'}",
-                          style:  GoogleFonts.inter(
-                                fontWeight: FontWeight.normal, fontSize: 14.sp),
+                          style: GoogleFonts.inter(
+                              fontWeight: FontWeight.normal, fontSize: 14.sp),
                         ),
                         underline: SizedBox(),
                         icon: const Icon(Icons.keyboard_arrow_down),
@@ -375,7 +378,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   child: Row(
                     children: [
                       Container(
-                           width: 250.w,
+                        width: 250.w,
                         height: 38.h,
                         decoration: BoxDecoration(
                             color: primaryColor,
@@ -399,7 +402,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           style: TextStyle(fontSize: 15.sp),
                           decoration: InputDecoration(
                             hintText: 'Confirm Password',
-                            hintStyle:  GoogleFonts.inter(
+                            hintStyle: GoogleFonts.inter(
                                 fontWeight: FontWeight.normal, fontSize: 14.sp),
                             filled: true,
                             fillColor: primaryColor,
@@ -450,6 +453,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 radius: 11.r,
                 fontSize: 12.sp,
                 onTab: () {
+               
                   // if(formkey.currentState!.validate()){
 
                   // }

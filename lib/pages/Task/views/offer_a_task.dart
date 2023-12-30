@@ -9,6 +9,7 @@ import 'package:tripshiptask/Widget/customTextForm.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tripshiptask/pages/Task/controller/task_controller.dart';
 import 'package:tripshiptask/pages/Task/controller/task_seek_post.dart';
 
 class OfferATask extends StatefulWidget {
@@ -17,7 +18,7 @@ class OfferATask extends StatefulWidget {
 }
 
 class _OfferATaskState extends State<OfferATask> {
-  final controller = Get.put(TaskSeekPostController());
+  final controller = Get.put(TaskController());
   final TextEditingController location = TextEditingController();
   final TextEditingController title = TextEditingController();
   final TextEditingController amount = TextEditingController();
@@ -626,6 +627,7 @@ class _OfferATaskState extends State<OfferATask> {
                 
                 children: [
                   CustomTextForm(
+                    textController: amount,
                     hinttext: "Amount Offering",
                     height: 30.h,
                     fontSize: 13.sp,
@@ -700,7 +702,7 @@ class _OfferATaskState extends State<OfferATask> {
                 var lat = startPosition!.geometry!.location!.lat;
                 print("Start Lat $lat");
                 var lng = startPosition!.geometry!.location!.lng;
-                controller.seekTask(
+                controller.postTask(
                     selectSkill: selectSkill,
                     title: title.text.toString(),
                     category: categoryId.toString(),

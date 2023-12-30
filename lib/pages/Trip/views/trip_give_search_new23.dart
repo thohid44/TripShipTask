@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
@@ -168,488 +169,494 @@ class _TripGiveSearchNew23State extends State<TripGiveSearchNew23> {
     var controller = Get.put(TripController());
     return Scaffold(
       appBar: customAppBar(),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 14.h,
-          ),
-          Row(
-            children: [
-              Card(
-                elevation: 5,
-                child: Container(
-                  width: 190.w,
-                  child: TextField(
-                    controller: _startSearchFieldController,
-                    autofocus: false,
-                    focusNode: startFocusNode,
-                    style: TextStyle(fontSize: 13.sp),
-                    decoration: InputDecoration(
-                        hintText: 'Start Point',
-                        hintStyle: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 13.sp),
-                        filled: true,
-                        fillColor: primaryColor,
-                        border: InputBorder.none,
-                        suffixIcon: _startSearchFieldController.text.isNotEmpty
-                            ? IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    predictions = [];
-                                    _startSearchFieldController.clear();
-                                  });
-                                },
-                                icon: Icon(Icons.clear_outlined),
-                              )
-                            : null),
-                    onChanged: (value) {
-                      if (_debounce?.isActive ?? false) _debounce!.cancel();
-                      _debounce = Timer(const Duration(milliseconds: 1000), () {
-                        if (value.isNotEmpty) {
-                          //places api
-                          autoCompleteSearch(value);
-                        } else {
-                          //clear out the results
-                          setState(() {
-                            predictions = [];
-                            startPosition = null;
-                          });
-                        }
-                      });
-                    },
-                  ),
-                ),
-              ),
-              CustomTextForm(
-                width: 60.w,
-                height: 30.h,
-                hinttext: "Radius",
-              ),
-              SizedBox(width: 4),
-              Container(
-                alignment: Alignment.center,
-                height: 30.h,
-                width: 40.w,
-                decoration: BoxDecoration(
-                  color: primaryColor,
-                ),
-                child: Text(
-                  "Km",
-                  style:
-                      TextStyle(fontWeight: FontWeight.normal, fontSize: 13.sp),
-                ),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Container(
-            width: fullWidth,
-            child: Row(
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 14.h,
+            ),
+            Row(
               children: [
-                Container(
-                  width: 190.w,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5), // Shadow color
-                        spreadRadius: 2,
-                        blurRadius: 4,
-                        offset: Offset(2, 2),
-                      ),
-                    ],
-                  ),
-                  child: TextField(
-                    controller: _endSearchFieldController,
-                    autofocus: false,
-                    focusNode: endFocusNode,
-                    enabled: _startSearchFieldController.text.isNotEmpty &&
-                        startPosition != null,
-                    style: TextStyle(fontSize: 13.sp),
-                    decoration: InputDecoration(
-                        hintText: 'Destination',
-                        hintStyle: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 13.sp),
-                        filled: true,
-                        fillColor: primaryColor,
-                        border: InputBorder.none,
-                        suffixIcon: _endSearchFieldController.text.isNotEmpty
-                            ? IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    predictions = [];
-                                    _endSearchFieldController.clear();
-                                  });
-                                },
-                                icon: Icon(Icons.clear_outlined),
-                              )
-                            : null),
-                    onChanged: (value) {
-                      print(value);
-                      if (_debounce?.isActive ?? false) _debounce!.cancel();
-                      _debounce = Timer(const Duration(milliseconds: 1000), () {
-                        if (value.isNotEmpty) {
-                          //places api
-                          print("End point $value");
-                          autoCompleteSearch(value);
-                        } else {
-                          //clear out the results
-                          setState(() {
-                            predictions = [];
-                            endPosition = null;
-                          });
-                        }
-                      });
-                    },
+                Card(
+                  elevation: 5,
+                  child: Container(
+                    height: 38.h,
+                    width: 190.w,
+                    child: TextField(
+                      controller: _startSearchFieldController,
+                      autofocus: false,
+                      focusNode: startFocusNode,
+                      style: TextStyle(fontSize: 13.sp),
+                      decoration: InputDecoration(
+                          hintText: 'Start Point',
+                          hintStyle: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 13.sp),
+                          filled: true,
+                          fillColor: primaryColor,
+                          border: InputBorder.none,
+                          suffixIcon: _startSearchFieldController.text.isNotEmpty
+                              ? IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      predictions = [];
+                                      _startSearchFieldController.clear();
+                                    });
+                                  },
+                                  icon: Icon(Icons.clear_outlined),
+                                )
+                              : null),
+                      onChanged: (value) {
+                        if (_debounce?.isActive ?? false) _debounce!.cancel();
+                        _debounce = Timer(const Duration(milliseconds: 1000), () {
+                          if (value.isNotEmpty) {
+                            //places api
+                            autoCompleteSearch(value);
+                          } else {
+                            //clear out the results
+                            setState(() {
+                              predictions = [];
+                              startPosition = null;
+                            });
+                          }
+                        });
+                      },
+                    ),
                   ),
                 ),
                 CustomTextForm(
                   width: 60.w,
-                  height: 30.h,
+                  height: 38.h,
                   hinttext: "Radius",
-                  fontSize: 12.sp,
                 ),
                 SizedBox(width: 4),
                 Container(
                   alignment: Alignment.center,
-                  height: 30.h,
+                  height: 38.h,
                   width: 40.w,
                   decoration: BoxDecoration(
                     color: primaryColor,
                   ),
                   child: Text(
                     "Km",
-                    style: TextStyle(
-                        fontWeight: FontWeight.normal, fontSize: 13.sp),
+                    style:
+                        GoogleFonts.inter(fontWeight: FontWeight.normal, fontSize: 13.sp),
                   ),
                 )
               ],
             ),
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Container(
-            width: fullWidth,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                    width: 149.w,
-                    alignment: Alignment.center,
-                    height: 30,
-                    decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(5.r)),
-                    child: DropdownButton(
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        isExpanded: true,
-                        hint: Text(
-                          "${isVehicleSelect ? vehicleName : 'Select Vehicle'}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 13.sp),
-                        ),
-                        underline: SizedBox(),
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        value: vehicle,
-                        items: vehicleitems
-                            .map((e) => DropdownMenuItem(
-                                  onTap: () {
-                                    vehicleName = e['name'].toString();
-                                    print("Vehicle name $vehicleName");
-                                  },
-                                  value: e['id'],
-                                  child: Text(
-                                    "${e['name']}",
-                                    style: TextStyle(fontSize: 13.sp),
-                                  ),
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            isVehicleSelect = true;
-                          });
-                        })),
-                InkWell(
-                  onTap: () {
-                    dairyDatePicker(context);
-                  },
-                  child: Container(
-                    width: 150.w,
-                    height: 30.h,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: primaryColor,
-                        border: Border.all(width: 0.5.w, color: Colors.grey)),
-                    child: dateStatus == false
-                        ? Text(
-                            "Select Date",
-                            style: TextStyle(
-                                fontSize: 13.sp, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.center,
-                          )
-                        : Text(
-                            "${pickDate.day}-${pickDate.month}-${pickDate.year}"),
-                  ),
-                ),
-              ],
+            SizedBox(
+              height: 5.h,
             ),
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          ListView.builder(
-              shrinkWrap: true,
-              itemCount: predictions.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    child: Icon(
-                      Icons.pin_drop,
-                      color: Colors.white,
+            Container(
+              width: fullWidth,
+              child: Row(
+                children: [
+                  Container(
+                    height: 38.h,
+                    width: 190.w,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5), // Shadow color
+                          spreadRadius: 2,
+                          blurRadius: 4,
+                          offset: Offset(2, 2),
+                        ),
+                      ],
+                    ),
+                    child: TextField(
+                      controller: _endSearchFieldController,
+                      autofocus: false,
+                      focusNode: endFocusNode,
+                      enabled: _startSearchFieldController.text.isNotEmpty &&
+                          startPosition != null,
+                      style: GoogleFonts.inter(fontSize: 13.sp),
+                      decoration: InputDecoration(
+                          hintText: 'Destination',
+                          hintStyle:  GoogleFonts.inter(
+                              fontWeight: FontWeight.normal, fontSize: 13.sp),
+                          filled: true,
+                          fillColor: primaryColor,
+                          border: InputBorder.none,
+                          suffixIcon: _endSearchFieldController.text.isNotEmpty
+                              ? IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      predictions = [];
+                                      _endSearchFieldController.clear();
+                                    });
+                                  },
+                                  icon: Icon(Icons.clear_outlined),
+                                )
+                              : null),
+                      onChanged: (value) {
+                        print(value);
+                        if (_debounce?.isActive ?? false) _debounce!.cancel();
+                        _debounce = Timer(const Duration(milliseconds: 1000), () {
+                          if (value.isNotEmpty) {
+                            //places api
+                            print("End point $value");
+                            autoCompleteSearch(value);
+                          } else {
+                            //clear out the results
+                            setState(() {
+                              predictions = [];
+                              endPosition = null;
+                            });
+                          }
+                        });
+                      },
                     ),
                   ),
-                  title: Text(
-                    predictions[index].description.toString(),
+                  CustomTextForm(
+                    width: 55.w,
+                    height: 38.h,
+                    hinttext: "Radius",
+                    fontSize: 12.sp,
                   ),
-                  onTap: () async {
-                    final placeId = predictions[index].placeId!;
-
-                    final details = await googlePlace.details.get(placeId);
-
-                    if (details != null && details.result != null && mounted) {
-                      if (startFocusNode.hasFocus) {
-                        setState(() {
-                          startPosition = details.result;
-
-                          _startSearchFieldController.text =
-                              details.result!.name!;
-                          predictions = [];
-                        });
-                      } else {
-                        setState(() {
-                          endPosition = details.result;
-                          print(
-                              "Start Point ${endPosition!.geometry!.location!.lat}");
-                          _endSearchFieldController.text =
-                              details.result!.name!;
-                          predictions = [];
-                        });
+                  SizedBox(width: 4),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 38.h,
+                    width: 40.w,
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                    ),
+                    child: Text(
+                      "Km",
+                      style: TextStyle(
+                          fontWeight: FontWeight.normal, fontSize: 13.sp),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Container(
+              width: fullWidth,
+              child: Row(
+             
+                children: [
+                  Container(
+                      width: 149.w,
+                      alignment: Alignment.center,
+                      height: 38,
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child: DropdownButton(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          isExpanded: true,
+                          hint: Text(
+                            "${isVehicleSelect ? vehicleName : 'Select Vehicle'}",
+                            style:  GoogleFonts.inter(
+                                fontWeight: FontWeight.normal, fontSize: 13.sp),
+                          ),
+                          underline: SizedBox(),
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          value: vehicle,
+                          items: vehicleitems
+                              .map((e) => DropdownMenuItem(
+                                    onTap: () {
+                                      vehicleName = e['name'].toString();
+                                      print("Vehicle name $vehicleName");
+                                    },
+                                    value: e['id'],
+                                    child: Text(
+                                      "${e['name']}",
+                                      style: TextStyle(fontSize: 13.sp),
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              isVehicleSelect = true;
+                            });
+                          })),
+                          SizedBox(width: 10.w,), 
+                  InkWell(
+                    onTap: () {
+                      dairyDatePicker(context);
+                    },
+                    child: Container(
+                      width: 130.w,
+                      height: 38.h,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          border: Border.all(width: 0.5.w, color: Colors.grey)),
+                      child: dateStatus == false
+                          ? Text(
+                              "Select Date",
+                              style:  GoogleFonts.inter(
+                                  fontSize: 13.sp, fontWeight: FontWeight.normal),
+                              textAlign: TextAlign.center,
+                            )
+                          : Text(
+                              "${pickDate.day}-${pickDate.month}-${pickDate.year}"),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: predictions.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: CircleAvatar(
+                      child: Icon(
+                        Icons.pin_drop,
+                        color: Colors.white,
+                      ),
+                    ),
+                    title: Text(
+                      predictions[index].description.toString(),
+                    ),
+                    onTap: () async {
+                      final placeId = predictions[index].placeId!;
+      
+                      final details = await googlePlace.details.get(placeId);
+      
+                      if (details != null && details.result != null && mounted) {
+                        if (startFocusNode.hasFocus) {
+                          setState(() {
+                            startPosition = details.result;
+      
+                            _startSearchFieldController.text =
+                                details.result!.name!;
+                            predictions = [];
+                          });
+                        } else {
+                          setState(() {
+                            endPosition = details.result;
+                            print(
+                                "Start Point ${endPosition!.geometry!.location!.lat}");
+                            _endSearchFieldController.text =
+                                details.result!.name!;
+                            predictions = [];
+                          });
+                        }
                       }
-                    }
-                  },
-                );
-              }),
-          SizedBox(
-            height: 15.h,
-          ),
-          Container(
-            width: 215.w,
-            child: CustomButtonOne(
-              title: "Search",
-              onTab: () {
-                tripSearch();
-              },
-              height: 30.h,
-              width: 150.w,
-              btnColor: navyBlueColor,
-              fontSize: 13.sp,
-              radius: 5.r,
+                    },
+                  );
+                }),
+            SizedBox(
+              height: 15.h,
             ),
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Container(
-            width: 215.w,
-            child: CustomButtonOne(
-              title: "Clear Search",
-              onTab: () {},
-              height: 30.h,
-              width: 190.w,
-              btnColor: navyBlueColor,
-              fontSize: 13.sp,
-              radius: 5.r,
+            Container(
+              width: 215.w,
+              child: CustomButtonOne(
+                title: "Search",
+                onTab: () {
+                  tripSearch();
+                },
+                height: 30.h,
+                width: 150.w,
+                btnColor: navyBlueColor,
+                fontSize: 13.sp,
+                radius: 5.r,
+              ),
             ),
-          ),
-          
-          SizedBox(
-            height: 10.h,
-          ),
-
-       status==false?Container(
-        margin: EdgeInsets.only(top: 170.h),
-        child: Text("Search Trip"),):   Expanded(
-            child: FutureBuilder(
-                future: tripSearch(),
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    print("Search ${snapshot.data.data.length}");
-
-                    return ListView.builder(
-                        itemCount: snapshot.data.data!.length,
-                        itemBuilder: (context, index) {
-                          var tripData = snapshot.data.data[index];
-                          return Card(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 5.w, vertical: 5.h),
-                              decoration: BoxDecoration(
-                                color: primaryColor,
-                              ),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                          child: Text(
-                                        "Start: ",
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )),
-                                      Expanded(
-                                        child: Text(
-                                          "${tripData.startPoint}",
-                                          style: TextStyle(
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                          child: Text(
-                                        "Destination: ",
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )),
-                                      Expanded(
-                                        child: Text(
-                                          "${tripData.destination}",
-                                          style: TextStyle(
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      CustomText("Offered by : ", Colors.black,
-                                          FontWeight.bold, 12.sp),
-                                      CustomText(
-                                          "M/30/Masters/PrivateJob ",
-                                          Colors.black,
-                                          FontWeight.normal,
-                                          12.sp),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      CustomText("Vehicle: ", Colors.black,
-                                          FontWeight.bold, 12.sp),
-                                      CustomText(
-                                          "${tripData.vehicleType}",
-                                          Colors.black,
-                                          FontWeight.normal,
-                                          12.sp),
-                                    ],
-                                  ),
-                                  Container(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+            SizedBox(
+              height: 10.h,
+            ),
+            Container(
+              width: 215.w,
+              child: CustomButtonOne(
+                title: "Clear Search",
+                onTab: () {},
+                height: 30.h,
+                width: 190.w,
+                btnColor: navyBlueColor,
+                fontSize: 13.sp,
+                radius: 5.r,
+              ),
+            ),
+            
+            SizedBox(
+              height: 10.h,
+            ),
+      
+         status==false?Container(
+          margin: EdgeInsets.only(top: 170.h),
+          child: Text("Search Trip"),):   Expanded(
+              child: FutureBuilder(
+                  future: tripSearch(),
+                  builder: (context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      print("Search ${snapshot.data.data.length}");
+      
+                      return ListView.builder(
+                          itemCount: snapshot.data.data!.length,
+                          itemBuilder: (context, index) {
+                            var tripData = snapshot.data.data[index];
+                            return Card(
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 5.w, vertical: 5.h),
+                                decoration: BoxDecoration(
+                                  color: primaryColor,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Row(
-                                          children: [
-                                            CustomText(
-                                                "Passenger: ",
-                                                Colors.black,
-                                                FontWeight.bold,
-                                                12.sp),
-                                            CustomText(
-                                                "${tripData.vehicleSeat.toString()}",
-                                                Colors.black,
-                                                FontWeight.normal,
-                                                12.sp),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            CustomText(
-                                                "Offered Amt: ${tripData.pay.toString()} ",
-                                                Colors.black,
-                                                FontWeight.bold,
-                                                12.sp),
-                                            CustomText("", Colors.black,
-                                                FontWeight.normal, 12.sp),
-                                          ],
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            controller.getTripPostDetails(
-                                                tripData.path.toString());
-
-                                            controller.path1.value =
-                                                tripData.path.toString();
-                                            Get.to(
-                                                TripDetailsPage(
-                                                  tripData.path.toString(),
-                                                ),
-                                                duration: Duration(
-                                                    milliseconds:
-                                                        200), //duration of transitions, default 1 sec
-                                                transition:
-                                                    Transition.leftToRight);
-                                          },
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            height: 25.h,
-                                            width: 60.w,
-                                            decoration: BoxDecoration(
-                                                color: navyBlueColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.r)),
-                                            child: CustomText(
-                                                "Details",
-                                                Colors.white,
-                                                FontWeight.bold,
-                                                12.sp),
+                                        Container(
+                                            child: Text(
+                                          "Start: ",
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )),
+                                        Expanded(
+                                          child: Text(
+                                            "${tripData.startPoint}",
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ],
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                            child: Text(
+                                          "Destination: ",
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )),
+                                        Expanded(
+                                          child: Text(
+                                            "${tripData.destination}",
+                                            style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        CustomText("Offered by : ", Colors.black,
+                                            FontWeight.bold, 12.sp),
+                                        CustomText(
+                                            "M/30/Masters/PrivateJob ",
+                                            Colors.black,
+                                            FontWeight.normal,
+                                            12.sp),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        CustomText("Vehicle: ", Colors.black,
+                                            FontWeight.bold, 12.sp),
+                                        CustomText(
+                                            "${tripData.vehicleType}",
+                                            Colors.black,
+                                            FontWeight.normal,
+                                            12.sp),
+                                      ],
+                                    ),
+                                    Container(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              CustomText(
+                                                  "Passenger: ",
+                                                  Colors.black,
+                                                  FontWeight.bold,
+                                                  12.sp),
+                                              CustomText(
+                                                  "${tripData.vehicleSeat.toString()}",
+                                                  Colors.black,
+                                                  FontWeight.normal,
+                                                  12.sp),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              CustomText(
+                                                  "Offered Amt: ${tripData.pay.toString()} ",
+                                                  Colors.black,
+                                                  FontWeight.bold,
+                                                  12.sp),
+                                              CustomText("", Colors.black,
+                                                  FontWeight.normal, 12.sp),
+                                            ],
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              controller.getTripPostDetails(
+                                                  tripData.path.toString());
+      
+                                              controller.path1.value =
+                                                  tripData.path.toString();
+                                              Get.to(
+                                                  TripDetailsPage(
+                                                    tripData.path.toString(),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds:
+                                                          200), //duration of transitions, default 1 sec
+                                                  transition:
+                                                      Transition.leftToRight);
+                                            },
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              height: 25.h,
+                                              width: 60.w,
+                                              decoration: BoxDecoration(
+                                                  color: navyBlueColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(5.r)),
+                                              child: CustomText(
+                                                  "Details",
+                                                  Colors.white,
+                                                  FontWeight.bold,
+                                                  12.sp),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        });
-                  }
-
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }),
-          ),
-        ],
+                            );
+                          });
+                    }
+      
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }),
+            ),
+          ],
+        ),
       ),
     );
   }

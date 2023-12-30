@@ -101,7 +101,7 @@ class CustomTextForm extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         width: width ?? 100.w,
-          height: 38.h,
+          height: 30.h,
         child: TextFormField(
           textAlign: TextAlign.left,
           style: TextStyle(

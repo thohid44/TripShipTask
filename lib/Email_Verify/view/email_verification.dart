@@ -1,7 +1,7 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:super_tooltip/super_tooltip.dart';
 import 'package:tripshiptask/Email_Verify/scan_work_id.dart';
-import 'package:tripshiptask/Email_Verify/view/email_pin_option_screen.dart';
+import 'package:tripshiptask/pages/Login/view/email_pin_option_screen.dart';
 import 'package:tripshiptask/Email_Verify/view/scan_nid_page.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
@@ -245,7 +245,7 @@ var selectBlood;
                     ),
                     onHide: () {},
                     child: Text(
-                      "Why do I need to provide the following information?",
+                      "Why do I need to provide the following information ?",
                       style: TextStyle(
                           color: Color(0xffFFBF00),
                           fontWeight: FontWeight.normal,

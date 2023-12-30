@@ -124,7 +124,7 @@ class TaskSeekPost extends StatelessWidget {
                                     onTap: () {
                                    var path = details.path!;
 
-                                    Get.to(TaskDetailPage(path),
+                                    Get.to(TaskDetailPage(path,"Get a Task"),
                                         duration: Duration(
                                             milliseconds:
                                                 300), //duration of transitions, default 1 sec

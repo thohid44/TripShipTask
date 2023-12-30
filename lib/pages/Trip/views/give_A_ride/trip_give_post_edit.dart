@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:date_format/date_format.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
@@ -196,10 +197,10 @@ var end;
                         controller: _startSearchFieldController,
                         autofocus: false,
                         focusNode: startFocusNode,
-                        style: TextStyle(fontSize: 13.sp),
+                        style: GoogleFonts.inter(fontSize: 13.sp),
                         decoration: InputDecoration(
-                            hintText: "${trip.title}",
-                            hintStyle: TextStyle(
+                            hintText: "${trip.startPoint}",
+                            hintStyle: GoogleFonts.inter(
                                 fontWeight: FontWeight.normal, fontSize: 13.sp),
                             filled: true,
                             fillColor: primaryColor,
@@ -259,7 +260,7 @@ var end;
                               child: dateStatus == false
                                   ? Text(
                                       "${trip.date}",
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                           fontSize: 13.sp,
                                           fontWeight: FontWeight.normal),
                                       textAlign: TextAlign.center,
@@ -291,7 +292,7 @@ var end;
                                         pickupTime!.format(context).toString())
                                     : Text(
                                         "${trip.time}",
-                                        style: TextStyle(
+                                        style: GoogleFonts.inter(
                                             fontSize: 13.sp,
                                             fontWeight: FontWeight.normal),
                                       ),
@@ -321,10 +322,10 @@ var end;
                         focusNode: endFocusNode,
                         enabled: _startSearchFieldController.text.isNotEmpty &&
                             startPosition != null,
-                        style: TextStyle(fontSize: 13.sp),
+                        style: GoogleFonts.inter(fontSize: 13.sp),
                         decoration: InputDecoration(
                             hintText: '${trip.destination}',
-                            hintStyle: TextStyle(
+                            hintStyle: GoogleFonts.inter(
                                 fontWeight: FontWeight.normal, fontSize: 13.sp),
                             filled: true,
                             fillColor: primaryColor,
@@ -452,7 +453,7 @@ var end;
                                     isExpanded: true,
                                     hint: Text(
                                       "${isVehicleSelect ? vehicleName : '${trip.vehicleName}'}",
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                           fontWeight: FontWeight.normal,
                                           fontSize: 13.sp),
                                     ),
@@ -471,7 +472,7 @@ var end;
                                               child: Text(
                                                 "${e['name']}",
                                                 style:
-                                                    TextStyle(fontSize: 13.sp),
+                                                    GoogleFonts.inter(fontSize: 13.sp),
                                               ),
                                             ))
                                         .toList(),
@@ -496,7 +497,7 @@ var end;
                                     isExpanded: true,
                                     hint: Text(
                                       "${isSeatSelect ? availableSeat : '${trip.vehicleSeat}'}",
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                           fontWeight: FontWeight.normal,
                                           fontSize: 13.sp),
                                     ),
@@ -547,7 +548,7 @@ var end;
                                   isExpanded: true,
                                   hint: Text(
                                     "${isPreferSelect ? preferToRide : '${trip.preferredPassenger}'}",
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         fontWeight: FontWeight.normal,
                                         fontSize: 13.sp),
                                   ),
@@ -591,12 +592,12 @@ var end;
                               height: 30.h,
                               width: 40.w,
                               decoration: BoxDecoration(
-                                  color: purplColor,
+                                  color: primaryColor,
                                   borderRadius: BorderRadius.circular(5.r)),
                               child: Text(
                                 "BDT",
-                                style: TextStyle(
-                                    color: Colors.white,
+                                style: GoogleFonts.inter(
+                                    color: Colors.black,
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.normal),
                               )),
@@ -604,7 +605,7 @@ var end;
                       ),
                     ),
                     SizedBox(
-                      height: 2.h,
+                      height: 10.h,
                     ),
                     Container(
                       child: TextFormField(
@@ -614,14 +615,14 @@ var end;
                         },
                         decoration: InputDecoration(
                           hintText: "${trip.details}",
-                          hintStyle: TextStyle(fontSize: 13.sp),
+                          hintStyle: GoogleFonts.inter(fontSize: 13.sp),
                           border: OutlineInputBorder(),
                         ),
                         maxLines: 1,
                       ),
                     ),
                     SizedBox(
-                      height: 5.h,
+                      height: 15.h,
                     ),
                     UnconstrainedBox(
                       child: Container(

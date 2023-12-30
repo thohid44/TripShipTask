@@ -23,7 +23,6 @@ class TaskSeekPostController extends GetxController {
   var path;
   void onInit() {
     super.onInit();
-
   }
 
   seekTask(
@@ -68,19 +67,17 @@ class TaskSeekPostController extends GetxController {
     try {
       isLoading(true);
 
-   var skillData = [
-        "Neat and clean",
-        "Good looking"
-    ];
-   //   "Accept": "application/json",
-    
+      var skillData = ["Neat and clean", "Good looking"];
+      //   "Accept": "application/json",
+
       var response = await http.post(Uri.parse("${baseUrl}task"),
           headers: {
-       "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Accept": "application/json",
             'Authorization': 'Bearer ' + token,
           },
           body: jsonEncode({
-            "selectedskill":[selectSkill],
+            "selectedskill": [selectSkill],
             "title": "$title",
             "category": "$category",
             "location": "$location",
@@ -88,21 +85,21 @@ class TaskSeekPostController extends GetxController {
             "date": "$date",
             "time": "$time",
             "details": "$details",
-            "amount": "300",
-            "lat": "$lat",
-            "lng": "$lng",
+            "amount": "140",
+            "lat": lat,
+            "lng": lng,
             "hour_available": "$hourAvailable",
             "hour_need": "$hourNeed",
             "post_type": "seek",
             "country": "BD",
             "currency": "BDT",
-            "moduleId": "$moduleId"
+            "moduleId": 3
           }));
       print(response.statusCode);
+      print(response.statusCode);
+      var jsonData = jsonDecode(response.body);
+      print("Trip Post $jsonData");
       if (response.statusCode == 201) {
-        print(response.statusCode);
-        var jsonData = jsonDecode(response.body);
-        print("Trip Post $jsonData");
         Get.snackbar(
           "Task Offer",
           "Successfully Store",

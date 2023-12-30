@@ -72,7 +72,7 @@ class MyTaskPost extends StatelessWidget {
                                 onTap: () {
                                   var path = details.path!;
 
-                                  Get.to(TaskDetailPage(path));
+                                  Get.to(TaskDetailPage(path,""));
                                 },
                                 child: Container(
                                   child: CustomText("Details", Colors.black,

@@ -17,6 +17,7 @@ class ShipsendPackagePostList extends StatelessWidget {
       child: Obx(() => controller.isLoadSearch.value == false
           ? ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
+           
               itemCount: controller.shipSearchList.length,
               itemBuilder: (context, index) {
                 shipData = controller.shipSearchList[index];

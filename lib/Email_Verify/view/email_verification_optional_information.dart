@@ -1,4 +1,4 @@
-import 'package:tripshiptask/Email_Verify/view/email_pin_option_screen.dart';
+import 'package:tripshiptask/pages/Login/view/email_pin_option_screen.dart';
 import 'package:tripshiptask/Email_Verify/view/email_verification.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:flutter/material.dart';

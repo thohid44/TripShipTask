@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/colors.dart';
@@ -28,7 +29,9 @@ import '../../Home/trip_ship_task_home.dart';
 
 class TaskDetailPage extends StatefulWidget {
   String path;
-  TaskDetailPage(this.path);
+  String? taskTypeTile; 
+  TaskDetailPage(this.path, this.taskTypeTile);
+  
 
   @override
   State<TaskDetailPage> createState() => _TaskDetailPageState();
@@ -82,6 +85,14 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                 return SingleChildScrollView(
                   child: Column(
                     children: [
+                      SizedBox(height: 5.h,), 
+                      Container(
+                        width: 300.w, 
+                        alignment: Alignment.center,
+                        child: Text("${widget.taskTypeTile}",style: GoogleFonts.inter(
+                          color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14.sp, 
+                        ),),
+                      ), 
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 5.w),
                         height: 650.h,
@@ -94,7 +105,8 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                                 status: false,
                                 title: "Title",
                                 value:
-                                    "${snapshot.data.myTaskDetailsModel.id}"),
+                                    "${snapshot.data.myTaskDetailsModel.title}"),
+                        
                             TripDetailsWidget(
                                 status: false,
                                 title: "Skills Required",
@@ -104,9 +116,11 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                                 title: " Task Location",
                                 value: "${task!.location}"),
                             TripDetailsWidget(
+                                width: 105.0.sp,
                                 status: false,
                                 title: " Offered Amount",
                                 value: "${task.amount.toString()}.Tk"),
+
                             TripDetailsWidget(
                                 status: false,
                                 title: "Time",
@@ -1172,21 +1186,22 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
 class TripDetailsWidget extends StatelessWidget {
   String? title;
   String? value;
+  dynamic width; 
   late bool status = false;
-  TripDetailsWidget({super.key, this.value, this.title, required this.status});
+  TripDetailsWidget({super.key, this.value, this.width,this.title, required this.status});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Container(
-          width: 100.w,
+          width: width ?? 100.w,
           margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
           child: CustomText("$title :", Colors.black, FontWeight.w500, 13.sp),
         ),
         status == false
             ? Container(
-                width: 200.w,
+                width: 180.w,
                 child: CustomText(
                     " ${value}", Colors.black, FontWeight.normal, 13.sp),
               )

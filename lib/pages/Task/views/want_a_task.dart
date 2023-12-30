@@ -418,7 +418,7 @@ class _WantATaskState extends State<WantATask> {
           CustomTextForm(
             width: fullWidth,
             height: 30.h,
-            hinttext: "Task Duration (Default 1 Hour)",
+            hinttext: "Task Duration (Default 2 Hour)",
             fontSize: 13.sp,
             textController: needhour,
           ),
