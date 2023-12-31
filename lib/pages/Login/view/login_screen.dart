@@ -4,6 +4,7 @@ import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customTextForm.dart';
 import 'package:tripshiptask/Widget/space_widgeter.dart';
 import 'package:tripshiptask/pages/Login/controller/LoginController.dart';
+import 'package:tripshiptask/pages/Login/view/forget_password_page.dart';
 import 'package:tripshiptask/pages/Login/view/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -212,14 +213,19 @@ class _LoginScreenState extends State<LoginScreen> {
               SpaceWidget(
                 hight: 20.h,
               ),
-              Container(
-                alignment: Alignment.center,
-                child: Text(
-                  "Forgot Password?",
-                  style: GoogleFonts.inter(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w600,
-                    color: skyColor,
+              InkWell(
+                onTap: (){
+                  Get.to(ForgetPasswordPage());
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Forgot Password?",
+                    style: GoogleFonts.inter(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w600,
+                      color: skyColor,
+                    ),
                   ),
                 ),
               ),

@@ -183,14 +183,14 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                               children: [
                                   InkWell(
                                    onTap: () {
-                                    Get.to(AllTripsPage(),
+                                    Get.to(AllShipPage(),
                                         transition: Transition.rightToLeft);
                                   },
                                   child: ExpansionChild("Post a Ship"),
                                 ),
                                       InkWell(
                                    onTap: () {
-                                    Get.to(AllTripsPage(),
+                                    Get.to(AllShipPage(),
                                         transition: Transition.rightToLeft);
                                   },
                                   child: ExpansionChild("My Ships"),

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customTextForm.dart';
@@ -31,7 +32,11 @@ class _GetARideState extends State<GetARide> {
 
   List<Map<String, dynamic>> vehicleitems = [
     {"id": 1, "name": "Car", "slug": "Car"},
-    {"id": 2, "name": "Bike", "slug": "Bike"},
+    {"id": 2, "name": "Mini Van/Micro", "slug": "Mini Van/Micro"},
+    {"id": 3, "name": "Motorcycle", "slug": "Motorcycle"},
+    {"id": 4, "name": "Electric Scooter", "slug": "Electric Scooter"},
+    {"id": 5, "name": "CNG/TukTuk", "slug": "CNG/TukTuk"},
+    {"id": 6, "name": "Rickshaw", "slug": "Rickshaw"},
   ];
   bool isSeatSelect = false;
   String? seat;
@@ -41,6 +46,9 @@ class _GetARideState extends State<GetARide> {
     {"id": 2, "name": "2", "slug": "2"},
     {"id": 3, "name": "3", "slug": "3"},
     {"id": 4, "name": "4", "slug": "4"},
+      {"id": 5, "name": "5", "slug": "5"},
+    {"id": 6, "name": "6", "slug": "6"},
+    {"id": 7, "name": "7", "slug": "7"},
   ];
   var preferToRide;
   String? prefer;
@@ -48,7 +56,7 @@ class _GetARideState extends State<GetARide> {
    List<Map<String, dynamic>> preferList = [
     {"id": 1, "name": "Male", "slug": "Male"},
     {"id": 2, "name": "Female", "slug": "Female"},
-    {"id": 3, "name": "Any", "slug": "Any"},
+    {"id": 3, "name": "Both", "slug": "Both"},
 
   ];
 
@@ -424,8 +432,8 @@ var fullWidth = 300.w;
                           padding: EdgeInsets.symmetric(horizontal: 10.w),
                           isExpanded: true,
                           hint: Text(
-                            "${isVehicleSelect ? availableSeat : 'How Many Of You'}",
-                            style: TextStyle(
+                            "${isSeatSelect ==true? availableSeat : 'How Many Of You'}",
+                            style: GoogleFonts.inter(
                                 fontWeight: FontWeight.normal, fontSize: 13.sp),
                           ),
                           underline: SizedBox(),

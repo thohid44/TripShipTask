@@ -441,7 +441,7 @@ class _CarryAPackageState extends State<CarryAPackage> {
                 ),
               ],
                       ),
-                      child: dateStatus == false
+                      child: dateStatus2 == false
                           ? Text(
                               "Possible Delivery Date",
                               style: TextStyle(
@@ -621,7 +621,7 @@ class _CarryAPackageState extends State<CarryAPackage> {
                           padding: EdgeInsets.symmetric(horizontal: 5.w),
                           isExpanded: true,
                           hint: Text(
-                            "${isGoodsSelect ? goodsName : 'Type of Goods'}",
+                            "${isGoodsSelect?goodsName:'Type of Goods'}",
                             style: TextStyle(
                                 fontWeight: FontWeight.normal, fontSize: 13.sp),
                           ),
@@ -815,7 +815,7 @@ class _CarryAPackageState extends State<CarryAPackage> {
       return;
     } else {
       setState(() {
-        //   dateStatus = true;
+          dateStatus = true;
         pickUpDate = userSelectedDate;
         print(pickUpDate);
         dateDairy = "${pickUpDate.year}-${pickUpDate.month}-${pickUpDate.day}";
@@ -844,7 +844,7 @@ class _CarryAPackageState extends State<CarryAPackage> {
       return;
     } else {
       setState(() {
-        //   dateStatus = true;
+           dateStatus2 = true;
         dropUpDate1 = userSelectedDate;
         print(dropUpDate1);
         var dropOffDate =

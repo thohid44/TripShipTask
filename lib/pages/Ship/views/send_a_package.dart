@@ -892,7 +892,7 @@ class LavenderTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30,
+      height: 30.h,
       decoration: BoxDecoration(
         color: primaryColor,
         borderRadius: BorderRadius.circular(5),
@@ -905,9 +905,9 @@ class LavenderTextField extends StatelessWidget {
           ),
         ],
       ),
-      child: TextField(
+      child:  TextField(
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+          contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
           border: InputBorder.none,
         ),
       ),

@@ -31,27 +31,56 @@ class _GiveTripPostState extends State<GiveTripPost> {
 
   String? vehicle;
   var vehicleName;
-
+  //   Car  4
+// Mini Van/Micro 7
+// Motorcycle
+// Electric Scooter
+// CNG/TukTuk 2
+// Rickshaw
   List<Map<String, dynamic>> vehicleitems = [
     {"id": 1, "name": "Car", "slug": "Car"},
-    {"id": 2, "name": "Bike", "slug": "Bike"},
+    {"id": 2, "name": "Mini Van/Micro", "slug": "Mini Van/Micro"},
+    {"id": 3, "name": "Motorcycle", "slug": "Motorcycle"},
+    {"id": 4, "name": "Electric Scooter", "slug": "Electric Scooter"},
+    {"id": 5, "name": "CNG/TukTuk", "slug": "CNG/TukTuk"},
+    {"id": 6, "name": "Rickshaw", "slug": "Rickshaw"},
   ];
   bool isSeatSelect = false;
   String? seat;
   var availableSeat;
-  List<Map<String, dynamic>> seatList = [
+
+  List<Map<String, dynamic>> otherSeatList = [
+    {"id": 1, "name": "1", "slug": "1"},
+  ];
+  List<Map<String, dynamic>> cngSeatList = [
+    {"id": 1, "name": "1", "slug": "1"},
+    {"id": 2, "name": "2", "slug": "2"},
+  ];
+  List<Map<String, dynamic>> carSeatList = [
     {"id": 1, "name": "1", "slug": "1"},
     {"id": 2, "name": "2", "slug": "2"},
     {"id": 3, "name": "3", "slug": "3"},
     {"id": 4, "name": "4", "slug": "4"},
   ];
+
+  List<Map<String, dynamic>> microSeatList = [
+    {"id": 1, "name": "1", "slug": "1"},
+    {"id": 2, "name": "2", "slug": "2"},
+    {"id": 3, "name": "3", "slug": "3"},
+    {"id": 4, "name": "4", "slug": "4"},
+    {"id": 5, "name": "5", "slug": "5"},
+    {"id": 6, "name": "6", "slug": "6"},
+    {"id": 7, "name": "7", "slug": "7"},
+  ];
+  List<Map<String, dynamic>> seatList = [];
+
   var preferToRide;
   String? prefer;
   bool isPreferSelect = false;
   List<Map<String, dynamic>> preferList = [
     {"id": 1, "name": "Male", "slug": "Male"},
     {"id": 2, "name": "Female", "slug": "Female"},
-    {"id": 3, "name": "Other", "slug": "Other"},
+    {"id": 3, "name": "Both", "slug": "Both"},
   ];
 
   String? selectVehicle;
@@ -83,7 +112,8 @@ class _GiveTripPostState extends State<GiveTripPost> {
   late GooglePlace googlePlace;
 
   List<AutocompletePrediction> predictions = [];
-
+  bool isYesSelected = true;
+  bool isNoSelected = false;
   Timer? _debounce;
   List<Placemark>? placemark;
   GetAddressFromLatLong(lat, lng) async {
@@ -160,11 +190,9 @@ class _GiveTripPostState extends State<GiveTripPost> {
                         )
                       : null),
               onChanged: (value) {
-                
                 if (_debounce?.isActive ?? false) _debounce!.cancel();
                 _debounce = Timer(const Duration(milliseconds: 1000), () {
                   if (value.isNotEmpty) {
-                  
                     //places api
                     autoCompleteSearch(value);
                   } else {
@@ -285,7 +313,7 @@ class _GiveTripPostState extends State<GiveTripPost> {
                 _debounce = Timer(const Duration(milliseconds: 1000), () {
                   if (value.isNotEmpty) {
                     //places api
-                      print("End point $value");
+                    print("End point $value");
                     autoCompleteSearch(value);
                   } else {
                     //clear out the results
@@ -303,7 +331,7 @@ class _GiveTripPostState extends State<GiveTripPost> {
               itemCount: predictions.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  leading: CircleAvatar(
+                  leading: const CircleAvatar(
                     child: Icon(
                       Icons.pin_drop,
                       color: Colors.white,
@@ -385,12 +413,26 @@ class _GiveTripPostState extends State<GiveTripPost> {
                               .toList(),
                           onChanged: (value) {
                             setState(() {
+                              if (value == 1) {
+                                print("Vehicle Id $value");
+                                seatList = carSeatList;
+                              } else if (value == 2) {
+                                print("Vehicle Id $value");
+                                seatList = microSeatList;
+                              } else if (value == 5) {
+                                print("Vehicle Id $value");
+                                seatList = cngSeatList;
+                              } else {
+                                seatList = otherSeatList;
+                              }
                               isVehicleSelect = true;
                             });
                           })),
-                  SizedBox(
+   SizedBox(
                     width: 2.w,
                   ),
+       
+          
                   Container(
                       width: 149.w,
                       alignment: Alignment.center,
@@ -430,9 +472,54 @@ class _GiveTripPostState extends State<GiveTripPost> {
               ),
             ),
           ),
+
           SizedBox(
-            height: 2.h,
+            height: 3.h,
           ),
+              isVehicleSelect == false?Container(): Container(
+                width: 285.w,
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    Text('Do you own this vehicle?'),
+                    SizedBox(width: 5.w),
+                    Row(
+                      children: [
+                        Radio(
+                          value: true,
+                          groupValue: isYesSelected,
+                          onChanged: (value) {
+                            setState(() {
+                              isYesSelected = value as bool;
+                              isNoSelected = !value;
+                            });
+                          },
+                          activeColor: Colors.teal,
+                        ),
+                        Text('Yes'),
+                      ],
+                    ),
+                    SizedBox(width: 5.w),
+                    Row(
+                      children: [
+                        Radio(
+                          value: true,
+                          groupValue: isNoSelected,
+                          onChanged: (value) {
+                            setState(() {
+                              isNoSelected = value as bool;
+                              isYesSelected = !value;
+                            });
+                          },
+                          activeColor: Colors.teal,
+                        ),
+                        Text('No'),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+SizedBox(height: 3.h,),
           Container(
             width: fullWidth,
             child: Row(
@@ -449,7 +536,7 @@ class _GiveTripPostState extends State<GiveTripPost> {
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
                         isExpanded: true,
                         hint: Text(
-                          "${isPreferSelect ? preferToRide : 'Prefer to get ride from'}",
+                          "${isPreferSelect ? preferToRide : 'Give Ride To'}",
                           style: TextStyle(
                               fontWeight: FontWeight.normal, fontSize: 13.sp),
                         ),

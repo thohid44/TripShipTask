@@ -582,7 +582,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                                       
                                                                       vertical:
                                                                           5.h),
-                                                                  decoration: BoxDecoration(
+                                                                  decoration: const BoxDecoration(
                                                                       color: Colors
                                                                           .green),
                                                                   child: Text(
@@ -590,6 +590,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                           SizedBox(
                                                             width: 7.w,
                                                           ),
+                                                          
                                                           InkWell(
                                                               onTap: () {},
                                                               child: Container(
@@ -598,7 +599,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                                           12.w,
                                                                       vertical:
                                                                           5.h),
-                                                                  decoration: BoxDecoration(
+                                                                  decoration:const BoxDecoration(
                                                                       color: Colors
                                                                           .orange),
                                                                   child: Text(
@@ -721,7 +722,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                       margin: EdgeInsets.symmetric(horizontal: 10.w),
                       child: TextFormField(
                         controller: shortmessage,
-                        maxLines: 2,
+                        maxLines: 1,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter some text';
@@ -735,7 +736,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                       ),
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: 10.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -1091,6 +1092,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
   Future<dynamic> declineOffer(
     BuildContext context,
   ) {
+
     return showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
