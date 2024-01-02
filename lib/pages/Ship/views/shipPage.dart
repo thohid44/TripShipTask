@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tripshiptask/Widget/customText.dart';
@@ -101,11 +102,14 @@ class _ShipHomePageState extends State<ShipHomePage> {
                         height: 28.h,
                         child: TextField(
                           onTap: () {
-                         Get.to(ShipSendPackage());
+                         Get.to(ShipSendPackageSearch());
                           },
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.only(left: 5.w, top: 5.h),
                             hintText: "Search",
+                            hintStyle: GoogleFonts.inter(
+                              fontSize:12.sp, 
+                            ),
                             suffixIcon: Icon(Icons.search),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.r)),

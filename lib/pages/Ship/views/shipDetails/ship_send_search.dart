@@ -25,12 +25,12 @@ import 'package:tripshiptask/pages/Trip/model/trips_search_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_details_page.dart';
 
-class ShipSendPackage extends StatefulWidget {
+class ShipSendPackageSearch extends StatefulWidget {
   @override
-  State<ShipSendPackage> createState() => _ShipSendPackageState();
+  State<ShipSendPackageSearch> createState() => _ShipSendPackageSearchState();
 }
 
-class _ShipSendPackageState extends State<ShipSendPackage> {
+class _ShipSendPackageSearchState extends State<ShipSendPackageSearch> {
   final TextEditingController search = TextEditingController();
 
   bool isVehicleSelect = false;
@@ -188,7 +188,7 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
                     focusNode: startFocusNode,
                     style: TextStyle(fontSize: 13.sp),
                     decoration: InputDecoration(
-                        hintText: 'Start Point',
+                        hintText: 'Pick Up',
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.normal, fontSize: 13.sp),
                         filled: true,
@@ -271,7 +271,7 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
                         startPosition != null,
                     style: TextStyle(fontSize: 13.sp),
                     decoration: InputDecoration(
-                        hintText: 'Destination',
+                        hintText: 'Drop Off',
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.normal, fontSize: 13.sp),
                         filled: true,
@@ -434,7 +434,7 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
                         setState(() {
                           endPosition = details.result;
                           print(
-                              "Start Point ${endPosition!.geometry!.location!.lat}");
+                              "Pick Up ${endPosition!.geometry!.location!.lat}");
                           _endSearchFieldController.text =
                               details.result!.name!;
                           predictions = [];

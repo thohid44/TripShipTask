@@ -5,6 +5,7 @@ import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:tripshiptask/Widget/customText.dart';
 import 'package:tripshiptask/Widget/drop_down_widget.dart';
 import 'package:tripshiptask/pages/Login/view/login_screen.dart';
+import 'package:tripshiptask/pages/Task/views/my_task_offers_page.dart';
 import 'package:tripshiptask/pages/Trip/views/my_trips_offer_page.dart';
 import 'package:tripshiptask/profile/view/all_Task_page.dart';
 import 'package:tripshiptask/profile/view/all_Trips_page.dart';
@@ -18,6 +19,7 @@ import 'package:tripshiptask/rating/view/all_trip_rating_page.dart';
 import 'package:tripshiptask/support_Ticket/view/my_tickets_page.dart';
 import 'package:tripshiptask/support_Ticket/view/trip_support_ticket.dart';
 
+import '../../pages/Ship/views/my_ship_offers_page.dart';
 import '../../pages/Task/views/task_home_page.dart';
 
 class UserDeshBoard extends StatefulWidget {
@@ -197,7 +199,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                                 ),
                                InkWell(
                                   onTap: () {
-                                    Get.to(MyTripsOfferPage(),
+                                    Get.to(MyShipOfferPage(),
                                         transition: Transition.leftToRight);
                                   },
                                   child: ExpansionChild("My Ship Offers"),
@@ -209,11 +211,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                                   },
                                   child: ExpansionChild("My Ship Ratings"),
                                 ),
-                               
-                         
-                                
-                              
-                             
+         
                               ],
                             ),
                             ExpansionTile(
@@ -242,7 +240,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                                 ),
                                 InkWell(
                                     onTap: () {
-                                      Get.to(AllTaskRatingPage(),
+                                      Get.to(MyTaskOffersPage(),
                                           transition: Transition.leftToRight);
                                     },
                                     child: 

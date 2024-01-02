@@ -68,9 +68,10 @@ class _AllTaskPageState extends State<AllTaskPage>
                       physics: BouncingScrollPhysics(),
                       itemCount: controller.myTaskModel2!.offerTasks.length,
                       itemBuilder: (context, index) {
-                        if (controller.myTaskModel2!.offerTasks.isEmpty) {
-                          var details =
+                         var details =
                               controller.myTaskModel2!.offerTasks[index];
+                     
+                         
                           return Card(
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -227,12 +228,12 @@ class _AllTaskPageState extends State<AllTaskPage>
                               ),
                             ),
                           );
-                        }
-                        return Center(
-                          child: Text("No Data"),
-                        );
+                        
+                    
                       })
                   : Center(child: CircularProgressIndicator())),
+                  // Start 2nd TabBar
+                  
               Obx(() => controller.isLoading.value == false
                   ? ListView.builder(
                       physics: BouncingScrollPhysics(),

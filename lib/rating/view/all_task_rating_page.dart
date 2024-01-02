@@ -96,22 +96,22 @@ class _AllTaskRatingPageState extends State<AllTaskRatingPage> {
 
   int index = 0;
   List<Widget> rating = [
-    GiveTripRatingWidget(),
-    GetTripRatingWidget(),
+    OfferTaskRatingWidget(),
+    WantTaskRatingWidget(),
   ];
 }
 
-class GetTripRatingWidget extends StatelessWidget {
+class OfferTaskRatingWidget extends StatelessWidget {
   var controller = Get.put(RatingController());
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => controller.isLoading.value == false
+    return Obx(() => controller.isLoading3.value == false
         ? ListView.builder(
             physics: BouncingScrollPhysics(),
-            itemCount: controller.ratingModel!.getTripsRating!.length,
+            itemCount: controller.taskRatingModel!.offerTaskRating!.length,
             itemBuilder: (context, index) {
-              var rat = controller.ratingModel!.getTripsRating![index];
+              var rat = controller.taskRatingModel!.offerTaskRating![index];
               return ListTile(
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,17 +143,17 @@ class GetTripRatingWidget extends StatelessWidget {
   }
 }
 
-class GiveTripRatingWidget extends StatelessWidget {
+class WantTaskRatingWidget extends StatelessWidget {
   var controller = Get.put(RatingController());
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => controller.isLoading.value == false
+    return Obx(() => controller.isLoading3.value == false
         ? ListView.builder(
             physics: BouncingScrollPhysics(),
-            itemCount: controller.ratingModel!.gaveTripsRating!.length,
+            itemCount: controller.taskRatingModel!.wantTaskRating!.length,
             itemBuilder: (context, index) {
-              var rat = controller.ratingModel!.gaveTripsRating![index];
+              var rat = controller.taskRatingModel!.wantTaskRating![index];
               return ListTile(
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
