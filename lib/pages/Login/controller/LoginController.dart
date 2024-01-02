@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/app_constants.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
@@ -8,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:tripshiptask/pages/Login/view/email_pin_option_screen.dart';
+import 'package:tripshiptask/pages/Login/view/login_screen.dart';
 
 class LoginController extends GetxController {
   var isLoading = false.obs;
@@ -62,25 +66,70 @@ class LoginController extends GetxController {
       print("Error $e");
     }
   }
-  var whatsAppNumber = ''.obs; 
+
+  var whatsAppNumber = ''.obs;
+  var regUrl = "${baseUrl}auth/signup";
+  var uId = ''.obs;
 
   registration({name, phone, email, gender, password}) async {
-          var mapData = {
-      "name": name,
-      "mobile": phone,
-      "whatsapp_number":whatsAppNumber.value,
-      "email": email,
-      "gender": gender,
-      "password": password
+    var mapData = {
+      "full_name": "$name",
+      "mobile": "$phone",
+      "whatsapp_number": whatsAppNumber.value,
+      "online_communication": "WhatsApp",
+      "email": "$email",
+      "gender": "$gender",
+      "password": "$password",
+      "password_confirmation": "$password"
     };
     try {
       isRegLoading(true);
-      var response = await http.post(Uri.parse(url), body: mapData);
-      if (response.statusCode == 200) {
+      var response = await http.post(Uri.parse(regUrl), body: mapData);
+
+      if (response.statusCode == 201) {
         var jsonData = jsonDecode(response.body);
-           Get.to(EmailOtpScreen());
+        print("success");
+
+        print("Reg $jsonData");
+        print("Reg ${response.statusCode}");
+        print("Reg $jsonData");
+
+        uId.value = jsonData['id'];
+        print("user Id is $uId");
+
+        Get.to(EmailOtpScreen());
       }
       isRegLoading(false);
+    } catch (e) {
+      isRegLoading(false);
+      print("Error $e");
+    }
+  }
+
+  var optUrl = "${baseUrl}otp-check";
+  verifyOTP({v1, v2, v3, v4, v5}) async {
+    print("OTP $v1 $v2 $v3 $v4 $v5 ${uId.value}"); 
+
+    var mapData = {
+      "digit1": "$v1",
+      "digit2": "$v2",
+      "digit3": "$v3",
+      "digit4": "$v4",
+      "digit5": "$v5",
+      "user_id": "362"
+    };
+    try {
+      isRegLoading(true);
+      var response = await http.post(Uri.parse(optUrl), body: mapData);
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        print(jsonData);
+        Fluttertoast.showToast(
+            msg: "OTP verified Successfully! Please verify your Email.");
+
+        Get.to(LoginScreen());
+        isRegLoading(false);
+      }
     } catch (e) {
       isRegLoading(false);
       print("Error $e");
@@ -187,7 +236,7 @@ class LoginController extends GetxController {
 
       http.MultipartFile idCartFile1 = await http.MultipartFile.fromPath(
           "id_front_photo", "${idPic1.value}");
-          
+
       http.MultipartFile idCartFile2 =
           await http.MultipartFile.fromPath("id_back_photo", "${idPic2.value}");
 
@@ -201,11 +250,9 @@ class LoginController extends GetxController {
 
       if (response.statusCode == 200) {
         print(" koli ${response.request}");
-       print(" koli ${request.fields}");
-         print(" koli ${request.files}");
-     
-     
-                   
+        print(" koli ${request.fields}");
+        print(" koli ${request.files}");
+
         print("success");
 
         isLoadingReg2(false);

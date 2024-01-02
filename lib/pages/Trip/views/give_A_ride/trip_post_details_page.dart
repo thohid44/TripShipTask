@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 
@@ -9,6 +10,7 @@ import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
 
 import 'package:tripshiptask/Widget/customText.dart';
+import 'package:tripshiptask/Widget/customTextForm.dart';
 import 'package:tripshiptask/Widget/custom_text_field.dart';
 import 'package:tripshiptask/Widget/widget_button.dart';
 import 'package:tripshiptask/pages/Home/trip_ship_task_home.dart';
@@ -107,16 +109,18 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                               //   value: snapshot.data!.tripDetailsModel!.title
                               //       .toString(),
                               // ),
-                               TripDetailsWidget(
+                              TripDetailsWidget(
                                 status: false,
                                 title: "Start Point",
-                                value: snapshot.data!.tripDetailsModel!.startPoint
+                                value: snapshot
+                                    .data!.tripDetailsModel!.startPoint
                                     .toString(),
                               ),
-                               TripDetailsWidget(
+                              TripDetailsWidget(
                                 status: false,
                                 title: "Start Point",
-                                value: snapshot.data!.tripDetailsModel!.destination
+                                value: snapshot
+                                    .data!.tripDetailsModel!.destination
                                     .toString(),
                               ),
                               TripDetailsWidget(
@@ -294,6 +298,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                                   ? Container(
                                                       child: Column(
                                                         children: [
+                                                          
                                                           trip.bids[index][
                                                                       'complete'] ==
                                                                   0
@@ -493,9 +498,9 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                                                     children: [
                                                                       TextSpan(
                                                                         text:
-                                                                            "Counter Offer Received: ",
-                                                                        style:
-                                                                            TextStyle(
+                                                                            "Counter Offer Sent: ",
+                                                                        style: GoogleFonts
+                                                                            .inter(
                                                                           color:
                                                                               Colors.black,
                                                                           fontSize:
@@ -504,9 +509,9 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                                                       ),
                                                                       TextSpan(
                                                                         text:
-                                                                            '${trip.bids[index]['co'].toString()} BDT',
-                                                                        style:
-                                                                            TextStyle(
+                                                                            '${trip.bids[index]['amount'].toString()} BDT',
+                                                                        style: GoogleFonts
+                                                                            .inter(
                                                                           color:
                                                                               Colors.black,
                                                                           fontSize:
@@ -583,12 +588,8 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                                             height: 5,
                                                           ),
                                                           trip.bids[index][
-                                                                          'accepted'] ==
-                                                                      0 ||
-                                                                  trip.bids[index]
-                                                                          [
-                                                                          'complete'] ==
-                                                                      0
+                                                                      'accepted'] ==
+                                                                  1
                                                               ? Row(
                                                                   children: [
                                                                     Container(
@@ -649,6 +650,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                                                   ],
                                                                 )
                                                               : Container(),
+
                                                           SizedBox(
                                                             height: 5.h,
                                                           ),
@@ -821,6 +823,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                 child: Column(
                   children: [
                     Container(
+                      height: 38.h,
                       alignment: Alignment.center,
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
                       child: TextFormField(
@@ -843,7 +846,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                         width: 300.w,
                         alignment: Alignment.center,
                         margin: EdgeInsets.symmetric(horizontal: 20.w),
-                        height: 45,
+                        height: 40.h,
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.lightBlue),
                             borderRadius: BorderRadius.circular(10)),
@@ -863,6 +866,8 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                                       onTap: () {
                                         setState(() {
                                           seatNumber = e['name'].toString();
+
+                                          isSelect = true;
                                         });
                                       },
                                       value: e['id'],
@@ -874,7 +879,6 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                             onChanged: (value) {
                               seatNumber = value;
                               print(seatNumber);
-                              isSelect = true;
                             })),
                     SizedBox(
                       height: 10.h,
@@ -903,16 +907,17 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                       children: [
                         CustomButtonOne(
                             height: 30.h,
-                            width: 100.w,
+                            width: 80.w,
                             radius: 5.r,
                             marginLR: 10.w,
                             title: "Cancle",
                             btnColor: Colors.red,
                             onTab: () {
                               Get.back();
+                              getTripPostDetails();
                             }),
                         CustomButtonOne(
-                            width: 100.w,
+                            width: 80.w,
                             height: 30.h,
                             radius: 5.r,
                             marginLR: 0.w,

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/pages/Home/trip_ship_task_home.dart';
+import 'package:tripshiptask/pages/Login/controller/LoginController.dart';
 import 'package:tripshiptask/profile/view/profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class _EmailOtpScreenState extends State<EmailOtpScreen> {
   var v4;
   var v5;
   var v6;
-
+  var controller = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,66 +37,67 @@ class _EmailOtpScreenState extends State<EmailOtpScreen> {
             SizedBox(
               height: 20.h,
             ),
-          
-              Container(
-                height: 120.h,
-                width: 100.w,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25.r),
-                    color: primaryColor,
-                    boxShadow: [
-                      BoxShadow(
-                          color: primaryColor,
-                          offset: Offset(0, 7.0),
-                          blurRadius: 6.0,
-                          spreadRadius: 4.0)
-                    ]),
-                child: Column(
-                  children: [
-                    Container(
-                      width: 85.w,
-                      height: 85.h,
-                      alignment: Alignment.center,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("assets/transLogo.png")),
-                      ),
+            Container(
+              height: 120.h,
+              width: 100.w,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25.r),
+                  color: primaryColor,
+                  boxShadow: [
+                    BoxShadow(
+                        color: primaryColor,
+                        offset: Offset(0, 7.0),
+                        blurRadius: 6.0,
+                        spreadRadius: 4.0)
+                  ]),
+              child: Column(
+                children: [
+                  Container(
+                    width: 85.w,
+                    height: 85.h,
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/transLogo.png")),
                     ),
-                    SizedBox(
-                      height: 0.h,
-                    ),
-                    Container(
-                      child: Text(
-                        "TripShipTask",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 13.sp),
-                      ),
-                    ),
-                    Text(
-                      "Connect Assist Earn",
+                  ),
+                  SizedBox(
+                    height: 0.h,
+                  ),
+                  Container(
+                    child: Text(
+                      "TripShipTask",
                       style: TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 9.sp),
+                          fontWeight: FontWeight.bold, fontSize: 13.sp),
                     ),
-                  ],
-                ),
+                  ),
+                  Text(
+                    "Connect Assist Earn",
+                    style: TextStyle(
+                        fontWeight: FontWeight.normal, fontSize: 9.sp),
+                  ),
+                ],
               ),
-              
-
+            ),
             SizedBox(
               height: 50.h,
             ),
-           
-              Container(
+            Container(
               child: Text(
                 " An OTP has been sent to your phone.",
                 style: GoogleFonts.inter(fontSize: 12.sp, color: Colors.black),
               ),
             ),
-            SizedBox(height: 15.h,), 
+            SizedBox(
+              height: 15.h,
+            ),
             Container(
               child: Text(
                 "Enter OTP Code",
-                style: GoogleFonts.inter(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.black),
+                style: GoogleFonts.inter(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
               ),
             ),
             SizedBox(
@@ -185,24 +187,7 @@ class _EmailOtpScreenState extends State<EmailOtpScreen> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: 50.h,
-                    width: 35.w,
-                    child: TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      inputFormatters: [],
-                      onChanged: (value) {
-                        v6 = value;
-                        print(v6);
-                        if (value.length == 1) {
-                          FocusScope.of(context).nextFocus();
-                        }
-                      },
-                    ),
-                  ),
-                ),
+               
               ],
             ),
             SizedBox(
@@ -211,7 +196,6 @@ class _EmailOtpScreenState extends State<EmailOtpScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-            
                 CustomButtonOne(
                     title: "Verify OTP",
                     height: 40.h,
@@ -220,13 +204,9 @@ class _EmailOtpScreenState extends State<EmailOtpScreen> {
                     marginLR: 0,
                     btnColor: navyBlueColor,
                     onTab: () {
-                      var pin = v1 + v2 + v3 + v4 + v5 + v6;
-                      print(pin);
-                      if (pin == '') {
-                        Get.snackbar("PIN", "must be filled");
-                      } else {
-                        Get.to(ProfileScreen());
-                      }
+                      print("Print OTP");
+                      controller.verifyOTP(
+                          v1: v1, v2: v2, v3: v3, v4: v4, v5: v5);
                     })
               ],
             ),

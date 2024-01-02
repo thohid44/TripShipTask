@@ -453,7 +453,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 radius: 11.r,
                 fontSize: 12.sp,
                 onTab: () {
-               
+               print("press");
                   // if(formkey.currentState!.validate()){
 
                   // }
@@ -560,9 +560,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       phone: phone.text.toString(),
                       email: email.text.toString(),
                       gender: gender.toString(),
+                   
                       password: password.text.toString(),
                     );
                   }
+
+                    //   logInController.registration(
+                    //   name: name.text.toString(),
+                    //   phone: phone.text.toString(),
+                    //   email: email.text.toString(),
+                    //   gender: gender.toString(),
+                   
+                    //   password: password.text.toString(),
+                    // );
                 },
               ),
               SizedBox(
@@ -629,9 +639,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.to(
-                        LoginScreen(),
-                      );
+                       Get.to(EmailOtpScreen());
+                      // Get.to(
+                      //   LoginScreen(),
+                      // );
                     },
                     child: Container(
                       alignment: Alignment.center,

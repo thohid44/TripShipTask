@@ -583,7 +583,7 @@ class TripController extends GetxController {
     try {
       isEPayment(true);
 
-      var response = await http.patch(Uri.parse("${baseUrl}tripbids/$bidId"),
+      var response = await http.patch(Uri.parse("${baseUrl}payment"),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token,

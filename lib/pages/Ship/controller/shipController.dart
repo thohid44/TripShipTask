@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:tripshiptask/pages/Ship/model/my_ship_model.dart';
+import 'package:tripshiptask/pages/Ship/model/my_ship_offers_model.dart';
 import 'package:tripshiptask/pages/Ship/model/ship_search_model.dart';
 
 class ShipController extends GetxController {
@@ -24,11 +25,41 @@ class ShipController extends GetxController {
     getMyShips();
     fetchAllSendShip();
     fetchAllCarryShip();
+      myShipOffers();
   }
 
-  getMyShips() async {
+List<MyShipOffers> myShipOfferList=<MyShipOffers>[].obs; 
+var isMyOfferLoading = false.obs; 
+  myShipOffers() async {
     var token = _box.read(LocalStoreKey.token);
 
+    try {
+      isMyOfferLoading(true);
+      myShipOfferList.clear();
+
+      var response = await http.get(
+        Uri.parse("${baseUrl}my-ship-offers"),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + token,
+        },
+      );
+      var jsonData = jsonDecode(response.body);
+      print("ship Offer  data $jsonData");
+      if (response.statusCode == 200) {
+        MyShipOfferModel data = MyShipOfferModel.fromJson(jsonData);
+
+        myShipOfferList = data.data!;
+        isMyOfferLoading(false);
+      }
+    } catch (e) {
+      isMyOfferLoading(false);
+      print("Error $e");
+    }
+  }
+  getMyShips() async {
+
+    var token = _box.read(LocalStoreKey.token);
     try {
       isLoading(true);
       var response = await http.get(

@@ -14,6 +14,7 @@ import 'package:tripshiptask/pages/Task/model/all_give_task_post_model.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:tripshiptask/pages/Task/model/my_tasks_offer_model.dart';
 import 'package:tripshiptask/pages/Task/model/seek_task_model.dart';
 
 class TaskController extends GetxController {
@@ -28,6 +29,7 @@ class TaskController extends GetxController {
 
     searchAllGiveTask();
     getMyTask();
+    getMyTaskOffer();
   }
 
   postTask(
@@ -186,6 +188,34 @@ class TaskController extends GetxController {
       print("Error $e");
     }
   }
+List<MyTasksOffer> myTaskOfferList = <MyTasksOffer>[].obs;
+var isOffersLoading = false.obs; 
+  getMyTaskOffer() async {
+    var token = _box.read(LocalStoreKey.token);
+    try {
+      isOffersLoading(true);
+      var response = await http.get(
+        Uri.parse("${baseUrl}my-task-offers"),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + token,
+        },
+      );
+      if (response.statusCode == 200) {
+        var jsonData = jsonDecode(response.body);
+        print("All Task $jsonData");
+
+        MyTasksOfferModel data = MyTasksOfferModel.fromJson(jsonData);
+        myTaskOfferList = data.data!;
+        print("koli ${myTaskOfferList.length}");
+        isOffersLoading(false);
+      }
+    } catch (e) {
+      isOffersLoading(false);
+      print("Error $e");
+    }
+  }
+
 
   getMyTask() async {
     var token = _box.read(LocalStoreKey.token);

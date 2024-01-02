@@ -18,13 +18,15 @@ import 'package:tripshiptask/pages/Ship/views/shipPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:tripshiptask/pages/Ship/views/ship_send_package_edit.dart';
 import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_details_page.dart';
+import 'package:tripshiptask/pages/Trip/views/trip_E_payment.dart';
 import 'package:tripshiptask/profile/view/user_deshboard.dart';
 
 import '../../Home/trip_ship_task_home.dart';
 
 class ShipSendPackageDetails extends StatefulWidget {
   String? path;
-  ShipSendPackageDetails({super.key, this.path});
+  String? module; 
+  ShipSendPackageDetails({super.key, this.path, this.module});
 
   @override
   State<ShipSendPackageDetails> createState() => _ShipSendPackageDetailsState();
@@ -847,7 +849,10 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                             fontSize: 13.sp,
                             title: "E-Pay",
                             btnColor: navyBlueColor,
-                            onTab: () {})
+                            onTab: () {
+Get.to(TripEPaymentPage(bidId: shipId.toString(),module: widget.module, postType: ships.postType,));
+
+                            })
                       ],
                     )
                   ],

@@ -70,6 +70,9 @@ class _MyAppState extends State<MyApp> {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'TripShipTask',
+          getPages: [
+            GetPage(name: "/verify", page: ()=> EmailVerification())
+          ],
           theme: ThemeData(
             primarySwatch: Colors.blue,
             primaryColor: Colors.black,
