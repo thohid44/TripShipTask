@@ -372,6 +372,7 @@ class _AllShipPageState extends State<AllShipPage>
                         );
                       })
                   : Center(child: CircularProgressIndicator())),
+                  // 3rd Barbar
               Obx(() => controller.isLoading.value == false
                   ? ListView.builder(
                       physics: BouncingScrollPhysics(),
@@ -489,7 +490,9 @@ class _AllShipPageState extends State<AllShipPage>
                                                         .completedShipments![
                                                             index]
                                                         .path
-                                                        .toString()));
+                                                        .toString(),
+                                                        module: "ship",
+                                                        ));
                                               },
                                               child: Container(
                                                 alignment: Alignment.center,
@@ -528,7 +531,7 @@ class _AllShipPageState extends State<AllShipPage>
                                                         BorderRadius.circular(
                                                             5.r)),
                                                 child: CustomText(
-                                                    "Review",
+                                                    "Rating",
                                                     Colors.white,
                                                     FontWeight.bold,
                                                     12.sp),

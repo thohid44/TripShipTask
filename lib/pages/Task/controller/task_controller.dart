@@ -1,16 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tripshiptask/Api_services/ApiService.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/colors.dart';
-
 import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:tripshiptask/pages/Task/model/my_task_details_model.dart';
 import 'package:tripshiptask/pages/Task/model/my_task_model.dart';
 import 'package:tripshiptask/pages/Task/model/all_give_task_post_model.dart';
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -215,6 +212,36 @@ var isOffersLoading = false.obs;
       print("Error $e");
     }
   }
+
+
+
+// List<MyTasksOffer> myTaskOfferList = <MyTasksOffer>[].obs;
+// var isOffersLoading = false.obs; 
+//   getMyTaskOffer() async {
+//     var token = _box.read(LocalStoreKey.token);
+//     try {
+//       isOffersLoading(true);
+//       var response = await http.get(
+//         Uri.parse("${baseUrl}my-task-offers"),
+//         headers: {
+//           'Accept': 'application/json',
+//           'Authorization': 'Bearer ' + token,
+//         },
+//       );
+//       if (response.statusCode == 200) {
+//         var jsonData = jsonDecode(response.body);
+//         print("All Task $jsonData");
+
+//         MyTasksOfferModel data = MyTasksOfferModel.fromJson(jsonData);
+//         myTaskOfferList = data.data!;
+//         print("koli2 ${myTaskOfferList.length}");
+//         isOffersLoading(false);
+//       }
+//     } catch (e) {
+//       isOffersLoading(false);
+//       print("Error $e");
+//     }
+//   }
 
 
   getMyTask() async {

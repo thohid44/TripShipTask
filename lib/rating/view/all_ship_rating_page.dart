@@ -45,7 +45,7 @@ class _AllShipRatingPageState extends State<AllShipRatingPage> {
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                   child: Text(
-                    "Give Ships Ratings",
+                    "Send Ships Ratings",
                     style: TextStyle(
                         fontSize: 15.sp,
                         color: Colors.white,
@@ -72,7 +72,7 @@ class _AllShipRatingPageState extends State<AllShipRatingPage> {
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                   child: Text(
-                    "Get Ships Ratings",
+                    "Carry Ships Ratings",
                     style: TextStyle(
                         fontSize: 15.sp,
                         color: Colors.white,
@@ -97,22 +97,22 @@ class _AllShipRatingPageState extends State<AllShipRatingPage> {
 
   int index = 0;
   List<Widget> rating = [
-    GiveTripRatingWidget(),
-    GetTripRatingWidget(),
+    SendShipRatingWidget(),
+    CarryShipRatingWidget(),
   ];
 }
 
-class GetTripRatingWidget extends StatelessWidget {
+class CarryShipRatingWidget extends StatelessWidget {
   var controller = Get.put(RatingController());
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => controller.isLoading.value == false
+    return Obx(() => controller.isLoading2.value == false
         ? ListView.builder(
             physics: BouncingScrollPhysics(),
-            itemCount: controller.ratingModel!.getTripsRating!.length,
+            itemCount: controller.shipRatingModel!.carryPackageRating!.length,
             itemBuilder: (context, index) {
-              var rat = controller.ratingModel!.getTripsRating![index];
+              var rat = controller.shipRatingModel!.carryPackageRating![index];
               return ListTile(
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,17 +144,17 @@ class GetTripRatingWidget extends StatelessWidget {
   }
 }
 
-class GiveTripRatingWidget extends StatelessWidget {
+class SendShipRatingWidget extends StatelessWidget {
   var controller = Get.put(RatingController());
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => controller.isLoading.value == false
+    return Obx(() => controller.isLoading2.value == false
         ? ListView.builder(
             physics: BouncingScrollPhysics(),
-            itemCount: controller.ratingModel!.gaveTripsRating!.length,
+            itemCount: controller.shipRatingModel!.sendPackageRating!.length,
             itemBuilder: (context, index) {
-              var rat = controller.ratingModel!.gaveTripsRating![index];
+              var rat = controller.shipRatingModel!.sendPackageRating![index];
               return ListTile(
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

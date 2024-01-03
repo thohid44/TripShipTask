@@ -27,8 +27,8 @@ class MyTasksOffer {
     DateTime? taskDate;
     int? userId;
     int? amount;
-    dynamic? co;
-    int? accepted;
+    dynamic co;
+    var accepted;
     String? path;
 
     MyTasksOffer({

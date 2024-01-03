@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-
 class AmarPayWebView extends StatefulWidget {
-  var url;
-   AmarPayWebView({super.key, this.url});
+  var payUrl;
+  AmarPayWebView(this.payUrl);
 
   @override
   State<AmarPayWebView> createState() => _AmarPayWebViewState();
@@ -13,12 +12,18 @@ class AmarPayWebView extends StatefulWidget {
 class _AmarPayWebViewState extends State<AmarPayWebView> {
   late final WebViewController controller;
   var loadingPercentage = 0;
-  var currentUrl = '';
-var url;
+  var currentUrl =
+      'https://secure.aamarpay.com/paynow_check_update.php?d=ZkcwVG04UTZYejFyRUQvSEZLT3FNTE9IQm5KZ0N2SnZ5V0FnVWptVmRlR2UwNkd4VHc9PQ==';
+  // var url =
+  //     'https://secure.aamarpay.com/paynow_check_update.php?d=ZkcwVG04UTZYejFyRUQvSEZLT3FNTE9IQm5KZ0N2SnZ5V0FnVWptVmRlR2UwNkd4VHc9PQ==';
+  var url;
   @override
   void initState() {
+    url = widget.payUrl;
+
+    print("url $url");
     super.initState();
-    var url = widget.url;
+
     controller = WebViewController()
       ..setNavigationDelegate(NavigationDelegate(
         onPageStarted: (url) {
@@ -59,7 +64,7 @@ var url;
               LinearProgressIndicator(
                 value: loadingPercentage / 100.0,
               ),
-            Text('Current URL: $currentUrl'),
+          
           ],
         ));
   }

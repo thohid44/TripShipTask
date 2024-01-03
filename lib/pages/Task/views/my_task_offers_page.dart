@@ -18,29 +18,29 @@ class MyTaskOffersPage extends StatefulWidget {
   }
 }
 
-class _MyTaskOffersPageState extends State<MyTaskOffersPage>
-    with TickerProviderStateMixin {
-  late TabController _tabController;
-
+class _MyTaskOffersPageState extends State<MyTaskOffersPage>{
+ 
+  var controller = Get.put(TaskController());
   @override
   void initState() {
+    controller.getMyTaskOffer();
+    print("Print Offer ${controller.myTaskOfferList.length}");
     super.initState();
   
   }
 
  
-  var controller = Get.put(TaskController());
 
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
           appBar: customAppBar(),
-          body:   Obx(() => controller.isLoading.value == false
+          body:   Obx(() => controller.isOffersLoading.value == false
                   ? ListView.builder(
                       physics: BouncingScrollPhysics(),
                       itemCount: controller.myTaskOfferList.length,
                       itemBuilder: (context, index) {
-                        if (controller.myTaskOfferList.isEmpty) {
+                     
                           var details =
                               controller.myTaskOfferList[index];
                           return Card(
@@ -199,10 +199,8 @@ class _MyTaskOffersPageState extends State<MyTaskOffersPage>
                               ),
                             ),
                           );
-                        }
-                        return Center(
-                          child: Text("No Data"),
-                        );
+                        
+                 
                       })
                   : Center(child: CircularProgressIndicator())),
    

@@ -212,6 +212,7 @@ class TripController extends GetxController {
   }
 
   getMyTripsOffer() async {
+    
     var token = _box.read(LocalStoreKey.token);
 
     try {

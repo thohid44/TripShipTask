@@ -1,6 +1,7 @@
 import 'package:tripshiptask/Widget/customText.dart';
 import 'package:tripshiptask/Widget/customTextForm.dart';
 import 'package:tripshiptask/pages/Task/views/offer_a_task.dart';
+import 'package:tripshiptask/pages/Task/views/task_give_search.dart';
 import 'package:tripshiptask/pages/Task/views/task_post.dart';
 import 'package:tripshiptask/pages/Task/views/task_seek_post.dart';
 import 'package:tripshiptask/pages/Task/views/want_a_task.dart';
@@ -95,7 +96,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
                       height: 28.h,
                       child: TextField(
                         onTap: () {
-                          //  Get.to(TripSingleSearchPage());
+                         Get.to(TaskGiveSearch());
                         },
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(left: 5.w, top: 5.h),

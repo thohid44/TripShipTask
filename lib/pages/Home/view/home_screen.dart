@@ -1,4 +1,5 @@
 import 'package:get_storage/get_storage.dart';
+import 'package:tripshiptask/Refferal/views/my_referrels_view.dart';
 import 'package:tripshiptask/Transaction/controller/transaction_controller.dart';
 import 'package:tripshiptask/Transaction/view/my_transaction_page.dart';
 import 'package:tripshiptask/Utils/colors.dart';
@@ -261,15 +262,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Container(
-                        alignment: Alignment.center,
-                        width: 90.w,
-                        decoration: BoxDecoration(),
-                        child: Text(
-                          "Referral Link",
-                          style: TextStyle(fontSize: 12.sp),
-                          textAlign: TextAlign.center,
-                        )),
+                    InkWell(
+                      onTap: (){
+                        Get.to(MyReferrelsPage()); 
+                      },
+                      child: Container(
+                          alignment: Alignment.center,
+                          width: 90.w,
+                          decoration: BoxDecoration(),
+                          child: Text(
+                            "Referral Link",
+                            style: TextStyle(fontSize: 12.sp),
+                            textAlign: TextAlign.center,
+                          )),
+                    ),
                     Container(
                         height: 40.h,
                         width: 90.w,

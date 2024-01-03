@@ -26,9 +26,7 @@ class _MyTransactionPageState extends State<MyTransactionPage> {
       body: Column(
         children: [
 
-          ElevatedButton(onPressed: (){
-Get.to(AmarPayWebView(url:"https://www.aamarpay.com/"));
-          }, child: Text("Aamar Pay"))
+      
         ],
       ),
     ),

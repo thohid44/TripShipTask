@@ -25,7 +25,7 @@ import '../../Home/trip_ship_task_home.dart';
 
 class ShipSendPackageDetails extends StatefulWidget {
   String? path;
-  String? module; 
+  String? module;
   ShipSendPackageDetails({super.key, this.path, this.module});
 
   @override
@@ -60,6 +60,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
     super.initState();
   }
 
+  var bidId;
   var space = 3;
   var path;
   var shipProController = Get.put(ShipProcessController());
@@ -132,6 +133,8 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                               title: "Willing to pay",
                               value: "${snapshot.data!.data!.amount}",
                               status: false),
+                                 SizedBox(height: space.h),
+                          
                           SizedBox(height: space.h),
                           ShipDetailsWidget(
                               title: "Document Price",
@@ -164,6 +167,16 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                             "${snapshot.data!.data!.bids[index]['bidder_name']}",
                                         status: false),
                                     SizedBox(
+                                      height: 5.h,
+                                    ),
+                                        ShipDetailsWidget(
+                                        title: "Paid:",
+                                        width: 80.0,
+                                        valueWidth: 180.0,
+                                        value:
+                                            "${snapshot.data!.data!.bids[index]['paid']}",
+                                        status: false),
+                                            SizedBox(
                                       height: 5.h,
                                     ),
                                     ShipDetailsWidget(
@@ -339,8 +352,11 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                           ),
                                                           InkWell(
                                                               onTap: () {
-                                                    finishShipment(context,ships.bids[index]['id']
-                                                        );
+                                                                finishShipment(
+                                                                    context,
+                                                                    ships.bids[
+                                                                            index]
+                                                                        ['id']);
                                                               },
                                                               child: Container(
                                                                   padding: EdgeInsets.symmetric(
@@ -374,7 +390,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                             _box.read(LocalStoreKey.userId)
                                         ? Container()
                                         : Container(
-                                          height: 100.h,
+                                            height: 100.h,
                                             child: Column(
                                               children: [
                                                 ships.bids[index]['co'] == null
@@ -518,7 +534,6 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                           ? Container()
                                                           : bidButton(
                                                               ontab: () {
-                                                              
                                                                 acceptOffer(
                                                                     context,
                                                                     ships.bids[
@@ -543,7 +558,6 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                           : bidButton(
                                                               width: 90.w,
                                                               ontab: () {
-                                                             
                                                                 counterOffer(
                                                                     context,
                                                                     ships.bids[
@@ -551,7 +565,8 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                                         ['id'],
                                                                     ships.bids[
                                                                             index]
-                                                                        ['amount']);
+                                                                        [
+                                                                        'amount']);
                                                               },
                                                               title:
                                                                   "Counter Offer",
@@ -569,43 +584,78 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                                                     : Row(
                                                         children: [
                                                           Text(
-                                                              "Shipment Completed.\nProceed to Pay?",style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color:Colors.black),),
+                                                            "Shipment Completed.\nProceed to Pay?",
+                                                            style: TextStyle(
+                                                                fontSize: 12.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                color: Colors
+                                                                    .black),
+                                                          ),
                                                           SizedBox(
                                                             width: 10.w,
                                                           ),
                                                           InkWell(
                                                               onTap: () {
-                                                               shipPayment(context, ships.bids[index]['id'],ships.bids[index]['co'] );
+                                                                shipPayment(
+                                                                    context,
+                                                                    ships.bids[
+                                                                            index]
+                                                                        ['id'],
+                                                                    ships.bids[
+                                                                            index]
+                                                                        ['co']);
                                                               },
                                                               child: Container(
                                                                   padding: EdgeInsets.symmetric(
                                                                       horizontal:
                                                                           12.w,
-                                                                      
                                                                       vertical:
                                                                           5.h),
-                                                                  decoration: const BoxDecoration(
-                                                                      color: Colors
-                                                                          .green),
+                                                                  decoration:
+                                                                      const BoxDecoration(
+                                                                          color:
+                                                                              Colors.green),
                                                                   child: Text(
-                                                                      "Yes",style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color:Colors.white),))),
+                                                                    "Yes",
+                                                                    style: TextStyle(
+                                                                        fontSize: 12
+                                                                            .sp,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w500,
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ))),
                                                           SizedBox(
                                                             width: 7.w,
                                                           ),
-                                                          
                                                           InkWell(
-                                                              onTap: () {},
+                                                              onTap: () {
+                                                                Get.back();
+                                                              },
                                                               child: Container(
                                                                   padding: EdgeInsets.symmetric(
                                                                       horizontal:
                                                                           12.w,
                                                                       vertical:
                                                                           5.h),
-                                                                  decoration:const BoxDecoration(
-                                                                      color: Colors
-                                                                          .orange),
+                                                                  decoration:
+                                                                      const BoxDecoration(
+                                                                          color:
+                                                                              Colors.orange),
                                                                   child: Text(
-                                                                      "No",style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color:Colors.white),))),
+                                                                    "No",
+                                                                    style: TextStyle(
+                                                                        fontSize: 12
+                                                                            .sp,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w500,
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ))),
                                                         ],
                                                       ),
                                               ],
@@ -686,7 +736,7 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
   final _formOfferkey = GlobalKey<FormState>();
   final TextEditingController amount = TextEditingController();
   final TextEditingController shortmessage = TextEditingController();
-  
+
   Future<dynamic> makeOffer(BuildContext context, amt) {
     return showDialog(
       context: context,
@@ -834,9 +884,8 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                             title: "By Cash",
                             btnColor: Colors.green,
                             onTab: () {
-                              var bidId = bidsId;
+                              bidId = bidsId;
                               shipCashPaymet(context, bidId);
-                             
                             }),
                         SizedBox(
                           width: 20.w,
@@ -850,8 +899,12 @@ class _ShipSendPackageDetailsState extends State<ShipSendPackageDetails> {
                             title: "E-Pay",
                             btnColor: navyBlueColor,
                             onTab: () {
-Get.to(TripEPaymentPage(bidId: shipId.toString(),module: widget.module, postType: ships.postType,));
-
+                              Get.to(TripEPaymentPage(
+                                
+                                bidId:bidsId.toString(),
+                                module: "ship",
+                                postType: ships.postType,
+                              ));
                             })
                       ],
                     )
@@ -962,7 +1015,6 @@ Get.to(TripEPaymentPage(bidId: shipId.toString(),module: widget.module, postType
                             btnColor: navyBlueColor,
                             onTab: () {
                               shipProController.giveShipAgree(bidId: shipId);
-                            
                             })
                       ],
                     )
@@ -1097,7 +1149,6 @@ Get.to(TripEPaymentPage(bidId: shipId.toString(),module: widget.module, postType
   Future<dynamic> declineOffer(
     BuildContext context,
   ) {
-
     return showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -1201,7 +1252,6 @@ Get.to(TripEPaymentPage(bidId: shipId.toString(),module: widget.module, postType
         });
   }
 
-
   Future<dynamic> cancelShip(BuildContext context) {
     return showDialog(
       context: context,
@@ -1240,7 +1290,7 @@ Get.to(TripEPaymentPage(bidId: shipId.toString(),module: widget.module, postType
                             title: "Yes",
                             btnColor: navyBlueColor,
                             onTab: () {
-                           shipProController.shipCancle(slug:ships.slug );
+                              shipProController.shipCancle(slug: ships.slug);
                             })
                       ],
                     )
@@ -1250,11 +1300,15 @@ Get.to(TripEPaymentPage(bidId: shipId.toString(),module: widget.module, postType
     );
   }
 
-  Future<dynamic> finishShipment(BuildContext context,bidId) {
+  Future<dynamic> finishShipment(BuildContext context, bidId) {
     return showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-          title: Center(child: Text("Want to finish this shipment?",style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),)),
+          title: Center(
+              child: Text(
+            "Want to finish this shipment?",
+            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+          )),
           content: Container(
               alignment: Alignment.center,
               height: 75.h,
@@ -1275,9 +1329,9 @@ Get.to(TripEPaymentPage(bidId: shipId.toString(),module: widget.module, postType
                             title: "No",
                             btnColor: Colors.red,
                             onTab: () {
-                           setState(() {
+                              setState(() {
                                 Get.back();
-                           });
+                              });
                             }),
                         SizedBox(
                           width: 30.w,
@@ -1290,7 +1344,7 @@ Get.to(TripEPaymentPage(bidId: shipId.toString(),module: widget.module, postType
                             title: "Yes",
                             btnColor: navyBlueColor,
                             onTab: () {
-                             shipProController.finishShip(bidId: bidId);
+                              shipProController.finishShip(bidId: bidId);
                             })
                       ],
                     )

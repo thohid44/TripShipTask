@@ -25,12 +25,12 @@ import 'package:tripshiptask/pages/Trip/model/trips_search_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_details_page.dart';
 
-class ShipSendPackage extends StatefulWidget {
+class ShipSendPackageSearch extends StatefulWidget {
   @override
-  State<ShipSendPackage> createState() => _ShipSendPackageState();
+  State<ShipSendPackageSearch> createState() => _ShipSendPackageSearchState();
 }
 
-class _ShipSendPackageState extends State<ShipSendPackage> {
+class _ShipSendPackageSearchState extends State<ShipSendPackageSearch> {
   final TextEditingController search = TextEditingController();
 
   bool isVehicleSelect = false;
@@ -39,30 +39,14 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
   var vehicleName;
 
   List<Map<String, dynamic>> vehicleitems = [
-    {"id": 1, "name": "Car", "slug": "Car"},
-    {"id": 2, "name": "Bike", "slug": "Bike"},
+    {"id": 1, "name": "Perishable", "slug": "Perishable"},
+    {"id": 2, "name": "Non-perishable", "slug": "Non-perishable"},
   ];
   bool isSeatSelect = false;
-  String? seat;
-  var availableSeat;
-  List<Map<String, dynamic>> seatList = [
-    {"id": 1, "name": "1", "slug": "1"},
-    {"id": 2, "name": "2", "slug": "2"},
-    {"id": 3, "name": "3", "slug": "3"},
-    {"id": 4, "name": "4", "slug": "4"},
-  ];
-  var preferToRide;
-  String? prefer;
-  bool isPreferSelect = false;
-  List<Map<String, dynamic>> preferList = [
-    {"id": 1, "name": "Male", "slug": "Male"},
-    {"id": 2, "name": "Female", "slug": "Female"},
-    {"id": 3, "name": "Other", "slug": "Other"},
-  ];
 
-  String? selectVehicle;
-  String? selectPassenger;
-  String? selectPrefer;
+
+ 
+
 
   var startPointLat;
   var startPointLong;
@@ -188,7 +172,7 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
                     focusNode: startFocusNode,
                     style: TextStyle(fontSize: 13.sp),
                     decoration: InputDecoration(
-                        hintText: 'Start Point',
+                        hintText: 'Pick Up',
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.normal, fontSize: 13.sp),
                         filled: true,
@@ -271,7 +255,7 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
                         startPosition != null,
                     style: TextStyle(fontSize: 13.sp),
                     decoration: InputDecoration(
-                        hintText: 'Destination',
+                        hintText: 'Drop Off',
                         hintStyle: TextStyle(
                             fontWeight: FontWeight.normal, fontSize: 13.sp),
                         filled: true,
@@ -349,7 +333,7 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
                         padding: EdgeInsets.symmetric(horizontal: 10.w),
                         isExpanded: true,
                         hint: Text(
-                          "${isVehicleSelect ? vehicleName : 'Select Vehicle'}",
+                          "${isVehicleSelect ? vehicleName : 'Type of Goods'}",
                           style: TextStyle(
                               fontWeight: FontWeight.normal, fontSize: 13.sp),
                         ),
@@ -360,7 +344,7 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
                             .map((e) => DropdownMenuItem(
                                   onTap: () {
                                     vehicleName = e['name'].toString();
-                                    print("Vehicle name $vehicleName");
+                                    print("Goods name $vehicleName");
                                   },
                                   value: e['id'],
                                   child: Text(
@@ -434,7 +418,7 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
                         setState(() {
                           endPosition = details.result;
                           print(
-                              "Start Point ${endPosition!.geometry!.location!.lat}");
+                              "Pick Up ${endPosition!.geometry!.location!.lat}");
                           _endSearchFieldController.text =
                               details.result!.name!;
                           predictions = [];
@@ -447,41 +431,42 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
           SizedBox(
             height: 15.h,
           ),
-          Container(
-            width: 215.w,
-            child: CustomButtonOne(
-              title: "Search",
-              onTab: () {
-                shipSendSearch();
-              },
-              height: 30.h,
-              width: 150.w,
-              btnColor: navyBlueColor,
-              fontSize: 13.sp,
-              radius: 5.r,
-            ),
+         
+         
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomButtonTwo(
+                height: 35.h,
+                width: 100.w,
+                radius: 5.r,
+                   fontSize: 14.sp,
+                btnColor: navyBlueColor,
+                fontWeight: FontWeight.w500,
+                title: "Clear Search", onTab: (){
+              
+              }),
+SizedBox(width: 10.w,), 
+                CustomButtonTwo(
+            height: 35.h,
+            width: 100.w,
+            fontSize: 14.sp,
+             radius: 5.r,
+             fontWeight: FontWeight.w500,
+            btnColor: navyBlueColor,
+            title: "Search", onTab: (){
+    shipSendSearch();
+          }),
+            ],
           ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Container(
-            width: 215.w,
-            child: CustomButtonOne(
-              title: "Clear Search",
-              onTab: () {},
-              height: 30.h,
-              width: 190.w,
-              btnColor: navyBlueColor,
-              fontSize: 13.sp,
-              radius: 5.r,
-            ),
-          ),
+        
+          
           SizedBox(
             height: 10.h,
           ),
        status==false?Container(
         margin: EdgeInsets.only(top: 170.h),
-        child: Text("Search Trip"),):   Expanded(
+        child: Text("Search Ship"),):   Expanded(
             child: FutureBuilder(
                 future: shipSendSearch(),
                 builder: (context, AsyncSnapshot snapshot) {
@@ -491,7 +476,7 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
                     return ListView.builder(
                         itemCount: snapshot.data.data!.length,
                         itemBuilder: (context, index) {
-                          var tripData = snapshot.data.data[index];
+                          var shipData = snapshot.data.data[index];
                               return Card(
                   child: Container(
                     width: 300.w,
@@ -520,7 +505,7 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
                                   )),
                                   Expanded(
                                     child: Text(
-                                      "${tripData.startPoint}",
+                                      "${shipData.startPoint}",
                                       style: TextStyle(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.normal,
@@ -539,7 +524,7 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
                                 children: [
                                   Container(
                                       child: Text(
-                                    "Drop Off Point: ",
+                                    "Drop Off: ",
                                     style: TextStyle(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.bold,
@@ -547,7 +532,7 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
                                   )),
                                   Expanded(
                                     child: Text(
-                                      "${tripData.destination}",
+                                      "${shipData.destination}",
                                       style: TextStyle(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.normal,
@@ -564,7 +549,7 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
                                   CustomText("Pick Up Date: ", Colors.black,
                                       FontWeight.bold, 12.sp),
                                   CustomText(
-                                      "     ${DateFormat.yMMMd().format(DateTime.parse(tripData.pickupDate))} ",
+                                      "     ${DateFormat.yMMMd().format(DateTime.parse(shipData.pickupDate))} ",
                                       Colors.black,
                                       FontWeight.normal,
                                       12.sp),
@@ -576,7 +561,7 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
                                   CustomText("Delivery Up Date: ", Colors.black,
                                       FontWeight.bold, 12.sp),
                                   CustomText(
-                                      "     ${DateFormat.yMMMd().format(DateTime.parse(tripData.deliveryDate))}",
+                                      "     ${DateFormat.yMMMd().format(DateTime.parse(shipData.deliveryDate))}",
                                       Colors.black,
                                       FontWeight.normal,
                                       12.sp),
@@ -600,10 +585,10 @@ class _ShipSendPackageState extends State<ShipSendPackage> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        // Get.to(ShipSendPackageDetails(
-                                        //     path: controller
-                                        //         .shipSearchList[index].path
-                                        //         .toString()));
+                                        Get.to(ShipSendPackageDetails(
+                                            path:shipData
+                                                [index].path
+                                                .toString()));
                                       },
                                       child: Container(
                                         alignment: Alignment.center,
