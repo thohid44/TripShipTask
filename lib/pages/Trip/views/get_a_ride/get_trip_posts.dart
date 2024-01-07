@@ -4,7 +4,7 @@ import 'package:tripshiptask/Widget/customText.dart';
 import 'package:tripshiptask/Widget/custom_text_field.dart';
 
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
-import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_details_page.dart';
+import 'package:tripshiptask/pages/Trip/views/trip_post_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

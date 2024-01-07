@@ -45,7 +45,7 @@ class _AllShipRatingPageState extends State<AllShipRatingPage> {
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                   child: Text(
-                    "Send Ships Ratings",
+                    "Send Ship Ratings",
                     style: TextStyle(
                         fontSize: 15.sp,
                         color: Colors.white,
@@ -72,7 +72,7 @@ class _AllShipRatingPageState extends State<AllShipRatingPage> {
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                   child: Text(
-                    "Carry Ships Ratings",
+                    "Carry Ship Ratings",
                     style: TextStyle(
                         fontSize: 15.sp,
                         color: Colors.white,

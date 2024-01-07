@@ -102,9 +102,11 @@ class CustomTextForm extends StatelessWidget {
         alignment: Alignment.center,
         width: width ?? 100.w,
           height: height ?? 30.h,
+          padding: EdgeInsets.only(left: 4.w),
         child: TextFormField(
           textAlign: TextAlign.left,
-          style: TextStyle(
+          style: GoogleFonts.inter(
+             fontWeight: FontWeight.normal, fontSize:12.sp,color: Colors.black,
             height: 1.5, // Line height
           ),
           controller: textController,
@@ -112,7 +114,7 @@ class CustomTextForm extends StatelessWidget {
             contentPadding: EdgeInsets.all(8.0),
             hintText: hinttext ?? 'Enter hint text',
             hintStyle: GoogleFonts.inter(
-                                fontWeight: FontWeight.normal, fontSize: fontSize ?? 13.sp),
+                                fontWeight: FontWeight.normal, color: Colors.black, fontSize: fontSize ?? 12.sp),
             filled: true,
             fillColor: primaryColor,
             border: OutlineInputBorder(

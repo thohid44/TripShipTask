@@ -19,7 +19,8 @@ class TripShipTaskHome extends StatefulWidget {
   var trip;
   var ship;
   var task;
-  TripShipTaskHome({super.key, this.trip, this.ship, this.task});
+  var t;
+  TripShipTaskHome({super.key, this.trip,this.t, this.ship, this.task});
 
   @override
   State<TripShipTaskHome> createState() => _TripShipTaskHomeState();
@@ -38,7 +39,7 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(),
+      appBar: customAppBar1(),
       body: ListView(
         children: [
           CustomAppBar2(),
@@ -67,7 +68,7 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
                       width: 99.w,
                       decoration: BoxDecoration(
                           color: tripStatus == widget.trip
-                              ? tealColor
+                              ? Color(0xff272e48)
                               : Colors.grey,
                           borderRadius: BorderRadius.circular(5.r)),
                       child: Text("Trip",
@@ -93,7 +94,7 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
                         width: 99.w,
                         decoration: BoxDecoration(
                             color: shipStatus == widget.ship
-                                ? tealColor
+                                ? Color(0xff272e48)
                                 : Colors.grey,
                             borderRadius: BorderRadius.circular(5.r)),
                         child: Text(
@@ -120,7 +121,7 @@ class _TripShipTaskHomeState extends State<TripShipTaskHome> {
                       width: 99.w,
                       decoration: BoxDecoration(
                           color: taskStatus == widget.task
-                              ? tealColor
+                              ? Color(0xff272e48)
                               : Colors.grey,
                           borderRadius: BorderRadius.circular(5.r)),
                       child: Text(
@@ -162,7 +163,7 @@ class CustomAppBar2 extends StatelessWidget {
       alignment: Alignment.center,
       width: double.infinity,
       decoration: BoxDecoration(
-          color: navyBlueColor,
+          color: Color(0xff272e48),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.r),
             topRight: Radius.circular(20.r),
@@ -256,7 +257,7 @@ AppBar customAppBar() {
   return AppBar(
     elevation: 0,
     title: const Text(
-      "Trip Ship Task",
+      "TripShipTask",
       style: TextStyle(color: Colors.black),
     ),
     centerTitle: true,

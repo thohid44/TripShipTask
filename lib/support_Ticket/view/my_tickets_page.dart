@@ -44,12 +44,13 @@ class _MyTicketsPageState extends State<MyTicketsPage> {
                 ));
               })),
       floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Color(0xff272e48),
           onPressed: () {
             Get.to(OpenATicket());
           },
           label: Text(
             "Open a Ticket",
-            style: GoogleFonts.inter(),
+            style: GoogleFonts.inter(color: Colors.white),
           )),
     ));
   }

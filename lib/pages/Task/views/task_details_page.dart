@@ -15,7 +15,7 @@ import 'package:tripshiptask/pages/Task/controller/task_process_con.dart';
 
 import 'package:tripshiptask/pages/Task/model/my_task_details_model.dart';
 import 'package:tripshiptask/pages/Task/views/update_give_task.dart';
-import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_details_page.dart';
+import 'package:tripshiptask/pages/Trip/views/trip_post_details_page.dart';
 
 import 'package:tripshiptask/pages/Trip/views/trip_page.dart';
 import 'package:flutter/material.dart';

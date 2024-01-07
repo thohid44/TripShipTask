@@ -197,7 +197,7 @@ class CustomAppBar2 extends StatelessWidget {
       alignment: Alignment.center,
       width: double.infinity,
       decoration: BoxDecoration(
-          color: navyBlueColor,
+          color: Color(0xff272e48),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30.r),
             topRight: Radius.circular(30.r),

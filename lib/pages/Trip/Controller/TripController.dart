@@ -11,7 +11,7 @@ import 'package:tripshiptask/pages/Trip/model/trips_search_model.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:tripshiptask/pages/Trip/views/trip_E_payment.dart';
+import 'package:tripshiptask/Amar/trip_E_payment.dart';
 
 // Counter offer, trip agree, accept trip, bidOnTrip
 
@@ -577,10 +577,10 @@ class TripController extends GetxController {
 
   var isEPayment = false.obs;
 
-  tripEPayment({context,bidId, module, postType}) async {
+  tripEPayment({context,bidsId, module, postType}) async {
     var token = _box.read(LocalStoreKey.token);
 
-    print(" bid id $bidId");
+    print(" bid id $bidsId");
     try {
       isEPayment(true);
 
@@ -593,7 +593,7 @@ class TripController extends GetxController {
             "module": "$module",
             "post_type": "$postType",
             "currency": "BDT",
-            "bid": "$bidId"
+            "bid": "$bidsId"
           }));
       print("Response code ${response.statusCode}");
       if (response.statusCode == 200) {

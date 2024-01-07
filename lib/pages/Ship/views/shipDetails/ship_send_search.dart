@@ -23,7 +23,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
 import 'package:tripshiptask/pages/Trip/model/trips_search_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_details_page.dart';
+import 'package:tripshiptask/pages/Trip/views/trip_post_details_page.dart';
 
 class ShipSendPackageSearch extends StatefulWidget {
   @override

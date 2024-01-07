@@ -1,11 +1,15 @@
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tripshiptask/Refferal/views/my_referrels_view.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:tripshiptask/Widget/customText.dart';
-import 'package:tripshiptask/Widget/drop_down_widget.dart';
+import 'package:tripshiptask/pages/Home/trip_ship_task_home.dart';
+import 'package:tripshiptask/pages/Home/view/home_screen.dart';
+
 import 'package:tripshiptask/pages/Login/view/login_screen.dart';
 import 'package:tripshiptask/pages/Task/views/my_task_offers_page.dart';
+
 import 'package:tripshiptask/pages/Trip/views/my_trips_offer_page.dart';
 import 'package:tripshiptask/profile/view/all_Task_page.dart';
 import 'package:tripshiptask/profile/view/all_Trips_page.dart';
@@ -13,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tripshiptask/profile/view/all_ship_page.dart';
+import 'package:tripshiptask/profile/view/all_trrips_pages.dart';
 import 'package:tripshiptask/rating/view/all_ship_rating_page.dart';
 import 'package:tripshiptask/rating/view/all_task_rating_page.dart';
 import 'package:tripshiptask/rating/view/all_trip_rating_page.dart';
@@ -35,7 +40,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: customAppBar(),
+         appBar: customAppBar1(),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -95,11 +100,11 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                 ),
               ),
                  SizedBox(
-                          height: 15.h,
+                          height: 5.h,
                         ),
                         
                Padding(
-                 padding:  EdgeInsets.only(left:18.w),
+                 padding:  EdgeInsets.only(left:7.w),
                  child: Material(
                    elevation: 8,
                      color: primaryColor,
@@ -107,49 +112,52 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                      borderRadius: BorderRadius.circular(5),
                    child: Container(
                         alignment: Alignment.centerLeft,
-                        height: 430.h,
-                        width: 190.w,
+                        height: 502.h,
+                        width: 200.w,
                             margin: EdgeInsets.only(left: 10.w),
                         decoration: BoxDecoration(color: primaryColor, 
                         borderRadius: BorderRadius.circular(10.r)
                         ),
                         child: ListView(
                           children: [
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 15.w),
-                              child: Text(
-                                  "Dashboard",
-                                  style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                      fontSize: 15.sp, color: Colors.black),
-                                ),
-                            ),
+                          
+                            // Container(
+                            //   margin: EdgeInsets.only(left: 15.w),
+                            //   child: Text(
+                            //       "Dashboard",
+                            //       style: GoogleFonts.inter(
+                            //         fontWeight: FontWeight.w500,
+                            //           fontSize: 14.sp, color: Colors.black),
+                            //     ),
+                            // ),
                            
                             ExpansionTile(
                               expandedCrossAxisAlignment:
                                   CrossAxisAlignment.stretch,
+                              
                               title: Text(
                                 "Trip",
                                 style: GoogleFonts.inter(
                                    fontWeight: FontWeight.w500,
                                     color: Colors.black,
-                                    fontSize: 14.sp),
+                                    fontSize: 13.sp),
                               ),
                               children: [
                                
                                    InkWell(
                                    onTap: () {
-                                    Get.to(AllTripsPage(),
-                                        transition: Transition.rightToLeft);
+                                     Get.to(HomeScreen(),
+                    transition: Transition.leftToRight,
+                    duration: Duration(milliseconds: 300));
+
+                                   
                                   },
                                   child: ExpansionChild("Post a Trip"),
                                 ),
+
                                   InkWell(
                                    onTap: () {
-                                    Get.to(AllTripsPage(),
+                                    Get.to(AllTripView(),
                                         transition: Transition.rightToLeft);
                                   },
                                   child: ExpansionChild("My Trips"),
@@ -180,12 +188,12 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                                  style: GoogleFonts.inter(
                                    fontWeight: FontWeight.w500,
                                     color: Colors.black,
-                                    fontSize: 14.sp),
+                                    fontSize: 13.sp),
                               ),
                               children: [
                                   InkWell(
                                    onTap: () {
-                                    Get.to(AllShipPage(),
+                                    Get.to(HomeScreen(),
                                         transition: Transition.rightToLeft);
                                   },
                                   child: ExpansionChild("Post a Ship"),
@@ -222,12 +230,12 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                                 style: GoogleFonts.inter(
                                    fontWeight: FontWeight.w500,
                                     color: Colors.black,
-                                    fontSize: 14.sp),
+                                    fontSize: 13.sp),
                               ),
                               children: [
-                                ExpansionChild(
-                                   "Post a Task",
-                                ),
+                                // ExpansionChild(
+                                //    "Post a Task",
+                                // ),
                                 InkWell(
                                   onTap: () {
                                     Get.to(AllTaskPage(),
@@ -256,36 +264,61 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                                 )
                               ],
                             ),
-                            Container(
-                              margin: EdgeInsets.only(left: 18.w, top: 0.h),
-                              child: Text(
-                                "Referral",
-                              style: GoogleFonts.inter(
-                                   fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                    fontSize: 14.sp),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: 18.w, top: 5.h),
-                              child: Text(
-                                "My Transactions",
-                            style: GoogleFonts.inter(
-                                   fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                    fontSize: 14.sp),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: 18.w, top: 5.h),
-                              child: Text(
-                                "Withdrawal Method",
-                            style: GoogleFonts.inter(
-                                   fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                    fontSize: 14.sp),
-                              ),
-                            ),
+                            ExpansionTile(
+                              trailing: SizedBox(),
+                              expandedCrossAxisAlignment:
+                                  CrossAxisAlignment.stretch,
+                              
+                              title: InkWell(
+                                onTap: (){
+                                    Get.to(MyReferrelsPage()); 
+                                },
+                                child: Text(
+                                  "Referral",
+                                  style: GoogleFonts.inter(
+                                     fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                      fontSize: 13.sp),
+                                ),
+                              ),),
+ ExpansionTile(
+                              trailing: SizedBox(),
+                              expandedCrossAxisAlignment:
+                                  CrossAxisAlignment.stretch,
+                              
+                              title: InkWell(
+                                onTap: (){
+                                    Get.to(MyReferrelsPage()); 
+                                },
+                                child: Text(
+                               "My Transactions",
+                                  style: GoogleFonts.inter(
+                                     fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                      fontSize: 13.sp),
+                                ),
+                              ),),
+                               ExpansionTile(
+                              trailing: SizedBox(),
+                              expandedCrossAxisAlignment:
+                                  CrossAxisAlignment.stretch,
+                              
+                              title: InkWell(
+                                onTap: (){
+                                    Get.to(MyReferrelsPage()); 
+                                },
+                                child: Text(
+                                 "Withdrawal Method",
+                                  style: GoogleFonts.inter(
+                                     fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                      fontSize: 13.sp),
+                                ),
+                              ),),
+            
+                         
+                        
+                         
                             ExpansionTile(
                               expandedCrossAxisAlignment:
                                   CrossAxisAlignment.stretch,
@@ -294,7 +327,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                               style: GoogleFonts.inter(
                                    fontWeight: FontWeight.w500,
                                     color: Colors.black,
-                                    fontSize: 14.sp),
+                                    fontSize: 13.sp),
                               ),
                               children: [
                                 InkWell(
@@ -322,7 +355,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                               style: GoogleFonts.inter(
                                    fontWeight: FontWeight.w500,
                                     color: Colors.black,
-                                    fontSize: 14.sp),
+                                    fontSize: 13.sp),
                               ),
                               children: [
                                 InkWell(
@@ -360,7 +393,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                                style: GoogleFonts.inter(
                                    fontWeight: FontWeight.w500,
                                     color: Colors.black,
-                                    fontSize: 14.sp),
+                                    fontSize: 13.sp),
                                 ),
                               ),
                             ),

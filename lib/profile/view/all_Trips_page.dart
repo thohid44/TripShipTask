@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customText.dart';
+import 'package:tripshiptask/pages/Home/view/home_screen.dart';
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
 import 'package:tripshiptask/pages/Trip/Controller/trip_rating.dart';
-import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_details_page.dart';
-import 'package:tripshiptask/pages/Trip/views/trip_rating_test.dart';
-import 'package:tripshiptask/profile/view/my_posted_trip_details.dart';
+import 'package:tripshiptask/pages/Trip/views/trip_post_details_page.dart';
+
 import 'package:tripshiptask/rating/view/trip_giver_feedback_rating.dart';
 
 class AllTripsPage extends StatefulWidget {
@@ -45,6 +45,14 @@ var ratingContr = Get.put(TripRatingController());
         child: Scaffold(
           appBar: AppBar(
             elevation: 0,
+              leading: IconButton(
+                onPressed: () {
+                  Get.to(HomeScreen());
+                },
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                )),
             centerTitle: true,
             bottom: TabBar(
               labelColor: Colors.white,

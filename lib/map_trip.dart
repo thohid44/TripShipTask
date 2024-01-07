@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:tripshiptask/pages/Home/trip_ship_task_home.dart';
 
 import '../../pages/Task/views/task_home_page.dart';
 

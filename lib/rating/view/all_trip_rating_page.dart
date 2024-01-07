@@ -45,7 +45,7 @@ class _AllTripRatingPageState extends State<AllTripRatingPage> {
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                   child: Text(
-                    "Give Trips Ratings",
+                    "Give Trip Ratings",
                     style: TextStyle(
                         fontSize: 15.sp,
                         color: Colors.white,
@@ -72,7 +72,7 @@ class _AllTripRatingPageState extends State<AllTripRatingPage> {
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                   child: Text(
-                    "Get Trips Ratings",
+                    "Get Trip Ratings",
                     style: TextStyle(
                         fontSize: 15.sp,
                         color: Colors.white,

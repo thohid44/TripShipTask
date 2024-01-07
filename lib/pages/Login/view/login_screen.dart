@@ -125,8 +125,9 @@ class _LoginScreenState extends State<LoginScreen> {
               CustomTextForm(
                   width: 260.w,
                   height: 40.h,
-                  fontSize: 14.sp,
+                  fontSize: 13.sp,
                   textController: _email,
+                  
                   hinttext: "Enter Email"),
 
               SizedBox(
@@ -165,11 +166,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               });
                             },
                             icon: status == true
-                                ? Icon(Icons.visibility)
-                                : Icon(Icons.visibility_off)),
+                                ? Icon(Icons.visibility, color: Colors.grey,)
+                                : Icon(Icons.visibility_off,color: Colors.grey,)),
                         hintText: 'Enter Password',
                         hintStyle: GoogleFonts.inter(
-                            fontWeight: FontWeight.normal, fontSize: 14.sp),
+                            fontWeight: FontWeight.normal, fontSize: 13.sp),
                         filled: true,
                         fillColor: primaryColor,
                         border: InputBorder.none,
@@ -184,11 +185,12 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Obx(() => con.isLoading.value == false
                   ? CustomButtonOne(
-                      title: "Login",
+                      title: "Log in",
                       btnColor: navyBlueColor,
                       marginLR: 80.w,
+                      height: 35.h,
                       radius: 10.sp,
-                      fontSize: 18.sp,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
                       onTab: () {
                         print("press login");
@@ -222,7 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text(
                     "Forgot Password?",
                     style: GoogleFonts.inter(
-                      fontSize: 15.sp,
+                      fontSize: 13.sp,
                       fontWeight: FontWeight.w600,
                       color: skyColor,
                     ),
@@ -332,15 +334,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Container(
                       child: Text(
-                        "Don't Have an Account ?",
+                        "Don't Have an Account?",
                         style: GoogleFonts.inter(
-                          fontSize: 15.sp,
+                          fontSize: 13.sp,
                           color: skyColor,
                         ),
                       ),
                     ),
                     SizedBox(
-                      width: 10.w,
+                      width: 5.w,
                     ),
                     InkWell(
                       onTap: () {
@@ -350,8 +352,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text(
                           "Sign Up",
                           style: GoogleFonts.inter(
-                            fontSize: 17.sp,
-                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
                             color: skyColor,
                           ),
                         ),

@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customText.dart';
+import 'package:tripshiptask/pages/Home/view/home_screen.dart';
 import 'package:tripshiptask/pages/Ship/controller/shipController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,6 +44,14 @@ class _AllShipPageState extends State<AllShipPage>
         child: Scaffold(
           appBar: AppBar(
             elevation: 0,
+              leading: IconButton(
+                onPressed: () {
+                  Get.to(HomeScreen());
+                },
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                )),
             centerTitle: true,
             bottom: TabBar(
               labelColor: Colors.white,

@@ -1,5 +1,7 @@
+import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customText.dart';
 import 'package:tripshiptask/Widget/customTextForm.dart';
+import 'package:tripshiptask/pages/Home/view/home_screen.dart';
 import 'package:tripshiptask/pages/Task/views/offer_a_task.dart';
 import 'package:tripshiptask/pages/Task/views/task_give_search.dart';
 import 'package:tripshiptask/pages/Task/views/task_post.dart';
@@ -183,33 +185,53 @@ class CustomForm extends StatelessWidget {
   }
 }
 
-AppBar customAppBar() {
+
+
+AppBar customAppBar1() {
+
+
   return AppBar(
-    elevation: 0,
-    title: Text(
-      "Trip Ship Task",
-      style: TextStyle(color: Colors.black),
-    ),
-    centerTitle: true,
-    backgroundColor: Colors.white,
-    leading: IconButton(
-        onPressed: () {
-          Get.back();
-        },
-        icon: const Icon(
-          Icons.arrow_back_ios_new,
-          color: Colors.black,
-        )),
-    actions: [
-      IconButton(
+      elevation: 0,
+      backgroundColor: Colors.white,
+      leading: IconButton(
           onPressed: () {
-            Get.to(UserDeshBoard());
+            Get.back();
           },
-          icon: Image.asset(
-            "assets/menu_bar.jpeg",
-            height: 15.h,
-            fit: BoxFit.fitHeight,
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.black,
           )),
-    ],
-  );
+      centerTitle: true,
+
+      title: Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(onPressed: (){
+              Get.to(HomeScreen());
+            }, icon: Icon(Icons.home, size: 20.h, color: navyBlueColor,)),
+            Text(
+        "TripShipTask",
+        
+        style: TextStyle(color: Colors.black, ),
+      ),
+          ],
+        ),
+      ),
+      actions: [
+        IconButton(onPressed: (){
+
+        }, icon: Icon(Icons.notifications, color: Colors.amber,)),
+        IconButton(
+            onPressed: () {
+              Get.to(UserDeshBoard());
+            },
+            icon: Image.asset(
+              "assets/menu_bar.jpeg",
+              height: 15.h,
+              fit: BoxFit.fitHeight,
+            )),
+      ],
+    );
 }
+

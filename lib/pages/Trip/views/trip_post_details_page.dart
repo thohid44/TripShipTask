@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tripshiptask/AmarPay/trip_E_payment.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 
@@ -23,7 +24,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_give_post_edit.dart';
-import 'package:tripshiptask/pages/Trip/views/trip_E_payment.dart';
+import 'package:tripshiptask/Amar/trip_E_payment.dart';
 
 class TripDetailsPage extends StatefulWidget {
   String path;
@@ -1079,9 +1080,12 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                             title: "E-Pay",
                             btnColor: navyBlueColor,
                             onTab: () {
-                              // var bidId = bidsId;
-                              // tripEPayment(context, bidId);
-                              Get.to(TripEPaymentPage());
+                            Get.to(TripEPaymentPage(
+                                
+                                bidId:bidsId.toString(),
+                                module: "trip",
+                                postType: trip.postType,
+                              ));
                             })
                       ],
                     )
@@ -1140,7 +1144,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                             btnColor: navyBlueColor,
                             onTab: () {
                               controller.tripEPayment(
-                                  bidId: bidId, postType: trip.postType);
+                                  bidsId: bidId, postType: trip.postType);
                               Navigator.pop(context);
                             })
                       ],
@@ -1199,7 +1203,12 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                             title: "Yes",
                             btnColor: navyBlueColor,
                             onTab: () {
-                              Get.to(TripEPaymentPage());
+                               Get.to(TripEPaymentPage(
+                                
+                           //     bidId:bidsId.toString(),
+                                module: "trip",
+                                postType: trip.postType,
+                              ));
                             })
                       ],
                     )

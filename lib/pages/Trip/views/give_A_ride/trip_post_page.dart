@@ -2,7 +2,7 @@ import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customText.dart';
 import 'package:tripshiptask/Widget/custom_text_field.dart';
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
-import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_details_page.dart';
+import 'package:tripshiptask/pages/Trip/views/trip_post_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -78,13 +78,9 @@ class _TripGivePostsState extends State<TripGivePosts> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                    child: Text(
-                                  "Start: ",
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )),
+                                    child:  CustomText("Start: ", Colors.black,
+                                    FontWeight.bold, 12.sp),
+                                   ),
                                 Expanded(
                                   child: Text(
                                     "${tripData.startPoint}",
@@ -102,13 +98,11 @@ class _TripGivePostsState extends State<TripGivePosts> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                    child: Text(
-                                  "Destination: ",
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )),
+                                    child:      CustomText("Destination: ", Colors.black,
+                                    FontWeight.bold, 12.sp),
+                                    
+                                    
+                                    ),
                                 Expanded(
                                   child: Text(
                                     "${tripData.destination}",

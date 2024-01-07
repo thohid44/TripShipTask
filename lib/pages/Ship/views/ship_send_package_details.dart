@@ -17,8 +17,8 @@ import 'package:tripshiptask/pages/Ship/model/sh_Snd_Package_Details_M.dart';
 import 'package:tripshiptask/pages/Ship/views/shipPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:tripshiptask/pages/Ship/views/ship_send_package_edit.dart';
-import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_details_page.dart';
-import 'package:tripshiptask/pages/Trip/views/trip_E_payment.dart';
+import 'package:tripshiptask/pages/Trip/views/trip_post_details_page.dart';
+import 'package:tripshiptask/Amar/trip_E_payment.dart';
 import 'package:tripshiptask/profile/view/user_deshboard.dart';
 
 import '../../Home/trip_ship_task_home.dart';

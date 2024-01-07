@@ -36,6 +36,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool isSelect = false;
   String? gender;
   var genderName;
+  bool isSelect1 = false;
+  String? online;
+  var onlineName;
 
   List<Map<String, dynamic>> items = [
     {"id": 1, "name": "Male", "slug": "Male"},
@@ -43,6 +46,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     {"id": 3, "name": "Rather not say", "slug": "Rather not say"},
     {"id": 4, "name": "Other", "slug": "Other"},
   ];
+
+  List<Map<String, dynamic>> onlineList = [
+    {"id": 1, "name": "WhatsApp"},
+    {"id": 2, "name": "Imo"},
+    {"id": 3, "name": "Skype"},
+    {"id": 4, "name": "Viber"},
+    {"id": 5, "name": "Telegram"}
+  ];
+
   bool status = true;
   bool isYesSelected = true;
   bool isNoSelected = false;
@@ -52,6 +64,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     name.dispose();
     super.dispose();
   }
+
+  var id;
 
   final formkey = GlobalKey<FormState>();
   var width = 290.w;
@@ -68,7 +82,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: 30.h,
+                height: 18.h,
               ),
               Container(
                 height: 100.h,
@@ -113,16 +127,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               ),
               SizedBox(
-                height: 35.h,
+                height: 25.h,
               ),
-              CustomTextForm(
-                  width: width,
-                  height: height,
-                  errorMsg: "Full Name is Required",
-                  textController: name,
-                  hinttext: "Full Name"),
+               CustomTextForm(
+                width: width,
+                height: height,
+                textController: email,
+                errorMsg: "Full Name is Required",
+                hinttext: "Full Name"
+              ),
+         
               SizedBox(
-                height: 8.h,
+                height: 5.h,
               ),
               UnconstrainedBox(
                 child: Row(
@@ -139,117 +155,34 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             color: primaryColor,
                             borderRadius: BorderRadius.circular(0.r),
                             // border: Border.all(width: 0.1),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xffF1F4F9)
-                                    .withOpacity(0.5), //color of shadow
-                                spreadRadius: 8, //spread radius
-                                blurRadius: 7, // blur radius
-                                offset:
-                                    Offset(5, 5), // changes position of shadow
-                              ),
-                            ]),
+                            // boxShadow: [
+                            //   BoxShadow(
+                            //     color: Color(0xffF1F4F9)
+                            //         .withOpacity(0.5), //color of shadow
+                            //     spreadRadius: 8, //spread radius
+                            //     blurRadius: 7, // blur radius
+                            //     offset:
+                            //         Offset(5, 5), // changes position of shadow
+                            //   ),
+                            // ],
+                            
+                            ),
                         child: Image.asset("assets/bangla.png"),
                       ),
                     ),
-                    CustomTextForm(
-                      width: 250.w,
-                      height: height,
-                      textController: phone,
-                      errorMsg: "Phone Number is Required",
-                      hinttext: "Phone Number eg.(0123456789)",
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 8.h,
-              ),
-              Container(
-                width: 285.w,
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  children: [
-                    Text('WhatsApp Number:'),
-                    SizedBox(width: 5.w),
-                    Row(
-                      children: [
-                        Radio(
-                          value: true,
-                          groupValue: isYesSelected,
-                          onChanged: (value) {
-                            setState(() {
-                              isYesSelected = value as bool;
-                              isNoSelected = !value;
-                            });
-                          },
-                          activeColor: Colors.teal,
-                        ),
-                        Text('Yes'),
-                      ],
-                    ),
-                    SizedBox(width: 5.w),
-                    Row(
-                      children: [
-                        Radio(
-                          value: true,
-                          groupValue: isNoSelected,
-                          onChanged: (value) {
-                            setState(() {
-                              isNoSelected = value as bool;
-                              isYesSelected = !value;
-                            });
-                          },
-                          activeColor: Colors.teal,
-                        ),
-                        Text('No'),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              isNoSelected == false
-                  ? Container()
-                  : Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15.w),
-                      child: Row(
-                        children: [
-                          Material(
-                            elevation: 8,
-                            color: primaryColor,
-                            shadowColor: primaryColor,
-                            borderRadius: BorderRadius.circular(5),
-                            child: Container(
-                              height: 38.h,
-                              width: 50.w,
-                              child: Image.asset("assets/whatsapp.png"),
-                            ),
-                          ),
-                          CustomTextForm(
-                            width: 240.w,
-                            height: height,
-                            textController: phone,
-                            errorMsg: "Phone Number is Required",
-                            hinttext: "WhatsApp Number",
-                            onChanged: (value) {
-                              logInController.whatsAppNumber.value = value;
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-              SizedBox(
-                height: 8.h,
-              ),
-              CustomTextForm(
-                width: width,
+                      CustomTextForm(
+                width: 250.w,
                 height: height,
-                textController: email,
-                errorMsg: "Email is Required",
-                hinttext: "Email",
+                textController: phone,
+              errorMsg: "Phone Number is Required",
+                      hinttext: "Phone Number eg.(0123456789)",
+              ),
+                 
+                  ],
+                ),
               ),
               SizedBox(
-                height: 8.h,
+                height: 5.h,
               ),
               Material(
                 elevation: 8,
@@ -272,12 +205,116 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                         ]),
                     child: DropdownButton(
-                        padding: EdgeInsets.only(left: 9.w),
+                        padding: EdgeInsets.only(left: 9.w, right: 9.w),
+                        isExpanded: true,
+                        hint: Text(
+                          "${isSelect1 ? onlineName : 'Online Communication'}",
+                          style: GoogleFonts.inter(
+                              fontWeight: FontWeight.normal, fontSize: 13.sp),
+                        ),
+                        underline: SizedBox(),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        
+                        value: gender,
+                        items: onlineList
+                            .map((e) => DropdownMenuItem(
+                                  onTap: () {
+                                    onlineName = e['name'].toString();
+                                  },
+                                  value: e['id'],
+                                  child: Text(
+                                    "${e['name']}",
+                                  ),
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          print("Online $value");
+                          id = value;
+                          setState(() {
+                            isSelect1 = true;
+                          });
+                        })),
+
+              ),
+              SizedBox(height: 5.h,), 
+              id == "1"
+                  ? Container()
+                  : UnconstrainedBox(
+                      child: Row(
+                        children: [
+                          Material(
+                            elevation: 8,
+                            color: primaryColor,
+                            shadowColor: primaryColor,
+                            borderRadius: BorderRadius.circular(5),
+                            child: Container(
+                              width: 40.w,
+                              height: 38.h,
+                              decoration: BoxDecoration(
+                                  color: primaryColor,
+                                  borderRadius: BorderRadius.circular(0.r),
+                                  // border: Border.all(width: 0.1),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0xffF1F4F9)
+                                          .withOpacity(0.5), //color of shadow
+                                      spreadRadius: 8, //spread radius
+                                      blurRadius: 7, // blur radius
+                                      offset: Offset(
+                                          5, 5), // changes position of shadow
+                                    ),
+                                  ]),
+                              child: Icon(Icons.phone),
+                            ),
+                          ),
+                          CustomTextForm(
+                            width: 250.w,
+                            height: height,
+                            textController: phone,
+                            errorMsg: "Online Communication Num/id Required",
+                            hinttext: "Online Communication Num/id",
+                          ),
+                        ],
+                      ),
+                    ),
+                SizedBox(height: 5.h,), 
+              CustomTextForm(
+                width: width,
+                height: height,
+                textController: email,
+                errorMsg: "Email is Required",
+                hinttext: "Email",
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Material(
+                elevation: 8,
+                color: primaryColor,
+                shadowColor: primaryColor,
+                borderRadius: BorderRadius.circular(5),
+                child: Container(
+                    width: width,
+                    height: 38.h,
+                    decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(4.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xffF1F4F9)
+                                .withOpacity(0.5), //color of shadow
+                            spreadRadius: 8, //spread radius
+                            blurRadius: 7, // blur radius
+                            offset: Offset(5, 5), // changes position of shadow
+                          ),
+                        ]),
+                    child: DropdownButton(
+                        padding: EdgeInsets.only(left: 9.w, right: 9.w),
                         isExpanded: true,
                         hint: Text(
                           "${isSelect ? genderName : 'Gender'}",
                           style: GoogleFonts.inter(
-                              fontWeight: FontWeight.normal, fontSize: 14.sp),
+                              fontWeight: FontWeight.normal, fontSize: 13.sp),
                         ),
                         underline: SizedBox(),
                         icon: const Icon(Icons.keyboard_arrow_down),
@@ -290,6 +327,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   value: e['id'],
                                   child: Text(
                                     "${e['name']}",
+                                    style: GoogleFonts.inter(
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.normal,
+                                    ),
                                   ),
                                 ))
                             .toList(),
@@ -299,161 +340,121 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           });
                         })),
               ),
-              SizedBox(
-                height: 8.h,
-              ),
+                SizedBox(height: 5.h,), 
               UnconstrainedBox(
-                child: Card(
-                  elevation: 5,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 250.w,
-                        height: 38.h,
-                        decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(15.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xffF1F4F9)
-                                    .withOpacity(0.5), //color of shadow
-                                spreadRadius: 8, //spread radius
-                                blurRadius: 7, // blur radius
-                                offset:
-                                    Offset(5, 5), // changes position of shadow
-                                //first paramerter of offset is left-right
-                                //second parameter is top to down
-                              ),
-                            ]),
-                        child: TextField(
-                          controller: password,
-                          autofocus: false,
-                          obscureText: status,
-                          style: TextStyle(fontSize: 15.sp),
-                          decoration: InputDecoration(
-                            hintText: 'Password',
-                            hintStyle: GoogleFonts.inter(
-                                fontWeight: FontWeight.normal, fontSize: 14.sp),
-                            filled: true,
-                            fillColor: primaryColor,
-                            border: InputBorder.none,
+                child: Material(
+      elevation: 8,
+      color: primaryColor,
+      shadowColor: primaryColor,
+      borderRadius: BorderRadius.circular(5),
+      child:Container(
+                    width: width,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(15.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xffF1F4F9)
+                                .withOpacity(0.5), //color of shadow
+                            spreadRadius: 8, //spread radius
+                            blurRadius: 7, // blur radius
+                            offset: Offset(5, 5), // changes position of shadow
+                            //first paramerter of offset is left-right
+                            //second parameter is top to down
                           ),
-                          onChanged: (value) {},
-                        ),
+                        ]),
+                    child: TextField(
+                   controller: password,
+                      autofocus: false,
+                      obscureText: status,
+                      style: TextStyle(fontSize: 15.sp),
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                status = !status;
+                              });
+                            },
+                            icon: status == true
+                                ? Icon(Icons.visibility, color: Colors.grey,)
+                                : Icon(Icons.visibility_off,color: Colors.grey,)),
+                        hintText: 'Password',
+                        hintStyle: GoogleFonts.inter(
+                            fontWeight: FontWeight.normal, fontSize: 13.sp),
+                        filled: true,
+                        fillColor: primaryColor,
+                        border: InputBorder.none,
                       ),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            status = !status;
-                          });
-                        },
-                        child: Container(
-                            width: 40.w,
-                            height: 38.h,
-                            decoration: BoxDecoration(
-                                color: primaryColor,
-                                borderRadius: BorderRadius.circular(0.r),
-                                border: Border.all(width: 0.1),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0xffF1F4F9)
-                                        .withOpacity(0.5), //color of shadow
-                                    spreadRadius: 8, //spread radius
-                                    blurRadius: 7, // blur radius
-                                    offset: Offset(
-                                        5, 5), // changes position of shadow
-                                  ),
-                                ]),
-                            child: status == true
-                                ? Icon(Icons.visibility)
-                                : Icon(Icons.visibility_off)),
-                      ),
-                    ],
+                      onChanged: (value) {},
+                    ),
                   ),
                 ),
               ),
-              UnconstrainedBox(
-                child: Card(
-                  elevation: 5,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 250.w,
-                        height: 38.h,
-                        decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(15.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xffF1F4F9)
-                                    .withOpacity(0.5), //color of shadow
-                                spreadRadius: 8, //spread radius
-                                blurRadius: 7, // blur radius
-                                offset:
-                                    Offset(5, 5), // changes position of shadow
-                                //first paramerter of offset is left-right
-                                //second parameter is top to down
-                              ),
-                            ]),
-                        child: TextField(
-                          controller: retypePassword,
-                          autofocus: false,
-                          obscureText: status,
-                          style: TextStyle(fontSize: 15.sp),
-                          decoration: InputDecoration(
-                            hintText: 'Confirm Password',
-                            hintStyle: GoogleFonts.inter(
-                                fontWeight: FontWeight.normal, fontSize: 14.sp),
-                            filled: true,
-                            fillColor: primaryColor,
-                            border: InputBorder.none,
+                    SizedBox(height: 5.h,), 
+                 UnconstrainedBox(
+                child: Material(
+      elevation: 8,
+      color: primaryColor,
+      shadowColor: primaryColor,
+      borderRadius: BorderRadius.circular(5),
+      child: Container(
+                    width: width,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(15.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xffF1F4F9)
+                                .withOpacity(0.5), //color of shadow
+                            spreadRadius: 8, //spread radius
+                            blurRadius: 7, // blur radius
+                            offset: Offset(5, 5), // changes position of shadow
+                            //first paramerter of offset is left-right
+                            //second parameter is top to down
                           ),
-                          onChanged: (value) {},
-                        ),
+                        ]),
+                    child: TextField(
+                     controller: password,
+                      autofocus: false,
+                      obscureText: status,
+                      style: TextStyle(fontSize: 15.sp),
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                status = !status;
+                              });
+                            },
+                            icon: status == true
+                                ? Icon(Icons.visibility, color: Colors.grey,)
+                                : Icon(Icons.visibility_off,color: Colors.grey,)),
+                        hintText: 'Confirm Password',
+                        hintStyle: GoogleFonts.inter(
+                            fontWeight: FontWeight.normal, fontSize: 13.sp),
+                        filled: true,
+                        fillColor: primaryColor,
+                        border: InputBorder.none,
                       ),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            status = !status;
-                          });
-                        },
-                        child: Container(
-                            width: 40.w,
-                            height: 39.h,
-                            decoration: BoxDecoration(
-                                color: primaryColor,
-                                borderRadius: BorderRadius.circular(0.r),
-                                border: Border.all(width: 0.1),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0xffF1F4F9)
-                                        .withOpacity(0.5), //color of shadow
-                                    spreadRadius: 8, //spread radius
-                                    blurRadius: 7, // blur radius
-                                    offset: Offset(
-                                        5, 5), // changes position of shadow
-                                  ),
-                                ]),
-                            child: status == true
-                                ? Icon(Icons.visibility)
-                                : Icon(Icons.visibility_off)),
-                      ),
-                    ],
+                      onChanged: (value) {},
+                    ),
                   ),
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 20.h,
               ),
               CustomButtonOne(
                 height: 35.h,
                 title: "Sign Up",
                 width: 125.w,
                 btnColor: navyBlueColor,
-                radius: 11.r,
-                fontSize: 12.sp,
+                radius: 13.r,
+                fontWeight:    FontWeight.bold,
+                fontSize: 14.sp,
                 onTab: () {
-               print("press");
+                  print("press");
                   // if(formkey.currentState!.validate()){
 
                   // }
@@ -560,53 +561,55 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       phone: phone.text.toString(),
                       email: email.text.toString(),
                       gender: gender.toString(),
-                   
                       password: password.text.toString(),
                     );
                   }
 
-                    //   logInController.registration(
-                    //   name: name.text.toString(),
-                    //   phone: phone.text.toString(),
-                    //   email: email.text.toString(),
-                    //   gender: gender.toString(),
-                   
-                    //   password: password.text.toString(),
-                    // );
+                  //   logInController.registration(
+                  //   name: name.text.toString(),
+                  //   phone: phone.text.toString(),
+                  //   email: email.text.toString(),
+                  //   gender: gender.toString(),
+
+                  //   password: password.text.toString(),
+                  // );
                 },
               ),
               SizedBox(
-                height: 20.h,
+                height: 10.h,
               ),
               InkWell(
                 onTap: () {
                   Get.to(PrivacyPolicy());
                 },
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15.w),
+                  margin: EdgeInsets.symmetric(horizontal: 22.w),
                   child: RichText(
-                    textAlign: TextAlign.justify,
+                
+                    textAlign: TextAlign.left,
                     text: TextSpan(
                       style: GoogleFonts.inter(fontSize: 12.sp),
                       children: <TextSpan>[
                         TextSpan(
-                          text: 'By signing up, you agree to our',
+                          text: 'By signing up, you agree to our ',
                           style: GoogleFonts.inter(
                               fontSize: 12.sp, color: Colors.black),
+                              
+                              
                         ),
                         TextSpan(
                           text:
-                              'Terms , Privacy, Data, Cookies, Acceptable Use , Charge Points, Security Deposit, Return & Refund, Cancellation Policy and Copyright Policy.',
+                              'Terms , Privacy, Data, Cookies, Acceptable Use , Charge Points, Security Deposit, Return & Refund, Cancellation Policy, Copyright Policy',
                           style: GoogleFonts.inter(
                               fontSize: 12.sp, color: Color(0xff007BFF)),
                         ),
                         TextSpan(
-                          text: 'and',
+                          text: ' &',
                           style: GoogleFonts.inter(
                               fontSize: 12.sp, color: Colors.black),
                         ),
                         TextSpan(
-                          text: ' Copyright Policy.',
+                          text: ' Respect Policy.',
                           style: GoogleFonts.inter(
                             fontSize: 12.sp,
                             color: Color(0xff007BFF),
@@ -639,10 +642,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                       Get.to(EmailOtpScreen());
-                      // Get.to(
-                      //   LoginScreen(),
-                      // );
+                      Get.to(
+                        LoginScreen(),
+                      );
                     },
                     child: Container(
                       alignment: Alignment.center,

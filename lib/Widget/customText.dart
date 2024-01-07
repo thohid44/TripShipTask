@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomText extends StatelessWidget {
   String? title;
@@ -11,7 +12,7 @@ class CustomText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title!.toString(),
-      style: TextStyle(
+      style: GoogleFonts.inter(
         color: color ?? Colors.black,
         fontWeight: fontWeight,
         fontSize: size,
@@ -30,7 +31,7 @@ class CustomText2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title!.toString(),
-      style: TextStyle(
+      style: GoogleFonts.inter(
           color: color ?? Colors.black, fontWeight: fontWeight, fontSize: size),
     );
   }

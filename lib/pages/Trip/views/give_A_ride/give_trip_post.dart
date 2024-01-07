@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customTextForm.dart';
@@ -157,498 +158,547 @@ class _GiveTripPostState extends State<GiveTripPost> {
     vehicleController.getMyVehicles();
     //  print( vehicleController.myVehicles.first.type);
     var controller = Get.put(TripController());
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 4.h,
-          ),
-          Container(
-            width: fullWidth,
-            height: 30.h,
-            child: TextField(
-              controller: _startSearchFieldController,
-              autofocus: false,
-              focusNode: startFocusNode,
-              style: TextStyle(fontSize: 13.sp),
-              decoration: InputDecoration(
-                  hintText: 'Start Point',
-                  hintStyle:
-                      TextStyle(fontWeight: FontWeight.normal, fontSize: 13.sp),
-                  filled: true,
-                  fillColor: primaryColor,
-                  border: InputBorder.none,
-                  suffixIcon: _startSearchFieldController.text.isNotEmpty
-                      ? IconButton(
-                          onPressed: () {
-                            setState(() {
-                              predictions = [];
-                              _startSearchFieldController.clear();
-                            });
-                          },
-                          icon: Icon(Icons.clear_outlined),
-                        )
-                      : null),
-              onChanged: (value) {
-                if (_debounce?.isActive ?? false) _debounce!.cancel();
-                _debounce = Timer(const Duration(milliseconds: 1000), () {
-                  if (value.isNotEmpty) {
-                    //places api
-                    autoCompleteSearch(value);
-                  } else {
-                    //clear out the results
-                    setState(() {
-                      predictions = [];
-                      startPosition = null;
-                    });
-                  }
-                });
-              },
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 4.h,
             ),
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Container(
-            width: fullWidth,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
-                  onTap: () {
-                    dairyDatePicker(context);
-                  },
-                  child: Container(
-                    width: 150.w,
-                    height: 30.h,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: primaryColor,
-                        border: Border.all(width: 0.5.w, color: Colors.grey)),
-                    child: dateStatus == false
-                        ? Text(
-                            "${pickDate.day}-${pickDate.month}-${pickDate.year}",
-                            style: TextStyle(
-                                fontSize: 13.sp, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.center,
+            Container(
+              width: fullWidth,
+              height: 30.h,
+              child: TextField(
+                controller: _startSearchFieldController,
+                autofocus: false,
+                focusNode: startFocusNode,
+                style: GoogleFonts.inter(color: Colors.black, fontSize: 13.sp),
+                decoration: InputDecoration(
+                    hintText: 'Start Point',
+                    hintStyle:
+                        GoogleFonts.inter(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 13.sp),
+                    filled: true,
+                    fillColor: primaryColor,
+                    border: InputBorder.none,
+                    suffixIcon: _startSearchFieldController.text.isNotEmpty
+                        ? IconButton(
+                            onPressed: () {
+                              setState(() {
+                                predictions = [];
+                                _startSearchFieldController.clear();
+                              });
+                            },
+                            icon: Icon(Icons.clear_outlined),
                           )
-                        : Text(
-                            "${pickDate.day}-${pickDate.month}-${pickDate.year}"),
-                  ),
-                ),
-                InkWell(
-                    onTap: _showTimePicker,
+                        : null),
+                onChanged: (value) {
+                  if (_debounce?.isActive ?? false) _debounce!.cancel();
+                  _debounce = Timer(const Duration(milliseconds: 1000), () {
+                    if (value.isNotEmpty) {
+                      //places api
+                      autoCompleteSearch(value);
+                    } else {
+                      //clear out the results
+                      setState(() {
+                        predictions = [];
+                        startPosition = null;
+                      });
+                    }
+                  });
+                },
+              ),
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Container(
+              width: fullWidth,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      dairyDatePicker(context);
+                    },
                     child: Container(
-                      alignment: Alignment.center,
                       width: 150.w,
                       height: 30.h,
+                      alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: primaryColor,
-                        boxShadow: [
-                          BoxShadow(
-                            color:
-                                primaryColor.withOpacity(0.5), // Shadow color
-                            spreadRadius: 2,
-                            blurRadius: 4,
-                            offset: Offset(2, 2),
-                          ),
-                        ],
-                      ),
-                      child: pickupTime != null
-                          ? Text(pickupTime!.format(context).toString())
+                          color: primaryColor,
+                          border: Border.all(width: 0.5.w, color: Colors.grey)),
+                      child: dateStatus == false
+                          ? Text(
+                              "Select Date",
+                              style: GoogleFonts.inter(
+                                color: Colors.black,
+                                  fontSize: 13.sp, fontWeight: FontWeight.normal),
+                              textAlign: TextAlign.center,
+                            )
                           : Text(
-                              "Select Time",
-                              style: TextStyle(
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                    )),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Container(
-            width: fullWidth,
-            height: 30.h,
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5), // Shadow color
-                  spreadRadius: 2,
-                  blurRadius: 4,
-                  offset: Offset(2, 2),
-                ),
-              ],
-            ),
-            child: TextField(
-              controller: _endSearchFieldController,
-              autofocus: false,
-              focusNode: endFocusNode,
-              enabled: _startSearchFieldController.text.isNotEmpty &&
-                  startPosition != null,
-              style: TextStyle(fontSize: 13.sp),
-              decoration: InputDecoration(
-                  hintText: 'Destination',
-                  hintStyle:
-                      TextStyle(fontWeight: FontWeight.normal, fontSize: 13.sp),
-                  filled: true,
-                  fillColor: primaryColor,
-                  border: InputBorder.none,
-                  suffixIcon: _endSearchFieldController.text.isNotEmpty
-                      ? IconButton(
-                          onPressed: () {
-                            setState(() {
-                              predictions = [];
-                              _endSearchFieldController.clear();
-                            });
-                          },
-                          icon: Icon(Icons.clear_outlined),
-                        )
-                      : null),
-              onChanged: (value) {
-                print(value);
-                if (_debounce?.isActive ?? false) _debounce!.cancel();
-                _debounce = Timer(const Duration(milliseconds: 1000), () {
-                  if (value.isNotEmpty) {
-                    //places api
-                    print("End point $value");
-                    autoCompleteSearch(value);
-                  } else {
-                    //clear out the results
-                    setState(() {
-                      predictions = [];
-                      endPosition = null;
-                    });
-                  }
-                });
-              },
-            ),
-          ),
-          ListView.builder(
-              shrinkWrap: true,
-              itemCount: predictions.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: const CircleAvatar(
-                    child: Icon(
-                      Icons.pin_drop,
-                      color: Colors.white,
+                              "${pickDate.day}-${pickDate.month}-${pickDate.year}",  style: GoogleFonts.inter(
+                                   color: Colors.black,
+                                  fontSize: 13.sp, fontWeight: FontWeight.normal),),
                     ),
                   ),
-                  title: Text(
-                    predictions[index].description.toString(),
-                  ),
-                  onTap: () async {
-                    final placeId = predictions[index].placeId!;
-
-                    final details = await googlePlace.details.get(placeId);
-
-                    if (details != null && details.result != null && mounted) {
-                      if (startFocusNode.hasFocus) {
-                        setState(() {
-                          startPosition = details.result;
-
-                          _startSearchFieldController.text =
-                              details.result!.name!;
-                          predictions = [];
-                        });
-                      } else {
-                        setState(() {
-                          endPosition = details.result;
-                          print(
-                              "Start Point ${endPosition!.geometry!.location!.lat}");
-                          _endSearchFieldController.text =
-                              details.result!.name!;
-                          predictions = [];
-                        });
-                      }
-                    }
-                  },
-                );
-              }),
-          SizedBox(
-            height: 5.h,
-          ),
-          Container(height: 200.h, child: MapPage2()),
-          SizedBox(
-            height: 2.h,
-          ),
-          UnconstrainedBox(
-            child: Container(
-              width: 300.w,
-              child: Row(
-                children: [
-                  Container(
-                      width: 149.w,
-                      alignment: Alignment.center,
-                      height: 30,
-                      decoration: BoxDecoration(
+                  InkWell(
+                      onTap: _showTimePicker,
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 150.w,
+                        height: 30.h,
+                        decoration: BoxDecoration(
                           color: primaryColor,
-                          borderRadius: BorderRadius.circular(5.r)),
-                      child: DropdownButton(
-                          padding: EdgeInsets.symmetric(horizontal: 10.w),
-                          isExpanded: true,
-                          hint: Text(
-                            "${isVehicleSelect ? vehicleName : 'Select Vehicle'}",
-                            style: TextStyle(
-                                fontWeight: FontWeight.normal, fontSize: 13.sp),
-                          ),
-                          underline: SizedBox(),
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          value: vehicle,
-                          items: vehicleitems
-                              .map((e) => DropdownMenuItem(
-                                    onTap: () {
-                                      vehicleName = e['name'].toString();
-                                      print("Vehicle name $vehicleName");
-                                    },
-                                    value: e['id'],
-                                    child: Text(
-                                      "${e['name']}",
-                                      style: TextStyle(fontSize: 13.sp),
-                                    ),
-                                  ))
-                              .toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              if (value == 1) {
-                                print("Vehicle Id $value");
-                                seatList = carSeatList;
-                              } else if (value == 2) {
-                                print("Vehicle Id $value");
-                                seatList = microSeatList;
-                              } else if (value == 5) {
-                                print("Vehicle Id $value");
-                                seatList = cngSeatList;
-                              } else {
-                                seatList = otherSeatList;
-                              }
-                              isVehicleSelect = true;
-                            });
-                          })),
-   SizedBox(
-                    width: 2.w,
-                  ),
-       
-          
-                  Container(
-                      width: 149.w,
-                      alignment: Alignment.center,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(5.r)),
-                      child: DropdownButton(
-                          padding: EdgeInsets.symmetric(horizontal: 10.w),
-                          isExpanded: true,
-                          hint: Text(
-                            "${isSeatSelect ? availableSeat : 'Available Seats'}",
-                            style: TextStyle(
-                                fontWeight: FontWeight.normal, fontSize: 13.sp),
-                          ),
-                          underline: SizedBox(),
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          value: seat,
-                          items: seatList
-                              .map((e) => DropdownMenuItem(
-                                    onTap: () {
-                                      availableSeat = e['name'].toString();
-                                      print("Available Seats  $availableSeat");
-                                    },
-                                    value: e['id'],
-                                    child: Text(
-                                      "${e['name']}",
-                                    ),
-                                  ))
-                              .toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              isSeatSelect = true;
-                            });
-                          })),
+                          boxShadow: [
+                            BoxShadow(
+                              color:
+                                  primaryColor.withOpacity(0.5), // Shadow color
+                              spreadRadius: 2,
+                              blurRadius: 4,
+                              offset: Offset(2, 2),
+                            ),
+                          ],
+                        ),
+                        child: pickupTime != null
+                            ? Text(pickupTime!.format(context).toString())
+                            : Text(
+                                "Select Time",
+                                style: GoogleFonts.inter(
+                                    fontSize: 13.sp,
+                                       color: Colors.black,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                      )),
                 ],
               ),
             ),
-          ),
-
-          SizedBox(
-            height: 3.h,
-          ),
-              isVehicleSelect == false?Container(): Container(
-                width: 285.w,
-                alignment: Alignment.centerLeft,
+            SizedBox(
+              height: 5.h,
+            ),
+            Container(
+              width: fullWidth,
+              height: 30.h,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5), // Shadow color
+                    spreadRadius: 2,
+                    blurRadius: 4,
+                    offset: Offset(2, 2),
+                  ),
+                ],
+              ),
+              child: TextField(
+                controller: _endSearchFieldController,
+                autofocus: false,
+                focusNode: endFocusNode,
+                enabled: _startSearchFieldController.text.isNotEmpty &&
+                    startPosition != null,
+                style: TextStyle(fontSize: 13.sp),
+                decoration: InputDecoration(
+                    hintText: 'Destination',
+                    hintStyle:
+                        GoogleFonts.inter(color:Colors.black, fontWeight: FontWeight.normal, fontSize: 13.sp),
+                    filled: true,
+                    fillColor: primaryColor,
+                    border: InputBorder.none,
+                    suffixIcon: _endSearchFieldController.text.isNotEmpty
+                        ? IconButton(
+                            onPressed: () {
+                              setState(() {
+                                predictions = [];
+                                _endSearchFieldController.clear();
+                              });
+                            },
+                            icon: Icon(Icons.clear_outlined),
+                          )
+                        : null),
+                onChanged: (value) {
+                  print(value);
+                  if (_debounce?.isActive ?? false) _debounce!.cancel();
+                  _debounce = Timer(const Duration(milliseconds: 1000), () {
+                    if (value.isNotEmpty) {
+                      //places api
+                      print("End point $value");
+                      autoCompleteSearch(value);
+                    } else {
+                      //clear out the results
+                      setState(() {
+                        predictions = [];
+                        endPosition = null;
+                      });
+                    }
+                  });
+                },
+              ),
+            ),
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: predictions.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: const CircleAvatar(
+                      child: Icon(
+                        Icons.pin_drop,
+                        color: Colors.white,
+                      ),
+                    ),
+                    title: Text(
+                      predictions[index].description.toString(),
+                    ),
+                    onTap: () async {
+                      final placeId = predictions[index].placeId!;
+      
+                      final details = await googlePlace.details.get(placeId);
+      
+                      if (details != null && details.result != null && mounted) {
+                        if (startFocusNode.hasFocus) {
+                          setState(() {
+                            startPosition = details.result;
+      
+                            _startSearchFieldController.text =
+                                details.result!.name!;
+                            predictions = [];
+                          });
+                        } else {
+                          setState(() {
+                            endPosition = details.result;
+                            print(
+                                "Start Point ${endPosition!.geometry!.location!.lat}");
+                            _endSearchFieldController.text =
+                                details.result!.name!;
+                            predictions = [];
+                          });
+                        }
+                      }
+                    },
+                  );
+                }),
+            SizedBox(
+              height: 5.h,
+            ),
+            Container(height: 200.h, child: MapPage2()),
+            SizedBox(
+              height: 2.h,
+            ),
+            UnconstrainedBox(
+              child: Container(
+                width: 300.w,
                 child: Row(
                   children: [
-                    Text('Do you own this vehicle?'),
-                    SizedBox(width: 5.w),
-                    Row(
-                      children: [
-                        Radio(
-                          value: true,
-                          groupValue: isYesSelected,
-                          onChanged: (value) {
-                            setState(() {
-                              isYesSelected = value as bool;
-                              isNoSelected = !value;
-                            });
-                          },
-                          activeColor: Colors.teal,
-                        ),
-                        Text('Yes'),
-                      ],
+               Material(
+      elevation: 8,
+      color: primaryColor,
+      shadowColor: primaryColor,
+      borderRadius: BorderRadius.circular(5),
+                      child: Container(
+                          width: 149.w,
+                          alignment: Alignment.center,
+                          height: 32,
+                          decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(5.r)),
+                          child: DropdownButton(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              isExpanded: true,
+                              hint: Text(
+                                "${isVehicleSelect ? vehicleName : 'Select Vehicle'}",
+                                style: GoogleFonts.inter(
+                                   color:Colors.black,
+                                    fontWeight: FontWeight.normal, fontSize: 13.sp),
+                              ),
+                              underline: SizedBox(),
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              value: vehicle,
+                              items: vehicleitems
+                                  .map((e) => DropdownMenuItem(
+                                        onTap: () {
+                                          vehicleName = e['name'].toString();
+                                          print("Vehicle name $vehicleName");
+                                        },
+                                        value: e['id'],
+                                        child: Text(
+                                          "${e['name']}",
+                                            style: GoogleFonts.inter(
+                                   color:Colors.black,
+                                    fontWeight: FontWeight.normal, fontSize: 13.sp),
+                                        ),
+                                      ))
+                                  .toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  if (value == 1) {
+                                    print("Vehicle Id $value");
+                                    seatList = carSeatList;
+                                  } else if (value == 2) {
+                                    print("Vehicle Id $value");
+                                    seatList = microSeatList;
+                                  } else if (value == 5) {
+                                    print("Vehicle Id $value");
+                                    seatList = cngSeatList;
+                                  } else {
+                                    seatList = otherSeatList;
+                                  }
+                                  isVehicleSelect = true;
+                                });
+                              })),
                     ),
-                    SizedBox(width: 5.w),
-                    Row(
-                      children: [
-                        Radio(
-                          value: true,
-                          groupValue: isNoSelected,
-                          onChanged: (value) {
-                            setState(() {
-                              isNoSelected = value as bool;
-                              isYesSelected = !value;
-                            });
-                          },
-                          activeColor: Colors.teal,
-                        ),
-                        Text('No'),
-                      ],
+         SizedBox(
+                      width: 2.w,
+                    ),
+         
+            
+                Material(
+      elevation: 8,
+      color: primaryColor,
+      shadowColor: primaryColor,
+      borderRadius: BorderRadius.circular(5),
+                      child: Container(
+                          width: 149.w,
+                          alignment: Alignment.center,
+                          height: 32,
+                          decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(5.r)),
+                          child: DropdownButton(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              isExpanded: true,
+                              hint: Text(
+                                "${isSeatSelect ? availableSeat : 'Available Seats'}",
+                                style: GoogleFonts.inter(
+                                   color:Colors.black,
+                                    fontWeight: FontWeight.normal, fontSize: 13.sp),
+                              ),
+                              underline: SizedBox(),
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              value: seat,
+                              items: seatList
+                                  .map((e) => DropdownMenuItem(
+                                        onTap: () {
+                                          availableSeat = e['name'].toString();
+                                          print("Available Seats  $availableSeat");
+                                        },
+                                        value: e['id'],
+                                        child: Text(
+                                          "${e['name']}",
+                                             style: GoogleFonts.inter(
+                                   color:Colors.black,
+                                    fontWeight: FontWeight.normal, fontSize: 13.sp),
+                                        ),
+                                      ))
+                                  .toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  isSeatSelect = true;
+                                });
+                              })),
                     ),
                   ],
                 ),
               ),
-SizedBox(height: 3.h,),
-          Container(
-            width: fullWidth,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                    width: 160.w,
-                    alignment: Alignment.center,
-                    height: 30,
-                    decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(5.r)),
-                    child: DropdownButton(
-                        padding: EdgeInsets.symmetric(horizontal: 5.w),
-                        isExpanded: true,
-                        hint: Text(
-                          "${isPreferSelect ? preferToRide : 'Give Ride To'}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 13.sp),
-                        ),
-                        underline: SizedBox(),
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        value: seat,
-                        items: preferList
-                            .map((e) => DropdownMenuItem(
-                                  onTap: () {
-                                    preferToRide = e['name'].toString();
-                                    print("Prefer to get ride   $preferToRide");
-                                  },
-                                  value: e['id'],
-                                  child: Text(
-                                    "${e['name']}",
-                                  ),
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            isPreferSelect = true;
-                          });
-                        })),
-                SizedBox(
-                  width: 1.w,
+            ),
+      
+            SizedBox(
+              height: 3.h,
+            ),
+                isVehicleSelect == false?Container(): Container(
+                  width: 285.w,
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    children: [
+                      Text('Do you own this vehicle?'  , style: GoogleFonts.inter(
+                                 color:Colors.black,
+                                  fontWeight: FontWeight.normal, fontSize: 13.sp),),
+                      SizedBox(width: 5.w),
+                      Row(
+                        children: [
+                          Radio(
+                            value: true,
+                            groupValue: isYesSelected,
+                            onChanged: (value) {
+                              setState(() {
+                                isYesSelected = value as bool;
+                                isNoSelected = !value;
+                              });
+                            },
+                            activeColor: Colors.teal,
+                          ),
+                          Text('Yes',   style: GoogleFonts.inter(
+                                 color:Colors.black,
+                                  fontWeight: FontWeight.normal, fontSize: 13.sp),),
+                        ],
+                      ),
+                      SizedBox(width: 5.w),
+                      Row(
+                        children: [
+                          Radio(
+                            value: true,
+                            groupValue: isNoSelected,
+                            onChanged: (value) {
+                              setState(() {
+                                isNoSelected = value as bool;
+                                isYesSelected = !value;
+                              });
+                            },
+                            activeColor: Colors.teal,
+                          ),
+                          Text('No',   style: GoogleFonts.inter(
+                                 color:Colors.black,
+                                  fontWeight: FontWeight.normal, fontSize: 13.sp),),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                CustomTextForm(
-                  height: 30.h,
-                  width: 90.w,
-                  hinttext: "Asking Fare",
-                  fontSize: 13.sp,
-                  textController: willPayAmount,
-                ),
-                Container(
-                    alignment: Alignment.center,
+      SizedBox(height: 3.h,),
+            Container(
+              width: fullWidth,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Material(
+      elevation: 8,
+      color: primaryColor,
+      shadowColor: primaryColor,
+      borderRadius: BorderRadius.circular(5),
+                    child: Container(
+                        width: 160.w,
+                        alignment: Alignment.center,
+                        height: 32,
+                        decoration: BoxDecoration(
+                            color: primaryColor,
+                            borderRadius: BorderRadius.circular(5.r)),
+                        child: DropdownButton(
+                            padding: EdgeInsets.symmetric(horizontal: 5.w),
+                            isExpanded: true,
+                            hint: Text(
+                              "${isPreferSelect ? preferToRide : 'Give Ride To'}",
+                             style: GoogleFonts.inter(
+                                   color:Colors.black,
+                                    fontWeight: FontWeight.normal, fontSize: 13.sp),
+                            ),
+                            underline: SizedBox(),
+                            icon: const Icon(Icons.keyboard_arrow_down),
+                            value: seat,
+                            items: preferList
+                                .map((e) => DropdownMenuItem(
+                                      onTap: () {
+                                        preferToRide = e['name'].toString();
+                                        print("Prefer to get ride   $preferToRide");
+                                      },
+                                      value: e['id'],
+                                      child: Text(
+                                        "${e['name']}",
+                                           style: GoogleFonts.inter(
+                                   color:Colors.black,
+                                    fontWeight: FontWeight.normal, fontSize: 13.sp),
+                                      ),
+                                    ))
+                                .toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                isPreferSelect = true;
+                              });
+                            })),
+                  ),
+                  // SizedBox(
+                  //   width: 1.w,
+                  // ),
+                  CustomTextForm(
                     height: 30.h,
-                    width: 40.w,
-                    decoration: BoxDecoration(
-                        color: purplColor,
-                        borderRadius: BorderRadius.circular(5.r)),
-                    child: Text(
-                      "BDT",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.normal),
-                    )),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
-          Container(
-            child: TextFormField(
-              controller: note,
-              decoration: InputDecoration(
-                hintText: "Note",
-                hintStyle: TextStyle(fontSize: 13.sp),
-                border: OutlineInputBorder(),
-              ),
-              maxLines: 1,
-            ),
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          UnconstrainedBox(
-            child: Container(
-              width: 200.w,
-              child: CustomButtonOne(
-                title: "Submit",
-                onTab: () {
-                  startPointLat = startPosition!.geometry!.location!.lat;
-                  print("Start Lat $startPointLat");
-                  startPointLong = startPosition!.geometry!.location!.lng;
-                  print("Start Long $startPointLong");
-                  destinationPointLat = startPosition!.geometry!.location!.lat;
-                  print("Destination Lat $startPointLong");
-                  destinationPointLong = startPosition!.geometry!.location!.lng;
-                  print("Destination Long $startPointLong");
-                  print(
-                      "address is ${GetAddressFromLatLong(startPointLat, startPointLong)}");
-
-                  controller.giveTripRide(
-                    date: dateDairy.toString(),
-                    time: tripTime.toString(),
-                    duration: "2",
-                    sPointLat: startPointLat,
-                    sPointLng: startPointLong,
-                    dPointLat: destinationPointLat,
-                    dPointLng: destinationPointLong,
-                    howmany: availableSeat,
-                    note: note.text.toString(),
-                    vehicled: vehicleName,
-                    passengerType: preferToRide,
-                    willPay: willPayAmount.text.toString(),
-                    currency: "BDT",
-                    country: "BD",
-                    distance: "2",
-                    startPoint: _startSearchFieldController.text.toString(),
-                    des: _endSearchFieldController.text.toString(),
-                  );
-                },
-                height: 40.h,
-                width: 150.w,
-                btnColor: navyBlueColor,
-                radius: 10.r,
+                    width: 91.w,
+                    hinttext: "Asking Fare",
+                    fontSize: 13.sp,
+                    textController: willPayAmount,
+                  ),
+                  Container(
+                      alignment: Alignment.center,
+                      height: 30.h,
+                      width: 40.w,
+                      decoration: BoxDecoration(
+                          color: purplColor,
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child: Text(
+                        "BDT",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.normal),
+                      )),
+                ],
               ),
             ),
-          )
-        ],
+            SizedBox(
+              height: 5.h,
+            ),
+           Material(
+      elevation: 8,
+      color: primaryColor,
+      shadowColor: primaryColor,
+      borderRadius: BorderRadius.circular(5),
+              child: Container(
+                child: TextFormField(
+                  controller: note,
+                  decoration: InputDecoration(
+                    hintText: "Note",
+                    hintStyle:    GoogleFonts.inter(
+                                   color:Colors.black,
+                                    fontWeight: FontWeight.normal, fontSize: 13.sp),
+                    border: OutlineInputBorder(),
+                  ),
+                  maxLines: 1,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            UnconstrainedBox(
+              child: Container(
+                width: 200.w,
+                child: CustomButtonOne(
+                  title: "Submit",
+                  onTab: () {
+                    startPointLat = startPosition!.geometry!.location!.lat;
+                    print("Start Lat $startPointLat");
+                    startPointLong = startPosition!.geometry!.location!.lng;
+                    print("Start Long $startPointLong");
+                    destinationPointLat = startPosition!.geometry!.location!.lat;
+                    print("Destination Lat $startPointLong");
+                    destinationPointLong = startPosition!.geometry!.location!.lng;
+                    print("Destination Long $startPointLong");
+                    print(
+                        "address is ${GetAddressFromLatLong(startPointLat, startPointLong)}");
+      
+                    controller.giveTripRide(
+                      date: dateDairy.toString(),
+                      time: tripTime.toString(),
+                      duration: "2",
+                      sPointLat: startPointLat,
+                      sPointLng: startPointLong,
+                      dPointLat: destinationPointLat,
+                      dPointLng: destinationPointLong,
+                      howmany: availableSeat,
+                      note: note.text.toString(),
+                      vehicled: vehicleName,
+                      passengerType: preferToRide,
+                      willPay: willPayAmount.text.toString(),
+                      currency: "BDT",
+                      country: "BD",
+                      distance: "2",
+                      startPoint: _startSearchFieldController.text.toString(),
+                      des: _endSearchFieldController.text.toString(),
+                    );
+                  },
+                  height: 40.h,
+                  width: 150.w,
+                  btnColor: navyBlueColor,
+                  radius: 10.r,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

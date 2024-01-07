@@ -48,7 +48,12 @@ dependencies:
   fluttertoast: ^8.2.4 
   google_fonts: ^4.0.4
   url_launcher: ^6.2.2
- 
+  expansion_tile_card: ^3.0.0
+  webview_flutter_web: ^0.2.2+4
+  flutter_inappwebview: ^6.0.0
+  webview_flutter_plus: ^0.4.4
+  expansion_tile_group: ^1.2.4
+
      
 
   
@@ -79,7 +84,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   
-  uses-material-design: true 
+  uses-material-design: true  
 
   # To add assets to your application, add an assets section, like this:
   assets:

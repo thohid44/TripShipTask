@@ -8,7 +8,7 @@ import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customText.dart';
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
 import 'package:tripshiptask/pages/Trip/model/my_trips_offer_model.dart';
-import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_details_page.dart';
+import 'package:tripshiptask/pages/Trip/views/trip_post_details_page.dart';
 import 'package:tripshiptask/pages/Trip/views/trip_offer_negotiate_page.dart';
 
 import 'package:flutter/material.dart';

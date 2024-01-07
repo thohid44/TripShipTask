@@ -7,7 +7,6 @@ import 'package:tripshiptask/Widget/customTextForm.dart';
 import 'package:tripshiptask/controller/vehicle_controller.dart';
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
 
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -151,7 +150,7 @@ var fullWidth = 300.w;
               decoration: InputDecoration(
                   hintText: 'Start Point',
                   hintStyle:
-                      TextStyle(fontWeight: FontWeight.normal, fontSize: 13.sp),
+                      GoogleFonts.inter(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 13.sp),
                   filled: true,
                   fillColor: primaryColor,
                   border: InputBorder.none,
@@ -205,8 +204,8 @@ var fullWidth = 300.w;
                         border: Border.all(width: 0.5.w, color: Colors.grey)),
                     child: dateStatus == false
                         ? Text(
-                            "${pickDate.day}-${pickDate.month}-${pickDate.year}",
-                            style: TextStyle(
+                            "Select Date",
+                            style: GoogleFonts.inter(color: Colors.black, 
                                 fontSize: 13.sp,
                                
                                 fontWeight: FontWeight.normal),
@@ -239,7 +238,7 @@ var fullWidth = 300.w;
                       ),
                       child: pickupTime != null
                           ? Text(pickupTime!.format(context).toString())
-                          : Text("Select Time",  style: TextStyle(
+                          : Text("Select Time",  style: GoogleFonts.inter(color: Colors.black, 
                                 fontSize: 13.sp,
                                
                                 fontWeight: FontWeight.normal),),
@@ -269,10 +268,10 @@ var fullWidth = 300.w;
               focusNode: endFocusNode,
               enabled: _startSearchFieldController.text.isNotEmpty &&
                   startPosition != null,
-              style: TextStyle(fontSize: 13.sp),
+              style: GoogleFonts.inter(color: Colors.black, fontSize: 13.sp),
               decoration: InputDecoration(
                   hintText: 'Destination',
-                  hintStyle: TextStyle(
+                  hintStyle:GoogleFonts.inter(color: Colors.black, 
                       fontWeight: FontWeight.normal,
                      
                       fontSize: 13.sp),
@@ -395,8 +394,8 @@ var fullWidth = 300.w;
                           isExpanded: true,
                           hint: Text(
                             "${isVehicleSelect ? vehicleName : 'Select Vehicle'}",
-                            style: TextStyle(
-                                fontWeight: FontWeight.normal, fontSize: 13.sp),
+                            style: GoogleFonts.inter(color: Colors.black, 
+                                fontWeight: FontWeight.normal, fontSize: 12.sp),
                           ),
                           underline: SizedBox(),
                           icon: const Icon(Icons.keyboard_arrow_down),
@@ -409,7 +408,8 @@ var fullWidth = 300.w;
                                     },
                                     value: e['id'],
                                     child: Text(
-                                      "${e['name']}",
+                                      "${e['name']}",style: GoogleFonts.inter(
+                                fontWeight: FontWeight.normal, fontSize: 12.sp),
                                     ),
                                   ))
                               .toList(),
@@ -433,8 +433,8 @@ var fullWidth = 300.w;
                           isExpanded: true,
                           hint: Text(
                             "${isSeatSelect ==true? availableSeat : 'How Many Of You'}",
-                            style: GoogleFonts.inter(
-                                fontWeight: FontWeight.normal, fontSize: 13.sp),
+                            style: GoogleFonts.inter(color: Colors.black,
+                                fontWeight: FontWeight.normal, fontSize: 12.sp),
                           ),
                           underline: SizedBox(),
                           icon: const Icon(Icons.keyboard_arrow_down),
@@ -469,7 +469,7 @@ var fullWidth = 300.w;
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                    width: 130.w,
+                    width: 142.w,
                     alignment: Alignment.center,
                     height: 30,
                     decoration: BoxDecoration(
@@ -480,8 +480,8 @@ var fullWidth = 300.w;
                         isExpanded: true,
                         hint: Text(
                           "${isPreferSelect ? preferToRide : 'Get Ride From'}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 13.sp),
+                          style:GoogleFonts.inter(color: Colors.black,
+                              fontWeight: FontWeight.normal, fontSize: 12.sp),
                         ),
                         underline: SizedBox(),
                         icon: const Icon(Icons.keyboard_arrow_down),
@@ -523,7 +523,7 @@ var fullWidth = 300.w;
                         borderRadius: BorderRadius.circular(5.r)),
                     child: Text(
                       "BDT",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
                     )),
               ],
             ),
@@ -538,7 +538,8 @@ var fullWidth = 300.w;
               controller: note,
               decoration: InputDecoration(
                 hintText: "Note",
-                hintStyle:  TextStyle(
+                
+                hintStyle:  GoogleFonts.inter(
                                 fontSize: 13.sp,
                                
                                 fontWeight: FontWeight.normal),

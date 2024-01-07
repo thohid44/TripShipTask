@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tripshiptask/Email_Verify/view/email_verification.dart';
 import 'package:tripshiptask/Utils/colors.dart';
@@ -44,12 +45,14 @@ class _OpenATicketState extends State<OpenATicket> {
   String? selectedTicketValue;
   @override
   Widget build(BuildContext context) {
+    supportCon.getTicketCategory(); 
     return Scaffold(
       appBar: customAppBar(),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 5.w),
         child: Column(
           children: [
+            SizedBox(height: 10.h,), 
             Card(
               elevation: 5,
               child: Container(
@@ -65,12 +68,12 @@ class _OpenATicketState extends State<OpenATicket> {
                   ]),
                   alignment: Alignment.center,
                   height: 35.h,
-                  width: 290.w,
+                  width: 300.w,
                   child: DropdownButton(
                       isExpanded: true,
                       hint: Text(
-                        "${isTicket ? selectTicket : "Select Ticket Category"}",
-                        style: TextStyle(
+                        "${isTicket ? selectTicket : "Select Department"}",
+                        style: GoogleFonts.inter(
                             fontSize: 12.sp, fontWeight: FontWeight.normal),
                       ),
                       underline: SizedBox(),
@@ -89,35 +92,25 @@ class _OpenATicketState extends State<OpenATicket> {
                           .toList(),
                       onChanged: (value) {
                         var id = value;
-                      
-                        supportCon.category.value = id.toString(); 
-                          print("Ticket Id ${supportCon.category.value}");
+                        setState(() {
+                          isTicket = true;
+                        });
+                        supportCon.category.value = id.toString();
+                        print("Ticket Id ${supportCon.category.value}");
                       })),
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            CustomTextForm(
-              width: 300.w,
-              height: 30.h,
-              hinttext: "Category",
-              onChanged: (value) {
-                supportCon.category.value = value;
-                print("Subject ${supportCon.category.value}");
-              },
             ),
             SizedBox(
               height: 5.h,
             ),
-            CustomTextForm(
-              width: 300.w,
-              height: 30.h,
-              hinttext: "Subject",
-              onChanged: (value) {
-                supportCon.subject.value = value;
-                print("Subject ${supportCon.subject.value}");
-              },
-            ),
+            // CustomTextForm(
+            //   width: 300.w,
+            //   height: 30.h,
+            //   hinttext: "Subject",
+            //   onChanged: (value) {
+            //     supportCon.subject.value = value;
+            //     print("Subject ${supportCon.subject.value}");
+            //   },
+            // ),
             SizedBox(
               height: 5.h,
             ),
@@ -136,23 +129,22 @@ class _OpenATicketState extends State<OpenATicket> {
                         spreadRadius: 8, //spread radius
                         blurRadius: 7, // blur radius
                         offset: Offset(3, 5), // changes position of shadow
-                        //first paramerter of offset is left-right
-                        //second parameter is top to down
+                   
                       ),
                     ]),
                 child: TextFormField(
                   autofocus: false,
-                  style: TextStyle(fontSize: 11.sp),
+                  style: TextStyle(fontSize: 12.sp),
                   decoration: InputDecoration(
                     hintText: 'Message',
-                    hintStyle: TextStyle(
-                        fontWeight: FontWeight.normal, fontSize: 11.sp),
+                    hintStyle: GoogleFonts.inter(
+                        fontWeight: FontWeight.normal, fontSize: 12.sp),
                     filled: true,
                     fillColor: primaryColor,
                     border: InputBorder.none,
                   ),
-                  minLines: 2,
-                  maxLines: 3,
+                  minLines: 4,
+                  maxLines: 5,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "errorMsg";
@@ -167,11 +159,11 @@ class _OpenATicketState extends State<OpenATicket> {
               ),
             ),
             SizedBox(
-              height: 5,
+              height: 10.h,
             ),
             CustomTextForm(
               width: 300.w,
-              height: 30.h,
+              height: 35.h,
               hinttext: "Reference Link or Post id",
               onChanged: (value) {
                 supportCon.refLink.value = value;
@@ -183,7 +175,7 @@ class _OpenATicketState extends State<OpenATicket> {
             ),
             Container(
               width: 300.w,
-              height: 30.h,
+              height: 35.h,
               decoration: BoxDecoration(
                 border: Border.all(width: 0.4.w, color: Colors.grey),
               ),
@@ -198,7 +190,12 @@ class _OpenATicketState extends State<OpenATicket> {
                       alignment: Alignment.centerLeft,
                       height: 35.h,
                       padding: EdgeInsets.only(left: 10.w),
-                      decoration: BoxDecoration(),
+                      decoration: BoxDecoration(
+                        border: Border(
+        
+            right: BorderSide(width: 2.0, color: Colors.amber),
+          ),
+                      ),
                       child: Text(
                         'Choose File',
                         style: TextStyle(
@@ -211,12 +208,13 @@ class _OpenATicketState extends State<OpenATicket> {
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.only(left: 5.w),
                     height: 35.h,
                     decoration: BoxDecoration(),
                     child: image != null
                         ? Text(
                             "File Selected",
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               fontWeight: FontWeight.normal,
                               fontSize: 12.sp,
                               color: Colors.black,
@@ -224,9 +222,9 @@ class _OpenATicketState extends State<OpenATicket> {
                           )
                         : Text(
                             "No File Chosen",
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               fontWeight: FontWeight.normal,
-                              fontSize: 12.sp,
+                              fontSize: 10.sp,
                               color: Colors.black,
                             ),
                           ),

@@ -22,23 +22,19 @@ class LoginController extends GetxController {
   var url = "${baseUrl}auth/login";
 
   login(email, password) async {
-    Get.to(HomeScreen());
+  
     try {
-      var email1;
-      if (email == '1') {
-        email1 = "test1@abaacorp.com";
-      } else {
-        email1 = "waleed.amin08@gmail.com";
-      }
+  
       var mapData = {
-        "email": email1,
-        //   "email":"test2@abaacorp.com",
-        // "email": "waleed.amin08@gmail.com",
-        "password": '123456789'
+     //   "email": email,
+        //  "email":"test2@abaacorp.com",
+       "email": "waleed.amin08@gmail.com",
+        "password": "123456"
       };
 
       isLoading(true);
       var response = await http.post(Uri.parse(url), body: mapData);
+       Get.to(HomeScreen());
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
         print(jsonData);
@@ -54,7 +50,7 @@ class LoginController extends GetxController {
         _box.write(LocalStoreKey.accountNo, accountNo);
 
         print(_box.read(LocalStoreKey.token));
-
+  
         if (getToken != null) {
           Get.to(HomeScreen());
         }

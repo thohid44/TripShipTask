@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:tripshiptask/Amar/page2.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
@@ -12,7 +13,7 @@ import 'package:tripshiptask/pages/Ship/views/web_view_payment.dart';
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
 import 'package:tripshiptask/pages/Trip/views/amar_pay_web_view.dart';
 import 'package:http/http.dart' as http;
-import '../../../profile/view/user_deshboard.dart';
+import '../profile/view/user_deshboard.dart';
 
 class TripEPaymentPage extends StatefulWidget {
   String? bidId;
@@ -39,7 +40,7 @@ class _TripEPaymentPageState extends State<TripEPaymentPage> {
             'Authorization': 'Bearer ' + token,
           },
           body: jsonEncode({
-            "module": "ship",
+            "module": "${widget.module}",
             "post_type": "${widget.postType}",
             "currency": "BDT",
             "bid": "${widget.bidId}"
@@ -119,14 +120,14 @@ class _TripEPaymentPageState extends State<TripEPaymentPage> {
                   height: 50.h,
                 ),
                 CustomButtonOne(
-                    title: "Go To Pay",
+                    title: "Go To Pay1",
                     btnColor: Colors.green,
                     height: 35.h,
                     width: 100.w,
                     radius: 5.r,
                     onTab: () {
-                      Get.to(WebViewPayment());
-                     // Get.to(AmarPayWebView(paymentUrl));
+                    
+                     Get.to(MainPage(paymentUrl));
                     })
               ],
             ),

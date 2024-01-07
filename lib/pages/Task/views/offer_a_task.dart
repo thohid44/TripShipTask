@@ -219,7 +219,7 @@ class _OfferATaskState extends State<OfferATask> {
             elevation: 5,
             child: Container(
                 alignment: Alignment.center,
-                height: 35.h,
+                height: 38.h,
                 width: fullWidth,
                 decoration: BoxDecoration(
                   color: primaryColor,
@@ -239,12 +239,12 @@ class _OfferATaskState extends State<OfferATask> {
                     hint: Text(
                       "${isSelect ? selectcategory : 'Select Category'}",
                       style: GoogleFonts.inter(
-                          fontSize: fontSize.sp, fontWeight: FontWeight.normal),
+                          fontSize: fontSize.sp,color: Colors.black, fontWeight: FontWeight.normal),
                       textAlign: TextAlign.center,
                     ),
                     underline: SizedBox(),
                     icon: const Icon(Icons.keyboard_arrow_down),
-                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
                     value: classValue,
                     items: categories
                         .map((e) => DropdownMenuItem(
@@ -254,7 +254,7 @@ class _OfferATaskState extends State<OfferATask> {
                               value: e['id'],
                               child: Text(
                                 "${e['name']}",
-                                style: GoogleFonts.inter(color: Colors.black, fontWeight: FontWeight.normal, fontSize: fontSize.sp ),
+                                style: GoogleFonts.inter(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 12.sp ),
                               ),
                             ))
                         .toList(),
@@ -270,13 +270,11 @@ class _OfferATaskState extends State<OfferATask> {
                     })),
           ),
 
-          SizedBox(
-            height: height.h,
-          ),
+         
 
           CustomTextForm(
             width: fullWidth,
-            height: 30.w,
+            height: 35.w,
             textController: title,
             fontSize: fontSize.sp,
             hinttext: "Describe The Task",
@@ -312,12 +310,12 @@ class _OfferATaskState extends State<OfferATask> {
                     hint: Text(
                       "${isSelectSkill ? selectSkill : 'Skill Required'}",
                       style: GoogleFonts.inter(
-                          fontSize: fontSize.sp, fontWeight: FontWeight.normal),
+                          fontSize: fontSize.sp,color: Colors.black, fontWeight: FontWeight.normal),
                       textAlign: TextAlign.center,
                     ),
                     underline: SizedBox(),
                     icon: const Icon(Icons.keyboard_arrow_down),
-                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
                     value: classValue,
                     items: skills
                         .map((e) => DropdownMenuItem(
@@ -326,7 +324,7 @@ class _OfferATaskState extends State<OfferATask> {
                               },
                               value: e['id'],
                               child: Text(
-                                "${e['name']}", style: GoogleFonts.inter(fontSize: fontSize.sp, fontWeight:FontWeight.normal),
+                                "${e['name']}", style: GoogleFonts.inter(fontSize: fontSize.sp,color: Colors.black, fontWeight:FontWeight.normal),
                               ),
                             ))
                         .toList(),
@@ -373,7 +371,7 @@ class _OfferATaskState extends State<OfferATask> {
                       ),
                       child: dateStatus == false
                           ? Text(
-                              "${pickDate.day}-${pickDate.month}-${pickDate.year}",
+                              "Select Date",
                               style: GoogleFonts.inter(
                                   fontSize:fontSize.sp, fontWeight: FontWeight.normal),
                               textAlign: TextAlign.center,
@@ -414,6 +412,7 @@ class _OfferATaskState extends State<OfferATask> {
                                 "Select Time",
                                 style: GoogleFonts.inter(
                                     fontSize: fontSize.sp,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.normal),
                                 textAlign: TextAlign.center,
                               ),
@@ -422,19 +421,16 @@ class _OfferATaskState extends State<OfferATask> {
               ],
             ),
           ),
-          SizedBox(
-            height: height.h,
-          ),
+     
           CustomTextForm(
             width: fullWidth,
-            height: 30.h,
+            height: 35.h,
             hinttext: "Task Duration (Default 1 Hour)",
             fontSize:fontSize.sp,
+            
             textController: needhour,
           ),
-          SizedBox(
-            height: height.h,
-          ),
+       
           Card(
             elevation: 5,
             child: UnconstrainedBox(
@@ -457,11 +453,13 @@ class _OfferATaskState extends State<OfferATask> {
                   controller: location,
                   autofocus: false,
                   focusNode: startFocusNode,
-                  style: GoogleFonts.inter(fontSize:fontSize.sp, fontWeight: FontWeight.normal),
+                  style: GoogleFonts.inder( 
+                                        fontSize: 12.sp, color: Colors.black
+                                      ),
                   decoration: InputDecoration(
                       hintText: 'Task Address / Location',
                       hintStyle: GoogleFonts.inter(
-                          fontWeight: FontWeight.normal, fontSize: fontSize.sp),
+                          fontWeight: FontWeight.normal, color: Colors.black, fontSize: 12.sp),
                       filled: true,
                       fillColor: primaryColor,
                       border: InputBorder.none,
@@ -512,7 +510,7 @@ class _OfferATaskState extends State<OfferATask> {
                   ),
                   title: Text(
                     predictions[index].description.toString(),
-                    style: GoogleFonts.inter(fontSize: fontSize.sp, fontWeight:FontWeight.normal),
+                    style: GoogleFonts.inter(fontSize: fontSize.sp, color: Colors.black, fontWeight:FontWeight.normal),
                   ),
                   onTap: () async {
                     final placeId = predictions[index].placeId!;
@@ -535,9 +533,7 @@ class _OfferATaskState extends State<OfferATask> {
               }),
           // End Suggestion List
         
-          SizedBox(
-            height: height.h,
-          ),
+        
           UnconstrainedBox(
             child: Card(
               elevation: 5,
@@ -548,7 +544,7 @@ class _OfferATaskState extends State<OfferATask> {
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      height: 38.h,
+                      height: 35.h,
                       width: fullWidth,
                       decoration: BoxDecoration(
                  color: primaryColor,
@@ -564,11 +560,12 @@ class _OfferATaskState extends State<OfferATask> {
                 ],
                           ),
                       child: DropdownButton(
-                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
                           hint: Text(
                             "${isSelect ? selectedGender : 'Give Task To'}",
-                            style: TextStyle(
-                                fontSize: 13.sp, fontWeight: FontWeight.normal),
+                          style: GoogleFonts.inder( 
+                                        fontSize: 12.sp, color: Colors.black
+                                      ),
                           ),
                           underline: SizedBox(),
                           icon: const Icon(Icons.keyboard_arrow_down),
@@ -584,7 +581,9 @@ class _OfferATaskState extends State<OfferATask> {
                                     },
                                     value: e['id'],
                                     child: Text(
-                                      "${e['name']}",
+                                      "${e['name']}", style: GoogleFonts.inder( 
+                                        fontSize: 12.sp, color: Colors.black
+                                      ),
                                     ),
                                   ))
                               .toList(),
@@ -629,25 +628,25 @@ class _OfferATaskState extends State<OfferATask> {
                   CustomTextForm(
                     textController: amount,
                     hinttext: "Amount Offering",
-                    height: 30.h,
-                    fontSize: 13.sp,
+                    height: 35.h,
+                    fontSize: 12.sp,
                     width: 251.w,
                   ),
                   Card(
                     elevation: 5,
                     child: Container(
                         alignment: Alignment.center,
-                        height: 38.h,
-                        width: 40.w,
+                        height: 36.h,
+                        width: 41.w,
                         decoration: BoxDecoration(
-                            color: primaryColor,
+                            color: purplColor,
                             border: Border.all(color: primaryColor),
                             borderRadius: BorderRadius.circular(5.r)),
                         child: Text(
                           "BDT",
                           style: GoogleFonts.inter(
-                              color: Colors.black,
-                              fontSize: 13.sp,
+                              color: Colors.white,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.normal),
                         )),
                   ),
@@ -680,7 +679,7 @@ class _OfferATaskState extends State<OfferATask> {
                   decoration: InputDecoration(
                     hintText: "Note ",
                     hintStyle:
-                        GoogleFonts.inter(fontSize: fontSize.sp, fontWeight: FontWeight.normal),
+                        GoogleFonts.inter(fontSize: fontSize.sp,color: Colors.black, fontWeight: FontWeight.normal),
                     border: OutlineInputBorder(borderSide: BorderSide.none),
                   ),
                   minLines: 1,

@@ -6,7 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
 import 'package:http/http.dart' as http;
-import 'package:tripshiptask/pages/Trip/views/trip_E_payment.dart';
+import 'package:tripshiptask/Amar/trip_E_payment.dart';
 
 class PaymentController extends GetxController{
 

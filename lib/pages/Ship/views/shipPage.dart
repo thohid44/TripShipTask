@@ -10,7 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tripshiptask/pages/Ship/views/ship_send_package_details.dart';
 import 'package:tripshiptask/pages/Ship/views/ship_carry_package_post_list.dart';
-import 'package:tripshiptask/pages/Trip/views/trip_search/trip_single_search.dart';
 import 'package:tripshiptask/profile/view/user_deshboard.dart';
 import 'shipDetails/ship_send_search.dart';
 import 'ship_send_package_post_list_page.dart';
@@ -98,7 +97,7 @@ class _ShipHomePageState extends State<ShipHomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                  Container(
-                        width: 99.w,
+                        width: 80.w,
                         height: 28.h,
                         child: TextField(
                           onTap: () {
@@ -124,7 +123,7 @@ class _ShipHomePageState extends State<ShipHomePage> {
                     child: Container(
                        alignment: Alignment.center,
                       height: 28.h,
-                      width: 99.w,
+                      width: 110.w,
                      
                       decoration: BoxDecoration(
                           color: index == 3 ? Color(0xff4CA4C7) : Colors.grey,
@@ -142,7 +141,7 @@ class _ShipHomePageState extends State<ShipHomePage> {
                     child: Container(
                       alignment: Alignment.center,
                       height: 28.h,
-                      width: 99.w,
+                      width: 110.w,
                     
                       decoration: BoxDecoration(
                           color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
