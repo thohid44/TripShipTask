@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tripshiptask/Utils/colors.dart';
+import 'package:tripshiptask/Widget/app_bar_widget_1.dart';
 import 'package:tripshiptask/Widget/customText.dart';
-import 'package:tripshiptask/pages/Home/trip_ship_task_home.dart';
-import 'package:tripshiptask/pages/Task/views/task_home_page.dart';
+
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
 import 'package:tripshiptask/pages/Trip/views/trip_post_details_page.dart';
 import 'package:tripshiptask/rating/view/trip_giver_feedback_rating.dart';

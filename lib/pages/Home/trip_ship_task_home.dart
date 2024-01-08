@@ -2,6 +2,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tripshiptask/Email_Verify/view/email_verification.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
+import 'package:tripshiptask/Widget/app_bar_widget_1.dart';
 
 import 'package:tripshiptask/Widget/customText.dart';
 

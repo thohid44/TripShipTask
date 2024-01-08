@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_place/google_place.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
@@ -235,13 +236,15 @@ class _WantATaskState extends State<WantATask> {
                     isExpanded: true,
                     hint: Text(
                       "${isSelect ? selectcategory : 'Select Category'}",
-                      style: TextStyle(
-                          fontSize: 13.sp, fontWeight: FontWeight.normal),
+                      style: GoogleFonts.inter(
+                          fontSize: 12.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal),
                       textAlign: TextAlign.center,
                     ),
                     underline: SizedBox(),
                     icon: const Icon(Icons.keyboard_arrow_down),
-                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                     value: classValue,
                     items: categories
                         .map((e) => DropdownMenuItem(
@@ -249,9 +252,11 @@ class _WantATaskState extends State<WantATask> {
                                 selectcategory = e['name'].toString();
                               },
                               value: e['id'],
-                              child: Text(
-                                "${e['name']}",
-                              ),
+                              child: Text("${e['name']}",
+                                  style: GoogleFonts.inter(
+                                      fontSize: 12.sp,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.normal)),
                             ))
                         .toList(),
                     onChanged: (value) {
@@ -267,14 +272,14 @@ class _WantATaskState extends State<WantATask> {
           ),
 
           SizedBox(
-            height: height.h,
+            height: 1.h,
           ),
 
           CustomTextForm(
             width: fullWidth,
             height: 30.w,
             textController: title,
-            fontSize: 13.sp,
+            fontSize: 12.sp,
             hinttext: "Describe The Task",
           ),
           SizedBox(
@@ -285,30 +290,31 @@ class _WantATaskState extends State<WantATask> {
               height: 35.h,
               width: fullWidth,
               decoration: BoxDecoration(
-                  color: primaryColor,
-                
-                  borderRadius: BorderRadius.circular(5.r),
-                               boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-              
-                ),
-              ],
+                color: primaryColor,
+                borderRadius: BorderRadius.circular(5.r),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                    spreadRadius: 8, //spread radius
+                    blurRadius: 7, // blur radius
+                    offset: Offset(3, 5), // changes position of shadow
                   ),
+                ],
+              ),
               child: DropdownButton(
                   isExpanded: true,
                   hint: Text(
                     "${isSelectSkill ? selectSkill : 'Skill Required'}",
                     style: TextStyle(
-                        fontSize: 13.sp, fontWeight: FontWeight.normal),
+                        fontSize: 12.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.normal),
                     textAlign: TextAlign.center,
                   ),
                   underline: SizedBox(),
                   icon: const Icon(Icons.keyboard_arrow_down),
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 5.h),
                   value: classValue,
                   items: skills
                       .map((e) => DropdownMenuItem(
@@ -316,9 +322,11 @@ class _WantATaskState extends State<WantATask> {
                               selectSkill = e['name'].toString();
                             },
                             value: e['id'],
-                            child: Text(
-                              "${e['name']}",
-                            ),
+                            child: Text("${e['name']}",
+                                style: GoogleFonts.inter(
+                                    fontSize: 12.sp,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.normal)),
                           ))
                       .toList(),
                   onChanged: (value) {
@@ -332,7 +340,7 @@ class _WantATaskState extends State<WantATask> {
                     });
                   })),
           SizedBox(
-            height: height.h,
+            height: 2.h,
           ),
           Container(
             width: fullWidth,
@@ -351,33 +359,36 @@ class _WantATaskState extends State<WantATask> {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: primaryColor,
-                                     boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-              
-                ),
-              ],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xffF1F4F9)
+                                .withOpacity(0.5), //color of shadow
+                            spreadRadius: 8, //spread radius
+                            blurRadius: 7, // blur radius
+                            offset: Offset(3, 5), // changes position of shadow
+                          ),
+                        ],
                       ),
                       child: dateStatus == false
                           ? Text(
-                              "${pickDate.day}-${pickDate.month}-${pickDate.year}",
-                              style: TextStyle(
-                                  fontSize: 13.sp, fontWeight: FontWeight.normal),
+                              "Select Date",
+                              style: GoogleFonts.inter(
+                                  fontSize: 12.sp,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal),
                               textAlign: TextAlign.center,
                             )
                           : Text(
                               "${pickDate.day}-${pickDate.month}-${pickDate.year}",
-                              style: TextStyle(
-                                  fontSize: 13.sp, fontWeight: FontWeight.normal),
+                              style: GoogleFonts.inter(
+                                  fontSize: 12.sp,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal),
                               textAlign: TextAlign.center,
                             ),
                     ),
                   ),
                 ),
-              
                 InkWell(
                     onTap: _showTimePicker,
                     child: Card(
@@ -388,22 +399,24 @@ class _WantATaskState extends State<WantATask> {
                         height: 35.h,
                         decoration: BoxDecoration(
                           color: primaryColor,
-                                       boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-              
-                ),
-              ],
-                           ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xffF1F4F9)
+                                  .withOpacity(0.5), //color of shadow
+                              spreadRadius: 8, //spread radius
+                              blurRadius: 7, // blur radius
+                              offset:
+                                  Offset(3, 5), // changes position of shadow
+                            ),
+                          ],
+                        ),
                         child: pickupTime != null
                             ? Text(pickupTime!.format(context).toString())
                             : Text(
                                 "Select Time",
-                                style: TextStyle(
-                                    fontSize: 13.sp,
+                                style: GoogleFonts.inter(
+                                    fontSize: 12.sp,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.normal),
                                 textAlign: TextAlign.center,
                               ),
@@ -413,35 +426,33 @@ class _WantATaskState extends State<WantATask> {
             ),
           ),
           SizedBox(
-            height: height.h,
+            height: 1.h,
           ),
           CustomTextForm(
             width: fullWidth,
-            height: 30.h,
+            height: 35.h,
             hinttext: "Task Duration (Default 2 Hour)",
-            fontSize: 13.sp,
+            fontSize: 12.sp,
             textController: needhour,
           ),
-          SizedBox(
-            height: height.h,
-          ),
+
           Card(
             elevation: 5,
             child: UnconstrainedBox(
               child: Container(
                 width: fullWidth,
-                height: 30.h,
+                height: 35.h,
                 decoration: BoxDecoration(
-                  color: primaryColor, 
-                               boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-              
-                ),
-              ],
+                  color: primaryColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color:
+                          Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                      spreadRadius: 8, //spread radius
+                      blurRadius: 7, // blur radius
+                      offset: Offset(3, 5), // changes position of shadow
+                    ),
+                  ],
                 ),
                 child: TextField(
                   controller: location,
@@ -450,8 +461,10 @@ class _WantATaskState extends State<WantATask> {
                   style: TextStyle(fontSize: 13.sp),
                   decoration: InputDecoration(
                       hintText: 'Task Address / Location',
-                      hintStyle: TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 13.sp),
+                      hintStyle: GoogleFonts.inter(
+                          fontSize: 12.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal),
                       filled: true,
                       fillColor: primaryColor,
                       border: InputBorder.none,
@@ -487,7 +500,7 @@ class _WantATaskState extends State<WantATask> {
             ),
           ),
           SizedBox(
-            height: height.h,
+            height: 1.h,
           ),
           ListView.builder(
               shrinkWrap: true,
@@ -537,7 +550,7 @@ class _WantATaskState extends State<WantATask> {
             ),
           ),
           SizedBox(
-            height: height.h,
+            height: 1.h,
           ),
           UnconstrainedBox(
             child: Card(
@@ -552,29 +565,30 @@ class _WantATaskState extends State<WantATask> {
                       height: 35.h,
                       width: fullWidth,
                       decoration: BoxDecoration(
-                 color: primaryColor,
-                          borderRadius: BorderRadius.circular(5.r),
-                                       boxShadow: [
-                  BoxShadow(
-                    color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                    spreadRadius: 8, //spread radius
-                    blurRadius: 7, // blur radius
-                    offset: Offset(3, 5), // changes position of shadow
-                
-                  ),
-                ],
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(5.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xffF1F4F9)
+                                .withOpacity(0.5), //color of shadow
+                            spreadRadius: 8, //spread radius
+                            blurRadius: 7, // blur radius
+                            offset: Offset(3, 5), // changes position of shadow
                           ),
+                        ],
+                      ),
                       child: DropdownButton(
-                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          padding: EdgeInsets.symmetric(horizontal: 12.w),
                           hint: Text(
                             "${isSelect ? selectedGender : 'Give Task To'}",
-                            style: TextStyle(
-                                fontSize: 13.sp, fontWeight: FontWeight.normal),
+                            style: GoogleFonts.inter(
+                                fontSize: 12.sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal),
                           ),
                           underline: SizedBox(),
                           icon: const Icon(Icons.keyboard_arrow_down),
                           value: classValue,
-                          
                           isExpanded: true,
                           items: genderList
                               .map((e) => DropdownMenuItem(
@@ -586,6 +600,10 @@ class _WantATaskState extends State<WantATask> {
                                     value: e['id'],
                                     child: Text(
                                       "${e['name']}",
+                                      style: GoogleFonts.inter(
+                                          fontSize: 12.sp,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal),
                                     ),
                                   ))
                               .toList(),
@@ -595,7 +613,7 @@ class _WantATaskState extends State<WantATask> {
                             // _con.getClassId(value.toString());
                             setState(() {
                               classId = value.toString();
-                              
+
                               isSelect = true;
                             });
                           }),
@@ -614,15 +632,14 @@ class _WantATaskState extends State<WantATask> {
               width: fullWidth,
               decoration: BoxDecoration(
                 color: primaryColor,
-                             boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-              
-                ),
-              ],
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                    spreadRadius: 8, //spread radius
+                    blurRadius: 7, // blur radius
+                    offset: Offset(3, 5), // changes position of shadow
+                  ),
+                ],
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -630,7 +647,7 @@ class _WantATaskState extends State<WantATask> {
                   CustomTextForm(
                     hinttext: "Amount Offering",
                     height: 30.h,
-                    fontSize: 13.sp,
+                    fontSize: 12.sp,
                     width: 251.w,
                   ),
                   Card(
@@ -645,9 +662,9 @@ class _WantATaskState extends State<WantATask> {
                             borderRadius: BorderRadius.circular(5.r)),
                         child: Text(
                           "BDT",
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
+                              fontSize: 12.sp,
                               color: Colors.white,
-                              fontSize: 13.sp,
                               fontWeight: FontWeight.normal),
                         )),
                   ),
@@ -662,15 +679,15 @@ class _WantATaskState extends State<WantATask> {
                 width: fullWidth,
                 decoration: BoxDecoration(
                   color: primaryColor,
-                               boxShadow: [
-                BoxShadow(
-                  color: Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
-                  spreadRadius: 8, //spread radius
-                  blurRadius: 7, // blur radius
-                  offset: Offset(3, 5), // changes position of shadow
-              
-                ),
-              ],
+                  boxShadow: [
+                    BoxShadow(
+                      color:
+                          Color(0xffF1F4F9).withOpacity(0.5), //color of shadow
+                      spreadRadius: 8, //spread radius
+                      blurRadius: 7, // blur radius
+                      offset: Offset(3, 5), // changes position of shadow
+                    ),
+                  ],
                 ),
                 child: TextFormField(
                   onChanged: (value) {
@@ -679,8 +696,10 @@ class _WantATaskState extends State<WantATask> {
                   },
                   decoration: InputDecoration(
                     hintText: "Note seek",
-                    hintStyle:
-                        TextStyle(fontSize: 13.sp, fontWeight: FontWeight.normal),
+                    hintStyle: GoogleFonts.inter(
+                        fontSize: 12.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.normal),
                     border: OutlineInputBorder(),
                   ),
                   minLines: 1,

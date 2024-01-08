@@ -170,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 : Icon(Icons.visibility_off,color: Colors.grey,)),
                         hintText: 'Enter Password',
                         hintStyle: GoogleFonts.inter(
-                            fontWeight: FontWeight.normal, fontSize: 13.sp),
+                            fontWeight: FontWeight.normal,color: Colors.black, fontSize: 13.sp),
                         filled: true,
                         fillColor: primaryColor,
                         border: InputBorder.none,

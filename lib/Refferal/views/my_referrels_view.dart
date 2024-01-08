@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tripshiptask/Refferal/controller/referrels_controller.dart';
-import 'package:tripshiptask/Utils/localstorekey.dart';
-import 'package:tripshiptask/pages/Home/trip_ship_task_home.dart';
-import 'package:tripshiptask/pages/Task/views/task_home_page.dart';
+import 'package:tripshiptask/Widget/app_bar_widget_1.dart';
+
 
 
 class MyReferrelsPage extends StatefulWidget {
@@ -33,8 +32,10 @@ class _MyReferrelsPageState extends State<MyReferrelsPage> {
           ? Padding(
               padding: EdgeInsets.only(left: 15.w),
               child: DataTable(
+                headingRowHeight: 25.h,
+                showCheckboxColumn: false,
                 headingRowColor:
-                    MaterialStateColor.resolveWith((states) => Colors.white),
+                    MaterialStateColor.resolveWith((states) => Colors.grey),
                 columnSpacing: 100.w,
               
                 horizontalMargin: 5,
@@ -43,17 +44,22 @@ class _MyReferrelsPageState extends State<MyReferrelsPage> {
                 columns: <DataColumn>[
               
                   DataColumn(
-                      label: Text("Referee",
-                          style: GoogleFonts.inter(
-                              color: Colors.black,
-                              fontSize: 11.sp,
-                              fontWeight: FontWeight.w500))),
+                    
+                      label:Text("Referee",
+                            style: GoogleFonts.inter(
+                                color: Colors.white,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center,
+                                ),
+                                numeric: false
+                      ),
                   DataColumn(
                     
                       label: Text("Active ?",
                           style: GoogleFonts.inter(
-                              color: Colors.black,
-                              fontSize: 11.sp,
+                            color: Colors.white,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.w500))),
                 ],
                 rows: controller.myReferrelsList

@@ -21,6 +21,8 @@ class ShipsendPackagePostList extends StatelessWidget {
               itemCount: controller.shipSearchList.length,
               itemBuilder: (context, index) {
                 shipData = controller.shipSearchList[index];
+
+
                 return Card(
                   child: Container(
                     width: 300.w,
@@ -40,16 +42,12 @@ class ShipsendPackagePostList extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                      child: Text(
-                                    "Pick Up Point :",
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )),
+                                  child:   CustomText("Pick Up Point: ", Colors.black,
+                                      FontWeight.bold, 12.sp),
+                                  ),
                                   Expanded(
                                     child: Text(
-                                      "${controller.shipSearchList[index].startPoint}",
+                                      "${shipData.startPoint}",
                                       style: TextStyle(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.normal,
@@ -67,16 +65,14 @@ class ShipsendPackagePostList extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                      child: Text(
-                                    "Drop Off Point: ",
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )),
+                                      child:  CustomText("Drop Off Point: ", Colors.black,
+                                      FontWeight.bold, 12.sp),
+                                      
+                                      
+                                     ),
                                   Expanded(
                                     child: Text(
-                                      "${controller.shipSearchList[index].destination}",
+                                      "${shipData.destination}",
                                       style: TextStyle(
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.normal,
@@ -93,7 +89,7 @@ class ShipsendPackagePostList extends StatelessWidget {
                                   CustomText("Pick Up Date: ", Colors.black,
                                       FontWeight.bold, 12.sp),
                                   CustomText(
-                                      "     ${DateFormat.yMMMd().format(DateTime.parse(controller.shipSearchList[index].pickupDate))} ",
+                                      "     ${DateFormat.yMMMd().format(DateTime.parse(shipData.pickupDate))} ",
                                       Colors.black,
                                       FontWeight.normal,
                                       12.sp),
@@ -102,10 +98,10 @@ class ShipsendPackagePostList extends StatelessWidget {
                               SizedBox(height: 3.h),
                               Row(
                                 children: [
-                                  CustomText("Delivery Up Date: ", Colors.black,
+                                  CustomText("Delivery Date: ", Colors.black,
                                       FontWeight.bold, 12.sp),
                                   CustomText(
-                                      "     ${DateFormat.yMMMd().format(DateTime.parse(controller.shipSearchList[index].deliveryDate))}",
+                                      "     ${DateFormat.yMMMd().format(DateTime.parse(shipData.deliveryDate))}",
                                       Colors.black,
                                       FontWeight.normal,
                                       12.sp),
@@ -123,7 +119,7 @@ class ShipsendPackagePostList extends StatelessWidget {
                                             Colors.black,
                                             FontWeight.bold,
                                             12.sp),
-                                        CustomText("2000 ", Colors.black,
+                                        CustomText( "200", Colors.black,
                                             FontWeight.normal, 12.sp),
                                       ],
                                     ),
@@ -164,49 +160,3 @@ class ShipsendPackagePostList extends StatelessWidget {
     );
   }
 }
-
-//  Container(
-//                           width: 100.w,
-//                           child: Column(
-//                             crossAxisAlignment: CrossAxisAlignment.end,
-//                             children: [
-//                               //  Container(
-//                               //       child: CustomText(
-//                               //           "Amount: ${controller.shipSearchList[index].documents}", Colors.black, FontWeight.normal, 13.sp),
-//                               //     ),
-//                               SizedBox(
-//                                 height: 10.h,
-//                               ),
-//                               InkWell(
-//                                 onTap: () {
-//                                   Get.to(ShipSendPackageDetails(
-//                                       path: controller
-//                                           .shipSearchList[index].path
-//                                           .toString()));
-//                                 },
-//                                 child: Text(
-//                                   "Details $index ${controller.shipSearchList.length}",
-//                                   style: TextStyle(
-//                                       color: Colors.blue[800],
-//                                       fontWeight: FontWeight.w500,
-//                                       fontSize: 13.sp),
-//                                 ),
-//                               ),
-//                               SizedBox(
-//                                 height: 20.h,
-//                               ),
-//                               Container(
-//                                 padding: EdgeInsets.symmetric(
-//                                     horizontal: 8.w, vertical: 7.h),
-//                                 decoration: BoxDecoration(color: navyBlueColor),
-//                                 child: Text(
-//                                   "Make Offer",
-//                                   style: TextStyle(
-//                                       color: Colors.white,
-//                                       fontWeight: FontWeight.w500,
-//                                       fontSize: 13.sp),
-//                                 ),
-//                               )
-//                             ],
-//                           ),
-//                         )

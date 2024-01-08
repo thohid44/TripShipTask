@@ -1,6 +1,8 @@
 import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customText.dart';
+
 import 'package:tripshiptask/Widget/custom_text_field.dart';
+
 import 'package:tripshiptask/pages/Trip/Controller/TripController.dart';
 import 'package:tripshiptask/pages/Trip/views/trip_post_details_page.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +10,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 
-class TripGivePosts extends StatefulWidget {
+class TripGetPosts extends StatefulWidget {
   @override
-  State<TripGivePosts> createState() => _TripGivePostsState();
+  State<TripGetPosts> createState() => _TripGetPostState();
 }
 
-class _TripGivePostsState extends State<TripGivePosts> {
+class _TripGetPostState extends State<TripGetPosts> {
   var controller = Get.put(TripController());
 
   final _formOfferkey = GlobalKey<FormState>();
@@ -25,6 +27,13 @@ class _TripGivePostsState extends State<TripGivePosts> {
   var tripId;
 
   bool selectPassengerStatus = false;
+
+//   Car  4
+// Mini Van/Micro 7
+// Motorcycle
+// Electric Scooter
+// CNG/TukTuk 2
+// Rickshaw
   List<Map<String, dynamic>> items = [
     {
       "id": 1,
@@ -48,23 +57,19 @@ class _TripGivePostsState extends State<TripGivePosts> {
   var seatNumber;
 
   String? selectPassenger;
-  void initState() {
-    controller.getTrips(); 
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
-    controller.getTrips();
+    controller.fetchGetTrips();
 
     return Expanded(
       child: Padding(
-          padding: EdgeInsets.only(bottom: 20.h),
+          padding: EdgeInsets.only(left: 5.w, right: 5.w, bottom: 20.h),
           child: Obx(() => controller.isLoading.value == false
               ? ListView.builder(
-                  itemCount: controller.tripSearchList.length,
+                  itemCount: controller.gettripSearchList.length,
                   itemBuilder: (context, index) {
-                    var tripData = controller.tripSearchList[index];
+                    var tripData = controller.gettripSearchList[index];
                     return Card(
                       child: Container(
                         padding: EdgeInsets.symmetric(
@@ -78,9 +83,9 @@ class _TripGivePostsState extends State<TripGivePosts> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                    child:  CustomText("Start: ", Colors.black,
-                                    FontWeight.bold, 12.sp),
-                                   ),
+                                  child: CustomText("Start : ", Colors.black,
+                                      FontWeight.bold, 12.sp),
+                                ),
                                 Expanded(
                                   child: Text(
                                     "${tripData.startPoint}",
@@ -98,11 +103,9 @@ class _TripGivePostsState extends State<TripGivePosts> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                    child:      CustomText("Destination: ", Colors.black,
-                                    FontWeight.bold, 12.sp),
-                                    
-                                    
-                                    ),
+                                  child: CustomText("Destination : ",
+                                      Colors.black, FontWeight.bold, 12.sp),
+                                ),
                                 Expanded(
                                   child: Text(
                                     "${tripData.destination}",
@@ -150,13 +153,13 @@ class _TripGivePostsState extends State<TripGivePosts> {
                                   ),
                                   Row(
                                     children: [
+                                      CustomText("Offered Amt: ", Colors.black,
+                                          FontWeight.bold, 12.sp),
                                       CustomText(
-                                          "Offered Amt: ${tripData.pay.toString()} ",
+                                          " ${tripData.pay.toString()}",
                                           Colors.black,
-                                          FontWeight.bold,
+                                          FontWeight.normal,
                                           12.sp),
-                                      CustomText("", Colors.black,
-                                          FontWeight.normal, 12.sp),
                                     ],
                                   ),
                                   GestureDetector(

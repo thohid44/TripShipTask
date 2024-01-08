@@ -3,8 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tripshiptask/Refferal/views/my_referrels_view.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Utils/localstorekey.dart';
+import 'package:tripshiptask/Widget/app_bar_widget_1.dart';
 import 'package:tripshiptask/Widget/customText.dart';
-import 'package:tripshiptask/pages/Home/trip_ship_task_home.dart';
+
 import 'package:tripshiptask/pages/Home/view/home_screen.dart';
 
 import 'package:tripshiptask/pages/Login/view/login_screen.dart';
@@ -12,7 +13,7 @@ import 'package:tripshiptask/pages/Task/views/my_task_offers_page.dart';
 
 import 'package:tripshiptask/pages/Trip/views/my_trips_offer_page.dart';
 import 'package:tripshiptask/profile/view/all_Task_page.dart';
-import 'package:tripshiptask/profile/view/all_Trips_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

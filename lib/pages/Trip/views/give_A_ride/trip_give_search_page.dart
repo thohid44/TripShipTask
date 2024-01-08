@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tripshiptask/pages/Trip/views/trip_post_details_page.dart';
-import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_page.dart';
+import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_List_page.dart';
 import 'package:tripshiptask/pages/Trip/views/trip_search/trip_single_search.dart';
 import 'package:tripshiptask/pages/Trip/views/trip_search_details.dart';
 

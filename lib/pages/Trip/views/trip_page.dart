@@ -2,12 +2,12 @@ import 'package:tripshiptask/Email_Verify/view/email_verification.dart';
 
 import 'package:tripshiptask/Widget/customText.dart';
 
-import 'package:tripshiptask/pages/Trip/views/get_a_ride/get_trip_posts.dart';
+import 'package:tripshiptask/pages/Trip/views/get_a_ride/get_trip_List_posts.dart';
 
 import 'package:tripshiptask/pages/Trip/views/get_a_ride/get_A_Ride.dart';
 import 'package:tripshiptask/pages/Trip/views/give_A_ride/give_trip_post.dart';
 import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_give_search_page.dart';
-import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_page.dart';
+import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_List_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

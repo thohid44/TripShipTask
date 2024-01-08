@@ -17,7 +17,7 @@ import 'package:get/get.dart';
 
 import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_give_search_page.dart';
 
-import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_page.dart';
+import 'package:tripshiptask/pages/Trip/views/give_A_ride/trip_post_List_page.dart';
 
 class TripSecondHomePage extends StatefulWidget {
   @override
