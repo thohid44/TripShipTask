@@ -40,7 +40,7 @@ class _TripEPaymentPageState extends State<TripEPaymentPage> {
             'Authorization': 'Bearer ' + token,
           },
           body: jsonEncode({
-            "module": "${widget.module}",
+            "module_name": "${widget.module}",
             "post_type": "${widget.postType}",
             "currency": "BDT",
             "bid": "${widget.bidId}"

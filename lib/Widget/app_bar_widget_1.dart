@@ -33,7 +33,7 @@ AppBar customAppBar1() {
         "TripShipTask",
         
         
-        style: TextStyle(color: Colors.black,letterSpacing: 1 ),
+        style: TextStyle(color: Colors.black,),
       ),
           ],
         ),

@@ -97,19 +97,19 @@ class _ShipHomePageState extends State<ShipHomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                  Container(
-                        width: 80.w,
+                        width: 82.w,
                         height: 28.h,
                         child: TextField(
                           onTap: () {
                          Get.to(ShipSendPackageSearch());
                           },
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(left: 5.w, top: 5.h),
+                            contentPadding: EdgeInsets.only(left: 3.w, top: 5.h),
                             hintText: "Search",
                             hintStyle: GoogleFonts.inter(
-                              fontSize:12.sp, 
+                              fontSize:9.sp, fontWeight: FontWeight.w500, 
                             ),
-                            suffixIcon: Icon(Icons.search),
+                            suffixIcon: Icon(Icons.search, size: 20.h,),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.r)),
                           ),
@@ -129,7 +129,7 @@ class _ShipHomePageState extends State<ShipHomePage> {
                           color: index == 3 ? Color(0xff4CA4C7) : Colors.grey,
                           borderRadius: BorderRadius.circular(5.r)),
                       child: CustomText("Carry Package Posts", Colors.white,
-                              FontWeight.w700, 10.sp)
+                              FontWeight.w500, 10.sp)
                     ),
                   ),
                   InkWell(
@@ -147,7 +147,7 @@ class _ShipHomePageState extends State<ShipHomePage> {
                           color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
                           borderRadius: BorderRadius.circular(5.r)),
                       child:   CustomText("Send Package Posts", Colors.white,
-                              FontWeight.w700, 10.sp)
+                              FontWeight.w500, 10.sp)
                     ),
                   )
                 ],

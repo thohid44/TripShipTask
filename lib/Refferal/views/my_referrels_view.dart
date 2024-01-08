@@ -56,7 +56,7 @@ class _MyReferrelsPageState extends State<MyReferrelsPage> {
                       ),
                   DataColumn(
                     
-                      label: Text("Active ?",
+                      label: Text("signed Up ?",
                           style: GoogleFonts.inter(
                             color: Colors.white,
                               fontSize: 12.sp,

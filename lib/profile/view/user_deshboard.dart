@@ -45,61 +45,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 70.h,
-                alignment: Alignment.center,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: navyBlueColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.r),
-                      topRight: Radius.circular(20.r),
-                    )),
-                child: InkWell(
-                  onTap: () {},
-                  child: Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 10.w),
-                        padding: EdgeInsets.all(5.h),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 25.r,
-                          backgroundImage: AssetImage("assets/Thohid.jpg"),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5.w,
-                      ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 110.w,
-                              child: CustomText(
-                                  "${_box.read(LocalStoreKey.fullName)}",
-                                  white,
-                                  FontWeight.w500,
-                                  13.sp),
-                            ),
-                            Container(
-                              width: 110.w,
-                              child: CustomText(
-                                  "Acct: ${_box.read(LocalStoreKey.accountNo)}",
-                                  white,
-                                  FontWeight.w500,
-                                  13.sp),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                AccountAppBar(box: _box),
                  SizedBox(
                           height: 5.h,
                         ),
@@ -113,7 +59,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                      borderRadius: BorderRadius.circular(5),
                    child: Container(
                         alignment: Alignment.centerLeft,
-                        height: 502.h,
+                        height: 515.h,
                         width: 200.w,
                             margin: EdgeInsets.only(left: 10.w),
                         decoration: BoxDecoration(color: primaryColor, 
@@ -181,14 +127,17 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                               
                               ],
                             ),
+                              Divider(height: 1,), 
                             ExpansionTile(
                               expandedCrossAxisAlignment:
                                   CrossAxisAlignment.stretch,
+                            
                               title: Text(
                                 "Ship",
                                  style: GoogleFonts.inter(
                                    fontWeight: FontWeight.w500,
                                     color: Colors.black,
+                                    
                                     fontSize: 13.sp),
                               ),
                               children: [
@@ -223,6 +172,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
          
                               ],
                             ),
+                            Divider(height: 1,), 
                             ExpansionTile(
                               expandedCrossAxisAlignment:
                                   CrossAxisAlignment.stretch,
@@ -265,6 +215,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                                 )
                               ],
                             ),
+                             Divider(height: 1,), 
                             ExpansionTile(
                               trailing: SizedBox(),
                               expandedCrossAxisAlignment:
@@ -282,6 +233,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                                       fontSize: 13.sp),
                                 ),
                               ),),
+                               Divider(height: 1,), 
  ExpansionTile(
                               trailing: SizedBox(),
                               expandedCrossAxisAlignment:
@@ -318,7 +270,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                               ),),
             
                          
-                        
+                         Divider(height: 1,), 
                          
                             ExpansionTile(
                               expandedCrossAxisAlignment:
@@ -348,6 +300,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                                 ),
                               ],
                             ),
+                             Divider(height: 1,), 
                              ExpansionTile(
                               expandedCrossAxisAlignment:
                                   CrossAxisAlignment.stretch,
@@ -379,6 +332,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                                   child: ExpansionChild("Change Password")),
                               ],
                             ),
+                             Divider(height: 1,), 
                             InkWell(
                               onTap: () {
                                 _box.remove(LocalStoreKey.token);
@@ -388,7 +342,7 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                                 Get.offAll(LoginScreen());
                               },
                               child: Container(
-                                padding: EdgeInsets.only(left: 18.w, top: 10.h),
+                                padding: EdgeInsets.only(left: 15.w, top: 10.h),
                                 child: Text(
                                   "Logout",
                                style: GoogleFonts.inter(

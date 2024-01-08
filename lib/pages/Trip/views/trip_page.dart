@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tripshiptask/Email_Verify/view/email_verification.dart';
 
 import 'package:tripshiptask/Widget/customText.dart';
@@ -103,7 +104,7 @@ class _TripPageState extends State<TripPage> {
                       });
                     },
                     child: Container(
-                        width: 90.w,
+                        width: 85.w,
                         height: 28.h,
                         child: TextField(
                           onTap: () {
@@ -111,10 +112,10 @@ class _TripPageState extends State<TripPage> {
                           },
                           decoration: InputDecoration(
                             contentPadding:
-                                EdgeInsets.only(left: 5.w, top: 5.h),
+                                EdgeInsets.only(left: 5.w, top: 1.h),
                             hintText: "Search",
-                            hintStyle: TextStyle(fontSize: 11.sp),
-                            suffixIcon: Icon(Icons.search),
+                            hintStyle: GoogleFonts.inter(fontSize: 11.sp, fontWeight: FontWeight.w400),
+                            suffixIcon: Icon(Icons.search, size: 20.h,),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.r)),
                           ),
@@ -128,7 +129,7 @@ class _TripPageState extends State<TripPage> {
                     },
                     child: Container(
                         alignment: Alignment.center,
-                        width: 105.w,
+                        width: 111.w,
                         height: 28.h,
                         padding: EdgeInsets.symmetric(
                             horizontal: 5.w, vertical: 5.h),
@@ -136,7 +137,7 @@ class _TripPageState extends State<TripPage> {
                             color: index == 0 ? Color(0xff4CA4C7) : Colors.grey,
                             borderRadius: BorderRadius.circular(5.r)),
                         child: CustomText("Give a Ride Posts", Colors.white,
-                            FontWeight.w700, 11.sp)),
+                            FontWeight.w500, 11.sp)),
                   ),
                   InkWell(
                     onTap: () {
@@ -147,7 +148,7 @@ class _TripPageState extends State<TripPage> {
                     child: Center(
                       child: Container(
                         alignment: Alignment.center,
-                        width: 105.w,
+                        width: 106.w,
                         height: 28.h,
                         decoration: BoxDecoration(
                             color: index == 1 ? Color(0xff4CA4C7) : Colors.grey,
@@ -156,7 +157,7 @@ class _TripPageState extends State<TripPage> {
                           "Get a Ride Posts",
                           style: TextStyle(
                               fontSize: 11.sp,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w500,
                               color: Colors.white),
                         ),
                       ),

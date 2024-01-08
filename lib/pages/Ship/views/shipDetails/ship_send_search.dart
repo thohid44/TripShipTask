@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:tripshiptask/Api_services/base_url.dart';
 import 'package:tripshiptask/Utils/colors.dart';
@@ -162,19 +163,24 @@ class _ShipSendPackageSearchState extends State<ShipSendPackageSearch> {
           ),
           Row(
             children: [
-              Card(
-                elevation: 5,
+                  Material(
+                  elevation: 8,
+                  color: primaryColor,
+                  shadowColor: primaryColor,
+                  borderRadius: BorderRadius.circular(5),
                 child: Container(
-                  width: 190.w,
+                  width: 193.w,
+                  height: 38.h,
                   child: TextField(
                     controller: _startSearchFieldController,
                     autofocus: false,
                     focusNode: startFocusNode,
-                    style: TextStyle(fontSize: 13.sp),
+                    style: GoogleFonts.inter(
+                            fontWeight: FontWeight.normal,color: Colors.black, fontSize: 12.sp),
                     decoration: InputDecoration(
                         hintText: 'Pick Up',
-                        hintStyle: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 13.sp),
+                        hintStyle: GoogleFonts.inter(
+                            fontWeight: FontWeight.normal,color: Colors.black, fontSize: 12.sp),
                         filled: true,
                         fillColor: primaryColor,
                         border: InputBorder.none,
@@ -209,182 +215,216 @@ class _ShipSendPackageSearchState extends State<ShipSendPackageSearch> {
               ),
               CustomTextForm(
                 width: 60.w,
-                height: 30.h,
+                height: 38.h,
                 hinttext: "Radius",
               ),
-              SizedBox(width: 4),
-              Container(
-                alignment: Alignment.center,
-                height: 30.h,
-                width: 40.w,
-                decoration: BoxDecoration(
+              SizedBox(width: 1),
+               Material(
+                  elevation: 8,
                   color: primaryColor,
-                ),
-                child: Text(
-                  "Km",
-                  style:
-                      TextStyle(fontWeight: FontWeight.normal, fontSize: 13.sp),
-                ),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Container(
-            width: fullWidth,
-            child: Row(
-              children: [
-                Container(
-                  width: 190.w,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5), // Shadow color
-                        spreadRadius: 2,
-                        blurRadius: 4,
-                        offset: Offset(2, 2),
-                      ),
-                    ],
-                  ),
-                  child: TextField(
-                    controller: _endSearchFieldController,
-                    autofocus: false,
-                    focusNode: endFocusNode,
-                    enabled: _startSearchFieldController.text.isNotEmpty &&
-                        startPosition != null,
-                    style: TextStyle(fontSize: 13.sp),
-                    decoration: InputDecoration(
-                        hintText: 'Drop Off',
-                        hintStyle: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 13.sp),
-                        filled: true,
-                        fillColor: primaryColor,
-                        border: InputBorder.none,
-                        suffixIcon: _endSearchFieldController.text.isNotEmpty
-                            ? IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    predictions = [];
-                                    _endSearchFieldController.clear();
-                                  });
-                                },
-                                icon: Icon(Icons.clear_outlined),
-                              )
-                            : null),
-                    onChanged: (value) {
-                      print(value);
-                      if (_debounce?.isActive ?? false) _debounce!.cancel();
-                      _debounce = Timer(const Duration(milliseconds: 1000), () {
-                        if (value.isNotEmpty) {
-                          //places api
-                          print("End point $value");
-                          autoCompleteSearch(value);
-                        } else {
-                          //clear out the results
-                          setState(() {
-                            predictions = [];
-                            endPosition = null;
-                          });
-                        }
-                      });
-                    },
-                  ),
-                ),
-                CustomTextForm(
-                  width: 60.w,
-                  height: 30.h,
-                  hinttext: "Radius",
-                  fontSize: 12.sp,
-                ),
-                SizedBox(width: 4),
-                Container(
+                  shadowColor: primaryColor,
+                  borderRadius: BorderRadius.circular(5),
+                child: Container(
                   alignment: Alignment.center,
-                  height: 30.h,
-                  width: 40.w,
+                  height: 38.h,
+                  width: 45.w,
                   decoration: BoxDecoration(
                     color: primaryColor,
                   ),
                   child: Text(
                     "Km",
-                    style: TextStyle(
-                        fontWeight: FontWeight.normal, fontSize: 13.sp),
+                    style:
+                       GoogleFonts.inter(
+                              fontWeight: FontWeight.normal,color: Colors.black, fontSize: 12.sp),
+                  ),
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 2.h,
+          ),
+          Container(
+            width: fullWidth,
+            child: Row(
+              children: [
+                 Material(
+                  elevation: 8,
+                  color: primaryColor,
+                  shadowColor: primaryColor,
+                  borderRadius: BorderRadius.circular(5),
+                  child: Container(
+                    width: 190.w,
+                    height: 38.h,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5), // Shadow color
+                          spreadRadius: 2,
+                          blurRadius: 4,
+                          offset: Offset(2, 2),
+                        ),
+                      ],
+                    ),
+                    child: TextField(
+                      controller: _endSearchFieldController,
+                      autofocus: false,
+                      focusNode: endFocusNode,
+                      enabled: _startSearchFieldController.text.isNotEmpty &&
+                          startPosition != null,
+                      style: TextStyle(fontSize: 13.sp),
+                      decoration: InputDecoration(
+                          hintText: 'Drop Off',
+                          hintStyle: GoogleFonts.inter(
+                              fontWeight: FontWeight.normal, fontSize: 12.sp, color: Colors.black),
+                          filled: true,
+                          fillColor: primaryColor,
+                          border: InputBorder.none,
+                          suffixIcon: _endSearchFieldController.text.isNotEmpty
+                              ? IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      predictions = [];
+                                      _endSearchFieldController.clear();
+                                    });
+                                  },
+                                  icon: Icon(Icons.clear_outlined),
+                                )
+                              : null),
+                      onChanged: (value) {
+                        print(value);
+                        if (_debounce?.isActive ?? false) _debounce!.cancel();
+                        _debounce = Timer(const Duration(milliseconds: 1000), () {
+                          if (value.isNotEmpty) {
+                            //places api
+                            print("End point $value");
+                            autoCompleteSearch(value);
+                          } else {
+                            //clear out the results
+                            setState(() {
+                              predictions = [];
+                              endPosition = null;
+                            });
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(width: 1.w,),
+                CustomTextForm(
+                  width: 60.w,
+                  height: 38.h,
+                  hinttext: "Radius",
+                  fontSize: 12.sp,
+                ),
+                SizedBox(width: 3.w),
+                  Material(
+                  elevation: 8,
+                  color: primaryColor,
+                  shadowColor: primaryColor,
+                  borderRadius: BorderRadius.circular(5),
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 38.h,
+                    width: 40.w,
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                    ),
+                    child: Text(
+                      "Km",
+                      style: GoogleFonts.inter(
+                          fontWeight: FontWeight.normal,color: Colors.black, fontSize: 12.sp),
+                    ),
                   ),
                 )
               ],
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: 2.h,
           ),
           Container(
             width: fullWidth,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                    width: 149.w,
-                    alignment: Alignment.center,
-                    height: 30,
-                    decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(5.r)),
-                    child: DropdownButton(
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        isExpanded: true,
-                        hint: Text(
-                          "${isVehicleSelect ? vehicleName : 'Type of Goods'}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 13.sp),
-                        ),
-                        underline: SizedBox(),
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        value: vehicle,
-                        items: vehicleitems
-                            .map((e) => DropdownMenuItem(
-                                  onTap: () {
-                                    vehicleName = e['name'].toString();
-                                    print("Goods name $vehicleName");
-                                  },
-                                  value: e['id'],
-                                  child: Text(
-                                    "${e['name']}",
-                                    style: TextStyle(fontSize: 13.sp),
-                                  ),
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            isVehicleSelect = true;
-                          });
-                        })),
+                 Material(
+                  elevation: 8,
+                  color: primaryColor,
+                  shadowColor: primaryColor,
+                  borderRadius: BorderRadius.circular(5),
+                  child: Container(
+                      width: 153.w,
+                      alignment: Alignment.center,
+                      height: 38.h,
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(5.r)),
+                      child: DropdownButton(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          isExpanded: true,
+                          hint: Text(
+                            "${isVehicleSelect ? vehicleName : 'Type of Goods'}",
+                            style:     GoogleFonts.inter(
+                              fontWeight: FontWeight.normal,color: Colors.black, fontSize: 12.sp),
+                          ),
+                          underline: SizedBox(),
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          value: vehicle,
+                          items: vehicleitems
+                              .map((e) => DropdownMenuItem(
+                                    onTap: () {
+                                      vehicleName = e['name'].toString();
+                                      print("Goods name $vehicleName");
+                                    },
+                                    value: e['id'],
+                                    child: Text(
+                                      "${e['name']}",
+                                      style:    GoogleFonts.inter(
+                              fontWeight: FontWeight.normal,color: Colors.black, fontSize: 12.sp),
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              isVehicleSelect = true;
+                            });
+                          })),
+                ),
                 InkWell(
                   onTap: () {
                     dairyDatePicker(context);
                   },
-                  child: Container(
-                    width: 150.w,
-                    height: 30.h,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: primaryColor,
-                        border: Border.all(width: 0.5.w, color: Colors.grey)),
-                    child: dateStatus == false
-                        ? Text(
-                            "Select Date",
-                            style: TextStyle(
-                                fontSize: 13.sp, fontWeight: FontWeight.normal),
-                            textAlign: TextAlign.center,
-                          )
-                        : Text(
-                            "${pickDate.day}-${pickDate.month}-${pickDate.year}"),
+                  child:   Material(
+                  elevation: 8,
+                  color: primaryColor,
+                  shadowColor: primaryColor,
+                  borderRadius: BorderRadius.circular(5),
+                    child: Container(
+                      width: 140.w,
+                      height: 38.h,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                        ),
+                      child: dateStatus == false
+                          ? Text(
+                              "Select Date",
+                              style:     GoogleFonts.inter(
+                              fontWeight: FontWeight.normal,color: Colors.black, fontSize: 12.sp),
+                              textAlign: TextAlign.center,
+                            )
+                          : Text(
+                              "${pickDate.day}-${pickDate.month}-${pickDate.year}"),
+                    ),
                   ),
                 ),
               ],
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: 2.h,
           ),
           ListView.builder(
               shrinkWrap: true,
@@ -440,7 +480,7 @@ class _ShipSendPackageSearchState extends State<ShipSendPackageSearch> {
                 height: 35.h,
                 width: 100.w,
                 radius: 5.r,
-                   fontSize: 14.sp,
+                   fontSize: 12.sp,
                 btnColor: navyBlueColor,
                 fontWeight: FontWeight.w500,
                 title: "Clear Search", onTab: (){
@@ -450,7 +490,7 @@ SizedBox(width: 10.w,),
                 CustomButtonTwo(
             height: 35.h,
             width: 100.w,
-            fontSize: 14.sp,
+            fontSize: 12.sp,
              radius: 5.r,
              fontWeight: FontWeight.w500,
             btnColor: navyBlueColor,

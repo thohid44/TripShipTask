@@ -183,13 +183,14 @@ class _LoginScreenState extends State<LoginScreen> {
               SpaceWidget(
                 hight: 30.h,
               ),
+                
               Obx(() => con.isLoading.value == false
                   ? CustomButtonOne(
                       title: "Log in",
                       btnColor: navyBlueColor,
                       marginLR: 80.w,
                       height: 35.h,
-                      radius: 10.sp,
+                      radius: 13.r,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
                       onTab: () {

@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customText.dart';
 import 'package:tripshiptask/Widget/customTextForm.dart';
@@ -94,19 +95,21 @@ class _TaskHomePageState extends State<TaskHomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                      width: 100.w,
+                      width: 85.w,
                       height: 28.h,
                       child: TextField(
                         onTap: () {
                          Get.to(TaskGiveSearch());
                         },
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 5.w, top: 5.h),
-                          hintText: "Search",
-                          suffixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.r)),
-                        ),
+                     decoration: InputDecoration(
+                            contentPadding:
+                                EdgeInsets.only(left: 5.w, top: 1.h),
+                            hintText: "Search",
+                            hintStyle: GoogleFonts.inter(fontSize: 11.sp, fontWeight: FontWeight.w400),
+                            suffixIcon: Icon(Icons.search, size: 20.h,),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.r)),
+                          ),
                       )),
                   InkWell(
                     onTap: () {
@@ -117,14 +120,14 @@ class _TaskHomePageState extends State<TaskHomePage> {
                     child: Container(
                         alignment: Alignment.center,
                         height: 28.h,
-                        width: 100.w,
+                        width: 109.w,
                         padding: EdgeInsets.symmetric(
                             horizontal: 5.w, vertical: 5.h),
                         decoration: BoxDecoration(
                             color: index == 3 ? Color(0xff4CA4C7) : Colors.grey,
                             borderRadius: BorderRadius.circular(5.r)),
-                        child: CustomText("Get a Task Posts", Colors.white,
-                            FontWeight.w500, 11.sp)),
+                        child: Text("Get a Task Posts",style:GoogleFonts.inter(color:Colors.white,
+                          fontWeight:  FontWeight.w500, fontSize:11.sp) )),
                   ),
                   InkWell(
                     onTap: () {
@@ -135,7 +138,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
                     child: Container(
                         alignment: Alignment.center,
                         height: 28.h,
-                        width: 100.w,
+                        width: 109.w,
                         padding: EdgeInsets.symmetric(
                             horizontal: 5.w, vertical: 5.h),
                         decoration: BoxDecoration(
