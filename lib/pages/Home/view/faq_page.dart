@@ -227,8 +227,8 @@ class _FAQPageState extends State<FAQPage> {
             Container(
               alignment: Alignment.center,
               height: 40.h,
-              child:    Text('Frequently Asked Questions',style: GoogleFonts.inter(fontSize: 13.sp, 
-                        fontWeight: FontWeight.w500)),
+              child:    Text('Frequently Asked Questions',style: GoogleFonts.inter(fontSize: 16.sp, 
+                        fontWeight: FontWeight.bold)),
             ),
           SizedBox(height: 10.h), 
 
@@ -237,7 +237,7 @@ class _FAQPageState extends State<FAQPage> {
               margin: EdgeInsets.only(left: 15.w),
               
               child:    Text('Understanding TripShipTask :',style: GoogleFonts.inter(fontSize: 14.sp, 
-                       fontWeight: FontWeight.w500)),
+                       fontWeight: FontWeight.w700)),
             ),
              SizedBox(height: 10.h), 
             ExpansionTileGroup(
@@ -261,7 +261,7 @@ class _FAQPageState extends State<FAQPage> {
               margin: EdgeInsets.only(left: 15.w),
               
               child:    Text('Safety and Security :',style: GoogleFonts.inter(fontSize: 14.sp, 
-                       fontWeight: FontWeight.w500)),
+                       fontWeight: FontWeight.w700)),
             ),
              SizedBox(height: 10.h), 
             ExpansionTileGroup(
@@ -285,7 +285,7 @@ class _FAQPageState extends State<FAQPage> {
               margin: EdgeInsets.only(left: 15.w),
               
               child:    Text('Using the Platform :',style: GoogleFonts.inter(fontSize: 14.sp, 
-                        fontWeight: FontWeight.bold)),
+                        fontWeight: FontWeight.w700)),
             ),
              SizedBox(height: 10.h), 
             ExpansionTileGroup(

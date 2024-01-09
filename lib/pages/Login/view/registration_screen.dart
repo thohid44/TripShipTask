@@ -1,22 +1,17 @@
 import 'dart:math';
 
-import 'package:flutter_launcher_icons/xml_templates.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tripshiptask/Utils/colors.dart';
 import 'package:tripshiptask/Widget/customButtonOne.dart';
 import 'package:tripshiptask/Widget/customTextForm.dart';
-import 'package:tripshiptask/Widget/custom_text_field.dart';
-import 'package:tripshiptask/my_form.dart';
-
 import 'package:tripshiptask/pages/Login/controller/LoginController.dart';
 import 'package:tripshiptask/pages/Login/view/login_screen.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:tripshiptask/pages/Login/view/privacy_policy.dart';
+import 'package:tripshiptask/pages/Login/view/privacy_policy_page.dart';
 
-import 'email_pin_option_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -580,7 +575,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Get.to(PrivacyPolicy());
+                  Get.to(PrivacyPolicyPage());
                 },
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 22.w),
